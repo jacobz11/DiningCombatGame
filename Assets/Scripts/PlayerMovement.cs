@@ -2,39 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace DiningCombat
 {
-    [SerializeField] float speed = 7f;
-    [SerializeField] float jumpForce = 5f;
-    [SerializeField] bool isOnGround = true;
-    private float horizontalInput;
-    private float forwardInput;
-    private Rigidbody playerRb;
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerMovement : MonoBehaviour
     {
-        playerRb = GetComponent<Rigidbody>();
-    }
+        private const string k_AxisHorizontal = "Horizontal";
+        private const string k_AxisVertical = "Vertical";
+        private const bool k_NotOnTheGround = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        horizontalInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+        [SerializeField]
+        private float m_Speed = 7f;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        [SerializeField]
+        private float m_JumpForce = 5f;
+
+        [SerializeField]
+        private bool m_IsOnGround = true;
+        private Rigidbody m_PlayerRb;
+
+        protected void Start()
         {
-            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isOnGround = false;
+            m_PlayerRb = GetComponent<Rigidbody>();
         }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-            isOnGround = true;
+        protected void Update()
+        {
+            getPlayerAxis(out float horizontal, out float forward);
+            float speedTime = m_Speed * Time.deltaTime;
+
+            transform.Translate(forward * speedTime * Vector3.forward);
+            transform.Translate(horizontal * speedTime * Vector3.right);
+
+            jump();
+        }
+
+        private void jump()
+        {
+            if (IsJump)
+            {
+                m_PlayerRb.AddForce(Vector3.up * m_JumpForce, ForceMode.Impulse);
+                m_IsOnGround = k_NotOnTheGround;
+            }
+        }
+
+        private bool IsJump
+        {
+            get
+            {
+                return Input.GetKeyDown(GameGlobal.k_JumpKey) && m_IsOnGround;
+            }
+        }
+
+        private void getPlayerAxis(out float o_Horizontal, out float o_Vertical)
+        {
+            o_Horizontal = Input.GetAxis(k_AxisHorizontal);
+            o_Vertical = Input.GetAxis(k_AxisVertical);
+        }
+
+        protected void OnCollisionEnter(Collision collision)
+        {
+            m_IsOnGround = isCollisionGround(collision);
+        }
+
+        private bool isCollisionGround(Collision collision)
+        {
+            return collision.gameObject.CompareTag(GameGlobal.k_TagCapsule);
+        }
     }
 }
