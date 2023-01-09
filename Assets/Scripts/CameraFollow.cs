@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 namespace DiningCombat
@@ -17,10 +18,22 @@ namespace DiningCombat
 
         protected void Start()
         {
-
             m_Parent = transform.parent;
          
             Cursor.lockState = CursorLockMode.Locked;
+            initDefualtSerializeField();
+        }
+
+        private void initDefualtSerializeField()
+        {
+            if (m_Parent == null)
+            {
+                m_Parent = GameObject.Find(GameGlobal.k_GameObjectPlayer).transform;
+            }
+            if (m_MouseSensetivity <= 0f)
+            {
+                m_MouseSensetivity = GameGlobal.k_DefaultCameraFollowMouseSensetivity;
+            }
         }
 
         protected void Update()

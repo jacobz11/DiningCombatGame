@@ -3,76 +3,143 @@ using DiningCombat;
 
 public class PickUpItem : MonoBehaviour
 {
-    private Transform pickUpPoint;
-    private Transform player;
-    private Rigidbody rb;
-
-    [SerializeField] public float pickUpDistance;
-    [SerializeField] public float forceMulti;
-    [SerializeField] public bool readyToThrow;
-    [SerializeField] public bool itemIsPicked;
-
-
-    void Start()
+    private const float k_MaxDistanceToPickUp = 2f;
+    private Transform m_PickUpPoint;
+    private Transform m_Player;
+    private Rigidbody m_Rb;
+    private bool m_IsPowerPressed;
+    private bool IsPowerPressed
     {
-        rb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player").transform;
-        pickUpPoint = GameObject.Find("PickUpPoint").transform;
+        get 
+        { 
+            return m_IsPowerPressed; 
+        }
+        set
+        {
+            m_IsPowerPressed = value;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    public float m_PickUpDistance;
+
+    [SerializeField]
+    private bool m_IsReadyToThrow;
+    public bool IsReadyToThrow
     {
+        get 
+        { 
+            return m_IsReadyToThrow;
+        }
+        set 
+        { 
+            m_IsReadyToThrow = value;
+        }
+    }
 
-        if (Input.GetKey(KeyCode.E) && itemIsPicked == true && readyToThrow)
+    [SerializeField]
+    private bool m_HasItemPicked;
+    public bool HasItemPicked
+    {
+        get 
+        { 
+            return m_HasItemPicked; 
+        }
+        set
         {
-            forceMulti += 1400 * Time.deltaTime;
-            PowerCounter.PowerValue = forceMulti;
+            m_HasItemPicked = value;
+        }
+    }
+
+    [SerializeField]
+    public float m_ForceMulti;
+    public float ForceMulti
+    {
+        get
+        {
+            return m_ForceMulti;
+        }
+        set
+        {
+            m_ForceMulti = value;
+            PowerCounter.PowerValue = m_ForceMulti;
+        }
+    }
+
+    private bool isAddForce()
+    {
+        return IsPowerPressed && HasItemPicked && IsReadyToThrow;
+    }
+
+    protected void Start()
+    {
+        m_Rb = GetComponent<Rigidbody>();
+        m_Player = GameObject.Find(GameGlobal.k_GameObjectPlayer).transform;
+        m_PickUpPoint = GameObject.Find(GameGlobal.k_GameObjectPickUpPoint).transform;
+    }
+
+    protected void Update()
+    {
+        // var Update 
+        IsPowerPressed = Input.GetKeyUp(GameGlobal.k_PowerKey);
+        m_PickUpDistance = Vector3.Distance(m_Player.position, transform.position);
+        
+        if (isAddForce())
+        {
+            ForceMulti += 1400 * Time.deltaTime;
         }
 
-        pickUpDistance = Vector3.Distance(player.position, transform.position);
+        bool isDistanceValid = m_PickUpDistance <= k_MaxDistanceToPickUp;
+        bool doesntHaveItme = m_PickUpPoint.childCount < 1;
 
-        if (pickUpDistance <= 2)
+        if (IsPowerPressed && ! HasItemPicked && isDistanceValid && doesntHaveItme)
         {
-            if (Input.GetKeyDown(KeyCode.E) && itemIsPicked == false && pickUpPoint.childCount < 1)
-            {
-                GetComponent<Rigidbody>().useGravity = false;
-                GetComponent<BoxCollider>().enabled = false;
-                this.transform.position = pickUpPoint.position;
-                this.transform.parent = GameObject.Find("PickUpPoint").transform;
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<BoxCollider>().enabled = false;
+            this.transform.position = m_PickUpPoint.position;
+            this.transform.parent = GameObject.Find(GameGlobal.k_GameObjectPickUpPoint).transform;
 
-                itemIsPicked = true;
-                forceMulti = 0;
-            }
+            HasItemPicked = true;
+            ForceMulti = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && itemIsPicked == true)
+        if (IsPowerPressed && HasItemPicked)
         {
-            readyToThrow = true;
+            IsReadyToThrow = true;
 
-            if (forceMulti > 10)
+            if (ForceMulti > 10)
             {
-                rb.AddForce(player.transform.forward * forceMulti);
-                this.transform.parent = null;
+                //  throw away
+                m_Rb.AddForce(m_Player.transform.forward * ForceMulti);
+
+                // reset all var 
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<BoxCollider>().enabled = true;
-                itemIsPicked = false;
-
-                forceMulti = 0;
-                readyToThrow = false;
+                this.transform.parent = null;
+                HasItemPicked = false;
+                IsReadyToThrow = false;
+                ForceMulti = 0;
             }
-            forceMulti = 0;
+
+            ForceMulti = 0;
         }
     }
-    void OnCollisionEnter(Collision col)
+    protected void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Capsule"))
+        if (col.gameObject.CompareTag(GameGlobal.k_TagCapsule))
         {
-            ScoreCounter.ScoreValue++;
-            Destroy(col.gameObject, 1);
-            Destroy(gameObject, 1);
+            hitCapsule(col);
         }
+    }
 
+    private void hitCapsule(Collision col)
+    {
+        // ui Update
+        ScoreCounter.ScoreValue++;
+
+        // Destroy
+        Destroy(col.gameObject, 1);
+        Destroy(gameObject, 1);
     }
 }
 
@@ -100,10 +167,10 @@ public class PickUpItem : MonoBehaviour
     }
 
     [SerializeField]
-    private bool m_ReadyToThrow;
+    private bool m_IsReadyToThrow;
 
     [SerializeField]
-    private bool m_ItemIsPicked;
+    private bool m_HasItemPicked;
     private const float k_MaxForcex = 1900;
     private const bool k_Enabled = true;
     private const bool k_UseGravity = true;
@@ -112,7 +179,7 @@ public class PickUpItem : MonoBehaviour
     {
         get
         {
-            return Input.GetKey(GameGlobal.k_PowerKey) && m_ItemIsPicked;
+            return Input.GetKey(GameGlobal.k_PowerKey) && m_HasItemPicked;
         }
     }
 
@@ -131,7 +198,7 @@ public class PickUpItem : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        bool isAddForce = IsCanThrowObj && m_ReadyToThrow && m_ForceMulti < k_MaxForcex;
+        bool isAddForce = IsCanThrowObj && m_IsReadyToThrow && m_ForceMulti < k_MaxForcex;
 
         if (isAddForce)
         {
@@ -148,13 +215,13 @@ public class PickUpItem : MonoBehaviour
             this.transform.position = m_PickUpPoint.position;
             this.transform.parent = findPickUpPoint();
 
-            m_ItemIsPicked = true;
+            m_HasItemPicked = true;
             m_ForceMulti = 0;
         }
 
         if (IsCanThrowObj)
         {
-            m_ReadyToThrow = true;
+            m_IsReadyToThrow = true;
 
             if (m_ForceMulti > 10)
             {
@@ -164,8 +231,8 @@ public class PickUpItem : MonoBehaviour
                 EnabledGravity = k_UseGravity;
                 EnabledBoxCollider = k_Enabled;
 
-                m_ItemIsPicked = false;
-                m_ReadyToThrow = false;
+                m_HasItemPicked = false;
+                m_IsReadyToThrow = false;
                 m_ForceMulti = 0;
             }
 
@@ -203,7 +270,7 @@ public class PickUpItem : MonoBehaviour
             bool isPrssTo = Input.GetKeyDown(GameGlobal.k_PowerKey);
             bool haveItemTo = m_PickUpPoint.childCount < 1;
 
-            return isPrssTo && !m_ItemIsPicked && haveItemTo;
+            return isPrssTo && !m_HasItemPicked && haveItemTo;
         }
     }
 

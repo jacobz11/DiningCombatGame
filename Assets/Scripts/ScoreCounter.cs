@@ -23,7 +23,6 @@ namespace DiningCombat
             }
         }
 
-
         protected void Start()
         {
             s_Score = GetComponent<Text>();

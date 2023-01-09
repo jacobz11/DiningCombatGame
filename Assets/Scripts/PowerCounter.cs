@@ -23,7 +23,7 @@ namespace DiningCombat
             }
         }
 
-        void Start()
+        protected void Start()
         {
             s_Power = GetComponent<Text>();
             PowerValue = 0;

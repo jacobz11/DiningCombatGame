@@ -623,7 +623,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &774869051
 Animator:
-  serializedVersion: 5
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -640,7 +640,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1658332604
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsOnGround: 1
   m_MoveSpeed: 0
-  m_RunSpeed: 20
+  m_RunSpeed: 20.96
   m_RunSideSpeed: 5
   m_GroundCheckDistance: 0.2
   m_GroundMask:

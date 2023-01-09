@@ -6,28 +6,28 @@ namespace DiningCombat
 {
     public class PlayerMovement : MonoBehaviour
     {
+        // Axis
         private const string k_AxisHorizontal = "Horizontal";
         private const string k_AxisVertical = "Vertical";
 
-        private static Vector3 s_ScaleToRight = Vector3.one;
-        private static Vector3 s_ScaleToLeft = new(-1, 1, 1);
+        // Scale Vector
+        private static readonly Vector3 sr_ScaleToRight = Vector3.one;
+        private static readonly Vector3 sr_ScaleToLeft = new(-1, 1, 1);
 
-        [SerializeField]
-        private bool m_IsOnGround = true;
-
-        // variables
-        [SerializeField]
-        private float m_MoveSpeed;
-
-        [SerializeField]
-        private float m_RunSpeed;
-
-        [SerializeField]
-        private float m_RunSideSpeed;
         private Vector3 m_MoveDirection;
         private Vector3 m_MoveDirectionSide;
         private Vector3 m_Velocity;
+        private CharacterController m_Controller;
+        private Animator m_Anim;
 
+        [SerializeField]
+        private bool m_IsOnGround = true;
+        [SerializeField]
+        private float m_MoveSpeed;
+        [SerializeField]
+        private float m_RunSpeed;
+        [SerializeField]
+        private float m_RunSideSpeed;
         [SerializeField]
         private float m_GroundCheckDistance;
         [SerializeField]
@@ -37,10 +37,9 @@ namespace DiningCombat
         [SerializeField]
         private float m_JumpHeight;
 
-        // references
-        private CharacterController m_Controller;
-        private Animator m_Anim;
-
+        // ==================================================
+        // property
+        // ==================================================
         public bool IsVelocity
         {
             get
@@ -97,18 +96,50 @@ namespace DiningCombat
             }
         }
 
+        private bool isGrounded()
+        {
+            return Physics.CheckSphere(transform.position, m_GroundCheckDistance, m_GroundMask);
+        }
+
+        // ==================================================
+        // Unity Game Engine
+        // ==================================================
         protected void Start()
         {
+            initDefualtSerializeField();
             m_Controller = GetComponent<CharacterController>();
             m_Anim = GetComponentInChildren<Animator>();
         }
 
-        protected void Update()
+        private void initDefualtSerializeField()
         {
-            move();
+            if (m_RunSpeed <= 0)
+            {
+                m_RunSpeed = GameGlobal.k_DefaultPlayerMovementRunSpeed;
+            }
+
+            if (m_RunSideSpeed <= 0)
+            {
+                m_RunSideSpeed = GameGlobal.k_DefaultPlayerMovementRunSideSpeed;
+            }
+
+            if (m_GroundCheckDistance == 0)
+            {
+                m_GroundCheckDistance = GameGlobal.k_DefaultPlayerMovementGroundCheckDistance;
+            }
+
+            if (m_Gravity == 0)
+            {
+                m_Gravity = GameGlobal.k_DefaultPlayerMovementGravity;
+            }
+
+            if (m_JumpHeight <= 0)
+            {
+                m_JumpHeight = GameGlobal.k_DefaultPlayerMovementJumpHeight;
+            }
         }
 
-        private void move()
+        protected void Update()
         {
             if (isGrounded() && IsVelocity)
             {
@@ -154,11 +185,9 @@ namespace DiningCombat
             }
         }
 
-        private bool isGrounded()
-        {
-            return Physics.CheckSphere(transform.position, m_GroundCheckDistance, m_GroundMask);
-        }
-
+        // ==================================================
+        // types of movements
+        // ==================================================
         private void idle()
         {
         }
@@ -177,7 +206,7 @@ namespace DiningCombat
 
             if (animationHorizontal)
             {
-                transform.localScale = IsLeft ? s_ScaleToLeft : s_ScaleToRight;
+                transform.localScale = IsLeft ? sr_ScaleToLeft : sr_ScaleToRight;
             }
 
             m_Anim.SetBool(GameGlobal.k_AnimationRunningSide, animationHorizontal);
@@ -189,12 +218,12 @@ namespace DiningCombat
             if (Input.GetKeyDown(GameGlobal.k_PowerKey))
             {
                 m_Anim.SetBool(GameGlobal.k_AnimationRunning, true);
-                transform.localScale = s_ScaleToRight;
+                transform.localScale = sr_ScaleToRight;
             }
             else if (Input.GetKeyUp(GameGlobal.k_PowerKey))
             {
                 m_Anim.SetBool(GameGlobal.k_AnimationRunning, false);
-                transform.localScale = s_ScaleToRight;
+                transform.localScale = sr_ScaleToRight;
             }
         }
 
