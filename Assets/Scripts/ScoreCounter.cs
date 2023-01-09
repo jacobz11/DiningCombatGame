@@ -1,22 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreCounter : MonoBehaviour
+namespace DiningCombat 
 {
-    public static int scoreValue = 0;
-    Text score;
-
-    void Start()
+    public class ScoreCounter : MonoBehaviour
     {
-        score = GetComponent<Text>();
+        private const string k_FormtToShow = "Score: {0}";
+        private static int s_ScoreValue = 0;
+        private static Text s_Score;
 
-    }
+        public static int ScoreValue
+        {
+            get
+            {
+                return s_ScoreValue;
+            }
 
-    // Update is called once per frame
-    void Update()
-    {
-        score.text = "Score: " + scoreValue;
+            set
+            {
+                s_ScoreValue = value;
+                s_Score.text = string.Format(k_FormtToShow, s_ScoreValue);
+            }
+        }
+
+
+        protected void Start()
+        {
+            s_Score = GetComponent<Text>();
+            ScoreValue = 0;
+        }
     }
 }

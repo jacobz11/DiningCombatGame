@@ -1,22 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PowerCounter : MonoBehaviour
+namespace DiningCombat
 {
-    public static float powerValue = 0;
-    Text power;
-
-    void Start()
+    public class PowerCounter : MonoBehaviour
     {
-        power = GetComponent<Text>();
+        private const string k_FormtToShow = "Power: {0}";
+        private static float s_PowerValue = 0;
+        private static Text s_Power;
 
-    }
+        public static float PowerValue
+        {
+            get
+            {
+                return s_PowerValue;
+            }
 
-    // Update is called once per frame
-    void Update()
-    {
-        power.text = "Power: " + powerValue;
+            set
+            {
+                s_PowerValue = value;
+                s_Power.text = string.Format(k_FormtToShow, s_PowerValue);
+            }
+        }
+
+        void Start()
+        {
+            s_Power = GetComponent<Text>();
+            PowerValue = 0;
+        }
     }
 }
