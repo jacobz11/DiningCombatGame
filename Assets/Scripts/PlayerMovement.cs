@@ -8,7 +8,6 @@ namespace DiningCombat
     {
         private const string k_AxisHorizontal = "Horizontal";
         private const string k_AxisVertical = "Vertical";
-        private const bool k_NotOnTheGround = false;
 
         private static Vector3 s_ScaleToRight = Vector3.one;
         private static Vector3 s_ScaleToLeft = new(-1, 1, 1);
@@ -138,8 +137,7 @@ namespace DiningCombat
                 {
                     running();
                 }
-
-                if (IsHorizontalMove)
+                else if (IsHorizontalMove)
                 {
                     runningSide();
                 }
@@ -182,8 +180,8 @@ namespace DiningCombat
                 transform.localScale = IsLeft ? s_ScaleToLeft : s_ScaleToRight;
             }
 
-            m_Anim.SetBool(GameGlobal.k_AnimationRunning, animationHorizontal);
-            m_MoveSpeed = m_RunSpeed;
+            m_Anim.SetBool(GameGlobal.k_AnimationRunningSide, animationHorizontal);
+            m_MoveSpeed = m_RunSideSpeed;
         }
 
         private void throwing()

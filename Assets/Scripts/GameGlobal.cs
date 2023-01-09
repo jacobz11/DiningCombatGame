@@ -23,5 +23,6 @@ namespace DiningCombat
         public const KeyCode k_RightKeyArrow = KeyCode.RightArrow;
 
         public const string k_AnimationRunning = "isRunning";
+        public const string k_AnimationRunningSide = "isSideRun";
     }
 }
