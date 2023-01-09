@@ -17,7 +17,9 @@ namespace DiningCombat
 
         protected void Start()
         {
+
             m_Parent = transform.parent;
+         
             Cursor.lockState = CursorLockMode.Locked;
         }
 
