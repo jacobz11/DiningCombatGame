@@ -28,7 +28,7 @@ namespace DiningCombat
         {
             if (m_Parent == null)
             {
-                m_Parent = GameObject.Find(GameGlobal.k_GameObjectPlayer).transform;
+                m_Parent = GameObject.Find(GameGlobal.GameObjectName.k_Player).transform;
             }
             if (m_MouseSensetivity <= 0f)
             {
