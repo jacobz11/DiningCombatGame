@@ -2,7 +2,7 @@
 
 namespace DiningCombat
 {
-    internal struct KeyHamdler
+    public struct KeyHamdler
     {
         private KeyCode m_Code;
 

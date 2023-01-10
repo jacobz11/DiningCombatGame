@@ -5,10 +5,17 @@ namespace DiningCombat
 {
     public class PlayerMovement : MonoBehaviour
     {
+        private const byte k_LeftKey = GameKeyboardControls.k_Left;
+        private const byte k_RightKey = GameKeyboardControls.k_Right;
+        private const byte k_ForwarKey = GameKeyboardControls.k_Forwar;
+        private const byte k_BackKey = GameKeyboardControls.k_Back;
+        private const byte k_PowerKey = GameKeyboardControls.k_Power;
+        private const byte k_JumpKey = GameKeyboardControls.k_Power;
+
         // Axis
         private const string k_AxisHorizontal = "Horizontal";
         private const string k_AxisVertical = "Vertical";
-
+        
         // Scale Vector
         private static readonly Vector3 sr_ScaleToRight = Vector3.one;
         private static readonly Vector3 sr_ScaleToLeft = new(-1, 1, 1);
@@ -18,10 +25,7 @@ namespace DiningCombat
         private Vector3 m_Velocity;
         private CharacterController m_Controller;
         private Animator m_Anim;
-        private KeysHamdler m_Forward;
-        private KeysHamdler m_Backward;
-        private KeysHamdler m_Left;
-        private KeysHamdler m_Right;
+        private GameKeyboardControls m_Controls;
         [SerializeField]
         private float m_MoveSpeed;
         [SerializeField]
@@ -74,10 +78,7 @@ namespace DiningCombat
         // ==================================================
         protected void Start()
         {
-            m_Forward = new KeysHamdler(GameGlobal.k_ForwardKey, GameGlobal.k_ForwardKeyArrow);
-            m_Backward = new KeysHamdler(GameGlobal.k_BackKey, GameGlobal.k_BackKeyArrow);
-            m_Left = new KeysHamdler(GameGlobal.k_LeftKey, GameGlobal.k_LeftKeyArrow);
-            m_Right = new KeysHamdler(GameGlobal.k_RightKey, GameGlobal.k_RightKeyArrow);
+            m_Controls = new GameKeyboardControls();
             initDefualtSerializeField();
             m_Controller = GetComponent<CharacterController>();
             m_Anim = GetComponentInChildren<Animator>();
@@ -166,33 +167,29 @@ namespace DiningCombat
 
         private void running()
         {
-            bool animationVertical = m_Forward.Press|| m_Backward.Press;
-
-            m_Anim.SetBool(GameGlobal.AnimationName.k_Running, animationVertical);
+            m_Anim.SetBool(GameGlobal.AnimationName.k_Running, m_Controls.IsVertical);
             m_MoveSpeed = m_RunSpeed;
         }
 
         private void runningSide()
         {
-            bool animationHorizontal = m_Left.Press || m_Right.Press;
-
-            if (animationHorizontal)
+            if (m_Controls.IsHorizontal)
             {
-                transform.localScale = m_Left.Press ? sr_ScaleToLeft : sr_ScaleToRight;
+                transform.localScale = m_Controls[k_LeftKey].Press ? sr_ScaleToLeft : sr_ScaleToRight;
             }
 
-            m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, animationHorizontal);
+            m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, m_Controls.IsHorizontal);
             m_MoveSpeed = m_RunSideSpeed;
         }
 
         private void throwing()
         {
-            if (Input.GetKeyDown(GameGlobal.k_PowerKey))
+            if (m_Controls[k_PowerKey].Down)
             {
                 m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
                 transform.localScale = sr_ScaleToRight;
             }
-            else if (Input.GetKeyUp(GameGlobal.k_PowerKey))
+            else if (m_Controls[k_PowerKey].Up)
             {
                 m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, false);
                 transform.localScale = sr_ScaleToRight;
@@ -201,7 +198,7 @@ namespace DiningCombat
 
         private void jump()
         {
-            if (Input.GetKeyDown(GameGlobal.k_JumpKey))
+            if (m_Controls[k_JumpKey].Press)
             {
                 m_Velocity.y = Mathf.Sqrt(m_JumpHeight * -2 * m_Gravity);
             }

@@ -23,28 +23,6 @@ namespace DiningCombat
         }
 
         // ==================================================
-        // Game-Key-Code
-        // ==================================================
-        public const KeyCode k_PowerKey = KeyCode.E;
-        public const KeyCode k_JumpKey = KeyCode.Space;
-
-        // Forwar
-        public const KeyCode k_ForwardKey = KeyCode.W;
-        public const KeyCode k_ForwardKeyArrow = KeyCode.UpArrow;
-
-        // Back 
-        public const KeyCode k_BackKey = KeyCode.S;
-        public const KeyCode k_BackKeyArrow = KeyCode.DownArrow;
-
-        // Left
-        public const KeyCode k_LeftKey = KeyCode.A;
-        public const KeyCode k_LeftKeyArrow = KeyCode.LeftArrow;
-
-        // Right
-        public const KeyCode k_RightKey = KeyCode.D;
-        public const KeyCode k_RightKeyArrow = KeyCode.RightArrow;
-
-        // ==================================================
         // Default-SerializeField-val
         // k_ Default - class name - var name
         // ==================================================
