@@ -4,17 +4,23 @@ namespace DiningCombat
 {
     public static class GameGlobal
     {
-        // ==================================================
-        // Game-Object-names
-        // ==================================================
-        public const string k_GameObjectPlayer = "Player";
-        public const string k_GameObjectPickUpPoint = "PickUpPoint";
+        public static class GameObjectName
+        {
+            public const string k_Player = "Player";
+            public const string k_PickUpPoint = "PickUpPoint";
+        }
+        public static class TagNames
+        {
+            public const string k_Ground = "Ground";
+            public const string k_Capsule = "Capsule";
+        }
 
-        // ==================================================
-        // Tag-names
-        // ==================================================
-        public const string k_TagGround = "Ground";
-        public const string k_TagCapsule = "Capsule";
+        public static class AnimationName
+        {
+            public const string k_Running = "isRunning";
+            public const string k_RunningSide = "isSideRun";
+            public const string k_Throwing = "isThrowing";
+        }
 
         // ==================================================
         // Game-Key-Code
@@ -39,12 +45,6 @@ namespace DiningCombat
         public const KeyCode k_RightKeyArrow = KeyCode.RightArrow;
 
         // ==================================================
-        // Animation-name
-        // ==================================================
-        public const string k_AnimationRunning = "isRunning";
-        public const string k_AnimationRunningSide = "isSideRun";
-
-        // ==================================================
         // Default-SerializeField-val
         // k_ Default - class name - var name
         // ==================================================
@@ -59,5 +59,11 @@ namespace DiningCombat
 
         // CameraFollow
         public const float k_DefaultCameraFollowMouseSensetivity = 1000f;
+
+        // ==================================================
+        // PickUpItem
+        // ==================================================
+        public const float k_MinDistanceToPickUp = 2f;
+        public const int k_MaxItemToPick = 1;
     }
 }
