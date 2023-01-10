@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace DiningCombat
@@ -19,9 +18,10 @@ namespace DiningCombat
         private Vector3 m_Velocity;
         private CharacterController m_Controller;
         private Animator m_Anim;
-
-        [SerializeField]
-        private bool m_IsOnGround = true;
+        private KeysHamdler m_Forward;
+        private KeysHamdler m_Backward;
+        private KeysHamdler m_Left;
+        private KeysHamdler m_Right;
         [SerializeField]
         private float m_MoveSpeed;
         [SerializeField]
@@ -64,38 +64,6 @@ namespace DiningCombat
             }
         }
 
-        public bool IsForward
-        {
-            get
-            {
-                return Input.GetKey(GameGlobal.k_ForwardKey) || Input.GetKey(GameGlobal.k_ForwardKeyArrow);
-            }
-        }
-
-        public bool IsBack
-        {
-            get
-            {
-                return Input.GetKey(GameGlobal.k_BackKey) || Input.GetKey(GameGlobal.k_BackKeyArrow);
-            }
-        }
-
-        public bool IsRight
-        {
-            get
-            {
-                return Input.GetKey(GameGlobal.k_RightKey) || Input.GetKey(GameGlobal.k_RightKeyArrow);
-            }
-        }
-
-        public bool IsLeft
-        {
-            get
-            {
-                return Input.GetKey(GameGlobal.k_LeftKey) || Input.GetKey(GameGlobal.k_LeftKeyArrow);
-            }
-        }
-
         private bool isGrounded()
         {
             return Physics.CheckSphere(transform.position, m_GroundCheckDistance, m_GroundMask);
@@ -106,6 +74,10 @@ namespace DiningCombat
         // ==================================================
         protected void Start()
         {
+            m_Forward = new KeysHamdler(GameGlobal.k_ForwardKey, GameGlobal.k_ForwardKeyArrow);
+            m_Backward = new KeysHamdler(GameGlobal.k_BackKey, GameGlobal.k_BackKeyArrow);
+            m_Left = new KeysHamdler(GameGlobal.k_LeftKey, GameGlobal.k_LeftKeyArrow);
+            m_Right = new KeysHamdler(GameGlobal.k_RightKey, GameGlobal.k_RightKeyArrow);
             initDefualtSerializeField();
             m_Controller = GetComponent<CharacterController>();
             m_Anim = GetComponentInChildren<Animator>();
@@ -194,22 +166,22 @@ namespace DiningCombat
 
         private void running()
         {
-            bool animationVertical = IsForward || IsBack;
+            bool animationVertical = m_Forward.Press|| m_Backward.Press;
 
-            m_Anim.SetBool(GameGlobal.k_AnimationRunning, animationVertical);
+            m_Anim.SetBool(GameGlobal.AnimationName.k_Running, animationVertical);
             m_MoveSpeed = m_RunSpeed;
         }
 
         private void runningSide()
         {
-            bool animationHorizontal = IsLeft || IsRight;
+            bool animationHorizontal = m_Left.Press || m_Right.Press;
 
             if (animationHorizontal)
             {
-                transform.localScale = IsLeft ? sr_ScaleToLeft : sr_ScaleToRight;
+                transform.localScale = m_Left.Press ? sr_ScaleToLeft : sr_ScaleToRight;
             }
 
-            m_Anim.SetBool(GameGlobal.k_AnimationRunningSide, animationHorizontal);
+            m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, animationHorizontal);
             m_MoveSpeed = m_RunSideSpeed;
         }
 
@@ -217,12 +189,12 @@ namespace DiningCombat
         {
             if (Input.GetKeyDown(GameGlobal.k_PowerKey))
             {
-                m_Anim.SetBool(GameGlobal.k_AnimationRunning, true);
+                m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
                 transform.localScale = sr_ScaleToRight;
             }
             else if (Input.GetKeyUp(GameGlobal.k_PowerKey))
             {
-                m_Anim.SetBool(GameGlobal.k_AnimationRunning, false);
+                m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, false);
                 transform.localScale = sr_ScaleToRight;
             }
         }
