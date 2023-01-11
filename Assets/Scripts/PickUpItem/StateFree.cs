@@ -16,6 +16,7 @@ internal class StateFree : IStatePlayerHand
     public void InitState()
     {
         m_PickUpItem.ForceMulti = 0;
+        m_PickUpItem.SetThrowingAnim(!PickUpItem.k_ThrowObj);
     }
 
     public bool IsPassStage()

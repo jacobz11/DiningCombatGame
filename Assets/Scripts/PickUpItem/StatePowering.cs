@@ -24,7 +24,7 @@ internal class StatePowering : IStatePlayerHand
 
     public void UpdateByState()
     {
-        if (m_KeyHamdler.Press)
+        if (m_KeyHamdler.Press )
         {
             m_PickUpItem.ForceMulti += 1400 * Time.deltaTime;
         }
@@ -35,7 +35,10 @@ internal class StatePowering : IStatePlayerHand
         }
         else
         {
-            m_PickUpItem.StatePlayerHand = new StateHoldsObj(m_PickUpItem, m_KeyHamdler);
+            if (Time.deltaTime > 0.2)
+            {
+                m_PickUpItem.StatePlayerHand = new StateHoldsObj(m_PickUpItem, m_KeyHamdler);
+            }
         }
     }
 }

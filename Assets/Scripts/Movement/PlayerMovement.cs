@@ -145,7 +145,7 @@ namespace DiningCombat
                 {
                     runningSide();
                 }
-                else if (!IsVerticalMove)
+                else
                 {
                     idle();
                 }
@@ -153,7 +153,7 @@ namespace DiningCombat
                 m_MoveDirection *= m_MoveSpeed;
                 m_MoveDirectionSide *= m_MoveSpeed;
 
-                throwing();
+                //throwing();
                 jump();
             }
         }
@@ -189,7 +189,7 @@ namespace DiningCombat
                 m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
                 transform.localScale = sr_ScaleToRight;
             }
-            else if (m_Controls[k_PowerKey].Up)
+            else if(m_Controls[k_PowerKey].Up)
             {
                 m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, false);
                 transform.localScale = sr_ScaleToRight;
