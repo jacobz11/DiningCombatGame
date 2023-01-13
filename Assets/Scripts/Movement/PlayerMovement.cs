@@ -1,10 +1,12 @@
-
+using Palmmedia.ReportGenerator.Core;
+using System;
 using UnityEngine;
 
 namespace DiningCombat
 {
     public class PlayerMovement : MonoBehaviour
     {
+        private const string k_ClassName = nameof(PlayerMovement);
         private const byte k_LeftKey = GameKeyboardControls.k_Left;
         private const byte k_RightKey = GameKeyboardControls.k_Right;
         private const byte k_ForwarKey = GameKeyboardControls.k_Forwar;
@@ -19,12 +21,13 @@ namespace DiningCombat
         // Scale Vector
         private static readonly Vector3 sr_ScaleToRight = Vector3.one;
         private static readonly Vector3 sr_ScaleToLeft = new(-1, 1, 1);
+        public event EventHandler Destruction;
 
         private Vector3 m_MoveDirection;
         private Vector3 m_MoveDirectionSide;
         private Vector3 m_Velocity;
-        private CharacterController m_Controller;
         private Animator m_Anim;
+        private CharacterController m_Controller;
         private GameKeyboardControls m_Controls;
         [SerializeField]
         private float m_MoveSpeed;
@@ -40,6 +43,13 @@ namespace DiningCombat
         private float m_Gravity;
         [SerializeField]
         private float m_JumpHeight;
+        public Vector3 MoveDirection
+        {
+            get
+            {
+                return m_MoveDirection;
+            }
+        }
 
         // ==================================================
         // property
@@ -153,7 +163,6 @@ namespace DiningCombat
                 m_MoveDirection *= m_MoveSpeed;
                 m_MoveDirectionSide *= m_MoveSpeed;
 
-                //throwing();
                 jump();
             }
         }
@@ -161,13 +170,21 @@ namespace DiningCombat
         // ==================================================
         // types of movements
         // ==================================================
+
+        //private void animationRun(bool i_Running, bool i_SideRunning)
+        //{
+        //    m_Anim.SetBool(GameGlobal.AnimationName.k_Running, i_Running);
+        //    m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, i_SideRunning);
+        //}
         private void idle()
         {
+            //m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, false);
+            //animationRun(false, false);
         }
 
         private void running()
         {
-            m_Anim.SetBool(GameGlobal.AnimationName.k_Running, m_Controls.IsVertical);
+            m_Anim.SetBool(GameGlobal.AnimationName.k_Running, true);
             m_MoveSpeed = m_RunSpeed;
         }
 
@@ -177,7 +194,6 @@ namespace DiningCombat
             {
                 transform.localScale = m_Controls[k_LeftKey].Press ? sr_ScaleToLeft : sr_ScaleToRight;
             }
-
             m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, m_Controls.IsHorizontal);
             m_MoveSpeed = m_RunSideSpeed;
         }

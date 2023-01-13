@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace DiningCombat
 {
@@ -13,6 +14,9 @@ namespace DiningCombat
         {
             public const string k_Ground = "Ground";
             public const string k_Capsule = "Capsule";
+            public const string k_FoodObj = "FoodObj";
+            public const string k_ThrowFoodObj = "sFoodObj";
+            public const string k_Player = "Player";
         }
 
         public static class AnimationName
@@ -22,6 +26,24 @@ namespace DiningCombat
             public const string k_Throwing = "isThrowing";
         }
 
+        public static class FoodObjsNames
+        {
+            // hit 
+            public const string k_Apple = "Apple";
+            public const byte k_AppleVar = 0;
+
+            public const string k_Tomato = "Tomato";
+            public const byte k_TomatoVar = 1;
+
+            // Dispersing
+            public const string k_Cabbage = "Cabbage";
+            public const byte k_CabbageVar = 0;
+
+            // 
+            public const byte k_FlourVar = 0;
+            public const string k_Flour = "Flour";
+
+        }
         // ==================================================
         // Default-SerializeField-val
         // k_ Default - class name - var name
@@ -43,5 +65,11 @@ namespace DiningCombat
         // ==================================================
         public const float k_MinDistanceToPickUp = 2f;
         public const int k_MaxItemToPick = 1;
+
+        public static void Dedugger(string i_ClassName, string i_FuncName, string i_Vars)
+        {
+            Debug.Log(i_ClassName+"->( "+ i_FuncName +"):|"+ i_Vars);
+        }
+
     }
 }

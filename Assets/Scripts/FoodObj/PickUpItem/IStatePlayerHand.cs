@@ -1,4 +1,5 @@
 ﻿
+using UnityEngine;
 using static UnityEditor.ShaderData;
 
 namespace Assets.Scripts.PickUpItem
@@ -9,5 +10,8 @@ namespace Assets.Scripts.PickUpItem
         public void InitState();
 
         public bool IsPassStage();
+
+        void EnterCollisionFoodObj(GameObject i_GameObject);
+        void ExitCollisionFoodObj();
     }
 }
