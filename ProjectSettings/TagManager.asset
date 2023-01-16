@@ -8,6 +8,7 @@ TagManager:
   - Capsule
   - Sphere
   - Power
+  - FoodObj
   layers:
   - Default
   - TransparentFX
