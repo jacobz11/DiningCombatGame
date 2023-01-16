@@ -11,11 +11,7 @@ namespace DiningCombat
 
         public static int ScoreValue
         {
-            get
-            {
-                return s_ScoreValue;
-            }
-
+            get => s_ScoreValue;
             set
             {
                 s_ScoreValue = value;

@@ -1,10 +1,8 @@
 ﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace Assets.Scripts
+namespace DiningCombat
 {
-    public class OnlineGameAbstractFactory
+    internal class EventPlayerHit : EventArgs
     {
         // ================================================
         // constant Variable 
@@ -14,15 +12,18 @@ namespace Assets.Scripts
 
         // ================================================
         // Fields 
-        protected AbstractFactoryProductInitiMap m_InitiMapFactory;
-        protected AbstractFactoryProductFood m_FoodFactory;
+        private byte m_PonitToAdd;
 
         // ================================================
         // ----------------Serialize Field-----------------
 
         // ================================================
         // properties
-
+        public byte PonitToAdd
+        {
+            get => m_PonitToAdd;
+            private set => m_PonitToAdd = value;
+        }
         // ================================================
         // auxiliary methods programmings
 
@@ -31,26 +32,21 @@ namespace Assets.Scripts
 
         // ================================================
         //  methods
-        public OnlineGameAbstractFactory()
+        public EventPlayerHit(params byte[] i_Point)
         {
-            //SceneManager.LoadScene(i_SceneName, LoadSceneMode.Additive);
-            m_InitiMapFactory = new AbstractFactoryProductInitiMap();
-            //m_FoodFactory = new AbstractFactoryProductFood();
+            PonitToAdd = calculatePoints(i_Point);
         }
 
-        public virtual void InitiMap()
+        private byte calculatePoints(byte[] i_Point)
         {
-            m_InitiMapFactory.EnvironmentObjectMaker();
-        }
+            byte point = 0;
 
-        public virtual GameObject SpawnGameFoodObj()
-        {
-            return m_FoodFactory.CreatFoodObj();
-        }
+            for (byte i = 0; i < i_Point.Length; i++)
+            {
+                point += i;
+            }
 
-        internal virtual GameObject SpawnPlayer()
-        {
-            return null;
+            return point;
         }
         // ================================================
         // auxiliary methods
@@ -61,5 +57,6 @@ namespace Assets.Scripts
         // ================================================
         // ----------------Unity--------------------------- 
         // ----------------GameFoodObj---------------------
+
     }
 }

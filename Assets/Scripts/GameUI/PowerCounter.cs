@@ -11,11 +11,7 @@ namespace DiningCombat
 
         public static float PowerValue
         {
-            get
-            {
-                return s_PowerValue;
-            }
-
+            get => s_PowerValue;
             set
             {
                 s_PowerValue = value;
@@ -23,7 +19,7 @@ namespace DiningCombat
             }
         }
 
-        protected void Start()
+        protected void Awake()
         {
             s_Power = GetComponent<Text>();
             PowerValue = 0;

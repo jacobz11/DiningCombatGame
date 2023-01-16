@@ -1,18 +1,32 @@
 ﻿using DiningCombat;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using Assets.Scripts.Player;
 
 public class GameFoodObj : MonoBehaviour
 {
+    // ================================================
+    // constant Variable 
+    private const bool k_Enter = true, k_Exit = false;
     private const string k_ClassName = nameof(GameFoodObj);
+
+    // ================================================
+    // Delegate
+    /// <summary>to notify the thrower that he hit</summary>
     public event EventHandler HitPlayer;
+
+    /// <summary>to notify Game-Manager that this GameFoodObj destroyed</summary>
     public event EventHandler Destruction;
 
+    // ================================================
+    // Fields 
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
+    // ================================================
+    // ----------------Serialize Field-----------------
 
+    // ================================================
+    // properties
     public bool IsThrow 
     {
         get => m_IsThrow;
@@ -21,82 +35,162 @@ public class GameFoodObj : MonoBehaviour
             m_IsThrow = value;
         }
     }
+
+    // ================================================
+    // auxiliary methods programmings
     private void dedugger(string func, string i_var)
     {
         GameGlobal.Dedugger(k_ClassName, func, i_var);
     }
-    protected void Start()
+
+    // ================================================
+    // Unity Game Engine
+    protected virtual void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
     }
 
-    protected void OnCollisionEnter(Collision collision)
+    // ================================================
+    //  methods
+    /// <summary>
+    /// this method can call one time for obj 
+    /// </summary>
+    /// <param name="i_ForceMulti"> the Force to add</param>
+    /// <param name="i_ThrowDirection"></param>
+    public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
     {
-        string func = System.Reflection.MethodBase.GetCurrentMethod().Name;
+        IsThrow = true;
+        this.tag = GameGlobal.TagNames.k_ThrowFoodObj;
+        m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
+    }
 
-        if (isPlayer(collision))
+    /// <summary>
+    /// collision After Throwing Handler will:
+    /// 1. will tell the throw player if it hit the player
+    /// 2. will perform the effect
+    /// 3. will destroy the object
+    /// </summary>
+    /// <param name="i_Collision"></param>
+    private void collisionAfterThrowingHandler(Collision i_Collision)
+    {
+        if (isPlayer(i_Collision))
         {
-            dedugger(func, "in CompareTag tag" + collision.gameObject.tag);
-
-            if (!IsThrow && parrsFormCollision(collision, out PickUpItem o_Pick))
+            OnHitPlayer(EventArgs.Empty);
+            PlayerHp playerHit = i_Collision.gameObject
+                .GetComponent<PlayerHp>();
+            if (playerHit != null)
             {
-                o_Pick.StatePlayerHand.EnterCollisionFoodObj(this.gameObject);
+                playerHit.HitYou(1f);
             }
             else
             {
-                OnHitPlayer(EventArgs.Empty);
+
             }
         }
-        else
-        {
-            dedugger(func, "else CompareTag tag" + collision.gameObject.tag);
-        }
+
+        performTheEffect();
+        destruction();
     }
 
-    protected void OnCollisionExit(Collision collision)
+    private bool performTheEffect()
     {
-        string func = System.Reflection.MethodBase.GetCurrentMethod().Name;
-
-        if (isPlayer(collision))
-        {
-            if (!IsThrow && parrsFormCollision(collision, out PickUpItem o_Pick))
-            {
-                o_Pick.StatePlayerHand.ExitCollisionFoodObj();
-            }
-        }
-        else
-        {
-            dedugger(func, "else CompareTag tag" + collision.gameObject.tag);
-        }
+        // TODO: 
+        return true;
     }
 
-    private bool parrsFormCollision(Collision collision, out PickUpItem o_pic)
+
+    // ================================================
+    // auxiliary methods
+    /// <summary>
+    /// this func parsing form Collision PickUpItem 
+    /// </summary>
+    /// <param name="i_Collision"></param>
+    /// <param name="o_Pic"></param>
+    /// <returns>if parsing success </returns>
+    private bool parseCollision(Collision i_Collision, out PickUpItem o_Pic)
     {
-        o_pic = collision.gameObject.GetComponentInChildren(typeof(PickUpItem)) as PickUpItem;
+        o_Pic = i_Collision.gameObject
+            .GetComponentInChildren(typeof(PickUpItem)) as PickUpItem;
         
-        if (o_pic != null)
-        {
-            dedugger("parrsFormCollision", "success");
-            return true;
-        }
-
-        dedugger("parrsFormCollision", "failure");
-        return false;
+        return (o_Pic != null);
     }
 
-    private bool isPlayer(Collision collision)
+    /// <summary>
+    /// a query to test if Collision tag as Player
+    /// </summary>
+    /// <param name="i_Collision"></param>
+    /// <returns></returns>
+    private bool isPlayer(Collision i_Collision)
     {
-        return collision.gameObject.CompareTag(GameGlobal.TagNames.k_Player);
+        return i_Collision.gameObject.CompareTag(GameGlobal.TagNames.k_Player);
     }
 
-    //destruction();
-    //if (collision.gameObject.CompareTag(GameGlobal.TagNames.k_Player))
-    //{
-    //    
-    //}
-    //
+    /// <summary>
+    /// this func notify the PickUpItem (Player)
+    /// interface IStatePlayerHand - cant or can Pick-Up this item
+    /// </summary>
+    /// <param name="i_Collision"></param>
+    /// <param name="i_IsEnter">
+    /// <true>true->Enter-Collision-Food-Obj</true>
+    /// <false>false->ExitCollisionFoodObj</false></param>
+    private void notifyPlayerPickUp(Collision i_Collision, bool i_IsEnter)
+    {
+        if (parseCollision(i_Collision, out PickUpItem o_Pick))
+        {
+            if (i_IsEnter)
+            {
+                o_Pick.StatePlayer.EnterCollisionFoodObj(this.gameObject);
+            }
+            else
+            {
+                o_Pick.StatePlayer.ExitCollisionFoodObj();
+            }
+        }
+        else
+        {
+            dedugger("notify-Player-Cant-PickUp", "eror :parse-Collision Fails");
+        }
+    }
 
+    // ================================================
+    // Delegates Invoke 
 
+    // ================================================
+    // ----------------Unity--------------------------- 
+
+    /// <summary>
+    /// this Delegates 
+    /// </summary>
+    /// <param name="i_Collision"></param>
+    protected virtual void OnCollisionEnter(Collision i_Collision)
+    {
+        if (isPlayer(i_Collision) && !IsThrow)
+        {
+            notifyPlayerPickUp(i_Collision, k_Enter);
+        }
+        else if (IsThrow)
+        {
+            collisionAfterThrowingHandler(i_Collision);
+        }
+    }
+
+    /// <summary>
+    /// this wiil notify the Player thet he cant PickUp this
+    /// </summary>
+    /// <param name="i_Collision"></param>
+    protected virtual void OnCollisionExit(Collision i_Collision)
+    {
+        if (isPlayer(i_Collision) && !IsThrow)
+        {
+            notifyPlayerPickUp(i_Collision, k_Exit);
+        }
+    }
+
+    // ----------------GameFoodObj---------------------
+    protected virtual void OnHitPlayer(EventArgs e)
+    {
+        HitPlayer?.Invoke(this, e);
+    }
 
     private void destruction()
     {
@@ -104,20 +198,21 @@ public class GameFoodObj : MonoBehaviour
         Destroy(this);
     }
 
-    public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowForward)
-    {
-        IsThrow = true;
-        m_Rigidbody.AddForce(i_ThrowForward * i_ForceMulti);
-    }
-
-    protected virtual void OnHitPlayer(EventArgs e)
-    {
-        HitPlayer?.Invoke(this, e);
-    }
-
     protected virtual void OnDestruction(EventArgs e)
     {
         Destruction?.Invoke(this, e);
     }
-}
 
+    internal void CleanUpDelegatesPlayer()
+    {
+        //HitPlayer
+    }
+
+    internal void SetPickUpItem(PickUpItem pickUpItem)
+    {
+        this.transform.position = pickUpItem.transform.position;
+        this.transform.SetParent(pickUpItem.transform, true);
+        this.transform.localPosition = pickUpItem.transform.localPosition;
+        m_Rigidbody.useGravity = false;
+    }
+}

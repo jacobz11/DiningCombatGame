@@ -1,13 +1,13 @@
 ﻿
 using DiningCombat;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
+using PickUpItem = Assets.Scripts.PickUpItem;
 using Random = System.Random;
 
 namespace Assets.Scripts.FoodObj
 {
-    internal class FoodObj
+    internal class FoodObj : MonoBehaviour
     {
         private static readonly Random sr_Rand = new Random();
         public static FoodTypeData Builder()
@@ -35,10 +35,22 @@ namespace Assets.Scripts.FoodObj
                     return Hit.sr_FoodTypeData[Hit.k_Apple];
             }
         }
+
+        //internal void SetPickUpItem(PickUpItem pickUpItem)
+        //{
+        //    if (pickUpItem is null)
+        //    {
+        //        throw new ArgumentNullException(nameof(pickUpItem));
+        //    }
+
+        //    this.transform.position = this.transform.position;
+        //    this.transform.SetParent(this.transform, true);
+        //}
+
         public static class Hit
         {
-            public const byte k_Tomato = GameGlobal.FoodObjsNames.k_TomatoVar,
-                k_Apple = GameGlobal.FoodObjsNames.k_AppleVar;
+            public const byte k_Tomato = GameGlobal.FoodObjData.k_TomatoVar,
+                k_Apple = GameGlobal.FoodObjData.k_AppleVar;
 
             public static readonly FoodTypeData[] sr_FoodTypeData = {
                 new FoodTypeData(eDamageType.Hit,
@@ -48,7 +60,7 @@ namespace Assets.Scripts.FoodObj
                                    5f,
                                    1f,
                                    GameGlobal.TagNames.k_FoodObj,
-                                   GameGlobal.FoodObjsNames.k_Apple),
+                                   GameGlobal.FoodObjData.k_Apple),
                                 new FoodTypeData(eDamageType.Hit,
                                    5f,
                                    1f,
@@ -56,13 +68,13 @@ namespace Assets.Scripts.FoodObj
                                    5f,
                                    1f,
                                    GameGlobal.TagNames.k_FoodObj,
-                                   GameGlobal.FoodObjsNames.k_Tomato)
+                                   GameGlobal.FoodObjData.k_Tomato)
             };
         }
 
         public class Dispersing
         {
-            public const byte k_Cabbage = GameGlobal.FoodObjsNames.k_CabbageVar;
+            public const byte k_Cabbage = GameGlobal.FoodObjData.k_CabbageVar;
 
             public static readonly FoodTypeData[] sr_FoodTypeData = {
                 new FoodTypeData(eDamageType.Dispersing,
@@ -72,12 +84,12 @@ namespace Assets.Scripts.FoodObj
                                    5f,
                                    0f,
                                    GameGlobal.TagNames.k_FoodObj,
-                                   GameGlobal.FoodObjsNames.k_Cabbage)
+                                   GameGlobal.FoodObjData.k_Cabbage)
             };
         }
         public class SmokeSrenade
         {
-            public const byte k_Flour = GameGlobal.FoodObjsNames.k_FlourVar;
+            public const byte k_Flour = GameGlobal.FoodObjData.k_FlourVar;
             public static readonly FoodTypeData[] sr_FoodTypeData = {
                 new FoodTypeData(eDamageType.SmokeSrenade,
                                    0f,
@@ -86,7 +98,7 @@ namespace Assets.Scripts.FoodObj
                                    0.9f,
                                    0f,
                                    GameGlobal.TagNames.k_FoodObj,
-                                   GameGlobal.FoodObjsNames.k_Flour)
+                                   GameGlobal.FoodObjData.k_Flour)
             };
         }
     }

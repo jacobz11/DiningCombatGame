@@ -1,22 +1,40 @@
 using Assets.Scripts.PickUpItem;
 using DiningCombat;
-using System.Diagnostics;
+using System;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class PickUpItem : MonoBehaviour
 {
+    // location : Player-> Goalie Throw -> mixamorig:Hips
+    // -> mixamorig:Spine -> mixamorig:Spine1 -> mixamorig:Spine2
+    // ->mixamorig:RightShoulder -> mixamorig:RightArm -> mixamorig:RightForeArm
+    // ->mixamorig:RightHand -> PickUpPoint
+
+    // ================================================
+    // constant Variable 
     private const string k_ClassName = nameof(PickUpItem);
-    [SerializeField]
-    public float m_ForceMulti;
-    private IStatePlayerHand m_State;
+    public const int k_Free = 0;
+    public const int k_HoldsObj = 1;
+    public const int k_Powering = 2;
+
+    // ================================================
+    // Delegate
+
+    // ================================================
+    // Fields 
+    private IStatePlayerHand[] m_PlayerState;
     private KeysHamdler m_Power;
     private GameObject m_GameObject;
+    private Animator m_Anim;
 
-    // ==================================================
-    // property
-    // ==================================================
+    // ================================================
+    // ----------------Serialize Field-----------------
+    [SerializeField]
+    public float m_ForceMulti;
+    private int m_StateVal;
 
+    // ================================================
+    // properties
     public float ForceMulti
     {
         get => m_ForceMulti;
@@ -26,24 +44,20 @@ public class PickUpItem : MonoBehaviour
             PowerCounter.PowerValue = m_ForceMulti;
         }
     }
-    public IStatePlayerHand StatePlayerHand
+
+    public int StatePlayerHand
     {
-        get
-        {
-            if(m_State == null)
-            {
-                dedugger("StatePlayerHand", "m_State == null ");
-                m_State = new StateFree(this);
-
-            }
-
-            return m_State;
-        }
+        get => m_StateVal;
         set
         {
-            m_State = value;
-            m_State.InitState();
+            m_StateVal = value % 3;
+            m_PlayerState[m_StateVal].InitState();
         }
+    }
+
+    public IStatePlayerHand StatePlayer
+    {
+        get => m_PlayerState[StatePlayerHand];
     }
 
     internal KeysHamdler Power
@@ -51,58 +65,96 @@ public class PickUpItem : MonoBehaviour
         get => m_Power;
     }
 
+    // ================================================
+    // auxiliary methods programmings
+    private void dedugger(string func, string i_var)
+    {
+        GameGlobal.Dedugger(k_ClassName, func, i_var);
+    }
+
+    // ================================================
+    // Unity Game Engine
+
+    private void Awake()
+    {
+        m_PlayerState = new IStatePlayerHand[3];
+        m_PlayerState[k_Free] = new StateFree(this);
+        m_PlayerState[k_HoldsObj] = new StateHoldsObj(this);
+        m_PlayerState[k_Powering] = new StatePowering(this);
+
+    }
     protected void Start()
     {
-        Debug.Log("");
+        StatePlayerHand = k_Free;
         ForceMulti = 0;
         m_Power = new KeysHamdler(GameKeyboardControls.k_PowerKey);
-        m_State = new StateFree(this);
+        m_Anim = GetComponentInParent<Animator>();
     }
 
     protected void Update()
     {
-        StatePlayerHand.UpdateByState();
+        StatePlayer.UpdateByState();
     }
 
+    // ================================================
+    //  methods
     internal void SetGameFoodObj(GameObject i_GameObject)
     {
-        dedugger("SetGameFoodObj", "enter ");
- 
-        m_GameObject = i_GameObject;
-        m_GameObject.transform.SetParent(this.transform, false);
+        GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
+        
+        if (obj != null)
+        {
+            m_GameObject = i_GameObject;
+            obj.SetPickUpItem(this);
+            StatePlayerHand++;
+        }
     }
 
     internal void ThrowObj()
     {
-        dedugger("ThrowObj", "enter ");
-    }
-
-    private void dedugger(string func ,string i_var)
-    {
-        GameGlobal.Dedugger(k_ClassName, func, i_var);
-    }
-    protected void OnCollisionEnter(Collision col)
-    {
+        GameFoodObj foodObj = m_GameObject.GetComponent<GameFoodObj>();
         
-        if (col.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+        if (foodObj != null)
         {
-            dedugger("OnCollisionEnter", "CompareTag " +
-                GameGlobal.TagNames.k_FoodObj + " true");
-            m_State.EnterCollisionFoodObj(col.gameObject);
+            foodObj.CleanUpDelegatesPlayer();
+            foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
+            foodObj.ThrowFood(ForceMulti, this.transform.forward);
+            m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
         }
-        else
+
+        StatePlayerHand = k_Free;
+    }
+
+
+    // ================================================
+    // auxiliary methods
+
+    // ================================================
+    // Delegates Invoke 
+
+    // ================================================
+    // ----------------Unity--------------------------- 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
         {
+            StatePlayer.EnterCollisionFoodObj(other.gameObject);
         }
     }
 
-    protected void OnCollisionExit(Collision col)
+    void OnTriggerExit(Collider other)
     {
-        if (col.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+        dedugger("OnCollisionExit", "enter");
+        if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
         {
-            dedugger("OnCollisionExit", "CompareTag " +
-                GameGlobal.TagNames.k_FoodObj + " true");
-            m_State.ExitCollisionFoodObj();
+            StatePlayer.ExitCollisionFoodObj();
         }
+    }
+    // ----------------GameFoodObj---------------------
+    protected virtual void On_HitPlayer_GameFoodObj(object i_Sender, EventArgs e)
+    {
+        // TODO : 
+        ScoreCounter.ScoreValue++;
     }
 }
 

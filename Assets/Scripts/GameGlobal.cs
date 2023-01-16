@@ -26,7 +26,7 @@ namespace DiningCombat
             public const string k_Throwing = "isThrowing";
         }
 
-        public static class FoodObjsNames
+        public static class FoodObjData
         {
             // hit 
             public const string k_Apple = "Apple";
@@ -44,32 +44,66 @@ namespace DiningCombat
             public const string k_Flour = "Flour";
 
         }
+
+        public static class PlayerData
+        {
+            public const float k_MaxPlayerLife = 100;
+
+            // Player-Movement
+            public const float k_DefaultPlayerMovementJumpHeight = 2f;
+            public const float k_DefaultPlayerMovementRunSpeed = 20;
+            public const float k_DefaultPlayerMovementRunSideSpeed = 5;
+            public const float k_DefaultPlayerMovementGroundCheckDistance = 0.2F;
+            public const float k_DefaultPlayerMovementGravity = -9.81F;
+
+            // CameraFollow
+            public const float k_DefaultCameraFollowMouseSensetivity = 1000f;
+
+            // PickUpItem
+            public const float k_MinDistanceToPickUp = 2f;
+            public const int k_MaxItemToPick = 1;
+        }
         // ==================================================
         // Default-SerializeField-val
         // k_ Default - class name - var name
         // ==================================================
 
-        // Player-Movement
-        public const float k_DefaultPlayerMovementRunSpeed = 20,
-            k_DefaultPlayerMovementRunSideSpeed = 5,
-            k_DefaultPlayerMovementGroundCheckDistance = 0.2f,
-            k_DefaultPlayerMovementGravity = -9.81f,
-            k_DefaultPlayerMovementJumpHeight = 2f;
-        //public const LayerMask k_DefaultPlayerMovementGroundMask = LayerMask;
-
-        // CameraFollow
-        public const float k_DefaultCameraFollowMouseSensetivity = 1000f;
-
-        // ==================================================
-        // PickUpItem
-        // ==================================================
-        public const float k_MinDistanceToPickUp = 2f;
-        public const int k_MaxItemToPick = 1;
-
         public static void Dedugger(string i_ClassName, string i_FuncName, string i_Vars)
         {
-            Debug.Log(i_ClassName+"->( "+ i_FuncName +"):|"+ i_Vars);
+            Debug.Log(i_ClassName+"->( "+ i_FuncName +"):  "+ i_Vars);  
         }
 
     }
 }
+// ================================================
+// constant Variable 
+
+// ================================================
+// Delegate
+
+// ================================================
+// Fields 
+
+
+// ================================================
+// ----------------Serialize Field-----------------
+
+// ================================================
+// properties
+
+// ================================================
+// auxiliary methods programmings
+
+// ================================================
+// Unity Game Engine
+
+// ================================================
+//  methods
+
+// ================================================
+// auxiliary methods
+// ================================================
+// Delegates Invoke 
+// ================================================
+// ----------------Unity--------------------------- 
+// ----------------GameFoodObj---------------------

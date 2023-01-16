@@ -7,16 +7,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    // ================================================
+    // constant Variable 
+
+    // ================================================
+    // Delegate
+
+    // ================================================
+    // Variable 
     private OnlineGameAbstractFactory m_GameAbstractFactory;
 
+    // ================================================
+    // ----------------Serialize Field-----------------
     [SerializeField]
     private GameObject m_PrefabPlayer;
-
     [SerializeField]
     private GameObject m_PrefabApple;
     [SerializeField]
     private GameObject m_PrefabDask;
 
+    // ================================================
+    // properties
+
+    // ================================================
+    // auxiliary methods programmings
+
+    // ================================================
+    // Unity Game Engine
     void Start()
     {
         m_GameAbstractFactory = new OfflineGameAbstractFactory();
@@ -25,10 +42,15 @@ public class GameManager : MonoBehaviour
         initGameFoodObj();
         initPlayers();
     }
+    // ================================================
+    //  methods
 
+
+    // ================================================
+    // auxiliary methods
     private void initPlayers()
     {
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             spawnPlayer();
         }
@@ -54,6 +76,8 @@ public class GameManager : MonoBehaviour
         spawn.GetComponent<GameFoodObj>().Destruction += OnDestruction_GameFoodObj;
     }
 
+    // ================================================
+    // Delegates Invoke 
     protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
     }
@@ -61,4 +85,7 @@ public class GameManager : MonoBehaviour
     protected virtual void OnDestruction_Player(object sender, EventArgs e)
     {
     }
+    // ================================================
+    // ----------------Unity--------------------------- 
+    // ----------------GameFoodObj---------------------
 }

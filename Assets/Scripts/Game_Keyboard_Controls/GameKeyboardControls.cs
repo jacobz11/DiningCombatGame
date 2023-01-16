@@ -5,13 +5,13 @@ namespace DiningCombat
 {
     internal class GameKeyboardControls
     {
-        public const byte k_Left = 0,
-            k_Right = 1, k_Forwar = 2,
-            k_Back =3, k_Power = 4, k_Jump =5;
+        // ================================================
+        // constant Variable 
+        public const byte k_Left = 0, k_Right = 1,
+            k_Forwar = 2, k_Back = 3, k_Power = 4,
+            k_Jump = 5;
 
-        // ==================================================
-        // Game-Key-Code
-        // ==================================================
+        // ----------------Game-Key-Code-------------------
         public const KeyCode k_PowerKey = KeyCode.E;
         public const KeyCode k_JumpKey = KeyCode.Space;
 
@@ -31,6 +31,11 @@ namespace DiningCombat
         public const KeyCode k_RightKey = KeyCode.D;
         public const KeyCode k_RightKeyArrow = KeyCode.RightArrow;
 
+        // ================================================
+        // Delegate
+
+        // ================================================
+        // Fields 
         private KeysHamdler m_Left;
         private KeysHamdler m_Right;
         private KeysHamdler m_Up;
@@ -38,36 +43,27 @@ namespace DiningCombat
         private KeysHamdler m_Jump;
         private KeysHamdler m_Power;
 
+        // ================================================
+        // ----------------Serialize Field-----------------
+
+        // ================================================
+        // properties
         internal bool IsVertical
         {
-            get
-            {
-                return m_Up.Press || m_Down.Press;
-            }
+            get => m_Up.Press || m_Down.Press;
         }
         internal bool IsHorizontal
         {
-            get
-            {
-                return m_Left.Press || m_Right.Press;
-            }
-        }
-        public GameKeyboardControls()
-        {
-            m_Left = new KeysHamdler(k_LeftKey, k_LeftKeyArrow);
-            m_Right = new KeysHamdler(k_RightKey, k_RightKeyArrow);
-            m_Up = new KeysHamdler(k_ForwardKey, k_ForwardKeyArrow);
-            m_Down = new KeysHamdler(k_BackKey, k_BackKeyArrow);
-            m_Jump = new KeysHamdler(k_JumpKey);
-            m_Power = new KeysHamdler(k_JumpKey);
+            get => m_Left.Press || m_Right.Press;
         }
 
+        // ----------------Indexer-------------------------
         internal KeysHamdler this[byte i]
         {
             get
             {
-                switch (i) 
-                { 
+                switch (i)
+                {
                     case k_Left:
                         return m_Left;
                     case k_Right:
@@ -84,5 +80,32 @@ namespace DiningCombat
                 throw new Exception();
             }
         }
+        // ================================================
+        // auxiliary methods programmings
+
+        // ================================================
+        // Unity Game Engine
+
+        // ================================================
+        //  methods
+        public GameKeyboardControls()
+        {
+            m_Left = new KeysHamdler(k_LeftKey, k_LeftKeyArrow);
+            m_Right = new KeysHamdler(k_RightKey, k_RightKeyArrow);
+            m_Up = new KeysHamdler(k_ForwardKey, k_ForwardKeyArrow);
+            m_Down = new KeysHamdler(k_BackKey, k_BackKeyArrow);
+            m_Jump = new KeysHamdler(k_JumpKey);
+            m_Power = new KeysHamdler(k_JumpKey);
+        }
+        // ================================================
+        // auxiliary methods
+
+        // ================================================
+        // Delegates Invoke 
+
+        // ================================================
+        // ----------------Unity--------------------------- 
+        // ----------------GameFoodObj---------------------
     }
 }
+

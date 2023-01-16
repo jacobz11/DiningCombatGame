@@ -1,10 +1,33 @@
 ﻿using Assets.Scripts;
-using System.Collections;
 using UnityEngine;
 
 public class AbstractFactoryProductFood 
 {
+    // ================================================
+    // constant Variable 
+
+    // ================================================
+    // Delegate
+
+    // ================================================
+    // Fields 
     private OnlineGameAbstractFactory m_OnlineGameAbstractFactory;
+
+
+    // ================================================
+    // ----------------Serialize Field-----------------
+
+    // ================================================
+    // properties
+
+    // ================================================
+    // auxiliary methods programmings
+
+    // ================================================
+    // Unity Game Engine
+
+    // ================================================
+    //  methods
     public AbstractFactoryProductFood(OnlineGameAbstractFactory i_AbstractFactory)
     {
 
@@ -14,5 +37,16 @@ public class AbstractFactoryProductFood
     {
         return null;
     }
+    // ================================================
+    // auxiliary methods
+
+    // ================================================
+    // Delegates Invoke 
+
+    // ================================================
+    // ----------------Unity--------------------------- 
+    // ----------------GameFoodObj---------------------
+
+
 
 }
