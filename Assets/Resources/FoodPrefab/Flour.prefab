@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 7192988446319441971}
   - component: {fileID: 4921163551931436405}
   - component: {fileID: 803269861720986884}
+  - component: {fileID: -6790392511193119763}
   m_Layer: 0
   m_Name: Flour
   m_TagString: FoodObj
@@ -124,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 6155610106964904069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.4, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3820015354301553315}
@@ -159,3 +160,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &-6790392511193119763
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6155610106964904069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

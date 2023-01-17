@@ -42,31 +42,14 @@ internal class StateFree : IStatePlayerHand
 
     public void InitState()
     {
-        //dedugger("InitState", "enter");
         m_PickUpItem.ForceMulti = 0;
-        //m_PickUpItem.SetThrowingAnim(!PickUpItem.k_ThrowObj);
     }
 
     public bool IsPassStage()
     {
-        bool res = false;
-        string str = "m_GameObject is null";
+        bool haveObj = m_GameObject != null;
 
-        if (m_GameObject != null)
-        {
-            if (m_PickUpItem.Power.Press)
-            {
-                res = true;
-                str = "m_GameObject not null and Press";
-            }
-            else
-            {
-                str = "m_GameObject not null but not Press";
-            }
-            //dedugger("IsPassStage", str);
-        }
-
-        return res;
+        return haveObj && m_PickUpItem.Power.Press;
     }
 
 
@@ -74,20 +57,17 @@ internal class StateFree : IStatePlayerHand
     {
         if (IsPassStage())
         {
-            dedugger("UpdateByState", " IsPassStage enter");
             m_PickUpItem.SetGameFoodObj(m_GameObject);
         }
     }
 
     public void EnterCollisionFoodObj(GameObject i_GameObject)
     {
-        //dedugger("EnterCollisionFoodObj", "enter");
         m_GameObject = i_GameObject;
     }
 
     public void ExitCollisionFoodObj()
     {
-        //dedugger("ExitCollisionFoodObj", "enter");
         m_GameObject = null;
     }
     // ================================================

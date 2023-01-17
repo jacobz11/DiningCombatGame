@@ -35,6 +35,7 @@ namespace Assets.Scripts
         {
             //SceneManager.LoadScene(i_SceneName, LoadSceneMode.Additive);
             m_InitiMapFactory = new AbstractFactoryProductInitiMap();
+            m_FoodFactory = new AbstractFactoryProductFood(this);
             //m_FoodFactory = new AbstractFactoryProductFood();
         }
 

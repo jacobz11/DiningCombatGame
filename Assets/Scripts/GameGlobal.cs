@@ -9,13 +9,14 @@ namespace DiningCombat
         {
             public const string k_Player = "Player";
             public const string k_PickUpPoint = "PickUpPoint";
+            public const string k_Ground = "Ground";
         }
         public static class TagNames
         {
             public const string k_Ground = "Ground";
             public const string k_Capsule = "Capsule";
             public const string k_FoodObj = "FoodObj";
-            public const string k_ThrowFoodObj = "sFoodObj";
+            public const string k_ThrowFoodObj = "ThrownObject";
             public const string k_Player = "Player";
         }
 
@@ -28,20 +29,25 @@ namespace DiningCombat
 
         public static class FoodObjData
         {
+            public const byte k_NumOfPrefab = 4; 
             // hit 
             public const string k_Apple = "Apple";
             public const byte k_AppleVar = 0;
+            public const string k_AppleLocation = @"FoodPrefab\Apple";
 
             public const string k_Tomato = "Tomato";
             public const byte k_TomatoVar = 1;
+            public const string k_TomatoLocation = @"FoodPrefab\Tomato";
 
             // Dispersing
             public const string k_Cabbage = "Cabbage";
-            public const byte k_CabbageVar = 0;
+            public const byte k_CabbageVar = 2;
+            public const string k_CabbageLocation = @"FoodPrefab\Cabbage";
 
             // 
-            public const byte k_FlourVar = 0;
             public const string k_Flour = "Flour";
+            public const byte k_FlourVar = 3;
+            public const string k_FlourLocation = @"FoodPrefab\Flour";
 
         }
 
@@ -73,6 +79,10 @@ namespace DiningCombat
             Debug.Log(i_ClassName+"->( "+ i_FuncName +"):  "+ i_Vars);  
         }
 
+        public static string GetGameGlobalLocation()
+        {
+            return null;
+        }
     }
 }
 // ================================================
