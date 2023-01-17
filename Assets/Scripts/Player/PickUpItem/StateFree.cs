@@ -2,19 +2,26 @@
 using DiningCombat;
 using UnityEngine;
 
+/// <summary>
+/// This class represents the situation in which
+/// The player <b>not holding</b> an object of <see cref="GameFoodObj"/>
+/// and the player is looking for <see cref="GameFoodObj"/> to pick up 
+/// <para>THIS IS INIT Stat </para>
+/// implenrt the interface <see cref="IStatePlayerHand"/>
+/// </summary>
 internal class StateFree : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
     private const string k_ClassName = "StateFree";
-    private const int k_Next = PickUpItem.k_HoldsObj;
-    private const int k_Previous = PickUpItem.k_Powering;
+    private const int k_Next = HandPickUp.k_HoldsObj;
+    private const int k_Previous = HandPickUp.k_Powering;
     // ================================================
     // Delegate
 
     // ================================================
     // Fields
-    private PickUpItem m_PickUpItem;
+    private HandPickUp m_PickUpItem;
     private GameObject m_GameObject;
 
     // ================================================
@@ -22,7 +29,10 @@ internal class StateFree : IStatePlayerHand
 
     // ================================================
     // properties
-
+    private bool haveGameObject
+    {
+        get => m_GameObject != null; 
+    }
     // ================================================
     // auxiliary methods programmings
     private void dedugger(string func, string i_var)
@@ -34,7 +44,7 @@ internal class StateFree : IStatePlayerHand
 
     // ================================================
     //  methods
-    public StateFree(PickUpItem i_PickUpItem)
+    public StateFree(HandPickUp i_PickUpItem)
     {
         m_PickUpItem = i_PickUpItem;
         m_GameObject = null;
@@ -47,9 +57,7 @@ internal class StateFree : IStatePlayerHand
 
     public bool IsPassStage()
     {
-        bool haveObj = m_GameObject != null;
-
-        return haveObj && m_PickUpItem.Power.Press;
+        return haveGameObject && m_PickUpItem.Power.Press;
     }
 
 
@@ -72,7 +80,6 @@ internal class StateFree : IStatePlayerHand
     }
     // ================================================
     // auxiliary methods
-
     // ================================================
     // Delegates Invoke 
 

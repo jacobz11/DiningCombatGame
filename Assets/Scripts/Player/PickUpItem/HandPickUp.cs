@@ -3,7 +3,10 @@ using DiningCombat;
 using System;
 using UnityEngine;
 
-public class PickUpItem : MonoBehaviour
+/// <summary>
+/// this is a  
+/// </summary>
+public class HandPickUp : MonoBehaviour
 {
     // location : Player-> Goalie Throw -> mixamorig:Hips
     // -> mixamorig:Spine -> mixamorig:Spine1 -> mixamorig:Spine2
@@ -12,7 +15,7 @@ public class PickUpItem : MonoBehaviour
 
     // ================================================
     // constant Variable 
-    private const string k_ClassName = nameof(PickUpItem);
+    private const string k_ClassName = nameof(HandPickUp);
     public const int k_Free = 0;
     public const int k_HoldsObj = 1;
     public const int k_Powering = 2;
@@ -86,7 +89,6 @@ public class PickUpItem : MonoBehaviour
     protected void Start()
     {
         StatePlayerHand = k_Free;
-        ForceMulti = 0;
         m_Power = new KeysHamdler(GameKeyboardControls.k_PowerKey);
         m_Anim = GetComponentInParent<Animator>();
     }

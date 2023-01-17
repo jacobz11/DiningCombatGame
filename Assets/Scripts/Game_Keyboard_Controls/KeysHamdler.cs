@@ -2,6 +2,9 @@
 
 namespace DiningCombat
 {
+    /// <summary>
+    /// this struct is 
+    /// </summary>
     internal struct KeysHamdler
     {
         // ================================================

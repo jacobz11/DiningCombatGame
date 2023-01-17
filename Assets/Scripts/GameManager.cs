@@ -125,7 +125,6 @@ public class GameManager : MonoBehaviour
     // Delegates Invoke 
     protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
-        Debug.Log("OnDestruction_GameFoodObj ");
         spawnGameFoodObj();
     }
 

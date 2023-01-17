@@ -3,6 +3,13 @@ using UnityEngine;
 
 namespace DiningCombat
 {
+    /// <summary>
+    /// this class is to manage buttons input 
+    /// <para>this will be an Abstract-Factory
+    /// that get from the System the Device Type and
+    /// return the a <see cref="GameKeyboardControls"/>by input Device Type
+    /// </para>
+    /// </summary>
     internal class GameKeyboardControls
     {
         // ================================================

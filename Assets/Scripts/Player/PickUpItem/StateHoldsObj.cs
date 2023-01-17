@@ -1,22 +1,26 @@
 ﻿using Assets.Scripts.PickUpItem;
 using DiningCombat;
-using System.Diagnostics;
 using UnityEngine;
 
+/// <summary>
+/// This class represents the situation in which
+/// The player <b> holding</b> an object of <see cref="GameFoodObj"/>
+/// implenrt the interface <see cref="IStatePlayerHand"/>
+/// </summary>
 internal class StateHoldsObj : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
     private const string k_ClassName = "StateHoldsObj";
-    private const int k_Next = PickUpItem.k_Powering;
-    private const int k_Previous = PickUpItem.k_Free;
+    private const int k_Next = HandPickUp.k_Powering;
+    private const int k_Previous = HandPickUp.k_Free;
 
     // ================================================
     // Delegate
 
     // ================================================
     // Fields
-    private PickUpItem m_PickUpItem;
+    private HandPickUp m_PickUpItem;
 
     // ================================================
     // ----------------Serialize Field-----------------
@@ -35,7 +39,7 @@ internal class StateHoldsObj : IStatePlayerHand
 
     // ================================================
     //  methods
-    public StateHoldsObj(PickUpItem i_PickUpItem)
+    public StateHoldsObj(HandPickUp i_PickUpItem)
     {
         m_PickUpItem = i_PickUpItem;
     }
@@ -58,7 +62,6 @@ internal class StateHoldsObj : IStatePlayerHand
 
     public void InitState()
     {
-        dedugger("InitState", "enter");
         m_PickUpItem.ForceMulti = 0;
     }
     public bool IsPassStage()

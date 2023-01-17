@@ -66,7 +66,7 @@ public class GameFoodObj : MonoBehaviour
         m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
     }
 
-    internal void SetPickUpItem(PickUpItem pickUpItem)
+    internal void SetPickUpItem(HandPickUp pickUpItem)
     {
         this.transform.position = pickUpItem.transform.position;
         this.transform.SetParent(pickUpItem.transform, true);
@@ -116,10 +116,10 @@ public class GameFoodObj : MonoBehaviour
     /// <param name="i_Collision"></param>
     /// <param name="o_Pic"></param>
     /// <returns>if parsing success </returns>
-    private bool parseCollision(Collision i_Collision, out PickUpItem o_Pic)
+    private bool parseCollision(Collision i_Collision, out HandPickUp o_Pic)
     {
         o_Pic = i_Collision.gameObject
-            .GetComponentInChildren(typeof(PickUpItem)) as PickUpItem;
+            .GetComponentInChildren(typeof(HandPickUp)) as HandPickUp;
         
         return (o_Pic != null);
     }
@@ -144,7 +144,7 @@ public class GameFoodObj : MonoBehaviour
     /// <false>false->ExitCollisionFoodObj</false></param>
     private void notifyPlayerPickUp(Collision i_Collision, bool i_IsEnter)
     {
-        if (parseCollision(i_Collision, out PickUpItem o_Pick))
+        if (parseCollision(i_Collision, out HandPickUp o_Pick))
         {
             if (i_IsEnter)
             {

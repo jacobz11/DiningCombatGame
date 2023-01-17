@@ -1,19 +1,30 @@
 ﻿using Assets.Scripts.PickUpItem;
 using DiningCombat;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// This class represents the situation in which
+/// The player <b>holding</b> an object of <see cref="GameFoodObj"/>
+/// and the player is Powering 
+/// this class will:
+/// <para>OR Throw Obj  <see cref="HandPickUp.ThrowObj"/> </para>
+/// <para>OR add add To Force Multi  <see cref="addToForceMulti"/></para>
+/// <para>OR go back to <see cref="StateHoldsObj"/></para>
+/// implenrt the interface <see cref="IStatePlayerHand"/>
+/// </summary>
 internal class StatePowering : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
     private const string k_ClassName = "StatePowering";
-    private const int k_Previous = PickUpItem.k_HoldsObj;
+    private const int k_Previous = HandPickUp.k_HoldsObj;
     // ================================================
     // Delegate
 
     // ================================================
     // Fields
-    private PickUpItem m_PickUpItem;
+    private HandPickUp m_PickUpItem;
 
     // ================================================
     // ----------------Serialize Field-----------------
@@ -32,7 +43,7 @@ internal class StatePowering : IStatePlayerHand
 
     // ================================================
     //  methods
-    public StatePowering(PickUpItem i_PickUpItem)
+    public StatePowering(HandPickUp i_PickUpItem)
     {
         m_PickUpItem = i_PickUpItem;
     }

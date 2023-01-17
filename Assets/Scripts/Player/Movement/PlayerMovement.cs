@@ -97,28 +97,39 @@ namespace DiningCombat
         }
         // ================================================
         // auxiliary methods programmings
-        private void initDefualtSerializeField()
-        {
-            if (m_RunSpeed <= 0) m_RunSpeed = 
-                    GameGlobal.PlayerData.k_DefaultPlayerMovementRunSpeed;
-            if (m_RunSideSpeed <= 0) m_RunSideSpeed = 
-                    GameGlobal.PlayerData.k_DefaultPlayerMovementRunSideSpeed;
 
-            if (m_GroundCheckDistance == 0) m_GroundCheckDistance =
-                    GameGlobal.PlayerData.k_DefaultPlayerMovementGroundCheckDistance;
-
-            if (m_Gravity == 0) m_Gravity = 
-                    GameGlobal.PlayerData.k_DefaultPlayerMovementGravity;
-
-            if (m_JumpHeight <= 0) m_JumpHeight =
-                    GameGlobal.PlayerData.k_DefaultPlayerMovementJumpHeight; 
-        }
 
         // ================================================
         // Unity Game Engine
+
+        private void Awake()
+        {
+            if (m_RunSpeed <= 0)
+            {
+                m_RunSpeed = GameGlobal.PlayerData.k_DefaultPlayerMovementRunSpeed;
+            }
+            if (m_RunSideSpeed <= 0) 
+            {
+                m_RunSideSpeed = GameGlobal.PlayerData.k_DefaultPlayerMovementRunSideSpeed;
+            }
+
+            if (m_GroundCheckDistance == 0)
+            {
+                m_GroundCheckDistance = GameGlobal.PlayerData
+                    .k_DefaultPlayerMovementGroundCheckDistance;
+            }
+            if (m_Gravity == 0)
+            {
+                m_Gravity = GameGlobal.PlayerData.k_DefaultPlayerMovementGravity;
+            }
+
+            if (m_JumpHeight <= 0)
+            {
+                m_JumpHeight = GameGlobal.PlayerData.k_DefaultPlayerMovementJumpHeight;
+            }
+        }
         void Start()
         {
-            initDefualtSerializeField();
             m_Controls = new GameKeyboardControls();
             m_Controller = GetComponent<CharacterController>();
             m_Anim = GetComponentInChildren<Animator>();

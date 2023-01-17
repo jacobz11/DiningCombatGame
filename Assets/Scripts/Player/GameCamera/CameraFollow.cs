@@ -28,7 +28,10 @@ namespace DiningCombat
 
         // ================================================
         // auxiliary methods programmings
-        private void initDefualtSerializeField()
+
+        // ================================================
+        // Unity Game Engine
+        private void Awake()
         {
             if (m_Parent == null)
             {
@@ -40,15 +43,11 @@ namespace DiningCombat
                     .k_DefaultCameraFollowMouseSensetivity;
             }
         }
-
-        // ================================================
-        // Unity Game Engine
         protected void Start()
         {
             m_Parent = transform.parent;
 
             Cursor.lockState = CursorLockMode.Locked;
-            initDefualtSerializeField();
         }
         protected void Update()
         {
