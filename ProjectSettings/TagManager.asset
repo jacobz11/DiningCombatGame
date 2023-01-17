@@ -9,6 +9,8 @@ TagManager:
   - Sphere
   - Power
   - FoodObj
+  - ThrownObject
+  - wall
   layers:
   - Default
   - TransparentFX

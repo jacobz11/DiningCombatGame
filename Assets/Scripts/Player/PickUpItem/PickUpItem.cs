@@ -144,7 +144,6 @@ public class PickUpItem : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        dedugger("OnCollisionExit", "enter");
         if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
         {
             StatePlayer.ExitCollisionFoodObj();

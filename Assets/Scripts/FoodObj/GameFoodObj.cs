@@ -60,10 +60,19 @@ public class GameFoodObj : MonoBehaviour
     public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
     {
         IsThrow = true;
-        this.tag = GameGlobal.TagNames.k_ThrowFoodObj;
+        tag = GameGlobal.TagNames.k_ThrowFoodObj;
+        transform.parent = null;
+        m_Rigidbody.useGravity = true;
         m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
     }
 
+    internal void SetPickUpItem(PickUpItem pickUpItem)
+    {
+        this.transform.position = pickUpItem.transform.position;
+        this.transform.SetParent(pickUpItem.transform, true);
+        this.transform.localPosition = pickUpItem.transform.localPosition;
+        m_Rigidbody.useGravity = false;
+    }
     /// <summary>
     /// collision After Throwing Handler will:
     /// 1. will tell the throw player if it hit the player
@@ -195,7 +204,7 @@ public class GameFoodObj : MonoBehaviour
     private void destruction()
     {
         OnDestruction(EventArgs.Empty);
-        Destroy(this);
+        Destroy(this.gameObject, 1);
     }
 
     protected virtual void OnDestruction(EventArgs e)
@@ -206,13 +215,5 @@ public class GameFoodObj : MonoBehaviour
     internal void CleanUpDelegatesPlayer()
     {
         //HitPlayer
-    }
-
-    internal void SetPickUpItem(PickUpItem pickUpItem)
-    {
-        this.transform.position = pickUpItem.transform.position;
-        this.transform.SetParent(pickUpItem.transform, true);
-        this.transform.localPosition = pickUpItem.transform.localPosition;
-        m_Rigidbody.useGravity = false;
     }
 }
