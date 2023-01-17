@@ -119,9 +119,9 @@ public class HandPickUp : MonoBehaviour
         if (foodObj != null)
         {
             foodObj.CleanUpDelegatesPlayer();
+            m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
             foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
             foodObj.ThrowFood(ForceMulti, this.transform.forward);
-            m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
         }
 
         StatePlayerHand = k_Free;
