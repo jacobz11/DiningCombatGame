@@ -1286,6 +1286,10 @@ MonoBehaviour:
   m_RunSpeed: 20.96
   m_RunSideSpeed: 5
   m_JumpHeight: 2
+  m_AnimeRunnig: 0
+  m_AnimeSideRunnig: 0
+  m_AnimeThrowingRunnig: 0
+  m_TheRealSituation: 
   m_GroundCheckDistance: 0.2
   m_GroundMask:
     serializedVersion: 2
@@ -1812,3 +1816,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Effect: {fileID: 0}

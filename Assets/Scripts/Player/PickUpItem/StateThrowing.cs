@@ -1,18 +1,15 @@
 ﻿using Assets.Scripts.PickUpItem;
-using DiningCombat;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PickUpItem
 {
+    /// <summary>
+    /// This mode should create synchronization between the shot and the animation
+    /// </summary>
     internal class StateThrowing : IStatePlayerHand 
     {
+
         private const int k_FramesToThrow = 614;
         private const int k_MaxFrame = 800;
         private int m_NumOfFrames;
@@ -62,9 +59,6 @@ namespace Assets.Scripts.Player.PickUpItem
             {
                 m_PickUpItem.StatePlayerHand++;
             }
-            //Debug.Log("IsPassStage() :" + IsPassStage() + ", m_NumOfFrames : " + m_NumOfFrames + " anima :" + m_PickUpItem.ThrowingAnimator);
-            
-
             ++m_NumOfFrames;
         }
 

@@ -1,7 +1,9 @@
 ﻿using DiningCombat;
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 using Assets.Scripts.Player;
+using static UnityEngine.ParticleSystem;
 
 public class GameFoodObj : MonoBehaviour
 {
@@ -9,7 +11,6 @@ public class GameFoodObj : MonoBehaviour
     // constant Variable 
     private const bool k_Enter = true, k_Exit = false;
     private const string k_ClassName = nameof(GameFoodObj);
-
     // ================================================
     // Delegate
     /// <summary>to notify the thrower that he hit</summary>
@@ -22,6 +23,9 @@ public class GameFoodObj : MonoBehaviour
     // Fields 
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
+
+    [SerializeField]
+    private ParticleSystem m_Effect;
     // ================================================
     // ----------------Serialize Field-----------------
 
@@ -45,6 +49,7 @@ public class GameFoodObj : MonoBehaviour
     protected virtual void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        //m_Effect.Stop();
     }
 
     // ================================================
@@ -95,7 +100,9 @@ public class GameFoodObj : MonoBehaviour
 
     private bool performTheEffect()
     {
-        // TODO: 
+        ParticleSystem effect = Instantiate(m_Effect, transform.position, transform.rotation);
+        effect.Play();
+        Destroy(effect, 1.5f);
         return true;
     }
 

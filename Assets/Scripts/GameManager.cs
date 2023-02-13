@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         m_GameAbstractFactory = new OfflineGameAbstractFactory();
-        
     }
     void Start()
     {
