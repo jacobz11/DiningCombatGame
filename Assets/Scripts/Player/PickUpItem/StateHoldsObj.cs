@@ -11,7 +11,6 @@ internal class StateHoldsObj : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
-    private const string k_ClassName = "StateHoldsObj";
     private const int k_Next = HandPickUp.k_Powering;
     private const int k_Previous = HandPickUp.k_Free;
 
@@ -30,10 +29,7 @@ internal class StateHoldsObj : IStatePlayerHand
 
     // ================================================
     // auxiliary methods programmings
-    private void dedugger(string func, string i_var)
-    {
-        GameGlobal.Dedugger(k_ClassName, func, i_var);
-    }
+
     // ================================================
     // Unity Game Engine
 
@@ -44,20 +40,16 @@ internal class StateHoldsObj : IStatePlayerHand
         m_PickUpItem = i_PickUpItem;
     }
 
-    public void EnterCollisionFoodObj(GameObject i_GameObject)
+    public void EnterCollisionFoodObj(Collider other)
     {
-
         // for now this is should be empty
         // the implementing only in StateFree
-        //dedugger("EnterCollisionFoodObj", "enter");
     }
 
-    public void ExitCollisionFoodObj()
+    public void ExitCollisionFoodObj(Collider other)
     {
-
         // for now this is should be empty
         // the implementing only in StateFree
-        //dedugger("ExitCollisionFoodObj", "enter");
     }
 
     public void InitState()
@@ -73,13 +65,8 @@ internal class StateHoldsObj : IStatePlayerHand
     {
         if (IsPassStage())
         {
-            //dedugger("UpdateByState", "enter IsPassStage");
             m_PickUpItem.StatePlayerHand = k_Next;
         }
-        //else
-        //{
-        //    dedugger("UpdateByState", "enter else IsPassStage");
-        //}
     }
     // ================================================
     // auxiliary methods

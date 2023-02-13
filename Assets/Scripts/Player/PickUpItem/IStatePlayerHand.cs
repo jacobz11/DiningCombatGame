@@ -26,7 +26,7 @@ namespace Assets.Scripts.PickUpItem
         /// not automatically pick it up 
         /// </summary>
         /// <param name="i_GameObject"></param>
-        void EnterCollisionFoodObj(GameObject i_GameObject);
+        void EnterCollisionFoodObj(Collider other);
 
         /// <summary>
         /// for now the implementing only in StateFree
@@ -34,6 +34,6 @@ namespace Assets.Scripts.PickUpItem
         /// In order to seve the GameObject and 
         /// not automatically pick it up 
         /// </summary>
-        void ExitCollisionFoodObj();
+        void ExitCollisionFoodObj(Collider other);
     }
 }

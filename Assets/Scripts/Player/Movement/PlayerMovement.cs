@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace DiningCombat
 {
@@ -7,27 +8,27 @@ namespace DiningCombat
     {
         // ================================================
         // constant Variable 
-        private const string k_ClassName = nameof(PlayerMovement);
-        private const string k_RunningSide = GameGlobal.AnimationName.k_RunningSide,
-            k_Running = GameGlobal.AnimationName.k_Running;
+        private const string k_RunningSide = GameGlobal.AnimationName.k_RunningSide;
+        private const string k_Running = GameGlobal.AnimationName.k_Running;
 
         // ----------------keyboard------------------------ 
-        private const byte k_LeftKey = GameKeyboardControls.k_Left,
-            k_RightKey = GameKeyboardControls.k_Right,
-            k_ForwarKey = GameKeyboardControls.k_Forwar,
-            k_BackKey = GameKeyboardControls.k_Back,
-            k_PowerKey = GameKeyboardControls.k_Power,
-            k_JumpKey = GameKeyboardControls.k_Power;
+        private const byte k_LeftKey = GameKeyboardControls.k_Left;
+        private const byte k_RightKey = GameKeyboardControls.k_Right;
+        private const byte k_ForwarKey = GameKeyboardControls.k_Forwar;
+        private const byte k_BackKey = GameKeyboardControls.k_Back;
+        private const byte k_PowerKey = GameKeyboardControls.k_Power;
+        private const byte k_JumpKey = GameKeyboardControls.k_Jump;
 
         // ----------------Axis---------------------------- 
-        private const string k_AxisHorizontal = "Horizontal",
-            k_AxisVertical = "Vertical";
+        private const string k_AxisHorizontal = "Horizontal";
+        private const string k_AxisVertical = "Vertical";
 
         /// <summary> constant var for get-Update-Direction </summary>
-        private const bool k_ThisIsAxisHorizontal = true,
-            k_ThisIsAxisVertical = false;
+        private const bool k_ThisIsAxisHorizontal = true;
+        private const bool k_ThisIsAxisVertical = false;
 
-        // ----------------Scale Vector--------------------
+        // ----------------Scale Vector-------------------- 
+
         private static readonly Vector3 sr_ScaleToRight = Vector3.one;
         private static readonly Vector3 sr_ScaleToLeft = new(-1, 1, 1);
 
@@ -47,6 +48,7 @@ namespace DiningCombat
         // ----------------Axis---------------------------- 
         private CharacterController m_Controller;
         private GameKeyboardControls m_Controls;
+
         private Animator m_Anim;
 
         // ================================================
@@ -61,11 +63,23 @@ namespace DiningCombat
         [SerializeField]
         private float m_JumpHeight;
 
+        // to debud 
+        [SerializeField]
+        private bool m_AnimeRunnig;
+        [SerializeField]
+        private bool m_AnimeSideRunnig;
+        [SerializeField]
+        private bool m_AnimeThrowingRunnig;
+        [SerializeField]
+        private string m_TheRealSituation;
+
+
         // ----------------Ground Field--------------------
         [SerializeField]
         private float m_GroundCheckDistance;
         [SerializeField]
         private LayerMask m_GroundMask;
+
 
         // ----------------Physics-------------------------
         [SerializeField]
@@ -102,7 +116,7 @@ namespace DiningCombat
         // ================================================
         // Unity Game Engine
 
-        private void Awake()
+        void Awake()
         {
             if (m_RunSpeed <= 0)
             {
@@ -141,7 +155,6 @@ namespace DiningCombat
             {
                 m_Velocity.y = -2f;
             }
-
             m_HorizontalDirection = getUpdateDirection(k_ThisIsAxisHorizontal);
             m_VerticalDirectionSide = getUpdateDirection(k_ThisIsAxisVertical);
 
@@ -151,9 +164,18 @@ namespace DiningCombat
             m_Controller.Move(m_HorizontalDirection * Time.deltaTime);
             m_Controller.Move(m_VerticalDirectionSide * Time.deltaTime);
 
+            updateDebug();
+
             // Actual Jumping
             m_Velocity.y += m_Gravity * Time.deltaTime;
             m_Controller.Move(m_Velocity * Time.deltaTime);
+        }
+
+        private void updateDebug()
+        {
+            m_AnimeRunnig = m_Anim.GetBool(k_Running);
+            m_AnimeSideRunnig = m_Anim.GetBool(k_RunningSide);
+            m_AnimeThrowingRunnig = m_Anim.GetBool(GameGlobal.AnimationName.k_Throwing);
         }
 
         // ================================================
@@ -162,17 +184,17 @@ namespace DiningCombat
         {
             if (isGrounded())
             {
-                if (IsVerticalMove)
+                if (IsHorizontalMove)
                 {
                     running();
                 }
-                else if (IsHorizontalMove)
+                else if (IsVerticalMove)
                 {
                     runningSide();
                 }
                 else
                 {
-                    //idle();
+                    idle();
                 }
 
                 m_HorizontalDirection *= m_MoveSpeed;
@@ -185,27 +207,31 @@ namespace DiningCombat
         // ----------------Types Of Movements--------------
         private void idle()
         {
-            // TODO: 
+            m_Anim.SetBool(k_RunningSide, false);
+            m_Anim.SetBool(k_Running, false);
+            m_TheRealSituation = "idle";
         }
 
         private void running()
         {
+            m_Anim.SetBool(k_RunningSide, false);
             m_Anim.SetBool(k_Running, true);
+            m_TheRealSituation = "running";
             m_MoveSpeed = m_RunSpeed;
         }
 
         private void runningSide()
         {
-            if (m_Controls.IsHorizontal)
-            {
-                transform.localScale = m_Controls[k_LeftKey]
-                    .Press ? sr_ScaleToLeft 
-                            : sr_ScaleToRight;
-                m_Anim.SetBool(k_RunningSide,true);
-            }
-
-            m_Anim.SetBool(k_RunningSide, m_Controls.IsHorizontal);
+            localScaleePleyar();
+            m_Anim.SetBool(k_Running, false);
+            m_Anim.SetBool(k_RunningSide, true);
+            m_TheRealSituation = "runningSide";
             m_MoveSpeed = m_RunSideSpeed;
+        }
+
+        private void localScaleePleyar()
+        {
+            transform.localScale = m_Controls[k_LeftKey].Press ? sr_ScaleToLeft : sr_ScaleToRight;
         }
 
         private void jump()
@@ -241,42 +267,5 @@ namespace DiningCombat
 
             return transform.TransformDirection(new Vector3(x, y, z));
         }
-        // Delegates Invoke 
-        // ================================================
-        // ----------------Unity--------------------------- 
-        // ----------------GameFoodObj---------------------
     }
 }
-
-
-// ----------------Axis---------------------------- 
-
-// ==================================================
-// property
-// ==================================================
-
-//public Vector3 MoveDirection
-//{
-//    get => m_HorizontalDirection;
-//}
-
-
-//private void animationRun(bool i_Running, bool i_SideRunning)
-//{
-//    m_Anim.SetBool(GameGlobal.AnimationName.k_Running, i_Running);
-//    m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, i_SideRunning);
-//}
-
-//private void throwing()
-//{
-//    if (m_Controls[k_PowerKey].Down)
-//    {
-//        m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
-//        transform.localScale = sr_ScaleToRight;
-//    }
-//    else if (m_Controls[k_PowerKey].Up)
-//    {
-//        m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, false);
-//        transform.localScale = sr_ScaleToRight;
-//    }
-//}

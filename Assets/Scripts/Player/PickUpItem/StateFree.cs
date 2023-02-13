@@ -35,10 +35,6 @@ internal class StateFree : IStatePlayerHand
     }
     // ================================================
     // auxiliary methods programmings
-    private void dedugger(string func, string i_var)
-    {
-        GameGlobal.Dedugger(k_ClassName, func, i_var);
-    }
     // ================================================
     // Unity Game Engine
 
@@ -69,14 +65,20 @@ internal class StateFree : IStatePlayerHand
         }
     }
 
-    public void EnterCollisionFoodObj(GameObject i_GameObject)
+    public void EnterCollisionFoodObj(Collider other)
     {
-        m_GameObject = i_GameObject;
+        if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+        {
+            m_GameObject = other.gameObject;
+        }
     }
 
-    public void ExitCollisionFoodObj()
+    public void ExitCollisionFoodObj(Collider other)
     {
-        m_GameObject = null;
+        if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+        {
+            m_GameObject = null;
+        }
     }
     // ================================================
     // auxiliary methods
@@ -87,15 +89,3 @@ internal class StateFree : IStatePlayerHand
     // ----------------Unity--------------------------- 
     // ----------------GameFoodObj---------------------
 }
-
-
-//        
-//        dedugger("EnterCollisionFoodObj", "enter");
-//        dedugger("InitState", "enter");
-
-
-
-//private bool isPickUpDistance()
-//{
-//    return Vector3.Distance(m_GameObject.transform.position, m_PickUpItem.transform.position) <= 2;
-//}

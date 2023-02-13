@@ -32,16 +32,13 @@ public class GameFoodObj : MonoBehaviour
         get => m_IsThrow;
         private set
         {
+            tag = GameGlobal.TagNames.k_ThrowFoodObj;
             m_IsThrow = value;
         }
     }
 
     // ================================================
     // auxiliary methods programmings
-    private void dedugger(string func, string i_var)
-    {
-        GameGlobal.Dedugger(k_ClassName, func, i_var);
-    }
 
     // ================================================
     // Unity Game Engine
@@ -60,7 +57,6 @@ public class GameFoodObj : MonoBehaviour
     public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
     {
         IsThrow = true;
-        tag = GameGlobal.TagNames.k_ThrowFoodObj;
         transform.parent = null;
         m_Rigidbody.useGravity = true;
         m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
@@ -87,13 +83,10 @@ public class GameFoodObj : MonoBehaviour
             OnHitPlayer(EventArgs.Empty);
             PlayerHp playerHit = i_Collision.gameObject
                 .GetComponent<PlayerHp>();
+
             if (playerHit != null)
             {
                 playerHit.HitYou(1f);
-            }
-            else
-            {
-
             }
         }
 
@@ -110,19 +103,6 @@ public class GameFoodObj : MonoBehaviour
 
     // ================================================
     // auxiliary methods
-    /// <summary>
-    /// this func parsing form Collision PickUpItem 
-    /// </summary>
-    /// <param name="i_Collision"></param>
-    /// <param name="o_Pic"></param>
-    /// <returns>if parsing success </returns>
-    private bool parseCollision(Collision i_Collision, out HandPickUp o_Pic)
-    {
-        o_Pic = i_Collision.gameObject
-            .GetComponentInChildren(typeof(HandPickUp)) as HandPickUp;
-        
-        return (o_Pic != null);
-    }
 
     /// <summary>
     /// a query to test if Collision tag as Player
@@ -134,32 +114,6 @@ public class GameFoodObj : MonoBehaviour
         return i_Collision.gameObject.CompareTag(GameGlobal.TagNames.k_Player);
     }
 
-    /// <summary>
-    /// this func notify the PickUpItem (Player)
-    /// interface IStatePlayerHand - cant or can Pick-Up this item
-    /// </summary>
-    /// <param name="i_Collision"></param>
-    /// <param name="i_IsEnter">
-    /// <true>true->Enter-Collision-Food-Obj</true>
-    /// <false>false->ExitCollisionFoodObj</false></param>
-    private void notifyPlayerPickUp(Collision i_Collision, bool i_IsEnter)
-    {
-        if (parseCollision(i_Collision, out HandPickUp o_Pick))
-        {
-            if (i_IsEnter)
-            {
-                o_Pick.StatePlayer.EnterCollisionFoodObj(this.gameObject);
-            }
-            else
-            {
-                o_Pick.StatePlayer.ExitCollisionFoodObj();
-            }
-        }
-        else
-        {
-            dedugger("notify-Player-Cant-PickUp", "eror :parse-Collision Fails");
-        }
-    }
 
     // ================================================
     // Delegates Invoke 
@@ -173,25 +127,9 @@ public class GameFoodObj : MonoBehaviour
     /// <param name="i_Collision"></param>
     protected virtual void OnCollisionEnter(Collision i_Collision)
     {
-        if (isPlayer(i_Collision) && !IsThrow)
-        {
-            notifyPlayerPickUp(i_Collision, k_Enter);
-        }
-        else if (IsThrow)
+        if (IsThrow)
         {
             collisionAfterThrowingHandler(i_Collision);
-        }
-    }
-
-    /// <summary>
-    /// this wiil notify the Player thet he cant PickUp this
-    /// </summary>
-    /// <param name="i_Collision"></param>
-    protected virtual void OnCollisionExit(Collision i_Collision)
-    {
-        if (isPlayer(i_Collision) && !IsThrow)
-        {
-            notifyPlayerPickUp(i_Collision, k_Exit);
         }
     }
 
@@ -217,3 +155,62 @@ public class GameFoodObj : MonoBehaviour
         //HitPlayer
     }
 }
+
+
+//if (isPlayer(i_Collision) && !IsThrow)
+//{
+//    notifyPlayerPickUp(i_Collision, k_Enter);
+//}
+//else
+
+/// <summary>
+/// this wiil notify the Player thet he cant PickUp this
+/// </summary>
+/// <param name="i_Collision"></param>
+//protected virtual void OnCollisionExit(Collision i_Collision)
+//{
+//    if (isPlayer(i_Collision) && !IsThrow)
+//    {
+//        notifyPlayerPickUp(i_Collision, k_Exit);
+//    }
+//}
+
+
+
+/// <summary>
+/// this func notify the PickUpItem (Player)
+/// interface IStatePlayerHand - cant or can Pick-Up this item
+/// </summary>
+/// <param name="i_Collision"></param>
+/// <param name="i_IsEnter">
+/// <true>true->Enter-Collision-Food-Obj</true>
+/// <false>false->ExitCollisionFoodObj</false></param>
+//private void notifyPlayerPickUp(Collision i_Collision, bool i_IsEnter)
+//{
+//    if (parseCollision(i_Collision, out HandPickUp o_Pick))
+//    {
+//        if (i_IsEnter)
+//        {
+//            o_Pick.StatePlayer.EnterCollisionFoodObj(this.gameObject);
+//        }
+//        else
+//        {
+//            o_Pick.StatePlayer.ExitCollisionFoodObj();
+//        }
+//    }
+//}
+
+
+/// <summary>
+/// this func parsing form Collision PickUpItem 
+/// </summary>
+/// <param name="i_Collision"></param>
+/// <param name="o_Pic"></param>
+/// <returns>if parsing success </returns>
+//private bool parseCollision(Collision i_Collision, out HandPickUp o_Pic)
+//{
+//    o_Pic = i_Collision.gameObject
+//        .GetComponentInChildren(typeof(HandPickUp)) as HandPickUp;
+
+//    return (o_Pic != null);
+//}

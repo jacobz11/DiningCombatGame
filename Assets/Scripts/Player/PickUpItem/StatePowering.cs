@@ -17,7 +17,6 @@ internal class StatePowering : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
-    private const string k_ClassName = "StatePowering";
     private const int k_Previous = HandPickUp.k_HoldsObj;
     // ================================================
     // Delegate
@@ -34,10 +33,6 @@ internal class StatePowering : IStatePlayerHand
 
     // ================================================
     // auxiliary methods programmings
-    private void dedugger(string func, string i_var)
-    {
-        GameGlobal.Dedugger(k_ClassName, func, i_var);
-    }
     // ================================================
     // Unity Game Engine
 
@@ -51,13 +46,13 @@ internal class StatePowering : IStatePlayerHand
     {
     }
 
-    public void EnterCollisionFoodObj(GameObject i_GameObject)
+    public void EnterCollisionFoodObj(Collider other)
     {
         // for now this is should be empty
         // the implementing only in StateFree
     }
 
-    public void ExitCollisionFoodObj()
+    public void ExitCollisionFoodObj(Collider other)
     {
         // for now this is should be empty
         // the implementing only in StateFree
