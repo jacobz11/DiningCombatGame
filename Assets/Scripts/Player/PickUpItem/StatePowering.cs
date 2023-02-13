@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.PickUpItem;
-using DiningCombat;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -17,7 +15,8 @@ internal class StatePowering : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
-    private const int k_Previous = HandPickUp.k_HoldsObj;
+    //private const byte k_Previous = HandPickUp.k_HoldsObj;
+    //private const byte k_Next = HandPickUp.k_Throwing;
     // ================================================
     // Delegate
 
@@ -72,7 +71,7 @@ internal class StatePowering : IStatePlayerHand
         }
         else if (IsPassStage())
         {
-            m_PickUpItem.ThrowObj();
+            m_PickUpItem.StatePlayerHand++;// = k_Next;
         }
         else
         {
@@ -89,7 +88,7 @@ internal class StatePowering : IStatePlayerHand
     {
         if (Time.deltaTime > 0.2)
         {
-            m_PickUpItem.StatePlayerHand = k_Previous;
+            m_PickUpItem.StatePlayerHand--;// = k_Previous;
         }
     }
 

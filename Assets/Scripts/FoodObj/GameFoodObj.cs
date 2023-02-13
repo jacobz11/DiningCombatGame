@@ -81,8 +81,7 @@ public class GameFoodObj : MonoBehaviour
         if (isPlayer(i_Collision))
         {
             OnHitPlayer(EventArgs.Empty);
-            PlayerHp playerHit = i_Collision.gameObject
-                .GetComponent<PlayerHp>();
+            PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
 
             if (playerHit != null)
             {

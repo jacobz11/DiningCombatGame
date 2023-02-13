@@ -1,4 +1,5 @@
 using Assets.Scripts.PickUpItem;
+using Assets.Scripts.Player.PickUpItem;
 using DiningCombat;
 using System;
 using UnityEngine;
@@ -15,9 +16,12 @@ public class HandPickUp : MonoBehaviour
 
     // ================================================
     // constant Variable 
-    public const int k_Free = 0;
-    public const int k_HoldsObj = 1;
-    public const int k_Powering = 2;
+    public const byte k_Free = 0;
+    public const byte k_HoldsObj = 1;
+    public const byte k_Powering = 2;
+    public const byte k_Throwing = 3;
+
+
 
     // ================================================
     // Delegate
@@ -26,7 +30,7 @@ public class HandPickUp : MonoBehaviour
     // Fields 
     private IStatePlayerHand[] m_PlayerState;
     private KeysHamdler m_Power;
-    private GameObject m_GameObject;
+    private GameObject m_GameFoodObj;
     private Animator m_Anim;
 
     // ================================================
@@ -52,7 +56,7 @@ public class HandPickUp : MonoBehaviour
         get => m_StateVal;
         set
         {
-            m_StateVal = value % 3;
+            m_StateVal = value % 4;
             m_PlayerState[m_StateVal].InitState();
         }
     }
@@ -67,6 +71,24 @@ public class HandPickUp : MonoBehaviour
         get => m_Power;
     }
 
+    internal bool ThrowingAnimator
+    {
+        get
+        {
+            return m_Anim.GetBool(GameGlobal.AnimationName.k_Throwing);
+        }
+        set
+        {
+            if (value)
+            {
+                m_Anim.SetBool(GameGlobal.AnimationName.k_RunningSide, false);
+                m_Anim.SetBool(GameGlobal.AnimationName.k_Running, false);
+            }
+
+            m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, value);
+        }
+    }
+
     // ================================================
     // auxiliary methods programmings
 
@@ -76,17 +98,18 @@ public class HandPickUp : MonoBehaviour
 
     private void Awake()
     {
-        m_PlayerState = new IStatePlayerHand[3];
+        m_PlayerState = new IStatePlayerHand[4];
         m_PlayerState[k_Free] = new StateFree(this);
         m_PlayerState[k_HoldsObj] = new StateHoldsObj(this);
         m_PlayerState[k_Powering] = new StatePowering(this);
+        m_PlayerState[k_Throwing] = new StateThrowing(this);
 
+        m_Power = new KeysHamdler(GameKeyboardControls.k_PowerKey);
     }
     protected void Start()
     {
-        StatePlayerHand = k_Free;
-        m_Power = new KeysHamdler(GameKeyboardControls.k_PowerKey);
         m_Anim = GetComponentInParent<Animator>();
+        StatePlayerHand = k_Free;
     }
 
     protected void Update()
@@ -96,31 +119,43 @@ public class HandPickUp : MonoBehaviour
 
     // ================================================
     //  methods
+    /// <summary>
+    /// null - will set the fild m_GameFoodObj to null and set the animation k_Throwing to false 
+    /// </summary>
+    /// <param name="i_GameObject">null or GameObject</param>
     internal void SetGameFoodObj(GameObject i_GameObject)
     {
-        GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
-        
-        if (obj != null)
+        if (i_GameObject == null)
         {
-            m_GameObject = i_GameObject;
-            obj.SetPickUpItem(this);
-            StatePlayerHand++;
+            m_GameFoodObj = null;
+            ThrowingAnimator = false;
+        }
+        else
+        {
+            GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
+        
+            if (obj != null)
+            {
+                m_GameFoodObj = i_GameObject;
+                obj.SetPickUpItem(this);
+                StatePlayerHand++;
+            }
         }
     }
 
+
     internal void ThrowObj()
     {
-        GameFoodObj foodObj = m_GameObject.GetComponent<GameFoodObj>();
+        GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
         
         if (foodObj != null)
         {
             foodObj.CleanUpDelegatesPlayer();
-            m_Anim.SetBool(GameGlobal.AnimationName.k_Throwing, true);
             foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
             foodObj.ThrowFood(ForceMulti, this.transform.forward);
         }
 
-        StatePlayerHand = k_Free;
+        //StatePlayerHand = k_Free;
     }
 
 

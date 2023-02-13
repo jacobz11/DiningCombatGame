@@ -49,6 +49,9 @@ internal class StateFree : IStatePlayerHand
     public void InitState()
     {
         m_PickUpItem.ForceMulti = 0;
+        m_PickUpItem.SetGameFoodObj(null);
+        m_GameObject = null;
+        
     }
 
     public bool IsPassStage()

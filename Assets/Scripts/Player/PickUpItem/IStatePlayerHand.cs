@@ -1,10 +1,9 @@
 ﻿
 using UnityEngine;
-using static UnityEditor.ShaderData;
 
 namespace Assets.Scripts.PickUpItem
 {
-    public interface IStatePlayerHand
+    public interface IStatePlayerHand 
     {
         /// <summary>
         /// This method should be implemented
