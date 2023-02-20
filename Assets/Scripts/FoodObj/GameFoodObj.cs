@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using Assets.Scripts.Player;
 using static UnityEngine.ParticleSystem;
+using Assets.Scripts.Player.PickUpItem;
 
 public class GameFoodObj : MonoBehaviour
 {
@@ -67,11 +68,13 @@ public class GameFoodObj : MonoBehaviour
         m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
     }
 
-    internal void SetPickUpItem(HandPickUp pickUpItem)
+    internal void SetPickUpItem(IThrowingGameObj pickUpItem)
     {
+
         this.transform.position = pickUpItem.transform.position;
-        this.transform.SetParent(pickUpItem.transform, true);
+        this.transform.SetParent(pickUpItem.transform, false);
         this.transform.localPosition = pickUpItem.transform.localPosition;
+        //this.transform.localPosition = new Vector3(0, 0, 0);
         m_Rigidbody.useGravity = false;
     }
     /// <summary>

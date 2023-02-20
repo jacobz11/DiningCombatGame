@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// this is a  
 /// </summary>
-public class HandPickUp : MonoBehaviour
+public class HandPickUp :IThrowingGameObj
 {
     // location : Player-> Goalie Throw -> mixamorig:Hips
     // -> mixamorig:Spine -> mixamorig:Spine1 -> mixamorig:Spine2
@@ -21,8 +21,6 @@ public class HandPickUp : MonoBehaviour
     public const byte k_Powering = 2;
     public const byte k_Throwing = 3;
 
-
-
     // ================================================
     // Delegate
 
@@ -35,9 +33,12 @@ public class HandPickUp : MonoBehaviour
 
     // ================================================
     // ----------------Serialize Field-----------------
-    [SerializeField]
     public float m_ForceMulti;
     private int m_StateVal;
+    [SerializeField]
+    private bool m_EventTrow;
+    [SerializeField]
+    private bool m_EventEnd;
 
     // ================================================
     // properties
@@ -89,6 +90,18 @@ public class HandPickUp : MonoBehaviour
         }
     }
 
+    public bool EventTrow
+    {
+        get => m_EventTrow;
+        set => m_EventTrow = value;
+    }
+
+    public bool EventEnd
+    {
+        get => m_EventEnd;
+        set =>m_EventEnd = value;
+    }
+
     // ================================================
     // auxiliary methods programmings
 
@@ -103,7 +116,8 @@ public class HandPickUp : MonoBehaviour
         m_PlayerState[k_HoldsObj] = new StateHoldsObj(this);
         m_PlayerState[k_Powering] = new StatePowering(this);
         m_PlayerState[k_Throwing] = new StateThrowing(this);
-
+        EventTrow = false;
+        EventEnd = false;
         m_Power = new KeysHamdler(GameKeyboardControls.k_PowerKey);
     }
     protected void Start()
@@ -112,6 +126,19 @@ public class HandPickUp : MonoBehaviour
         StatePlayerHand = k_Free;
     }
 
+    public void OnThrowingAnimator()
+    {
+        Debug.Log("in SetEventTrowingEnd");
+
+        StatePlayer.SetEventTrowing();
+    }
+    public void OnThrowingAnimaEnd()
+    {
+        Debug.Log("in SetEventTrowingEnd");
+
+        StatePlayer.SetEventTrowingEnd();
+        //EventEnd = true;
+    }
     protected void Update()
     {
         StatePlayer.UpdateByState();
@@ -123,40 +150,37 @@ public class HandPickUp : MonoBehaviour
     /// null - will set the fild m_GameFoodObj to null and set the animation k_Throwing to false 
     /// </summary>
     /// <param name="i_GameObject">null or GameObject</param>
-    internal void SetGameFoodObj(GameObject i_GameObject)
-    {
-        if (i_GameObject == null)
-        {
-            m_GameFoodObj = null;
-            ThrowingAnimator = false;
-        }
-        else
-        {
-            GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
+    //internal void SetGameFoodObj(GameObject i_GameObject)
+    //{
+    //    if (i_GameObject == null)
+    //    {
+    //        m_GameFoodObj = null;
+    //        ThrowingAnimator = false;
+    //    }
+    //    else
+    //    {
+    //        GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
         
-            if (obj != null)
-            {
-                m_GameFoodObj = i_GameObject;
-                obj.SetPickUpItem(this);
-                StatePlayerHand++;
-            }
-        }
-    }
+    //        if (obj != null)
+    //        {
+    //            m_GameFoodObj = i_GameObject;
+    //            obj.SetPickUpItem(this);
+    //            StatePlayerHand++;
+    //        }
+    //    }
+    //}
 
-
-    internal void ThrowObj()
-    {
-        GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
+    //internal void ThrowObj()
+    //{
+    //    GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
         
-        if (foodObj != null)
-        {
-            foodObj.CleanUpDelegatesPlayer();
-            foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
-            foodObj.ThrowFood(ForceMulti, this.transform.forward);
-        }
-
-        //StatePlayerHand = k_Free;
-    }
+    //    if (foodObj != null)
+    //    {
+    //        foodObj.CleanUpDelegatesPlayer();
+    //        foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
+    //        foodObj.ThrowFood(ForceMulti, this.transform.forward);
+    //    }
+    //}
 
 
     // ================================================
@@ -179,7 +203,38 @@ public class HandPickUp : MonoBehaviour
     // ----------------GameFoodObj---------------------
     protected virtual void On_HitPlayer_GameFoodObj(object i_Sender, EventArgs e)
     {
-        // TODO : 
         ScoreCounter.ScoreValue++;
+    }
+
+    internal override void SetGameFoodObj(GameObject i_GameObject)
+    {
+        if (i_GameObject == null)
+        {
+            m_GameFoodObj = null;
+            ThrowingAnimator = false;
+        }
+        else
+        {
+            GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
+
+            if (obj != null)
+            {
+                m_GameFoodObj = i_GameObject;
+                obj.SetPickUpItem(this);
+                StatePlayerHand++;
+            }
+        }
+    }
+
+    internal override void ThrowObj()
+    {
+        GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
+
+        if (foodObj != null)
+        {
+            foodObj.CleanUpDelegatesPlayer();
+            foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
+            foodObj.ThrowFood(ForceMulti, this.transform.forward);
+        }
     }
 }

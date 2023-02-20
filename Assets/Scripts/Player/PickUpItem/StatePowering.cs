@@ -92,6 +92,18 @@ internal class StatePowering : IStatePlayerHand
         }
     }
 
+    public void SetEventTrowingEnd()
+    {
+        // for now this is should be empty
+        // the implementing only in StateFre
+    }
+
+    public void SetEventTrowing()
+    {
+        // for now this is should be empty
+        // the implementing only in StateFre
+    }
+
     // ================================================
     // Delegates Invoke 
 

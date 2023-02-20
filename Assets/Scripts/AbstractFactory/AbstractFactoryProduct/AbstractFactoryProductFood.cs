@@ -60,6 +60,7 @@ public class AbstractFactoryProductFood
     {
         return m_FoodPrefab[r_Rnd.Next(m_FoodPrefab.Length)];
     }
+
     // ================================================
     // auxiliary methods
 

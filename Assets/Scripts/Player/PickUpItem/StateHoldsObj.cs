@@ -61,6 +61,18 @@ internal class StateHoldsObj : IStatePlayerHand
         return m_PickUpItem.Power.Down;
     }
 
+    public void SetEventTrowing()
+    {
+        // for now this is should be empty
+        // the implementing only in StateFre
+    }
+
+    public void SetEventTrowingEnd()
+    {
+        // for now this is should be empty
+        // the implementing only in StateFre
+    }
+
     public void UpdateByState()
     {
         if (IsPassStage())
