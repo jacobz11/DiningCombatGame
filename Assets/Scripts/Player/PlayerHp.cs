@@ -31,7 +31,7 @@ namespace Assets.Scripts.Player
             get => m_LifePoint;
             set
             {
-                m_LifePoint = Math.Max(value, m_MinSlderVal);
+                m_LifePoint = Math.Max(Math.Max(value, m_MaxSlderVal), m_MinSlderVal);
                 m_Slder.UpdateFilliStatus = m_LifePoint;
             }
         }
@@ -58,6 +58,7 @@ namespace Assets.Scripts.Player
         }
         internal void HealingYou(float i_NumOfLifeAdd)
         {
+
             HP += i_NumOfLifeAdd;
        }
         // ================================================

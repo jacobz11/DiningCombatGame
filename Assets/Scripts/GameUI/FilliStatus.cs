@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,5 +36,20 @@ public class FilliStatus : MonoBehaviour
 
         return m_Slider.value;
     }
-   
+
+    //public static FilliStatus Builder(string i_DefinedType)
+    //{
+        
+    //    switch (i_DefinedType.ToLower())
+    //    {
+    //        case "hp":
+    //            break;
+    //        case "life":
+    //            break;
+    //        default:
+    //            throw new Exception();
+    //    }
+
+    //    return i_Sldr;
+    //}
 }

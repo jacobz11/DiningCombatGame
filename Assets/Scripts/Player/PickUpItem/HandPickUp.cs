@@ -30,7 +30,8 @@ public class HandPickUp : ThrowingGameObj, IStatePlayerHand
     private KeysHamdler m_Power;
     private GameObject m_GameFoodObj;
     private Animator m_Anim;
-
+    private float m_MaxSlderVal;
+    private float m_MinSlderVal;
     // ================================================
     // ----------------Serialize Field-----------------
     public float m_ForceMulti;
@@ -39,6 +40,8 @@ public class HandPickUp : ThrowingGameObj, IStatePlayerHand
     private bool m_EventTrow;
     [SerializeField]
     private bool m_EventEnd;
+    [SerializeField]
+    private FilliStatus m_PowerSlider;
 
     // ================================================
     // properties
@@ -47,7 +50,8 @@ public class HandPickUp : ThrowingGameObj, IStatePlayerHand
         get => m_ForceMulti;
         set
         {
-            m_ForceMulti = value;
+            m_ForceMulti = Math.Max(Math.Max(value, m_MaxSlderVal), m_MinSlderVal);
+            m_PowerSlider.UpdateFilliStatus = m_ForceMulti;
             PowerCounter.PowerValue = m_ForceMulti;
         }
     }
@@ -131,6 +135,8 @@ public class HandPickUp : ThrowingGameObj, IStatePlayerHand
     }
     protected void Start()
     {
+        m_ForceMulti = m_PowerSlider.GetSliderCurAndMaxAndMinValue(out m_MaxSlderVal,
+                out m_MinSlderVal);
         m_Anim = GetComponentInParent<Animator>();
         StatePlayerHand = k_Free;
     }
