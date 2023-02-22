@@ -128,8 +128,6 @@ public class HandPickUp :IThrowingGameObj
 
     public void OnThrowingAnimator()
     {
-        Debug.Log("in SetEventTrowingEnd");
-
         StatePlayer.SetEventTrowing();
     }
     public void OnThrowingAnimaEnd()

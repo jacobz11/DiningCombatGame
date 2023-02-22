@@ -62,7 +62,6 @@ namespace Assets.Scripts.Player.PickUpItem
         {
             if (IsPassStage() && !m_IsThrownAway)
             {
-                Debug.Log("now need to Throw");
                 m_IsThrownAway = true;
                 m_PickUpItem.ThrowObj();
             }

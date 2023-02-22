@@ -1,3 +1,4 @@
+using Assets.Scripts.PickUpItem;
 using Assets.Scripts.Player.PickUpItem;
 using System;
 using System.Collections;
@@ -14,14 +15,18 @@ public class AiThrew :IThrowingGameObj
     [SerializeField]
     private GameObject m_Pleyer;
     private GameObject m_FoodToThrow;
-
+    private void Start()
+    {
+    }
     void Update()
     {
+
         if (m_FoodToThrow == null)
         {
-            SetGameFoodObj(null);
-            StartCoroutine(shotAtThePlayer());
+            SetGameFoodObj(m_GameManager.SpawnGameFoodObj());
+            StartCoroutine(ShotAtThePlayer());
         }
+       
     }
 
     private Vector3 calaV3()
@@ -32,18 +37,26 @@ public class AiThrew :IThrowingGameObj
         return v;
     }
 
-    private IEnumerator shotAtThePlayer()
+    public IEnumerator ShotAtThePlayer()
     {
-        yield return new WaitForSeconds(m_TimeToThrew);
+        yield return new WaitForSeconds(2);
         ThrowObj();
     }
 
     internal override void SetGameFoodObj(GameObject i_GameObject)
     {
-        m_FoodToThrow = m_GameManager.SpawnGameFoodObj();
+        m_FoodToThrow = i_GameObject;
         m_FoodToThrow.transform.position = transform.position - transform.forward;
 
-        m_FoodToThrow.transform.parent = this.transform;
+        GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
+
+        if (obj != null)
+        {
+            //m_GameFoodObj = i_GameObject;
+            obj.SetPickUpItem(this);
+            //StatePlayerHand++;
+        }
+        //m_FoodToThrow.transform.parent = this.transform;
     }
 
     internal override void ThrowObj()

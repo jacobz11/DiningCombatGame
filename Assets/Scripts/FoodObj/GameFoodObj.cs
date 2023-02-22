@@ -68,14 +68,18 @@ public class GameFoodObj : MonoBehaviour
         m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
     }
 
-    internal void SetPickUpItem(IThrowingGameObj pickUpItem)
+    internal void SetPickUpItem(IThrowingGameObj i_PickUpItem)
     {
-
+        GameObject pickUpItem = i_PickUpItem.gameObject;
         this.transform.position = pickUpItem.transform.position;
         this.transform.SetParent(pickUpItem.transform, false);
         this.transform.localPosition = pickUpItem.transform.localPosition;
-        //this.transform.localPosition = new Vector3(0, 0, 0);
-        m_Rigidbody.useGravity = false;
+
+        if (i_PickUpItem is HandPickUp)
+        {
+            Debug.Log("pickUpItem is HandPickUp");
+            m_Rigidbody.useGravity = false;
+        }
     }
     /// <summary>
     /// collision After Throwing Handler will:
