@@ -6,27 +6,32 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class AiThrew :IThrowingGameObj
+public class AiThrew :ThrowingGameObj
 {
+    private GameObject m_FoodToThrow;
+
     [SerializeField]
     public float m_TimeToThrew;
     [SerializeField]
     private GameManager m_GameManager;
     [SerializeField]
     private GameObject m_Pleyer;
-    private GameObject m_FoodToThrow;
-    private void Start()
-    {
+    [SerializeField]
+    private float m_ForceMulti;
+
+    public override float ForceMulti 
+    { 
+        get => m_ForceMulti;
+        set => m_ForceMulti = value;
     }
+
     void Update()
     {
-
         if (m_FoodToThrow == null)
         {
             SetGameFoodObj(m_GameManager.SpawnGameFoodObj());
             StartCoroutine(ShotAtThePlayer());
         }
-       
     }
 
     private Vector3 calaV3()
@@ -39,7 +44,7 @@ public class AiThrew :IThrowingGameObj
 
     public IEnumerator ShotAtThePlayer()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(m_TimeToThrew);
         ThrowObj();
     }
 
@@ -52,18 +57,15 @@ public class AiThrew :IThrowingGameObj
 
         if (obj != null)
         {
-            //m_GameFoodObj = i_GameObject;
-            obj.SetPickUpItem(this);
-            //StatePlayerHand++;
+            obj.SetHolderFoodObj(this);
         }
-        //m_FoodToThrow.transform.parent = this.transform;
     }
 
     internal override void ThrowObj()
     {
         float lineToPleyr = Vector3.Distance(transform.position, m_Pleyer.transform.position);
 
-        m_FoodToThrow.GetComponent<GameFoodObj>().ThrowFood(1800, calaV3());
+        m_FoodToThrow.GetComponent<GameFoodObj>().ThrowFood(m_ForceMulti, calaV3());
         m_FoodToThrow = null;
     }
 }

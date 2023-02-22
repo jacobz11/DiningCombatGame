@@ -36,7 +36,7 @@ namespace Assets.Scripts.FoodObj
             }
         }
 
-        //internal void SetPickUpItem(PickUpItem pickUpItem)
+        //internal void SetHolderFoodObj(PickUpItem pickUpItem)
         //{
         //    if (pickUpItem is null)
         //    {

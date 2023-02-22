@@ -43,12 +43,7 @@ namespace DiningCombat
 
         // ================================================
         // Fields 
-        private KeysHamdler m_Left;
-        private KeysHamdler m_Right;
-        private KeysHamdler m_Up;
-        private KeysHamdler m_Down;
-        private KeysHamdler m_Jump;
-        private KeysHamdler m_Power;
+        private KeysHamdler[] m_Keys;
 
         // ================================================
         // ----------------Serialize Field-----------------
@@ -57,11 +52,11 @@ namespace DiningCombat
         // properties
         internal bool IsVertical
         {
-            get => m_Up.Press || m_Down.Press;
+            get => m_Keys[k_Forwar].Press || m_Keys[k_Back].Press;
         }
         internal bool IsHorizontal
         {
-            get => m_Left.Press || m_Right.Press;
+            get => m_Keys[k_Left].Press || m_Keys[k_Right].Press;
         }
 
         // ----------------Indexer-------------------------
@@ -69,22 +64,7 @@ namespace DiningCombat
         {
             get
             {
-                switch (i)
-                {
-                    case k_Left:
-                        return m_Left;
-                    case k_Right:
-                        return m_Right;
-                    case k_Forwar:
-                        return m_Up;
-                    case k_Back:
-                        return m_Down;
-                    case k_Power:
-                        return m_Jump;
-                    case k_Jump:
-                        return m_Power;
-                }
-                throw new Exception();
+                return m_Keys[i];
             }
         }
         // ================================================
@@ -97,13 +77,16 @@ namespace DiningCombat
         //  methods
         public GameKeyboardControls()
         {
-            m_Left = new KeysHamdler(k_LeftKey, k_LeftKeyArrow);
-            m_Right = new KeysHamdler(k_RightKey, k_RightKeyArrow);
-            m_Up = new KeysHamdler(k_ForwardKey, k_ForwardKeyArrow);
-            m_Down = new KeysHamdler(k_BackKey, k_BackKeyArrow);
-            m_Jump = new KeysHamdler(k_JumpKey);
-            m_Power = new KeysHamdler(k_JumpKey);
-        }
+            m_Keys = new KeysHamdler[]
+            {
+                KeysHamdler.Builder("Left"),
+                KeysHamdler.Builder("Right"),
+                KeysHamdler.Builder("Forward"),
+                KeysHamdler.Builder("Back"),
+                KeysHamdler.Builder("Power"),
+                KeysHamdler.Builder("Jump"),
+            };
+    }
         // ================================================
         // auxiliary methods
 

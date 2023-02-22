@@ -90,7 +90,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.67546105, y: 1.6110269, z: 0.62866306}
-  m_Center: {x: 0.013382256, y: 0.8552763, z: 0.21911097}
+  m_Center: {x: 0.013382256, y: 0.8552763, z: 1.3}
 --- !u!143 &8722970467632704399
 CharacterController:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.8, z: 0.18}
+  m_Center: {x: 0.01338226, y: 0.8552763, z: 1.3}
 --- !u!1 &8722970467656948972
 GameObject:
   m_ObjectHideFlags: 0

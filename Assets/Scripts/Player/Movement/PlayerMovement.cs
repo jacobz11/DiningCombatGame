@@ -162,10 +162,11 @@ namespace DiningCombat
             {
                 m_JumpHeight = GameGlobal.PlayerData.k_DefaultPlayerMovementJumpHeight;
             }
+            m_Controls = new GameKeyboardControls();
         }
+
         void Start()
         {
-            m_Controls = new GameKeyboardControls();
             m_Controller = GetComponent<CharacterController>();
             m_Anim = GetComponentInChildren<Animator>();
         }
@@ -176,6 +177,7 @@ namespace DiningCombat
             {
                 m_Velocity.y = -2f;
             }
+
             m_HorizontalDirection = getUpdateDirection(k_ThisIsAxisHorizontal);
             m_VerticalDirectionSide = getUpdateDirection(k_ThisIsAxisVertical);
 

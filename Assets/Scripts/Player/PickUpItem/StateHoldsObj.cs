@@ -11,8 +11,6 @@ internal class StateHoldsObj : IStatePlayerHand
 {
     // ================================================
     // constant Variable 
-    private const int k_Next = HandPickUp.k_Powering;
-    private const int k_Previous = HandPickUp.k_Free;
 
     // ================================================
     // Delegate
@@ -77,7 +75,7 @@ internal class StateHoldsObj : IStatePlayerHand
     {
         if (IsPassStage())
         {
-            m_PickUpItem.StatePlayerHand = k_Next;
+            m_PickUpItem.StatePlayerHand++;
         }
     }
     // ================================================

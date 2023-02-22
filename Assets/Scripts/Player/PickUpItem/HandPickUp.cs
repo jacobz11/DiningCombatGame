@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// this is a  
 /// </summary>
-public class HandPickUp :IThrowingGameObj
+public class HandPickUp : ThrowingGameObj, IStatePlayerHand
 {
     // location : Player-> Goalie Throw -> mixamorig:Hips
     // -> mixamorig:Spine -> mixamorig:Spine1 -> mixamorig:Spine2
@@ -42,7 +42,7 @@ public class HandPickUp :IThrowingGameObj
 
     // ================================================
     // properties
-    public float ForceMulti
+    public override float ForceMulti
     {
         get => m_ForceMulti;
         set
@@ -51,27 +51,31 @@ public class HandPickUp :IThrowingGameObj
             PowerCounter.PowerValue = m_ForceMulti;
         }
     }
-
-    public int StatePlayerHand
-    {
-        get => m_StateVal;
-        set
-        {
-            m_StateVal = value % 4;
-            m_PlayerState[m_StateVal].InitState();
-        }
-    }
-
-    public IStatePlayerHand StatePlayer
-    {
-        get => m_PlayerState[StatePlayerHand];
-    }
-
+    
+    // input
     internal KeysHamdler Power
     {
         get => m_Power;
     }
 
+    // State machine
+    public int StatePlayerHand
+    {
+        get => m_StateVal;
+        set
+        {
+            m_StateVal = value % m_PlayerState.Length;
+            m_PlayerState[m_StateVal].InitState();
+        }
+    }
+
+    // State machine
+    public IStatePlayerHand StatePlayer
+    {
+        get => m_PlayerState[StatePlayerHand];
+    }
+
+    // Animator
     internal bool ThrowingAnimator
     {
         get
@@ -90,12 +94,14 @@ public class HandPickUp :IThrowingGameObj
         }
     }
 
+    // Animator
     public bool EventTrow
     {
         get => m_EventTrow;
         set => m_EventTrow = value;
     }
 
+    // Animator
     public bool EventEnd
     {
         get => m_EventEnd;
@@ -111,14 +117,17 @@ public class HandPickUp :IThrowingGameObj
 
     private void Awake()
     {
-        m_PlayerState = new IStatePlayerHand[4];
-        m_PlayerState[k_Free] = new StateFree(this);
-        m_PlayerState[k_HoldsObj] = new StateHoldsObj(this);
-        m_PlayerState[k_Powering] = new StatePowering(this);
-        m_PlayerState[k_Throwing] = new StateThrowing(this);
+        m_PlayerState = new IStatePlayerHand[]
+        {
+            new StateFree(this),
+            new StateHoldsObj(this),
+            new StatePowering(this),
+            new StateThrowing(this)
+        };
+
         EventTrow = false;
         EventEnd = false;
-        m_Power = new KeysHamdler(GameKeyboardControls.k_PowerKey);
+        m_Power = KeysHamdler.Builder("Power");
     }
     protected void Start()
     {
@@ -132,54 +141,19 @@ public class HandPickUp :IThrowingGameObj
     }
     public void OnThrowingAnimaEnd()
     {
-        Debug.Log("in SetEventTrowingEnd");
+        //Debug.Log("in SetEventTrowingEnd");
 
         StatePlayer.SetEventTrowingEnd();
         //EventEnd = true;
     }
     protected void Update()
     {
-        StatePlayer.UpdateByState();
+        UpdateByState();
+        //StatePlayer.UpdateByState();
     }
 
     // ================================================
     //  methods
-    /// <summary>
-    /// null - will set the fild m_GameFoodObj to null and set the animation k_Throwing to false 
-    /// </summary>
-    /// <param name="i_GameObject">null or GameObject</param>
-    //internal void SetGameFoodObj(GameObject i_GameObject)
-    //{
-    //    if (i_GameObject == null)
-    //    {
-    //        m_GameFoodObj = null;
-    //        ThrowingAnimator = false;
-    //    }
-    //    else
-    //    {
-    //        GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
-        
-    //        if (obj != null)
-    //        {
-    //            m_GameFoodObj = i_GameObject;
-    //            obj.SetPickUpItem(this);
-    //            StatePlayerHand++;
-    //        }
-    //    }
-    //}
-
-    //internal void ThrowObj()
-    //{
-    //    GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
-        
-    //    if (foodObj != null)
-    //    {
-    //        foodObj.CleanUpDelegatesPlayer();
-    //        foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
-    //        foodObj.ThrowFood(ForceMulti, this.transform.forward);
-    //    }
-    //}
-
 
     // ================================================
     // auxiliary methods
@@ -204,6 +178,10 @@ public class HandPickUp :IThrowingGameObj
         ScoreCounter.ScoreValue++;
     }
 
+    /// <summary>
+    /// null - will set the fild m_GameFoodObj to null and set the animation k_Throwing to false 
+    /// </summary>
+    /// <param name="i_GameObject">null or GameObject</param>
     internal override void SetGameFoodObj(GameObject i_GameObject)
     {
         if (i_GameObject == null)
@@ -218,12 +196,15 @@ public class HandPickUp :IThrowingGameObj
             if (obj != null)
             {
                 m_GameFoodObj = i_GameObject;
-                obj.SetPickUpItem(this);
+                obj.SetHolderFoodObj(this);
                 StatePlayerHand++;
             }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     internal override void ThrowObj()
     {
         GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
@@ -235,4 +216,78 @@ public class HandPickUp :IThrowingGameObj
             foodObj.ThrowFood(ForceMulti, this.transform.forward);
         }
     }
+
+    public void UpdateByState()
+    {
+        StatePlayer.UpdateByState();
+    }
+
+    public void InitState()
+    {
+    }
+
+    public bool IsPassStage()
+    {
+        return StatePlayer.IsPassStage();
+    }
+
+    public void EnterCollisionFoodObj(Collider other)
+    {
+        StatePlayer.EnterCollisionFoodObj(other);
+    }
+
+    public void ExitCollisionFoodObj(Collider other)
+    {
+        StatePlayer.ExitCollisionFoodObj(other);
+    }
+
+    public void SetEventTrowingEnd()
+    {
+    }
+
+    public void SetEventTrowing()
+    {
+    }
 }
+
+
+
+
+
+
+/// <summary>
+/// null - will set the fild m_GameFoodObj to null and set the animation k_Throwing to false 
+/// </summary>
+/// <param name="i_GameObject">null or GameObject</param>
+//internal void SetGameFoodObj(GameObject i_GameObject)
+//{
+//    if (i_GameObject == null)
+//    {
+//        m_GameFoodObj = null;
+//        ThrowingAnimator = false;
+//    }
+//    else
+//    {
+//        GameFoodObj obj = i_GameObject.GetComponent<GameFoodObj>();
+
+//        if (obj != null)
+//        {
+//            m_GameFoodObj = i_GameObject;
+//            obj.SetHolderFoodObj(this);
+//            StatePlayerHand++;
+//        }
+//    }
+//}
+
+//internal void ThrowObj()
+//{
+//    GameFoodObj foodObj = m_GameFoodObj.GetComponent<GameFoodObj>();
+
+//    if (foodObj != null)
+//    {
+//        foodObj.CleanUpDelegatesPlayer();
+//        foodObj.HitPlayer += On_HitPlayer_GameFoodObj;
+//        foodObj.ThrowFood(ForceMulti, this.transform.forward);
+//    }
+//}
+
