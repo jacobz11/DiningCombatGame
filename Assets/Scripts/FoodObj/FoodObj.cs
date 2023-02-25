@@ -1,8 +1,6 @@
-﻿
-using DiningCombat;
+﻿using DiningCombat;
 using System;
 using UnityEngine;
-using PickUpItem = Assets.Scripts.PickUpItem;
 using Random = System.Random;
 
 namespace Assets.Scripts.FoodObj

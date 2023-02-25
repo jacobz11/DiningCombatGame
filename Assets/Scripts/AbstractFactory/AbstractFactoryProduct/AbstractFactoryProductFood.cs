@@ -2,7 +2,6 @@
 using DiningCombat;
 using System;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 using Random = System.Random;
 
 public class AbstractFactoryProductFood 

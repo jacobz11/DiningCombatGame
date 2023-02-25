@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DiningCombat.unity
     guid: 0ad06cf883730954bae2412bb73f17fb
+  - enabled: 1
+    path: Assets/Scenes/NetWorkScenes.unity
+    guid: 2023f19a6e72c644cb0b61880960e94d
   m_configObjects: {}

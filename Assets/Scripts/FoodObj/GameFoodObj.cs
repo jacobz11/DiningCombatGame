@@ -1,9 +1,7 @@
 ﻿using DiningCombat;
 using System;
 using UnityEngine;
-using UnityEngine.VFX;
 using Assets.Scripts.Player;
-using static UnityEngine.ParticleSystem;
 using Assets.Scripts.Player.PickUpItem;
 
 public class GameFoodObj : MonoBehaviour

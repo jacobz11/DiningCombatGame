@@ -1,9 +1,5 @@
-using Assets.Scripts.PickUpItem;
 using Assets.Scripts.Player.PickUpItem;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class AiThrew :ThrowingGameObj
