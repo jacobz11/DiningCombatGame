@@ -95,12 +95,12 @@ namespace DiningCombat
 
         public bool IsVerticalMove
         {
-            get => m_HorizontalDirection != Vector3.zero;
+            get => m_HorizontalDirection.sqrMagnitude > 0.02f;
         }
 
         public bool IsHorizontalMove
         {
-            get => m_VerticalDirectionSide != Vector3.zero;
+            get => m_VerticalDirectionSide.sqrMagnitude > 0.02f;// != Vector3.zero;
         }
 
         private bool isGrounded()
@@ -108,6 +108,27 @@ namespace DiningCombat
             return Physics.CheckSphere(transform.position,
                 m_GroundCheckDistance,
                 m_GroundMask);
+        }
+
+        public bool AnimaRunning
+        {
+            get => m_Anim.GetBool(k_Running);
+            set
+            {
+                m_Anim.SetBool(k_RunningSide, false);
+                m_Anim.SetBool(k_Running, value);
+            }
+        }
+        //AnimaRunningSide 
+        // AnimaRunning
+        public bool AnimaRunningSide
+        {
+            get => m_Anim.GetBool(k_RunningSide);
+            set
+            {
+                m_Anim.SetBool(k_Running, false);
+                m_Anim.SetBool(k_RunningSide, value);
+            }
         }
         // ================================================
         // auxiliary methods programmings
@@ -141,10 +162,11 @@ namespace DiningCombat
             {
                 m_JumpHeight = GameGlobal.PlayerData.k_DefaultPlayerMovementJumpHeight;
             }
+            m_Controls = new GameKeyboardControls();
         }
+
         void Start()
         {
-            m_Controls = new GameKeyboardControls();
             m_Controller = GetComponent<CharacterController>();
             m_Anim = GetComponentInChildren<Animator>();
         }
@@ -155,11 +177,15 @@ namespace DiningCombat
             {
                 m_Velocity.y = -2f;
             }
+
             m_HorizontalDirection = getUpdateDirection(k_ThisIsAxisHorizontal);
             m_VerticalDirectionSide = getUpdateDirection(k_ThisIsAxisVertical);
 
             onGroundMovement();
+        }
 
+        private void LateUpdate()
+        {
             // Actual Movements
             m_Controller.Move(m_HorizontalDirection * Time.deltaTime);
             m_Controller.Move(m_VerticalDirectionSide * Time.deltaTime);
@@ -170,7 +196,6 @@ namespace DiningCombat
             m_Velocity.y += m_Gravity * Time.deltaTime;
             m_Controller.Move(m_Velocity * Time.deltaTime);
         }
-
         private void updateDebug()
         {
             m_AnimeRunnig = m_Anim.GetBool(k_Running);
@@ -207,15 +232,13 @@ namespace DiningCombat
         // ----------------Types Of Movements--------------
         private void idle()
         {
-            m_Anim.SetBool(k_RunningSide, false);
-            m_Anim.SetBool(k_Running, false);
+            AnimaRunning = false; 
             m_TheRealSituation = "idle";
         }
 
         private void running()
         {
-            m_Anim.SetBool(k_RunningSide, false);
-            m_Anim.SetBool(k_Running, true);
+            AnimaRunning = true;
             m_TheRealSituation = "running";
             m_MoveSpeed = m_RunSpeed;
         }
@@ -223,8 +246,7 @@ namespace DiningCombat
         private void runningSide()
         {
             localScaleePleyar();
-            m_Anim.SetBool(k_Running, false);
-            m_Anim.SetBool(k_RunningSide, true);
+            AnimaRunningSide = true;
             m_TheRealSituation = "runningSide";
             m_MoveSpeed = m_RunSideSpeed;
         }

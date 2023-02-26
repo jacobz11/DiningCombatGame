@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using Assets.Scripts.Player;
 using static UnityEngine.ParticleSystem;
+using Assets.Scripts.Player.PickUpItem;
 
 public class GameFoodObj : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameFoodObj : MonoBehaviour
     // Fields 
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
+    private ThrowingGameObj m_HoldingGameObj;
 
     [SerializeField]
     private ParticleSystem m_Effect;
@@ -61,19 +63,55 @@ public class GameFoodObj : MonoBehaviour
     /// <param name="i_ThrowDirection"></param>
     public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
     {
-        IsThrow = true;
+        // remove parent
         transform.parent = null;
+
+        // add Gravity
         m_Rigidbody.useGravity = true;
-        m_Rigidbody.AddForce(i_ThrowDirection * i_ForceMulti);
+
+        actualThrow(i_ForceMulti*i_ThrowDirection);
     }
 
-    internal void SetPickUpItem(HandPickUp pickUpItem)
+    /// <summary>
+    /// the a actual Throw and add force can call only once par obj
+    /// </summary>
+    /// <param name="i_ThrowDirection"></param>
+    private void actualThrow(Vector3 i_ThrowDirection)
     {
-        this.transform.position = pickUpItem.transform.position;
-        this.transform.SetParent(pickUpItem.transform, true);
-        this.transform.localPosition = pickUpItem.transform.localPosition;
-        m_Rigidbody.useGravity = false;
+        IsThrow = true;
+
+        // DrawRay for  Debuging
+        Debug.DrawRay(transform.position, i_ThrowDirection, Color.black, 3);
+        m_Rigidbody.AddForce(i_ThrowDirection);
     }
+
+    /// <summary>
+    /// SetHolderFoodObj the Holder of this food obj 
+    /// </summary>
+    /// <param name="i_HoldingGameObj"></param>
+    internal void SetHolderFoodObj(ThrowingGameObj i_HoldingGameObj)
+    {
+        m_HoldingGameObj = i_HoldingGameObj;
+
+        if(m_HoldingGameObj != null)
+        {
+            updatePosition();
+        }
+    }
+
+    private void updatePosition()
+    {
+        GameObject pickUpItem = m_HoldingGameObj.gameObject;
+        this.transform.position = pickUpItem.transform.position;
+        this.transform.SetParent(pickUpItem.transform, false);
+        this.transform.localPosition = pickUpItem.transform.localPosition;
+
+        if (m_HoldingGameObj is HandPickUp)
+        {
+            m_Rigidbody.useGravity = false;
+        }
+    }
+
     /// <summary>
     /// collision After Throwing Handler will:
     /// 1. will tell the throw player if it hit the player
@@ -86,11 +124,12 @@ public class GameFoodObj : MonoBehaviour
         if (isPlayer(i_Collision))
         {
             OnHitPlayer(EventArgs.Empty);
+
             PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
 
             if (playerHit != null)
             {
-                playerHit.HitYou(1f);
+                playerHit.HitYou(5f);
             }
         }
 
@@ -98,11 +137,20 @@ public class GameFoodObj : MonoBehaviour
         destruction();
     }
 
+    /// <summary>
+    /// creating an effect : Instanting -> Playing -> Destroying
+    /// </summary>
+    /// <returns></returns>
     private bool performTheEffect()
     {
-        ParticleSystem effect = Instantiate(m_Effect, transform.position, transform.rotation);
-        effect.Play();
-        Destroy(effect, 1.5f);
+        if(IsThrow && m_Effect != null)
+        {
+            ParticleSystem effect = Instantiate(m_Effect, transform.position, transform.rotation);
+
+            effect.Play();
+            Destroy(effect, 1.5f);
+        }
+
         return true;
     }
 

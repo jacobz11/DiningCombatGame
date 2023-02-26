@@ -8,9 +8,6 @@ namespace Assets.Scripts.Player
     {
         // ================================================
         // constant Variable 
-        private const float k_MaxPlayerLife = GameGlobal.PlayerData
-            .k_MaxPlayerLife;
-        private const float k_Zero = 0;
 
         // ================================================
         // Delegate
@@ -19,9 +16,13 @@ namespace Assets.Scripts.Player
         // ================================================
         // Fields 
         private float m_LifePoint;
+        private float m_MaxSlderVal;
+        private float m_MinSlderVal;
         private GameObject m_Player;
         // ================================================
         // ----------------Serialize Field-----------------
+        [SerializeField]
+        private FilliStatus m_Slder;
 
         // ================================================
         // properties
@@ -30,8 +31,8 @@ namespace Assets.Scripts.Player
             get => m_LifePoint;
             set
             {
-                m_LifePoint = Math.Min(k_MaxPlayerLife, value);
-                LifeCounter.HP = value;
+                m_LifePoint = Math.Max(Math.Max(value, m_MaxSlderVal), m_MinSlderVal);
+                m_Slder.UpdateFilliStatus = m_LifePoint;
             }
         }
         // ================================================
@@ -39,26 +40,27 @@ namespace Assets.Scripts.Player
 
         // ================================================
         // Unity Game Engine
-        void Start()
+
+        private void Start()
         {
-            HP = k_MaxPlayerLife;
+            m_LifePoint = m_Slder.GetSliderCurAndMaxAndMinValue(out m_MaxSlderVal,
+                out m_MinSlderVal);
         }
 
         // ================================================
         //  methods
         internal void HitYou(float i_NumOfLifeLose)
         {
+            //Debug.Log("HitYou");
             HP -= i_NumOfLifeLose;
+            death();
 
-            if (HP <= k_Zero) 
-            {
-                death();
-            }
         }
         internal void HealingYou(float i_NumOfLifeAdd)
         {
-            HP -= i_NumOfLifeAdd;
-        }
+
+            HP += i_NumOfLifeAdd;
+       }
         // ================================================
         // auxiliary methods
 
@@ -66,8 +68,11 @@ namespace Assets.Scripts.Player
         // Delegates Invoke 
         private void death()
         {
-            PlayerDeath?.Invoke(this, EventArgs.Empty);
-            Destroy(m_Player);
+            if(HP <= m_MinSlderVal)
+            {
+                PlayerDeath?.Invoke(this, EventArgs.Empty);
+                Destroy(m_Player);
+            }
         }
 
         // ================================================

@@ -51,7 +51,8 @@ internal class StateFree : IStatePlayerHand
         m_PickUpItem.ForceMulti = 0;
         m_PickUpItem.SetGameFoodObj(null);
         m_GameObject = null;
-        
+        m_PickUpItem.EventTrow = false;
+        m_PickUpItem.EventEnd = false;
     }
 
     public bool IsPassStage()
@@ -82,6 +83,18 @@ internal class StateFree : IStatePlayerHand
         {
             m_GameObject = null;
         }
+    }
+
+    public void SetEventTrowingEnd()
+    {
+        // for now this is should be empty
+        // the implementing only in StateFre
+    }
+
+    public void SetEventTrowing()
+    {
+        // for now this is should be empty
+        // the implementing only in StateFre
     }
     // ================================================
     // auxiliary methods

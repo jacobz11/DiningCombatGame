@@ -34,5 +34,14 @@ namespace Assets.Scripts.PickUpItem
         /// not automatically pick it up 
         /// </summary>
         void ExitCollisionFoodObj(Collider other);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void SetEventTrowingEnd();
+        /// <summary>
+        /// 
+        /// </summary>
+        void SetEventTrowing();
     }
 }

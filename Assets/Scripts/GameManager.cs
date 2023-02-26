@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            spawnGameFoodObj();
+            SpawnGameFoodObj();
         }
 
         //m_GameAbstractFactory.InitiMap();
@@ -106,11 +106,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            spawnGameFoodObj();
+            SpawnGameFoodObj();
         }
     }
 
-    private void spawnGameFoodObj()
+    public GameObject SpawnGameFoodObj()
     {
         GameObject spawn = Instantiate(m_GameAbstractFactory.SpawnGameFoodObj(),
                                        getRandomPosition(),
@@ -118,13 +118,15 @@ public class GameManager : MonoBehaviour
 
         GameFoodObj foodObj = spawn.GetComponent<GameFoodObj>();
         foodObj.Destruction += OnDestruction_GameFoodObj;
+
+        return spawn;
     }
 
     // ================================================
     // Delegates Invoke 
     protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
-        spawnGameFoodObj();
+        SpawnGameFoodObj();
     }
 
     protected virtual void OnDestruction_Player(object sender, EventArgs e)
