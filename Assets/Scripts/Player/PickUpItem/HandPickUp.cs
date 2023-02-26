@@ -51,7 +51,7 @@ public class HandPickUp : ThrowingGameObj, IStatePlayerHand
         set
         {
             m_ForceMulti = Math.Max(Math.Max(value, m_MaxSlderVal), m_MinSlderVal);
-            m_PowerSlider.UpdateFilliStatus = m_ForceMulti;
+            //m_PowerSlider.UpdateFilliStatus = m_ForceMulti;
             PowerCounter.PowerValue = m_ForceMulti;
         }
     }
