@@ -100,9 +100,11 @@ public class GameFoodObj : MonoBehaviour
     private void updatePosition()
     {
         GameObject pickUpItem = m_HoldingGameObj.gameObject;
-        this.transform.position = pickUpItem.transform.position;
-        this.transform.SetParent(pickUpItem.transform, false);
-        this.transform.localPosition = pickUpItem.transform.localPosition;
+        transform.SetParent(pickUpItem.transform, false);
+        transform.position = pickUpItem.transform.position;
+        transform.localPosition = Vector3.zero;
+        m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
 
         if (m_HoldingGameObj is HandPickUp)
         {
