@@ -13,65 +13,65 @@ namespace Assets.Scripts.Player
         // -> mixamorig:Spine -> mixamorig:Spine1 -> mixamorig:Spine2
         // ->mixamorig:RightShoulder -> mixamorig:RightArm -> mixamorig:RightForeArm
         // ->mixamorig:RightHand -> PickUpPoint
-        private int currentHandState;
-        private float chargingPower;
-        private Animator playerAnimator;
-        private IStatePlayerHand[] arrayOfPlayerState;
-        private GameFoodObj foodItem;
+        private int m_CurrentHandState;
+        private float m_ChargingPower;
+        private Animator m_PlayerAnimator;
+        private IStatePlayerHand[] m_ArrayOfPlayerState;
+        private GameFoodObj m_FoodItem;
         [SerializeField]
-        private Vector3 buffer = new Vector3(-0.3f, 0, -0.5f);
+        private Vector3 m_Buffer = new Vector3(-0.3f, 0, -0.5f);
         [SerializeField]
         [Range(500f, 3000f)]
-        public int maxCargingPower = 1800;
+        public int m_MaxCargingPower = 1800;
         [SerializeField]
-        public GameObject pikUpPint;
+        public GameObject m_PikUpPonit;
         [SerializeField]
-        private FilliStatus ForceMultiUi;
-        private Collider collider;
+        private FilliStatus m_ForceMultiUi;
+        private Collider m_Collider;
 
         public override float ForceMulti
         {
-            get => this.chargingPower;
+            get => this.m_ChargingPower;
             set
             {
-                this.chargingPower = Math.Max(Math.Min(value, this.maxCargingPower), 0);
-                ForceMultiUi.UpdateFilliStatus = this.chargingPower;
+                this.m_ChargingPower = Math.Max(Math.Min(value, this.m_MaxCargingPower), 0);
+                m_ForceMultiUi.UpdateFilliStatus = this.m_ChargingPower;
             }
         }
 
         public int StatePlayerHand
         {
-            get => this.currentHandState;
+            get => this.m_CurrentHandState;
             set
             {
-                this.currentHandState = value % this.arrayOfPlayerState.Length;
-                this.arrayOfPlayerState[this.currentHandState].InitState();
+                this.m_CurrentHandState = value % this.m_ArrayOfPlayerState.Length;
+                this.m_ArrayOfPlayerState[this.m_CurrentHandState].InitState();
             }
         }
 
         public IStatePlayerHand StatePlayer
         {
-            get => this.arrayOfPlayerState[this.StatePlayerHand];
+            get => this.m_ArrayOfPlayerState[this.StatePlayerHand];
         }
 
         internal bool ThrowingAnimator
         {
-            get => this.playerAnimator.GetBool(GameGlobal.AnimationName.k_Throwing);
+            get => this.m_PlayerAnimator.GetBool(GameGlobal.AnimationName.k_Throwing);
             set
             {
                 if (value)
                 {
-                    this.playerAnimator.SetBool(GameGlobal.AnimationName.k_RunningSide, false);
-                    this.playerAnimator.SetBool(GameGlobal.AnimationName.k_Running, false);
+                    this.m_PlayerAnimator.SetBool(GameGlobal.AnimationName.k_RunningSide, false);
+                    this.m_PlayerAnimator.SetBool(GameGlobal.AnimationName.k_Running, false);
                 }
 
-                this.playerAnimator.SetBool(GameGlobal.AnimationName.k_Throwing, value);
+                this.m_PlayerAnimator.SetBool(GameGlobal.AnimationName.k_Throwing, value);
             }
         }
 
         private void Awake()
         {
-            this.arrayOfPlayerState = new IStatePlayerHand[]
+            this.m_ArrayOfPlayerState = new IStatePlayerHand[]
             {
                 new StateFree(this),
                 new StateHoldsObj(this),
@@ -82,8 +82,8 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
-            this.playerAnimator = this.GetComponentInParent<Animator>();
-            this.collider = this.GetComponent<Collider>();
+            this.m_PlayerAnimator = this.GetComponentInParent<Animator>();
+            this.m_Collider = this.GetComponent<Collider>();
             this.StatePlayerHand = 0;
         }
 
@@ -113,12 +113,12 @@ namespace Assets.Scripts.Player
         {
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
             this.StatePlayer.EnterCollisionFoodObj(other);
         }
 
-        private void OnTriggerExit(Collider other)
+        public void OnTriggerExit(Collider other)
         {
             this.StatePlayer.ExitCollisionFoodObj(other);
         }
@@ -129,7 +129,7 @@ namespace Assets.Scripts.Player
 
             if (i_GameObject == null)
             {
-                this.foodItem = null;
+                this.m_FoodItem = null;
             }
             else
             {
@@ -137,38 +137,38 @@ namespace Assets.Scripts.Player
                 if (obj != null)
                 {
                     isSucceed = true;
-                    this.foodItem = obj;
+                    this.m_FoodItem = obj;
                     obj.SetHolderFoodObj(this);
                 }
             }
 
-            this.collider.enabled = !isSucceed;
+            this.m_Collider.enabled = !isSucceed;
 
             //return isSucceed;
         }
 
         internal override void ThrowObj()
         {
-            if (this.foodItem == null)
+            if (this.m_FoodItem == null)
             {
                 Debug.LogError("foodItem is null");
             }
             else
             {
-                Rigidbody foodRb = this.foodItem.GetComponent<Rigidbody>();
-                Debug.DrawRay(this.pikUpPint.transform.position, this.pikUpPint.transform.forward, Color.blue, 10f);
+                Rigidbody foodRb = this.m_FoodItem.GetComponent<Rigidbody>();
+                Debug.DrawRay(this.m_PikUpPonit.transform.position, this.m_PikUpPonit.transform.forward, Color.blue, 10f);
 
                 foodRb.constraints = RigidbodyConstraints.None;
-                this.foodItem.transform.parent = null;
-                foodRb.AddForce(this.pikUpPint.transform.forward * this.ForceMulti);
-                this.foodItem = null;
+                this.m_FoodItem.transform.parent = null;
+                foodRb.AddForce(this.m_PikUpPonit.transform.forward * this.ForceMulti);
+                this.m_FoodItem = null;
             }
             this.StatePlayerHand = 0;
         }
 
         public override Transform GetPoint()
         {
-            return this.pikUpPint.transform;
+            return this.m_PikUpPonit.transform;
         }
     }
 }

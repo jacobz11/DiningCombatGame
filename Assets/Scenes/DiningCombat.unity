@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TimeToThrew: 2.41
   m_GameManager: {fileID: 577102739}
-  m_Pleyer: {fileID: 2025032663}
+  m_Pleyer: {fileID: 649588118}
   m_ForceMulti: 873
 --- !u!1 &261964964
 GameObject:
@@ -609,6 +609,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af840b4fb8a92b840be487ea039f14d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxNumOfFoodObj: 24
+  numOfInitGameObj: 2
+  numOfSecondsBetweenSpawn: 3
 --- !u!4 &577102740
 Transform:
   m_ObjectHideFlags: 0
@@ -728,6 +731,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &649588118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8011326953802299315, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+  m_PrefabInstance: {fileID: 8722970469279485489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &655290767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,9 +2192,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 261964966}
     - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_PikUpPonit
+      value: 
+      objectReference: {fileID: 1728598187}
+    - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: m_PowerSlider
       value: 
       objectReference: {fileID: 261964966}
+    - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_ForceMultiUi
+      value: 
+      objectReference: {fileID: 261964966}
+    - target: {fileID: 8722970468635449892, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8722970468635449893, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2194,4 +2214,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8722970467632704497, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
     - {fileID: 8722970467826688051, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+    - {fileID: 8722970468635449892, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+    - {fileID: 8722970468635449893, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}

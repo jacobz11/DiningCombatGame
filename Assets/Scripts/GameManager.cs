@@ -16,15 +16,14 @@ public class GameManager : MonoBehaviour
     private const float k_Size = 19;
     [SerializeField]
     [Range(10, 100)]
-    private byte maxNumOfFoodObj;
+    private byte m_MaxNumOfFoodObj;
     [SerializeField]
     [Range(0, 10)]
-    private byte numOfInitGameObj;
+    private byte m_NumOfInitGameObj;
     [SerializeField]
     [Range(0, 10)]
-    private byte numOfSecondsBetweenSpawn;
-    private byte numOfExistingFoobObj;
-    [SerializeField]
+    private byte m_NumOfSecondsBetweenSpawn;
+    private byte m_NumOfExistingFoobObj;
     // ================================================
     // Delegate
 
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
     private Vector3 m_MinPosition;
 
     public bool IsRunning => true;
-    public bool IsSpawnNewGameObj => numOfExistingFoobObj < maxNumOfFoodObj;
+    public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < m_MaxNumOfFoodObj;
 
     //private GameObject m_Ground;
 
@@ -80,7 +79,7 @@ public class GameManager : MonoBehaviour
         m_MaxPosition = new Vector3(minX, 0.25f, minZ);
         m_MinPosition = new Vector3(maxX, 0.25f, maxZ);
 
-        for (int i = 0; i < numOfInitGameObj; i++)
+        for (int i = 0; i < m_NumOfInitGameObj; i++)
         {
             SpawnGameFoodObj();
         }
@@ -94,14 +93,14 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnCoroutine()
     {
-        yield return new WaitForSeconds(numOfSecondsBetweenSpawn);
+        yield return new WaitForSeconds(m_NumOfSecondsBetweenSpawn);
         while (IsRunning)
         {
             if (IsSpawnNewGameObj)
             {
                 this.SpawnGameFoodObj();
             }
-            yield return new WaitForSeconds(numOfSecondsBetweenSpawn);
+            yield return new WaitForSeconds(m_NumOfSecondsBetweenSpawn);
         }
     }
 
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject SpawnGameFoodObj()
     {
-        ++numOfExistingFoobObj;
+        ++m_NumOfExistingFoobObj;
         GameObject spawn = Instantiate(m_GameAbstractFactory.SpawnGameFoodObj(),
                                        getRandomPosition(),
                                    Quaternion.identity);
@@ -156,7 +155,7 @@ public class GameManager : MonoBehaviour
     // Delegates Invoke 
     protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
-        --numOfExistingFoobObj;
+        --m_NumOfExistingFoobObj;
     }
 
     protected virtual void OnDestruction_Player(object sender, EventArgs e)
