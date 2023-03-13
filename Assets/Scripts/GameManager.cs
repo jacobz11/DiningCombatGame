@@ -3,6 +3,7 @@ using Assets.Scripts;
 using Assets.Scripts.AbstractFactory;
 using DiningCombat;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
@@ -13,6 +14,17 @@ public class GameManager : MonoBehaviour
     // ================================================
     // constant Variable 
     private const float k_Size = 19;
+    [SerializeField]
+    [Range(10, 100)]
+    private byte maxNumOfFoodObj;
+    [SerializeField]
+    [Range(0, 10)]
+    private byte numOfInitGameObj;
+    [SerializeField]
+    [Range(0, 10)]
+    private byte numOfSecondsBetweenSpawn;
+    private byte numOfExistingFoobObj;
+    [SerializeField]
     // ================================================
     // Delegate
 
@@ -21,6 +33,9 @@ public class GameManager : MonoBehaviour
     private OnlineGameAbstractFactory m_GameAbstractFactory;
     private Vector3 m_MaxPosition;
     private Vector3 m_MinPosition;
+
+    public bool IsRunning => true;
+    public bool IsSpawnNewGameObj => numOfExistingFoobObj < maxNumOfFoodObj;
 
     //private GameObject m_Ground;
 
@@ -65,15 +80,29 @@ public class GameManager : MonoBehaviour
         m_MaxPosition = new Vector3(minX, 0.25f, minZ);
         m_MinPosition = new Vector3(maxX, 0.25f, maxZ);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < numOfInitGameObj; i++)
         {
             SpawnGameFoodObj();
         }
 
+        StartCoroutine(SpawnCoroutine());
         //m_GameAbstractFactory.InitiMap();
 
         //initGameFoodObj();
         //initPlayers();
+    }
+
+    private IEnumerator SpawnCoroutine()
+    {
+        yield return new WaitForSeconds(numOfSecondsBetweenSpawn);
+        while (IsRunning)
+        {
+            if (IsSpawnNewGameObj)
+            {
+                this.SpawnGameFoodObj();
+            }
+            yield return new WaitForSeconds(numOfSecondsBetweenSpawn);
+        }
     }
 
     private Vector3 getRandomPosition()
@@ -112,6 +141,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject SpawnGameFoodObj()
     {
+        ++numOfExistingFoobObj;
         GameObject spawn = Instantiate(m_GameAbstractFactory.SpawnGameFoodObj(),
                                        getRandomPosition(),
                                    Quaternion.identity);
@@ -126,7 +156,7 @@ public class GameManager : MonoBehaviour
     // Delegates Invoke 
     protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
-        SpawnGameFoodObj();
+        --numOfExistingFoobObj;
     }
 
     protected virtual void OnDestruction_Player(object sender, EventArgs e)
