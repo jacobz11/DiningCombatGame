@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.PickUpItem;
-using Assets.Scripts.Player.StatePlayerRightHand;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace Assets.Scripts.Player.PickUpItem
     /// <summary>
     /// This mode should create synchronization between the shot and the animation
     /// </summary>
-    internal class StateThrowing : IStatePlayerHand
+    internal class StateThrowing : IStatePlayerHand 
     {
 
         private const float k_FramesToThrow = 1.9f;
@@ -66,13 +65,13 @@ namespace Assets.Scripts.Player.PickUpItem
                 m_IsThrownAway = true;
                 m_PickUpItem.ThrowObj();
             }
-
+            
             if (m_NumOfFrames > k_MaxFrame)
             {
                 m_PickUpItem.StatePlayerHand++;
             }
 
-            m_NumOfFrames += 1 * Time.deltaTime;
+            m_NumOfFrames += 1* Time.deltaTime;
         }
 
         IEnumerator syncThrowToAnimation()
@@ -179,3 +178,4 @@ namespace Assets.Scripts.Player.PickUpItem
 //        }
 //    }
 //}
+

@@ -1,12 +1,12 @@
-﻿namespace Assets.Scripts.Player
+namespace Assets.Scripts.Player
 {
     using UnityEngine;
 
     /// <summary>
-    /// This object controls the movement of the player:
+    /// This object controls the movement of the holdingPoint:
     /// rotation, position and Velocity.
     /// </summary>
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovementNew : MonoBehaviour
     {
         private const string HorizontalAxis = "Horizontal";
         private const string VerticalAxis = "Vertical";
@@ -17,18 +17,20 @@
         private bool isScaleToRight;
         private float playerRotation;
         private Vector3 playerVelocity;
+        private CharacterController controller;
+        private Animator playerAnimator;
 
         [SerializeField]
         private Vector3 playerHorizontalDirection;
         [SerializeField]
         private Vector3 playerVerticalDirection;
-        private CharacterController controller;
-        private Animator playerAnimator;
         [SerializeField]
         private float mouseSensetivity = 1000;
         [SerializeField]
+        [Range(5,100)]
         private float playerSpeed = 2.0f;
         [SerializeField]
+        [Range(2, 70)]
         private float jumpHeight = 1.0f;
         [SerializeField]
         private float gravityValue = -9.81f;

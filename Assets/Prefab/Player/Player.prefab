@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8722970467632704396}
   - component: {fileID: 8722970467632704496}
-  - component: {fileID: 7027792512719806272}
+  - component: {fileID: 8722970467632704497}
   - component: {fileID: 8722970467632704398}
   - component: {fileID: 8722970467632704399}
   m_Layer: 0
@@ -53,7 +53,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7027792512719806272
+--- !u!114 &8722970467632704497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,15 +62,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8722970467632704397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43e4b373160ed7940a0913737604cc58, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bd023ae1c1b5624694666e10c9d2ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHorizontalDirection: {x: 0, y: 0, z: 0}
-  playerVerticalDirection: {x: 0, y: 0, z: 0}
-  mouseSensetivity: 1000
-  playerSpeed: 2
-  jumpHeight: 1
-  gravityValue: -9.81
+  m_MoveSpeed: 0
+  m_RunSpeed: 20.96
+  m_RunSideSpeed: 5
+  m_JumpHeight: 2
+  m_AnimeRunnig: 0
+  m_AnimeSideRunnig: 0
+  m_AnimeThrowingRunnig: 0
+  m_TheRealSituation: 
+  m_GroundCheckDistance: 0.2
+  m_GroundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_Gravity: -9.81
 --- !u!65 &8722970467632704398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -210,6 +217,7 @@ GameObject:
   - component: {fileID: 8722970467826688048}
   - component: {fileID: 8722970467826688049}
   - component: {fileID: 8722970467826688974}
+  - component: {fileID: 8722970467826688051}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -283,6 +291,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8722970467826688975}
   m_Enabled: 1
+--- !u!114 &8722970467826688051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722970467826688975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e2c5ecc94dd3bb49a7c8d462b0ec696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MouseSensetivity: 1000
+  m_Parent: {fileID: 8722970467632704396}
 --- !u!1 &8722970468635449891
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +314,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8722970468635449890}
+  - component: {fileID: 8722970468635449893}
+  - component: {fileID: 8722970468635449892}
   m_Layer: 0
   m_Name: PickUpPoint
   m_TagString: Player
@@ -315,6 +339,34 @@ Transform:
   m_Father: {fileID: 5395753049934751234}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -61.622, y: 96.884, z: 10.464}
+--- !u!114 &8722970468635449893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722970468635449891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c535ad47c6e848408f7212f7ffd600f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceMulti: 0
+  m_EventTrow: 0
+  m_EventEnd: 0
+--- !u!135 &8722970468635449892
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722970468635449891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: -0.000000036435353, y: 0.000000035752045, z: 0.6435733}
 --- !u!1001 &8722970468506656265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -938,6 +990,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8722970468506656271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8489107989087839064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c535ad47c6e848408f7212f7ffd600f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ForceMulti: 0
+  m_EventTrow: 0
+  m_EventEnd: 0
 --- !u!4 &9116567752578087394 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 728dca0a4801d904895b3982ca9f84f6, type: 3}

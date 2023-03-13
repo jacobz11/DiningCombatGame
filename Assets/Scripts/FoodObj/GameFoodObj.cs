@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using Assets.Scripts.Player;
+using Assets.Scripts.Player.PickUpItem;
 
 public class GameFoodObj : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class GameFoodObj : MonoBehaviour
     // Fields 
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
-    //private ThrowingGameObj m_HoldingGameObj;
+    private ThrowingGameObj m_HoldingGameObj;
 
     [SerializeField]
     private ParticleSystem m_Effect;
@@ -30,7 +31,7 @@ public class GameFoodObj : MonoBehaviour
 
     // ================================================
     // properties
-    public bool IsThrow
+    public bool IsThrow 
     {
         get => m_IsThrow;
         private set
@@ -66,7 +67,7 @@ public class GameFoodObj : MonoBehaviour
         // add Gravity
         m_Rigidbody.useGravity = true;
 
-        actualThrow(i_ForceMulti * i_ThrowDirection);
+        actualThrow(i_ForceMulti*i_ThrowDirection);
     }
 
     /// <summary>
@@ -90,7 +91,7 @@ public class GameFoodObj : MonoBehaviour
     {
         m_HoldingGameObj = i_HoldingGameObj;
 
-        if (m_HoldingGameObj != null)
+        if(m_HoldingGameObj != null)
         {
             updatePosition();
         }
@@ -99,11 +100,9 @@ public class GameFoodObj : MonoBehaviour
     private void updatePosition()
     {
         GameObject pickUpItem = m_HoldingGameObj.gameObject;
-        transform.SetParent(pickUpItem.transform, false);
-        transform.position = pickUpItem.transform.position;
-        transform.localPosition = Vector3.zero;
-        m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-
+        this.transform.position = pickUpItem.transform.position;
+        this.transform.SetParent(pickUpItem.transform, false);
+        this.transform.localPosition = pickUpItem.transform.localPosition;
 
         if (m_HoldingGameObj is HandPickUp)
         {
@@ -142,7 +141,7 @@ public class GameFoodObj : MonoBehaviour
     /// <returns></returns>
     private bool performTheEffect()
     {
-        if (IsThrow && m_Effect != null)
+        if(IsThrow && m_Effect != null)
         {
             ParticleSystem effect = Instantiate(m_Effect, transform.position, transform.rotation);
 

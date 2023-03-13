@@ -2071,6 +2071,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Slder: {fileID: 350728480}
+--- !u!114 &2025032675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025032663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b0a05b928d2774fbb3ccc643868175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHorizontalDirection: {x: 0, y: 0, z: 0}
+  playerVerticalDirection: {x: 0, y: 0, z: 0}
+  mouseSensetivity: 1000
+  playerSpeed: 20
+  jumpHeight: 10
+  gravityValue: -9.81
 --- !u!1001 &8722970469279485489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2126,9 +2144,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8722970467632704497, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722970467826688051, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: m_PowerSlider
       value: 
       objectReference: {fileID: 261964966}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8722970467632704497, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+    - {fileID: 8722970467826688051, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
