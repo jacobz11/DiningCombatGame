@@ -93,7 +93,10 @@ public class GameFoodObj : MonoBehaviour
 
         if(m_HoldingGameObj != null)
         {
-            updatePosition();
+            Transform point = this.m_HoldingGameObj.GetPoint();
+            this.transform.position = point.position;
+            this.transform.SetParent(point, true);
+            this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 

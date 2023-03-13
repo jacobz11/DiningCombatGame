@@ -1744,6 +1744,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
+--- !u!1 &1728598187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8722970468635449891, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+  m_PrefabInstance: {fileID: 8722970469279485489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1797368015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,9 +2158,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: pikUpPint
+      value: 
+      objectReference: {fileID: 1728598187}
+    - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: ForceMultiUi
+      value: 
+      objectReference: {fileID: 261964966}
+    - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: m_PowerSlider
       value: 
       objectReference: {fileID: 261964966}
+    - target: {fileID: 8722970468635449893, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8722970467632704497, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
     - {fileID: 8722970467826688051, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}

@@ -7,79 +7,35 @@ namespace Assets.Scripts.Player.PickUpItem
     /// <summary>
     /// This mode should create synchronization between the shot and the animation
     /// </summary>
-    internal class StateThrowing : IStatePlayerHand 
+    internal class StateThrowing : IStatePlayerHand
     {
+        private const float KFramesToThrow = 1.9f;
+        private const float KMaxFrame = 2.1f;
+        private float numOfFrames;
 
-        private const float k_FramesToThrow = 1.9f;
-        private const float k_MaxFrame = 2.1f;
-        private float m_NumOfFrames;
-        private bool m_IsThrownAway;
-        private bool m_ThrowingEnd;
-        private HandPickUp m_PickUpItem;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StateThrowing"/> class.
+        /// </summary>
+        /// <param name="i_PickUpItem">the holdingPoint</param>
         public StateThrowing(HandPickUp i_PickUpItem)
+            : base(i_PickUpItem)
         {
-            m_PickUpItem = i_PickUpItem;
-            m_NumOfFrames = 0;
-            m_IsThrownAway = false;
-            m_ThrowingEnd = false;
-        }
-        public void EnterCollisionFoodObj(Collider other)
-        {
-            // for now this is should be empty
-            // the implementing only in StateFree
+            this.numOfFrames = 0;
         }
 
-        public void ExitCollisionFoodObj(Collider other)
+        /// <inheritdoc/>
+        public override void InitState()
         {
-            // for now this is should be empty
-            // the implementing only in StateFree
+            this.playrHand.ThrowingAnimator = true;
+            this.numOfFrames = 0;
         }
 
-        public void InitState()
-        {
-            m_PickUpItem.ThrowingAnimator = true;
-            m_NumOfFrames = 0;
-            m_IsThrownAway = false;
-        }
+        /// <inheritdoc/>
+        public override bool IsPassStage() => this.numOfFrames >= KFramesToThrow;
 
-        public bool IsPassStage()
+        /// <inheritdoc/>
+        public override void UpdateByState()
         {
-            return m_NumOfFrames >= k_FramesToThrow;
-        }
-
-        public void SetEventTrowing()
-        {
-            m_IsThrownAway = true;
-        }
-
-        public void SetEventTrowingEnd()
-        {
-            m_ThrowingEnd = true;
-        }
-
-        public void UpdateByState()
-        {
-            if (IsPassStage() && !m_IsThrownAway)
-            {
-                m_IsThrownAway = true;
-                m_PickUpItem.ThrowObj();
-            }
-            
-            if (m_NumOfFrames > k_MaxFrame)
-            {
-                m_PickUpItem.StatePlayerHand++;
-            }
-
-            m_NumOfFrames += 1* Time.deltaTime;
-        }
-
-        IEnumerator syncThrowToAnimation()
-        {
-            for (int i = 0; i < 46; i++)
-            {
-                yield return null;
-            }
         }
     }
 }

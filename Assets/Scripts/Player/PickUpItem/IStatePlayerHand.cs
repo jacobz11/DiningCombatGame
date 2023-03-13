@@ -1,47 +1,33 @@
 ﻿
+using Assets.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.PickUpItem
 {
-    public interface IStatePlayerHand 
+    public abstract class IStatePlayerHand
     {
-        /// <summary>
-        /// This method should be implemented
-        /// In any State, what will we do?
-        /// </summary>
-        public void UpdateByState();
-        
-        /// <summary>
-        /// This method should implement the
-        /// initialization of the state
-        /// </summary>
-        public void InitState();
-        public bool IsPassStage();
-        
-        /// <summary>
-        /// for now the implementing only in StateFree
-        /// to notify StateFree the Collision Food Obj happened
-        /// In order to seve the GameObject and 
-        /// not automatically pick it up 
-        /// </summary>
-        /// <param name="i_GameObject"></param>
-        void EnterCollisionFoodObj(Collider other);
+        protected HandPickUp playrHand;
 
-        /// <summary>
-        /// for now the implementing only in StateFree
-        /// to notify StateFree the Exit from the Collision Food Obj happened
-        /// In order to seve the GameObject and 
-        /// not automatically pick it up 
-        /// </summary>
-        void ExitCollisionFoodObj(Collider other);
+        protected IStatePlayerHand(HandPickUp i_PickUpItem)
+        {
+            this.playrHand = i_PickUpItem;
+        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        void SetEventTrowingEnd();
-        /// <summary>
-        /// 
-        /// </summary>
-        void SetEventTrowing();
+        public bool IsPowerKeyPress => Input.GetKey(KeyCode.E);
+
+        public abstract void UpdateByState();
+
+        public abstract void InitState();
+
+        public abstract bool IsPassStage();
+
+        public virtual void EnterCollisionFoodObj(Collider other)
+        {
+        }
+
+        public virtual void ExitCollisionFoodObj(Collider other)
+        {
+        }
     }
 }
+

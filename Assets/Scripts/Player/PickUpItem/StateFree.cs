@@ -1,107 +1,79 @@
 ﻿using Assets.Scripts.PickUpItem;
+using Assets.Scripts.Player;
 using DiningCombat;
 using UnityEngine;
 
-/// <summary>
-/// This class represents the situation in which
-/// The player <b>not holding</b> an object of <see cref="GameFoodObj"/>
-/// and the player is looking for <see cref="GameFoodObj"/> to pick up 
-/// <para>THIS IS INIT Stat </para>
-/// implenrt the interface <see cref="IStatePlayerHand"/>
-/// </summary>
-internal class StateFree : IStatePlayerHand
+    /// <summary>
+    /// This class represents the situation in which
+    /// The holdingPoint <b>not holding</b> an object of <see cref="GameFoodObj"/>
+    /// and the holdingPoint is looking for <see cref="GameFoodObj"/> to pick up
+    /// <para>THIS IS INIT Stat </para>
+    /// implenrt the interface <see cref="IStatePlayerHand"/>
+    /// </summary>
+    internal class StateFree : IStatePlayerHand
 {
-    // ================================================
-    // constant Variable 
-    private const string k_ClassName = "StateFree";
-    private const int k_Next = HandPickUp.k_HoldsObj;
-    private const int k_Previous = HandPickUp.k_Powering;
-    // ================================================
-    // Delegate
+    private GameObject gameObject;
 
-    // ================================================
-    // Fields
-    private HandPickUp m_PickUpItem;
-    private GameObject m_GameObject;
-
-    // ================================================
-    // ----------------Serialize Field-----------------
-
-    // ================================================
-    // properties
-    private bool haveGameObject
-    {
-        get => m_GameObject != null; 
-    }
-    // ================================================
-    // auxiliary methods programmings
-    // ================================================
-    // Unity Game Engine
-
-    // ================================================
-    //  methods
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StateFree"/> class.
+    /// </summary>
+    /// <param name="i_PickUpItem">the holdingPoint</param>
     public StateFree(HandPickUp i_PickUpItem)
+        : base(i_PickUpItem)
     {
-        m_PickUpItem = i_PickUpItem;
-        m_GameObject = null;
+        this.gameObject = null;
     }
 
-    public void InitState()
+    private bool HaveGameObject => this.gameObject != null;
+
+    /// <inheritdoc/>
+    public override void InitState()
     {
-        m_PickUpItem.ForceMulti = 0;
-        m_PickUpItem.SetGameFoodObj(null);
-        m_GameObject = null;
-        m_PickUpItem.EventTrow = false;
-        m_PickUpItem.EventEnd = false;
+        this.playrHand.ForceMulti = 0;
+        this.playrHand.SetGameFoodObj(null);
+        this.gameObject = null;
+        Debug.Log("init state : StateFree");
     }
 
-    public bool IsPassStage()
+    /// <inheritdoc/>
+    public override bool IsPassStage()
     {
-        return haveGameObject && m_PickUpItem.Power.Press;
+        return this.HaveGameObject && this.IsPowerKeyPress;
     }
 
-
-    public void UpdateByState()
+    /// <inheritdoc/>
+    public override void UpdateByState()
     {
-        if (IsPassStage())
+        if (this.IsPassStage())
         {
-            m_PickUpItem.SetGameFoodObj(m_GameObject);
+            this.playrHand.SetGameFoodObj(this.gameObject);
+            this.playrHand.StatePlayerHand++;
+            Debug.Log("UpdateByState : StateFree");
         }
+        //else
+        //{
+        //    if (this.HaveGameObject)
+        //    {
+        //        Debug.Log("UpdateByState : StateFree else ");
+        //    }
+        //}
     }
 
-    public void EnterCollisionFoodObj(Collider other)
+    /// <inheritdoc/>
+    public override void EnterCollisionFoodObj(Collider other)
     {
         if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
         {
-            m_GameObject = other.gameObject;
+            this.gameObject = other.gameObject;
         }
     }
 
-    public void ExitCollisionFoodObj(Collider other)
+    /// <inheritdoc/>
+    public override void ExitCollisionFoodObj(Collider other)
     {
         if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
         {
-            m_GameObject = null;
+            this.gameObject = null;
         }
     }
-
-    public void SetEventTrowingEnd()
-    {
-        // for now this is should be empty
-        // the implementing only in StateFre
-    }
-
-    public void SetEventTrowing()
-    {
-        // for now this is should be empty
-        // the implementing only in StateFre
-    }
-    // ================================================
-    // auxiliary methods
-    // ================================================
-    // Delegates Invoke 
-
-    // ================================================
-    // ----------------Unity--------------------------- 
-    // ----------------GameFoodObj---------------------
 }

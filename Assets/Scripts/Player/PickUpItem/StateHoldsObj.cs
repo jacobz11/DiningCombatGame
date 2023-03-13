@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.PickUpItem;
+using Assets.Scripts.Player;
 using DiningCombat;
 using UnityEngine;
 
@@ -9,82 +10,37 @@ using UnityEngine;
 /// </summary>
 internal class StateHoldsObj : IStatePlayerHand
 {
-    // ================================================
-    // constant Variable 
+    private float initTimeEnteState;
 
-    // ================================================
-    // Delegate
-
-    // ================================================
-    // Fields
-    private HandPickUp m_PickUpItem;
-
-    // ================================================
-    // ----------------Serialize Field-----------------
-
-    // ================================================
-    // properties
-
-    // ================================================
-    // auxiliary methods programmings
-
-    // ================================================
-    // Unity Game Engine
-
-    // ================================================
-    //  methods
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StateHoldsObj"/> class.
+    /// </summary>
+    /// <param name="i_PickUpItem">the holdingPoint</param>
     public StateHoldsObj(HandPickUp i_PickUpItem)
+        : base(i_PickUpItem)
     {
-        m_PickUpItem = i_PickUpItem;
     }
 
-    public void EnterCollisionFoodObj(Collider other)
+    /// <inheritdoc/>
+    public override void InitState()
     {
-        // for now this is should be empty
-        // the implementing only in StateFree
+        this.playrHand.ForceMulti = 0;
+        this.initTimeEnteState = Time.time;
+        Debug.Log("init state : StateHoldsObj");
     }
 
-    public void ExitCollisionFoodObj(Collider other)
+    /// <inheritdoc/>
+    public override bool IsPassStage()
     {
-        // for now this is should be empty
-        // the implementing only in StateFree
+        return this.IsPowerKeyPress;
     }
 
-    public void InitState()
+    /// <inheritdoc/>
+    public override void UpdateByState()
     {
-        m_PickUpItem.ForceMulti = 0;
-    }
-    public bool IsPassStage()
-    {
-        return m_PickUpItem.Power.Down;
-    }
-
-    public void SetEventTrowing()
-    {
-        // for now this is should be empty
-        // the implementing only in StateFre
-    }
-
-    public void SetEventTrowingEnd()
-    {
-        // for now this is should be empty
-        // the implementing only in StateFre
-    }
-
-    public void UpdateByState()
-    {
-        if (IsPassStage())
+        if (this.IsPassStage())
         {
-            m_PickUpItem.StatePlayerHand++;
+            this.playrHand.StatePlayerHand++;
         }
     }
-    // ================================================
-    // auxiliary methods
-
-    // ================================================
-    // Delegates Invoke 
-
-    // ================================================
-    // ----------------Unity--------------------------- 
-    // ----------------GameFoodObj---------------------
 }

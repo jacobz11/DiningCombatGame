@@ -64,4 +64,9 @@ public class AiThrew :ThrowingGameObj
         m_FoodToThrow.GetComponent<GameFoodObj>().ThrowFood(m_ForceMulti, calaV3());
         m_FoodToThrow = null;
     }
+
+    public override Transform GetPoint()
+    {
+        return this.transform;
+    }
 }

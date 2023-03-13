@@ -18,5 +18,6 @@ namespace Assets.Scripts.Player.PickUpItem
             set;
         }
 
+        public abstract Transform GetPoint();
     }
 }

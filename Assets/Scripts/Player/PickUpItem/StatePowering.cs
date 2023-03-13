@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.PickUpItem;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 /// <summary>
@@ -13,101 +14,60 @@ using UnityEngine;
 /// </summary>
 internal class StatePowering : IStatePlayerHand
 {
-    // ================================================
-    // constant Variable 
-    //private const byte k_Previous = HandPickUp.k_HoldsObj;
-    //private const byte k_Next = HandPickUp.k_Throwing;
-    // ================================================
-    // Delegate
+    private float initTimeEnteState;
 
-    // ================================================
-    // Fields
-    private HandPickUp m_PickUpItem;
+    private bool IsBufferTime => Time.time - this.initTimeEnteState > 0.2f;
 
-    // ================================================
-    // ----------------Serialize Field-----------------
-
-    // ================================================
-    // properties
-
-    // ================================================
-    // auxiliary methods programmings
-    // ================================================
-    // Unity Game Engine
-
-    // ================================================
-    //  methods
     public StatePowering(HandPickUp i_PickUpItem)
-    {
-        m_PickUpItem = i_PickUpItem;
-    }
-    public void InitState()
+        : base(i_PickUpItem)
     {
     }
 
-    public void EnterCollisionFoodObj(Collider other)
+    /// <inheritdoc/>
+    public override void InitState()
     {
-        // for now this is should be empty
-        // the implementing only in StateFree
+        Debug.Log("init state : StatePowering");
+        this.initTimeEnteState = Time.time;
     }
 
-    public void ExitCollisionFoodObj(Collider other)
+    /// <inheritdoc/>
+    public override bool IsPassStage()
     {
-        // for now this is should be empty
-        // the implementing only in StateFree
-    }
-
-    public bool IsPassStage()
-    {
-        return m_PickUpItem.Power.Up && m_PickUpItem.ForceMulti > 10;
-    }
-
-    public void UpdateByState()
-    {
-
-        if (m_PickUpItem.Power.Press)
+        if (this.IsBufferTime)
         {
-            addToForceMulti();
+            return Input.GetKeyUp(KeyCode.E) && this.playrHand.ForceMulti > 50;
         }
-        else if (IsPassStage())
+
+        return false;
+    }
+
+    /// <inheritdoc/>
+    public override void UpdateByState()
+    {
+        if (this.IsPowerKeyPress)
         {
-            m_PickUpItem.StatePlayerHand++;// = k_Next;
+            this.AddToForceMulti();
+        }
+        else if (this.IsPassStage())
+        {
+            this.playrHand.StatePlayerHand++;
         }
         else
         {
-            stepBack();
+            this.StepBack();
         }
     }
-    // ================================================
-    // auxiliary methods
-    private void addToForceMulti()
+
+    private void AddToForceMulti()
     {
-        m_PickUpItem.ForceMulti += 1400 * Time.deltaTime;
+        this.playrHand.ForceMulti += 1400 * Time.deltaTime;
     }
-    private void stepBack()
+
+    private void StepBack()
     {
-        if (Time.deltaTime > 0.2)
+        if (this.IsBufferTime)
         {
-            m_PickUpItem.StatePlayerHand--;// = k_Previous;
+            this.playrHand.StatePlayerHand--;
         }
     }
-
-    public void SetEventTrowingEnd()
-    {
-        // for now this is should be empty
-        // the implementing only in StateFre
-    }
-
-    public void SetEventTrowing()
-    {
-        // for now this is should be empty
-        // the implementing only in StateFre
-    }
-
-    // ================================================
-    // Delegates Invoke 
-
-    // ================================================
-    // ----------------Unity--------------------------- 
-    // ----------------GameFoodObj---------------------
 }
