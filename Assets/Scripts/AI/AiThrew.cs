@@ -7,12 +7,14 @@ public class AiThrew :ThrowingGameObj
     private GameObject m_FoodToThrow;
 
     [SerializeField]
+    [Range(0.5f, 5f)]
     public float m_TimeToThrew;
     [SerializeField]
     private GameManager m_GameManager;
     [SerializeField]
     private GameObject m_Pleyer;
     [SerializeField]
+    [Range(50f, 9000f)]
     private float m_ForceMulti;
 
     public override float ForceMulti 

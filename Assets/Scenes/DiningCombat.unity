@@ -331,10 +331,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb0a9af80e12774b810ab14df394637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TimeToThrew: 5
+  m_TimeToThrew: 2.41
   m_GameManager: {fileID: 577102739}
   m_Pleyer: {fileID: 2025032663}
-  m_ForceMulti: 300
+  m_ForceMulti: 873
 --- !u!1 &261964964
 GameObject:
   m_ObjectHideFlags: 0
