@@ -2,7 +2,7 @@ using Assets.Scripts.Player.PickUpItem;
 using System.Collections;
 using UnityEngine;
 
-public class AiThrew :ThrowingGameObj
+public class AiThrew : ThrowingGameObj
 {
     private GameObject m_FoodToThrow;
 
@@ -15,8 +15,8 @@ public class AiThrew :ThrowingGameObj
     [SerializeField]
     private float m_ForceMulti;
 
-    public override float ForceMulti 
-    { 
+    public override float ForceMulti
+    {
         get => m_ForceMulti;
         set => m_ForceMulti = value;
     }
