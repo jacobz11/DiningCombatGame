@@ -1,6 +1,5 @@
 
 using Assets.Scripts;
-using Assets.Scripts.AbstractFactory;
 using DiningCombat;
 using System;
 using System.Collections;

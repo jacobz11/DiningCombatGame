@@ -6,7 +6,7 @@ namespace Assets.Scripts.Player
     /// This object controls the movement of the holdingPoint:
     /// rotation, position and Velocity.
     /// </summary>
-    public class PlayerMovementNew : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour
     {
         private const string HorizontalAxis = "Horizontal";
         private const string VerticalAxis = "Vertical";
@@ -21,9 +21,9 @@ namespace Assets.Scripts.Player
         private Animator playerAnimator;
 
         [SerializeField]
-        private Vector3 playerHorizontalDirection;
+        private Vector3 m_VerticalDir;
         [SerializeField]
-        private Vector3 playerVerticalDirection;
+        private Vector3 m_HorizontalDir;
         [SerializeField]
         private float mouseSensetivity = 1000;
         [SerializeField]
@@ -49,9 +49,9 @@ namespace Assets.Scripts.Player
             set => this.playerAnimator.SetBool(IsSideRunningAnimationName, value);
         }
 
-        private bool IsVerticalMovement => IsNotZeroVector3(this.playerVerticalDirection);
+        private bool IsVerticalMovement => IsNotZeroVector3(this.m_VerticalDir); 
 
-        private bool IsHorizontalMovement => IsNotZeroVector3(this.playerHorizontalDirection);
+        private bool IsHorizontalMovement => IsNotZeroVector3(this.m_HorizontalDir);
 
         private static bool IsKeysPress(KeyCode first, params KeyCode[] rest)
         {
@@ -98,13 +98,12 @@ namespace Assets.Scripts.Player
 
         private void UpdateAnimation()
         {
-            if (this.IsVerticalMovement)
+            if (this.IsHorizontalMovement)
             {
-                //this.SpinPleyarForRunningSide();
                 this.RunningAnimation = false;
                 this.RunningSideAnimation = true;
             }
-            else if (this.IsHorizontalMovement)
+            else if (this.IsVerticalMovement)
             {
                 this.RunningSideAnimation = false;
                 this.RunningAnimation = true;
@@ -114,6 +113,8 @@ namespace Assets.Scripts.Player
                 this.RunningAnimation = false;
                 this.RunningSideAnimation = false;
             }
+
+            SpinPleyarForRunningSide();
         }
 
         private void UpdateRotation()
@@ -133,27 +134,25 @@ namespace Assets.Scripts.Player
 
         private void UpdatePosition()
         {
-            this.controller.Move(this.playerVerticalDirection * Time.deltaTime * this.playerSpeed);
-            this.controller.Move(this.playerHorizontalDirection * Time.deltaTime * this.playerSpeed);
+            this.controller.Move(this.m_HorizontalDir * Time.deltaTime * this.playerSpeed);
+            this.controller.Move(this.m_VerticalDir * Time.deltaTime * this.playerSpeed);
         }
 
         private void UpdateVectorsDirection()
         {
-            this.playerVerticalDirection = this.transform.
-                TransformDirection(new Vector3(Input.GetAxis(HorizontalAxis), 0, 0));
-            this.playerHorizontalDirection = this.transform.
-                TransformDirection(new Vector3(0, 0, Input.GetAxis(VerticalAxis)));
+            this.m_HorizontalDir = this.transform.TransformDirection(new Vector3(Input.GetAxis(HorizontalAxis), 0, 0));
+            this.m_VerticalDir = this.transform.TransformDirection(new Vector3(0, 0, Input.GetAxis(VerticalAxis)));
         }
 
         private void SpinPleyarForRunningSide()
         {
-            bool isLeft = IsKeysPress(KeyCode.A, KeyCode.LeftArrow);
-            bool isRight = IsKeysPress(KeyCode.D, KeyCode.RightArrow);
-
-            if (isLeft || isRight)
+            if (this.m_HorizontalDir.x < 0)
             {
-                float x = isLeft ? -1f : 1f;
-                this.transform.localScale = new Vector3(x, 1, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            if (this.m_HorizontalDir.x > 0)
+            {
+                transform.localScale = Vector3.one;
             }
         }
 
@@ -176,7 +175,6 @@ namespace Assets.Scripts.Player
                     this.playerVelocity.y += Mathf.Sqrt(this.jumpHeight * -3.0f * this.gravityValue);
                 }
             }
-
             this.playerVelocity.y += this.gravityValue * Time.deltaTime;
         }
     }
