@@ -18,8 +18,12 @@ public class GameFoodObj : MonoBehaviour
 
     [SerializeField]
     private ParticleSystem m_Effect;
-    [Serialize]
-    private FoodTypeData m_Data; 
+    [SerializeField]
+    [Range(0f, 2f)]
+    private float m_HitPlayerMull;
+    [SerializeField]
+    [Range(0f,100f)]
+    private float m_MaxHitPlayerMull;
 
     public bool IsThrow 
     {
@@ -34,7 +38,6 @@ public class GameFoodObj : MonoBehaviour
     protected virtual void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Data = FoodObj.Builder();
         //m_Effect.Stop();
     }
 
@@ -94,17 +97,31 @@ public class GameFoodObj : MonoBehaviour
         if (isPlayer(i_Collision))
         {
             OnHitPlayer(EventArgs.Empty);
-
             PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
 
             if (playerHit != null)
             {
-                playerHit.HitYou(5f);
+                float hitP = GetHitPonit();
+                Debug.Log("hit player HitPonit :" + hitP);
+                playerHit.HitYou(hitP);
             }
         }
 
         performTheEffect();
         destruction();
+    }
+
+    private float GetHitPonit()
+    {
+        float x = Math.Abs(this.m_Rigidbody.velocity.x);
+        float y = Math.Abs(this.m_Rigidbody.velocity.y);
+        float z = Math.Abs(this.m_Rigidbody.velocity.z);
+
+        Debug.Log(this.m_Rigidbody.velocity);
+        float res = m_HitPlayerMull * (x + y + z);
+        m_HitPlayerMull = 0;
+        
+        return Math.Min(res, m_MaxHitPlayerMull);
     }
 
     private bool performTheEffect()
@@ -128,7 +145,7 @@ public class GameFoodObj : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision i_Collision)
     {
-        if (IsThrow)
+        if (IsThrow && m_HitPlayerMull != 0)
         {
             collisionAfterThrowingHandler(i_Collision);
         }

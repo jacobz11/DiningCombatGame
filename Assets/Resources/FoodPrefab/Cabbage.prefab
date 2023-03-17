@@ -64,6 +64,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Effect: {fileID: 2826399002054249459, guid: c98edd945d2558e4bb65a0203f79a116, type: 3}
+  m_HitPlayerMull: 0.43
+  m_MaxHitPlayerMull: 51.2
 --- !u!135 &3993145262059571948
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -71,7 +73,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5482208656449768719}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5e6de998788c7fd44914e209c4f02f12, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

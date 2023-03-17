@@ -1975,6 +1975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Effect: {fileID: 0}
+  m_HitPlayerMull: 0
 --- !u!1 &2025032663 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8722970467632704397, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
@@ -2079,6 +2080,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8722970467632704398, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Size.y
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722970467632704398, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: b2f1022fd3ed2fa4a8a31367bac61a7a, type: 2}
     - target: {fileID: 8722970467632704497, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: m_Enabled
       value: 0
