@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     [Range(0, 10)]
     private byte m_NumOfSecondsBetweenSpawn;
     private byte m_NumOfExistingFoobObj;
-    private OnlineGameAbstractFactory m_GameAbstractFactory;
+    private ManagerGameFoodObj m_FoodObjBuilder;
     private Vector3 m_MaxPosition;
     private Vector3 m_MinPosition;
 
@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        m_GameAbstractFactory = new OfflineGameAbstractFactory();
+        m_FoodObjBuilder = this.AddComponent<ManagerGameFoodObj>();
+        m_FoodObjBuilder.Manager = this;
     }
     void Start()
     {
@@ -109,18 +110,15 @@ public class GameManager : MonoBehaviour
 
     public GameObject SpawnGameFoodObj()
     {
-        ++m_NumOfExistingFoobObj;
-        GameObject spawn = Instantiate(m_GameAbstractFactory.SpawnGameFoodObj(),
-                                       getRandomPosition(),
-                                   Quaternion.identity);
+        if (m_FoodObjBuilder.SpawnGameFoodObj(getRandomPosition(), out GameObject o_Spawn))
+        {
+            ++m_NumOfExistingFoobObj;
+        }
 
-        GameFoodObj foodObj = spawn.GetComponent<GameFoodObj>();
-        foodObj.Destruction += OnDestruction_GameFoodObj;
-
-        return spawn;
+        return o_Spawn;
     }
 
-    protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
+    public virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
         --m_NumOfExistingFoobObj;
     }

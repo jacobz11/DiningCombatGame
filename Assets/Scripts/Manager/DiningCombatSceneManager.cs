@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ComSceneManager : MonoBehaviour
+public class DiningCombatSceneManager : MonoBehaviour
 {
+    //
     [SerializeField]
     private Button m_NewGameBtn;
     [SerializeField]
