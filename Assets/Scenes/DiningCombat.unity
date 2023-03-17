@@ -487,11 +487,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191234779}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cb0a9af80e12774b810ab14df394637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
   m_Score: {fileID: 191234785}
   m_TimeToThrew: 2.41
   m_GameManager: {fileID: 577102739}
@@ -2193,10 +2194,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8722970468506656266, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_UpdateMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: m_Score
       value: 
       objectReference: {fileID: 2025032676}
+    - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
+      propertyPath: m_Parent
+      value: 
+      objectReference: {fileID: 2025032663}
     - target: {fileID: 8722970468506656271, guid: 03d1cf68a787068459824942ed1bcf7e, type: 3}
       propertyPath: pikUpPint
       value: 

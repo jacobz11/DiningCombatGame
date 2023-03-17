@@ -9,6 +9,8 @@ namespace Assets.Scripts.Player.PickUpItem
 {
     public abstract class ThrowingGameObj : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject m_Parent;
         internal abstract void SetGameFoodObj(GameObject i_GameObject);
         internal abstract void ThrowObj();
 
@@ -19,5 +21,10 @@ namespace Assets.Scripts.Player.PickUpItem
         }
 
         public abstract Transform GetPoint();
+
+        internal bool DidIHurtMyself(Collision i_Collision)
+        {
+            return m_Parent.name == i_Collision.gameObject.name;
+        }
     }
 }

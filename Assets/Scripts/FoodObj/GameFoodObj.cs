@@ -15,7 +15,6 @@ public class GameFoodObj : MonoBehaviour
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
     private ThrowingGameObj m_HoldingGameObj;
-
     [SerializeField]
     private ParticleSystem m_Effect;
     [SerializeField]
@@ -70,7 +69,7 @@ public class GameFoodObj : MonoBehaviour
         if(m_HoldingGameObj != null)
         {
             Transform point = this.m_HoldingGameObj.GetPoint();
-            this.transform.position = point.position;
+            this.transform.position = point.position + this.transform.lossyScale;
             this.transform.SetParent(point, true);
 
             if (m_HoldingGameObj is HandPickUp)
@@ -109,7 +108,15 @@ public class GameFoodObj : MonoBehaviour
                 }
             }
 
-            OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
+            if (m_HoldingGameObj.DidIHurtMyself(i_Collision))
+            {
+                Debug.Log("you stupid son of a bitch? You hurt yourself");
+            }
+            else
+            {
+                Debug.Log("OnHitPlayer");
+                OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
+            }
         }
 
         performTheEffect();
