@@ -788,6 +788,8 @@ MonoBehaviour:
   m_MaxNumOfFoodObj: 10
   m_NumOfInitGameObj: 2
   m_NumOfSecondsBetweenSpawn: 2
+  m_MaxPosition: {x: 19, y: 2, z: 19}
+  m_MinPosition: {x: -19, y: 0.5, z: -19}
 --- !u!4 &577102740
 Transform:
   m_ObjectHideFlags: 0
@@ -2104,8 +2106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b0a05b928d2774fbb3ccc643868175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHorizontalDirection: {x: 0, y: 0, z: 0}
-  playerVerticalDirection: {x: 0, y: 0, z: 0}
+  m_VerticalDir: {x: 0, y: 0, z: 0}
+  m_HorizontalDir: {x: 0, y: 0, z: 0}
   mouseSensetivity: 1000
   playerSpeed: 31.4
   jumpHeight: 10

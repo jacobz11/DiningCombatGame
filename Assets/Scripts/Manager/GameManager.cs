@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     [Range(0, 10)]
     private byte m_NumOfSecondsBetweenSpawn;
+    [SerializeField]
+    private Vector3 m_MaxPosition;
+    [SerializeField]
+    private Vector3 m_MinPosition;
     private byte m_NumOfExistingFoobObj;
     private ManagerGameFoodObj m_FoodObjBuilder;
-    private Vector3 m_MaxPosition;
-    private Vector3 m_MinPosition;
 
     public bool IsRunning => true;
     public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < m_MaxNumOfFoodObj;
@@ -36,22 +38,22 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        GameObject ground = GameObject.Find(GameGlobal.GameObjectName.k_Ground);
+        //GameObject ground = GameObject.Find(GameGlobal.GameObjectName.k_Ground);
 
-        // X 
-        float minX = ground.transform.position.x - (ground.transform.localScale.x / 2);
-        float maxX = ground.transform.position.x + (ground.transform.localScale.x / 2);
+        //// X 
+        //float minX = ground.transform.position.x - (ground.transform.localScale.x / 2);
+        //float maxX = ground.transform.position.x + (ground.transform.localScale.x / 2);
 
-        // Y
-        //float minY = ground.transform.position.y - (ground.transform.localScale.y / 2);
-        //float maxY = ground.transform.position.y + (ground.transform.localScale.y / 2);
+        //// Y
+        ////float minY = ground.transform.position.y - (ground.transform.localScale.y / 2);
+        ////float maxY = ground.transform.position.y + (ground.transform.localScale.y / 2);
 
-        // Z
-        float minZ = ground.transform.position.z - (ground.transform.localScale.z / 2);
-        float maxZ = ground.transform.position.z + (ground.transform.localScale.z / 2);
+        //// Z
+        //float minZ = ground.transform.position.z - (ground.transform.localScale.z / 2);
+        //float maxZ = ground.transform.position.z + (ground.transform.localScale.z / 2);
 
-        m_MaxPosition = new Vector3(minX, 0.25f, minZ);
-        m_MinPosition = new Vector3(maxX, 0.25f, maxZ);
+        //m_MaxPosition = new Vector3(minX, 0.25f, minZ);
+        //m_MinPosition = new Vector3(maxX, 0.25f, maxZ);
 
         for (int i = 0; i < m_NumOfInitGameObj; i++)
         {
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private Vector3 getRandomPosition()
+    private Vector3 getRandomPositionInMap()
     {
         return new Vector3(
             Random.Range(m_MinPosition.x, m_MaxPosition.x),
@@ -109,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject SpawnGameFoodObj()
     {
-        if (m_FoodObjBuilder.SpawnGameFoodObj(getRandomPosition(), out GameObject o_Spawn))
+        if (m_FoodObjBuilder.SpawnGameFoodObj(getRandomPositionInMap(), out GameObject o_Spawn))
         {
             ++m_NumOfExistingFoobObj;
         }
