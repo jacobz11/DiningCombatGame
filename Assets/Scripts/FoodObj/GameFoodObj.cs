@@ -160,6 +160,31 @@ public class GameFoodObj : MonoBehaviour
         {
             collisionAfterThrowingHandler(i_Collision);
         }
+        //else if (isPlayer(i_Collision)) 
+        //{
+        //    this.m_Rigidbody.velocity = getInverseVelocity(i_Collision.gameObject);
+        //}
+        
+    }
+
+    private Vector3 getInverseVelocity(GameObject gameObject)
+    {
+        Debug.Log("in getInverseVelocity");
+        float invX = 0;
+        float invY = 0;
+        float invZ = 0;
+        if (gameObject != null)
+        {
+            Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+            if (rigidbody != null)
+            {
+                invX = rigidbody.velocity.x * (-0.5f);
+                //invY = rigidbody.velocity.y * (-0.5f);
+                invZ = rigidbody.velocity.z * (-0.5f);
+            }
+        }
+
+        return new Vector3(invX, invY, invZ);
     }
 
     protected virtual void OnHitPlayer(EventArgs e)
