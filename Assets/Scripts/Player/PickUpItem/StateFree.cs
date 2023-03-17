@@ -50,13 +50,6 @@ using UnityEngine;
             this.playrHand.StatePlayerHand++;
             Debug.Log("UpdateByState : StateFree");
         }
-        //else
-        //{
-        //    if (this.HaveGameObject)
-        //    {
-        //        Debug.Log("UpdateByState : StateFree else ");
-        //    }
-        //}
     }
 
     /// <inheritdoc/>

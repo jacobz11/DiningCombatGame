@@ -6,31 +6,9 @@ namespace Assets.Scripts
 {
     public class OnlineGameAbstractFactory
     {
-        // ================================================
-        // constant Variable 
-
-        // ================================================
-        // Delegate
-
-        // ================================================
-        // Fields 
         protected AbstractFactoryProductInitiMap m_InitiMapFactory;
         protected AbstractFactoryProductFood m_FoodFactory;
 
-        // ================================================
-        // ----------------Serialize Field-----------------
-
-        // ================================================
-        // properties
-
-        // ================================================
-        // auxiliary methods programmings
-
-        // ================================================
-        // Unity Game Engine
-
-        // ================================================
-        //  methods
         public OnlineGameAbstractFactory()
         {
             //SceneManager.LoadScene(i_SceneName, LoadSceneMode.Additive);
@@ -53,14 +31,5 @@ namespace Assets.Scripts
         {
             return null;
         }
-        // ================================================
-        // auxiliary methods
-
-        // ================================================
-        // Delegates Invoke 
-
-        // ================================================
-        // ----------------Unity--------------------------- 
-        // ----------------GameFoodObj---------------------
     }
 }

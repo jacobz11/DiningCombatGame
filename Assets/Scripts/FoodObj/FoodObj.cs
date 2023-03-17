@@ -34,17 +34,6 @@ namespace Assets.Scripts.FoodObj
             }
         }
 
-        //internal void SetHolderFoodObj(PickUpItem pickUpItem)
-        //{
-        //    if (pickUpItem is null)
-        //    {
-        //        throw new ArgumentNullException(nameof(pickUpItem));
-        //    }
-
-        //    this.transform.position = this.transform.position;
-        //    this.transform.SetParent(this.transform, true);
-        //}
-
         public static class Hit
         {
             public const byte k_Tomato = GameGlobal.FoodObjData.k_TomatoVar,

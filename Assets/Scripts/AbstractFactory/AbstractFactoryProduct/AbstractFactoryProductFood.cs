@@ -6,38 +6,16 @@ using Random = System.Random;
 
 public class AbstractFactoryProductFood 
 {
-
-    // ================================================
-    // constant Variable 
     private const byte k_NumOfPrefab = GameGlobal.FoodObjData.k_NumOfPrefab;
     private const byte k_ApplIndex = GameGlobal.FoodObjData.k_AppleVar;
     private const byte k_FlourIndex = GameGlobal.FoodObjData.k_FlourVar;
     private const byte k_CabbageIndex = GameGlobal.FoodObjData.k_CabbageVar;
     private const byte k_TomatoIndex = GameGlobal.FoodObjData.k_TomatoVar;
 
-    private static readonly Type sr_TypeGameObject = typeof(GameObject);
-    // ================================================
-    // Delegate
-
-    // ================================================
-    // Fields 
+    private static readonly Type sr_TypeGameObject = typeof(GameObject); 
     private OnlineGameAbstractFactory m_OnlineGameAbstractFactory;
     private GameObject[] m_FoodPrefab;
     private readonly Random r_Rnd;
-    // ================================================
-    // ----------------Serialize Field-----------------
-
-    // ================================================
-    // properties
-
-    // ================================================
-    // auxiliary methods programmings
-
-    // ================================================
-    // Unity Game Engine
-
-    // ================================================
-    //  methods
     public AbstractFactoryProductFood(OnlineGameAbstractFactory i_AbstractFactory)
     {
         m_OnlineGameAbstractFactory = i_AbstractFactory;
@@ -59,17 +37,4 @@ public class AbstractFactoryProductFood
     {
         return m_FoodPrefab[r_Rnd.Next(m_FoodPrefab.Length)];
     }
-
-    // ================================================
-    // auxiliary methods
-
-    // ================================================
-    // Delegates Invoke 
-
-    // ================================================
-    // ----------------Unity--------------------------- 
-    // ----------------GameFoodObj---------------------
-
-
-
 }

@@ -13,9 +13,6 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    // ================================================
-    // constant Variable 
-    private const float k_Size = 19;
     [SerializeField]
     [Range(10, 100)]
     private byte m_MaxNumOfFoodObj;
@@ -26,37 +23,12 @@ public class GameManager : MonoBehaviour
     [Range(0, 10)]
     private byte m_NumOfSecondsBetweenSpawn;
     private byte m_NumOfExistingFoobObj;
-    // ================================================
-    // Delegate
-
-    // ================================================
-    // Variable 
     private OnlineGameAbstractFactory m_GameAbstractFactory;
     private Vector3 m_MaxPosition;
     private Vector3 m_MinPosition;
 
     public bool IsRunning => true;
     public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < m_MaxNumOfFoodObj;
-
-    //private GameObject m_Ground;
-
-    // ================================================
-    // ----------------Serialize Field-----------------
-    //[SerializeField]
-    //private GameObject m_PrefabPlayer;
-    //[SerializeField]
-    //private GameObject m_PrefabApple;
-    //[SerializeField]
-    //private GameObject m_PrefabDask;
-    //private GameObject m_PrefabCabbage;
-    // ================================================
-    // properties
-
-    // ================================================
-    // auxiliary methods programmings
-
-    // ================================================
-    // Unity Game Engine
 
     private void Awake()
     {
@@ -115,11 +87,6 @@ public class GameManager : MonoBehaviour
         );
     }
 
-    // ================================================
-    //  methods
-
-    // ================================================
-    // auxiliary methods
     private void initPlayers()
     {
         for (int i = 0; i < 10; i++)
@@ -153,8 +120,6 @@ public class GameManager : MonoBehaviour
         return spawn;
     }
 
-    // ================================================
-    // Delegates Invoke 
     protected virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
     {
         --m_NumOfExistingFoobObj;
@@ -163,7 +128,4 @@ public class GameManager : MonoBehaviour
     protected virtual void OnDestruction_Player(object sender, EventArgs e)
     {
     }
-    // ================================================
-    // ----------------Unity--------------------------- 
-    // ----------------GameFoodObj---------------------
 }
