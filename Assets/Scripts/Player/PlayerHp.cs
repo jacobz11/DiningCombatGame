@@ -6,26 +6,14 @@ namespace Assets.Scripts.Player
 {
     internal class PlayerHp : MonoBehaviour
     {
-        // ================================================
-        // constant Variable 
-
-        // ================================================
-        // Delegate
         public event EventHandler PlayerDeath;
-
-        // ================================================
-        // Fields 
         private float m_LifePoint;
         private float m_MaxSlderVal;
         private float m_MinSlderVal;
         private GameObject m_Player;
-        // ================================================
-        // ----------------Serialize Field-----------------
         [SerializeField]
         private FilliStatus m_Slder;
 
-        // ================================================
-        // properties
         private float HP
         {
             get => m_LifePoint;
@@ -35,11 +23,6 @@ namespace Assets.Scripts.Player
                 m_Slder.UpdateFilliStatus = m_LifePoint;
             }
         }
-        // ================================================
-        // auxiliary methods programmings
-
-        // ================================================
-        // Unity Game Engine
 
         private void Start()
         {
@@ -47,8 +30,6 @@ namespace Assets.Scripts.Player
                 out m_MinSlderVal);
         }
 
-        // ================================================
-        //  methods
         internal void HitYou(float i_NumOfLifeLose)
         {
             //Debug.Log("HitYou");
@@ -56,16 +37,13 @@ namespace Assets.Scripts.Player
             death();
 
         }
+
         internal void HealingYou(float i_NumOfLifeAdd)
         {
 
             HP += i_NumOfLifeAdd;
        }
-        // ================================================
-        // auxiliary methods
 
-        // ================================================
-        // Delegates Invoke 
         private void death()
         {
             if(HP <= m_MinSlderVal)
@@ -74,9 +52,5 @@ namespace Assets.Scripts.Player
                 Destroy(m_Player);
             }
         }
-
-        // ================================================
-        // ----------------Unity--------------------------- 
-        // ----------------GameFoodObj---------------------
     }
 }
