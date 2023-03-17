@@ -46,7 +46,7 @@ public class GameFoodObj : MonoBehaviour
     {
         // remove parent
         transform.parent = null;
-
+        m_Rigidbody.constraints = RigidbodyConstraints.None;
         // add Gravity
         m_Rigidbody.useGravity = true;
 
@@ -72,6 +72,7 @@ public class GameFoodObj : MonoBehaviour
             Transform point = this.m_HoldingGameObj.GetPoint();
             this.transform.position = point.position;
             this.transform.SetParent(point, true);
+
             if (m_HoldingGameObj is HandPickUp)
             {
                 this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
@@ -96,15 +97,19 @@ public class GameFoodObj : MonoBehaviour
     {
         if (isPlayer(i_Collision))
         {
-            OnHitPlayer(EventArgs.Empty);
             PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
+            int kill = 0;
+            float hitPoint = GetHitPonit();
 
             if (playerHit != null)
             {
-                float hitP = GetHitPonit();
-                Debug.Log("hit player HitPonit :" + hitP);
-                playerHit.HitYou(hitP);
+                if (playerHit.HitYou(hitPoint))
+                {
+                    kill = 1;
+                }
             }
+
+            OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
         }
 
         performTheEffect();
@@ -116,8 +121,7 @@ public class GameFoodObj : MonoBehaviour
         float x = Math.Abs(this.m_Rigidbody.velocity.x);
         float y = Math.Abs(this.m_Rigidbody.velocity.y);
         float z = Math.Abs(this.m_Rigidbody.velocity.z);
-
-        Debug.Log(this.m_Rigidbody.velocity);
+        Vector3 v = new Vector3(x, y, z);
         float res = m_HitPlayerMull * (x + y + z);
         m_HitPlayerMull = 0;
         

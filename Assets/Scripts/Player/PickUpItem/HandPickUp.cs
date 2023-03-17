@@ -27,6 +27,8 @@ namespace Assets.Scripts.Player
         public GameObject m_PikUpPonit;
         [SerializeField]
         private FilliStatus m_ForceMultiUi;
+        [SerializeField]
+        private PlayerScore m_Score;
         private Collider m_Collider;
 
         public override float ForceMulti
@@ -155,13 +157,19 @@ namespace Assets.Scripts.Player
             }
             else
             {
-                Rigidbody foodRb = this.m_FoodItem.GetComponent<Rigidbody>();
-                Debug.DrawRay(this.m_PikUpPonit.transform.position, this.m_PikUpPonit.transform.forward, Color.blue, 10f);
+                GameFoodObj gameFoodObj = m_FoodItem.GetComponent<GameFoodObj>();
 
-                foodRb.constraints = RigidbodyConstraints.None;
-                this.m_FoodItem.transform.parent = null;
-                foodRb.AddForce(this.m_PikUpPonit.transform.forward * this.ForceMulti);
-                this.m_FoodItem = null;
+                gameFoodObj.HitPlayer += m_Score.OnHitPlayer;
+
+                m_FoodItem.ThrowFood(ForceMulti, this.m_PikUpPonit.transform.forward);
+                m_FoodItem = null;
+
+                //Rigidbody foodRb = this.m_FoodItem.GetComponent<Rigidbody>();
+                //Debug.DrawRay(this.m_PikUpPonit.transform.position, this.m_PikUpPonit.transform.forward, Color.blue, 10f);
+
+                //this.m_FoodItem.transform.parent = null;
+                //foodRb.AddForce(this.m_PikUpPonit.transform.forward * this.ForceMulti);
+                //this.m_FoodItem = null;
             }
             this.StatePlayerHand = 0;
         }

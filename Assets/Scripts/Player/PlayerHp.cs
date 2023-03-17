@@ -30,27 +30,30 @@ namespace Assets.Scripts.Player
                 out m_MinSlderVal);
         }
 
-        internal void HitYou(float i_NumOfLifeLose)
+        internal bool HitYou(float i_NumOfLifeLose)
         {
             //Debug.Log("HitYou");
             HP -= i_NumOfLifeLose;
-            death();
-
+            return death();
         }
 
         internal void HealingYou(float i_NumOfLifeAdd)
         {
-
             HP += i_NumOfLifeAdd;
-       }
+        }
 
-        private void death()
+        private bool death()
         {
+            bool isKilled = false;
+
             if(HP <= m_MinSlderVal)
             {
                 PlayerDeath?.Invoke(this, EventArgs.Empty);
-                Destroy(m_Player);
+                Destroy(m_Player, 0.1f);
+                isKilled = true;
             }
+
+            return isKilled;
         }
     }
 }

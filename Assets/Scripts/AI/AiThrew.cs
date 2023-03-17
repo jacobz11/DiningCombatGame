@@ -1,11 +1,13 @@
 using Assets.Scripts.Player.PickUpItem;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class AiThrew :ThrowingGameObj
 {
     private GameObject m_FoodToThrow;
-
+    [SerializeField]
+    private PlayerScore m_Score; 
     [SerializeField]
     [Range(0.5f, 5f)]
     public float m_TimeToThrew;
@@ -16,6 +18,14 @@ public class AiThrew :ThrowingGameObj
     [SerializeField]
     [Range(50f, 9000f)]
     private float m_ForceMulti;
+
+    private void Awake()
+    {
+        if (m_Score == null)
+        {
+            Debug.LogError("score is null ");
+        }
+    }
 
     public override float ForceMulti 
     { 
@@ -62,6 +72,9 @@ public class AiThrew :ThrowingGameObj
     internal override void ThrowObj()
     {
         float lineToPleyr = Vector3.Distance(transform.position, m_Pleyer.transform.position);
+        GameFoodObj gameFoodObj = m_FoodToThrow.GetComponent<GameFoodObj>();
+
+        gameFoodObj.HitPlayer += m_Score.OnHitPlayer;
 
         m_FoodToThrow.GetComponent<GameFoodObj>().ThrowFood(m_ForceMulti, calaV3());
         m_FoodToThrow = null;
