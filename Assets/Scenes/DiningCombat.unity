@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb0a9af80e12774b810ab14df394637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 191234779}
   m_Score: {fileID: 191234785}
   m_TimeToThrew: 2.41
   m_GameManager: {fileID: 577102739}
@@ -2073,6 +2073,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_OffsetRo: {x: 330.269, y: -82.976, z: 265.504}
+  m_HooldingPoint: {fileID: 0}
   m_Effect: {fileID: 0}
   m_HitPlayerMull: 0
   m_MaxHitPlayerMull: 0

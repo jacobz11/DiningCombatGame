@@ -5,6 +5,8 @@ using Assets.Scripts.Player;
 using Assets.Scripts.Player.PickUpItem;
 using Assets.Scripts.FoodObj;
 using Unity.VisualScripting;
+using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class GameFoodObj : MonoBehaviour
 {
@@ -15,6 +17,12 @@ public class GameFoodObj : MonoBehaviour
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
     private ThrowingGameObj m_HoldingGameObj;
+    [SerializeField]
+    private Vector3 m_Offset = new Vector3(-0.042f, -0.112f, 0.622f);
+    [SerializeField]
+    private Vector3 m_OffsetRo = new Vector3(330.269f, -82.976f, 265.504f);
+    [SerializeField]
+    private GameObject m_HooldingPoint;
     [SerializeField]
     private ParticleSystem m_Effect;
     [SerializeField]
@@ -34,11 +42,32 @@ public class GameFoodObj : MonoBehaviour
         }
     }
 
-    protected virtual void Start()
+    private void Awake()
     {
+        m_Offset = new Vector3(
+            UnityEngine.Random.Range(-1f, 1f),
+            UnityEngine.Random.Range(-1f, 1f),
+            UnityEngine.Random.Range(-1f, 1f));
         m_Rigidbody = GetComponent<Rigidbody>();
-        //m_Effect.Stop();
+        if(m_Rigidbody == null ) 
+        {
+            Debug.LogError("cant find Rigidbody");
+        }
+        if (m_HooldingPoint == null)
+        {
+            Debug.LogError("Holding Game Obj in null in Awake" + this.name);
+        }
     }
+
+    //protected virtual void Start()
+    //{
+    //    //m_Rigidbody = GetComponent<Rigidbody>();
+    //    //m_Effect.Stop();
+    //    if (m_HooldingPoint == null)
+    //    {
+    //        Debug.LogError("Holding Game Obj in null in Start :" + this.name);
+    //    }
+    //}
 
 
     public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
@@ -68,10 +97,12 @@ public class GameFoodObj : MonoBehaviour
 
         if(m_HoldingGameObj != null)
         {
+            //this.transform.rotation = m_OffsetRo;
             Transform point = this.m_HoldingGameObj.GetPoint();
-            this.transform.position = point.position + this.transform.lossyScale;
             this.transform.SetParent(point, true);
-
+            this.transform.position = point.position + m_Offset;
+            float uDistance = Vector3.Distance(this.transform.position, point.position);
+            Debug.Log(uDistance);
             if (m_HoldingGameObj is HandPickUp)
             {
                 this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
