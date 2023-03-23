@@ -13,7 +13,8 @@ namespace Assets.Scripts.Player
         private GameObject m_Player;
         [SerializeField]
         private FilliStatus m_Slder;
-
+        [SerializeField]
+        private GameGlobal.ePlayerModeType m_Type;
         private float HP
         {
             get => m_LifePoint;

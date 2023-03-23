@@ -37,8 +37,12 @@ public class AiThrew :ThrowingGameObj
     {
         if (m_FoodToThrow == null)
         {
-            SetGameFoodObj(m_GameManager.SpawnGameFoodObj());
-            StartCoroutine(ShotAtThePlayer());
+            GameObject @object = m_GameManager.SpawnGameFoodObj();
+            if (@object != null)
+            {
+                SetGameFoodObj(@object);
+                StartCoroutine(ShotAtThePlayer());
+            }
         }
     }
 

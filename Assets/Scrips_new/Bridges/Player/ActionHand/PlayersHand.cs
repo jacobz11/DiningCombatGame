@@ -1,24 +1,23 @@
-namespace Assets.Scripts.Player
-{
-    using System;
-    using Assets.Scripts.PickUpItem;
-    using Assets.Scripts.Player.PickUpItem;
-    using DiningCombat;
-    using UnityEngine;
+﻿using Assets.Scrips_new.DesignPatterns;
+using DiningCombat;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+using static DiningCombat.GameGlobal;
+using PlayerP = Assets.Scrips_new.Player;
 
-    public class HandPickUp : ThrowingGameObj
+namespace Assets.Scrips_new.Bridges.Player.ActionHand
+{
+    public class PlayersHand : MonoBehaviour
     {
-        // location : Player-> Goalie Throw -> mixamorig:Hips
-        // -> mixamorig:Spine -> mixamorig:Spine1 -> mixamorig:Spine2
-        // ->mixamorig:RightShoulder -> mixamorig:RightArm -> mixamorig:RightForeArm
-        // ->mixamorig:RightHand -> PickUpPoint
         private int m_CurrentHandState;
         private float m_ChargingPower;
         private Animator m_PlayerAnimator;
         private IStatePlayerHand[] m_ArrayOfPlayerState;
         private GameFoodObj m_FoodItem;
-        [SerializeField]
-        private Vector3 m_Buffer = new Vector3(-0.3f, 0, -0.5f);
         [SerializeField]
         [Range(500f, 3000f)]
         public int m_MaxCargingPower = 1800;
@@ -30,7 +29,7 @@ namespace Assets.Scripts.Player
         private PlayerScore m_Score;
         private Collider m_Collider;
 
-        public override float ForceMulti
+        public float ForceMulti
         {
             get => this.m_ChargingPower;
             set
@@ -72,17 +71,6 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void Awake()
-        {
-            //this.m_ArrayOfPlayerState = new IStatePlayerHand[]
-            //{
-            //    new StateFree(this),
-            //    new StateHoldsObj(this),
-            //    new StatePowering(this),
-            //    new StateThrowing(this),
-            //};
-        }
-
         private void Start()
         {
             this.m_PlayerAnimator = this.GetComponentInParent<Animator>();
@@ -93,17 +81,6 @@ namespace Assets.Scripts.Player
         private void Update()
         {
             this.StatePlayer.UpdateByState();
-            //UpdateBuffer();
-        }
-
-        private void UpdateBuffer()
-        {
-            //if (this.foodItem != null)
-            //{
-            //    Vector2 v = this.pikUpPint.transform.position + this.buffer;
-            //    this.foodItem.transform.position = v;
-            //}
-            //Debug.DrawRay(this.pikUpPint.transform.position, this.pikUpPint.transform.forward, Color.green, 2f);
         }
 
         public void OnThrowingAnimator()
@@ -126,7 +103,7 @@ namespace Assets.Scripts.Player
             this.StatePlayer.ExitCollisionFoodObj(other);
         }
 
-        internal override void SetGameFoodObj(GameObject i_GameObject)
+        internal void SetGameFoodObj(GameObject i_GameObject)
         {
             bool isSucceed = false;
 
@@ -141,7 +118,7 @@ namespace Assets.Scripts.Player
                 {
                     isSucceed = true;
                     this.m_FoodItem = obj;
-                    obj.SetHolderFoodObj(this);
+                    //obj.SetHolderFoodObj(this);
                 }
             }
 
@@ -150,7 +127,7 @@ namespace Assets.Scripts.Player
             //return isSucceed;
         }
 
-        internal override void ThrowObj()
+        internal void ThrowObj()
         {
             if (this.m_FoodItem == null)
             {
@@ -175,9 +152,43 @@ namespace Assets.Scripts.Player
             this.StatePlayerHand = 0;
         }
 
-        public override Transform GetPoint()
+        public Transform GetPoint()
         {
             return this.m_PikUpPonit.transform;
+        }
+
+        public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type)
+        {
+            PlayersHand player = i_PlayerCharacter.AddComponent<PlayersHand>();
+            StateMachineImplemntor implementor;
+
+            switch (i_Type)
+            {
+                case ePlayerModeType.OfflinePlayer:
+                    Debug.Log("Builder  PlayerMovement : OfflinePlayer");
+                    implementor = i_PlayerCharacter.AddComponent<StateMachineImplemntor>();
+                    implementor.SetPlayersHand(player);
+                    List<State> states = new List<State> 
+                    {
+                                // StateFree StateHoldsObj StatePowering StateThrowing
+                        new PlayerP.StateFree(),
+                        new PlayerP.StateHoldsObj(),
+                        new PlayerP.StatePowering(),
+                        new PlayerP.StateThrowing()
+                    };
+                    implementor.SetStates(states);
+                    break;
+                case ePlayerModeType.OnlinePlayer:
+                    Debug.Log("Builder  PlayerMovement : OnlinePlayer");
+                    return;
+                case ePlayerModeType.OfflineAiPlayer:
+                    Debug.Log("Builder  PlayerMovement : OfflineAiPlayer");
+                    return;
+                case ePlayerModeType.OnlineAiPlayer:
+                    Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
+                    return;
+            }
+            // TODO : this 
         }
     }
 }

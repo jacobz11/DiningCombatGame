@@ -47,8 +47,11 @@ using UnityEngine;
         if (this.IsPassStage())
         {
             this.playrHand.SetGameFoodObj(this.gameObject);
+            if (this.gameObject == null) 
+            {
+                Debug.Log("gameObject os null");
+            }
             this.playrHand.StatePlayerHand++;
-            Debug.Log("UpdateByState : StateFree");
         }
     }
 

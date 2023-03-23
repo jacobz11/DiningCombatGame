@@ -14,7 +14,6 @@ namespace Assets.Scripts.Player
         private const string IsRunningAnimationName = "isRunning";
         private const string IsSideRunningAnimationName = "isSideRun";
 
-        private bool isScaleToRight;
         private float playerRotation;
         private Vector3 playerVelocity;
         private CharacterController controller;

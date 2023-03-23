@@ -22,8 +22,6 @@ public class GameFoodObj : MonoBehaviour
     [SerializeField]
     private Vector3 m_OffsetRo = new Vector3(330.269f, -82.976f, 265.504f);
     [SerializeField]
-    private GameObject m_HooldingPoint;
-    [SerializeField]
     private ParticleSystem m_Effect;
     [SerializeField]
     [Range(0f, 2f)]
@@ -42,6 +40,8 @@ public class GameFoodObj : MonoBehaviour
         }
     }
 
+    public Action<GameFoodObj> Collect { get; internal set; }
+
     private void Awake()
     {
         m_Offset = new Vector3(
@@ -53,10 +53,10 @@ public class GameFoodObj : MonoBehaviour
         {
             Debug.LogError("cant find Rigidbody");
         }
-        if (m_HooldingPoint == null)
-        {
-            Debug.LogError("Holding Game Obj in null in Awake" + this.name);
-        }
+        //if (m_HooldingPoint == null)
+        //{
+        //    Debug.LogError("Holding Game Obj in null in Awake" + this.name);
+        //}
     }
 
     //protected virtual void Start()
@@ -95,7 +95,7 @@ public class GameFoodObj : MonoBehaviour
     {
         m_HoldingGameObj = i_HoldingGameObj;
 
-        if(m_HoldingGameObj != null)
+        if(m_HoldingGameObj)
         {
             //this.transform.rotation = m_OffsetRo;
             Transform point = this.m_HoldingGameObj.GetPoint();
@@ -103,6 +103,7 @@ public class GameFoodObj : MonoBehaviour
             this.transform.position = point.position + m_Offset;
             float uDistance = Vector3.Distance(this.transform.position, point.position);
             Debug.Log(uDistance);
+
             if (m_HoldingGameObj is HandPickUp)
             {
                 this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
@@ -236,5 +237,13 @@ public class GameFoodObj : MonoBehaviour
 
     internal void CleanUpDelegatesPlayer()
     {
+    }
+
+    internal bool GetCollectPosition(out Vector3 o_pod)
+    {
+        bool isCollect = m_HoldingGameObj != null;
+        o_pod = isCollect ? transform.position : Vector3.zero;
+
+        return isCollect;
     }
 }
