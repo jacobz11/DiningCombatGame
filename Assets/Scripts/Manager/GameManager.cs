@@ -6,7 +6,7 @@ using UnityEngine;
 using Util.Abstraction;
 using static DiningCombat.GameGlobal;
 using Random = UnityEngine.Random;
-
+using DiningCombat.FoodObj.Managers;
 namespace DiningCombat
 {
     internal class GameManager : MonoBehaviour
@@ -157,11 +157,11 @@ namespace DiningCombat
             o_TimeToWait = 0;
         }
 
-        internal List<Player.PlayerInternalManger.PlayerData> GetPlayersInitialization()
+        internal List<Player.Manger.PlayerInternalManger.PlayerData> GetPlayersInitialization()
         {
-            return new List<Player.PlayerInternalManger.PlayerData>()
+            return new List<Player.Manger.PlayerInternalManger.PlayerData>()
             {
-                new Player.PlayerInternalManger.PlayerData(m_PlayrPrefab, "player",
+                new Player.Manger.PlayerInternalManger.PlayerData(m_PlayrPrefab, "player",
                 ePlayerModeType.OfflinePlayer, GetRandomPositionInMap())
             };
         }

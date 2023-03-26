@@ -1,4 +1,4 @@
-﻿using Abstraction.DesignPatterns;
+﻿using DesignPatterns.Abstraction;
 
 namespace Assets.Scrips_new.AI.Stats
 {

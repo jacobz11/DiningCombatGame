@@ -1,10 +1,8 @@
 ﻿using System;
 using UnityEngine;
-
-namespace Abstraction
+namespace DesignPatterns.Abstraction
 {
-    namespace DesignPatterns
-    {
+    
         public abstract class DCState : ScriptableObject
         {
             public event Action<byte> ChangeState;
@@ -43,5 +41,5 @@ namespace Abstraction
 
             public abstract override string ToString();
         }
-    }
+    
 }

@@ -1,18 +1,14 @@
-using Abstraction.DiningCombat.Player;
+using Abstraction.Player;
 using Assets.Scripts.Test.Stubs;
-using Player.Offline;
+using DiningCombat.Player.Offline.Movement;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using static DiningCombat.GameGlobal;
 
 
-namespace Abstraction
+
+namespace DiningCombat.Player
 {
-    namespace Player
-    {
-        namespace DiningCombat
-        {
             public class PlayerMovement : MonoBehaviour, IMovement, IRotation
             {
                 private bool m_IsGrounded;
@@ -127,5 +123,3 @@ namespace Abstraction
                 }
             }
         }
-    }
-}

@@ -1,4 +1,4 @@
-﻿using Abstraction.DiningCombat.Player;
+﻿using DiningCombat.Player;
 using System;
 using UnityEngine;
 

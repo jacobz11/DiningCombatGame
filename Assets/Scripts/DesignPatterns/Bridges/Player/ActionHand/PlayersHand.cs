@@ -1,15 +1,11 @@
-﻿using DiningCombat.Managers.Player;
-using SojaExiles;
-using System;
+﻿using System;
 using UnityEngine;
+using DiningCombat.FoodObj;
 using static DiningCombat.GameGlobal;
+using DiningCombat.Player.Manger;
 
-namespace Abstraction
+namespace DiningCombat.Player
 {
-    namespace DiningCombat
-    {
-        namespace Player
-        {
             public class PlayerHand : MonoBehaviour
             {
                 public event Action<bool, Collider> TriggerAction;
@@ -129,5 +125,4 @@ namespace Abstraction
                 }
             }
         }
-    }
-}
+

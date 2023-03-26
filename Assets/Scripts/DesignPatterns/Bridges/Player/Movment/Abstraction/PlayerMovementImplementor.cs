@@ -1,13 +1,9 @@
-﻿using Abstraction.Player.DiningCombat;
-using System;
+﻿using System;
 using UnityEngine;
 
-namespace Abstraction
+namespace DiningCombat.Player
 {
-    namespace DiningCombat
-    {
-        namespace Player
-        {
+
             public abstract class PlayerMovementImplementor : MonoBehaviour
             {
                 [SerializeField]
@@ -81,5 +77,3 @@ namespace Abstraction
                 }
             }
         }
-    }
-}

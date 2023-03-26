@@ -1,15 +1,11 @@
-﻿using Abstraction.DiningCombat.Player;
-using Abstraction.Player;
-using Abstraction.Player.DiningCombat;
-using Assets.Scrips_new.Util.Channels.Internal;
-using DiningCombat;
-using DiningCombat.Managers.Player;
+﻿using Assets.Scrips_new.Util.Channels.Internal;
+using DiningCombat.FoodObj;
 using System;
 using System.Collections;
 using UnityEngine;
 using static DiningCombat.GameGlobal;
 
-namespace Player
+namespace DiningCombat.Player.Manger
 {
     internal class PlayerInternalManger : IManager<PlayerInternalChannel>
     {

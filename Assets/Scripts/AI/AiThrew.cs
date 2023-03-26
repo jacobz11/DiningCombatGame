@@ -1,4 +1,5 @@
 using DiningCombat;
+using DiningCombat.FoodObj;
 using System;
 using System.Collections;
 using UnityEngine;
