@@ -35,15 +35,15 @@ namespace DiningCombat.Player
 
         public virtual void MoveHorizontal()
         {
-            if (IsMovment(m_Horizontal, out bool o_IsLeft))
+            if (IsMovment(m_Horizontal, out bool o_IsRight))
             {
-                if (o_IsLeft)
+                if (o_IsRight)
                 {
-                    m_Movement.MoveLeft();
+                    m_Movement.MoveRight();
                 }
                 else
                 {
-                    m_Movement.MoveRight();
+                    m_Movement.MoveLeft();
                 }
             }
 

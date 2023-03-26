@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DiningCombat.Player.Offline.State;
 using DesignPatterns.Abstraction;
 using DiningCombat.FoodObj;
+using Unity.VisualScripting;
 
 namespace DiningCombat.Player.Manger
 {
@@ -57,16 +58,21 @@ namespace DiningCombat.Player.Manger
             if (m_PlayersHand != null)
             {
                 List<DCState> states = new List<DCState>();
-                StateFreeOffline free = new StateFreeOffline(0, "free");
+                StateFreeOffline free = m_PlayersHand.AddComponent<StateFreeOffline>();
+                free.StateId = 0;
                 states.Add(free);
                 free.PlayerCollectedFood += OnPlayerSetFoodObj;
 
-                StateHoldsObjOffline holdsObj =  new StateHoldsObjOffline(1, "holding");
+                StateHoldsObjOffline holdsObj = m_PlayersHand.AddComponent<StateHoldsObjOffline>();
+                holdsObj.StateId = 1;
                 states.Add(holdsObj);
 
-                StatePoweringOffline powering = new StatePoweringOffline(2, "powering");
+                StatePoweringOffline powering = m_PlayersHand.AddComponent<StatePoweringOffline>();
+                powering.StateId = 2;
                 states.Add(powering);
-                StateThrowingOffline throwing = new StateThrowingOffline(3, "throwing");
+
+                StateThrowingOffline throwing = m_PlayersHand.AddComponent<StateThrowingOffline>();
+                throwing.StateId = 3;
                 states.Add(throwing);
 
                 SetStates(states);

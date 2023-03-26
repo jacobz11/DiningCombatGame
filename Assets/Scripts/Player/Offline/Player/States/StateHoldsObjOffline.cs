@@ -8,10 +8,10 @@ namespace DiningCombat.Player.Offline.State
         //private const byte k_AddState = 1;
         private float initTimeEnteState;
 
-        public StateHoldsObjOffline(byte stateId, string stateName)
-            : base(stateId, stateName)
-        {
-        }
+        //public StateHoldsObjOffline(byte stateId, string stateName)
+        //    : base(stateId, stateName)
+        //{
+        //}
 
         public virtual void OnStateEnter(params object[] list)
         {
@@ -23,7 +23,7 @@ namespace DiningCombat.Player.Offline.State
         {
             if (Input.GetKey(KeyCode.E))
             {
-                ChangeStateHappened((byte)(r_StateId + 1));
+                ChangeStateHappened((byte)(StateId + 1));
             }
         }
 

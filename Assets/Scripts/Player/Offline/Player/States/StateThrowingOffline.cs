@@ -4,10 +4,10 @@ namespace DiningCombat.Player.Offline.State
 {
     internal class StateThrowingOffline : DCState
     {
-        public StateThrowingOffline(byte stateId, string stateName)
-            : base(stateId, stateName)
-        {
-        }
+        //public StateThrowingOffline(byte stateId, string stateName)
+        //    : base(stateId, stateName)
+        //{
+        //}
         public virtual void OnStateEnter(params object[] list)
         {
             //this.playrHand.ThrowingAnimator = true;

@@ -757,8 +757,8 @@ MonoBehaviour:
   m_MaxNumOfFoodObj: 19
   m_NumOfInitGameObj: 2
   m_NumOfSecondsBetweenSpawn: 1.66
-  m_MaxPosition: {x: 0, y: 0, z: 0}
-  m_MinPosition: {x: 0, y: 0, z: 0}
+  m_MaxPosition: {x: 19, y: 5, z: 19}
+  m_MinPosition: {x: -19, y: 3, z: -19}
   m_PlayrPrefab: {fileID: 1622374357}
 --- !u!1 &583334022
 GameObject:
