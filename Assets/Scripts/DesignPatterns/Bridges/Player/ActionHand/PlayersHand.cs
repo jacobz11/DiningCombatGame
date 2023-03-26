@@ -1,4 +1,5 @@
 ﻿using DiningCombat.Managers.Player;
+using SojaExiles;
 using System;
 using UnityEngine;
 using static DiningCombat.GameGlobal;
@@ -85,18 +86,18 @@ namespace Abstraction
                     return this.m_PikUpPonit.transform;
                 }
 
-                public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type)
+                public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type,
+                    out PlayerHand o_Player, out StateMachineImplemntor o_Implementor)
                 {
-                    PlayerHand player = i_PlayerCharacter.AddComponent<PlayerHand>();
-                    StateMachineImplemntor implementor;
+                    o_Player = i_PlayerCharacter.AddComponent<PlayerHand>();
 
                     switch (i_Type)
                     {
                         case ePlayerModeType.OfflinePlayer:
                             Debug.Log("Builder  PlayerMovement : OfflinePlayer");
-                            implementor = i_PlayerCharacter.AddComponent<StateMachineImplemntor>();
-                            implementor.SetPlayerHand(player);
-                            implementor.BuildOfflinePlayerState();
+                            o_Implementor = i_PlayerCharacter.AddComponent<StateMachineImplemntor>();
+                            o_Implementor.SetPlayerHand(o_Player);
+                            o_Implementor.BuildOfflinePlayerState();
                             //List<State> states = new List<State> 
                             //{
                             //    // StateFree StateHoldsObj StatePowering StateThrowing
@@ -110,12 +111,18 @@ namespace Abstraction
                             break;
                         case ePlayerModeType.OnlinePlayer:
                             Debug.Log("Builder  PlayerMovement : OnlinePlayer");
+                            o_Implementor = null;
                             return;
                         case ePlayerModeType.OfflineAiPlayer:
                             Debug.Log("Builder  PlayerMovement : OfflineAiPlayer");
+                            o_Implementor = null;
                             return;
                         case ePlayerModeType.OnlineAiPlayer:
                             Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
+                            o_Implementor = null;
+                            return;
+                        default:
+                            o_Implementor = null;
                             return;
                     }
                     // TODO : this 

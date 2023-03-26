@@ -12,7 +12,7 @@ namespace DiningCombat
     {
         namespace Player
         {
-            internal class StateMachineImplemntor : MonoBehaviourStateMachine
+            public class StateMachineImplemntor : MonoBehaviourStateMachine
             {
                 private PlayerHand m_PlayersHand;
                 private GameObject m_FoodObj;

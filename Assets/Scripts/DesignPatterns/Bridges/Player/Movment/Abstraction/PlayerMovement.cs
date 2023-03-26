@@ -25,7 +25,7 @@ namespace Abstraction
                 private float m_PlayerSpeed = 30.0f;
                 [SerializeField]
                 [Range(2, 500)]
-                private float m_JumpHeight = 30.0f;
+                private float m_JumpHeight = 430.0f;
                 [SerializeField]
                 private float m_GravityValue = -9.81f;
 
@@ -42,7 +42,7 @@ namespace Abstraction
 
                 public virtual void Jump()
                 {
-                    Debug.Log("Jump PlayerMovement IsGrounded = " + IsGrounded);
+                    //Debug.Log("Jump PlayerMovement IsGrounded = " + IsGrounded);
 
                     if (IsGrounded)
                     {
@@ -51,6 +51,7 @@ namespace Abstraction
                 }
                 public virtual void MoveBackward()
                 {
+                    Debug.DrawRay(this.transform.position, Vector3.back, Color.red, 10);
                     transform.Translate(Vector3.back * Time.deltaTime * m_PlayerSpeed);
                 }
                 public virtual void MoveForward()
@@ -86,33 +87,40 @@ namespace Abstraction
                     }
                 }
 
-                public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type)
+                public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type,
+                    out PlayerMovement o_Movement, out PlayerMovementImplementor o_Implementor)
                 {
-                    PlayerMovement movement = i_PlayerCharacter.AddComponent<PlayerMovement>();
-                    PlayerMovementImplementor implementor;
+                    o_Movement = i_PlayerCharacter.AddComponent<PlayerMovement>();
 
                     switch (i_Type)
                     {
                         case ePlayerModeType.OfflinePlayer:
                             Debug.Log("Builder  PlayerMovement : OfflinePlayer");
-                            implementor = i_PlayerCharacter.AddComponent<OfflinePlayerMovement>();
-                            implementor.SetPlayerMovement(movement);
+                            o_Implementor = i_PlayerCharacter.AddComponent<OfflinePlayerMovement>();
+                            o_Implementor.SetPlayerMovement(o_Movement);
                             break;
                         case ePlayerModeType.OnlinePlayer:
                             Debug.Log("Builder  PlayerMovement : OnlinePlayer");
+                            o_Implementor = null;
                             return;
                         case ePlayerModeType.OfflineAiPlayer:
                             Debug.Log("Builder  PlayerMovement : OfflineAiPlayer");
+                            o_Implementor = null;
                             return;
                         case ePlayerModeType.OnlineAiPlayer:
                             Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
+                            o_Implementor = null;
                             return;
                         case ePlayerModeType.OfflineTestPlayer:
-                            implementor = i_PlayerCharacter.AddComponent<PlayerMovementStub>();
-                            implementor.SetPlayerMovement(movement);
+                            o_Implementor = i_PlayerCharacter.AddComponent<PlayerMovementStub>();
+                            o_Implementor.SetPlayerMovement(o_Movement);
                             break;
                         case ePlayerModeType.OnlineTestPlayer:
                             Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
+                            o_Implementor = null;
+                            return;
+                        default:
+                            o_Implementor = null;
                             return;
                     }
                     // TODO : this 

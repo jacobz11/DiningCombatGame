@@ -1,6 +1,5 @@
+using Abstraction.DiningCombat.Player;
 using Abstraction.Player.DiningCombat;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlyerMomnemtTest : TestCase
@@ -8,7 +7,8 @@ public class PlyerMomnemtTest : TestCase
     private void Start()
     {
         GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        PlayerMovement.Builder(gameObject, DiningCombat.GameGlobal.ePlayerModeType.OfflineTestPlayer);
+        PlayerMovement.Builder(gameObject, DiningCombat.GameGlobal.ePlayerModeType.OfflineTestPlayer,
+            out PlayerMovement o_Movement, out PlayerMovementImplementor o_Implementor);
         m_Object = gameObject;
     }
 

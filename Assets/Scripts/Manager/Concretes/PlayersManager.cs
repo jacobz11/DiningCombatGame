@@ -7,6 +7,7 @@ using DiningCombat.Channels.Player;
 using static DiningCombat.GameGlobal;
 using Abstraction.Player.DiningCombat;
 using Abstraction.DiningCombat.Player;
+using Player;
 
 namespace DiningCombat
 {
@@ -15,7 +16,7 @@ namespace DiningCombat
         internal class PlayersManager : IManager<PlayersMangerChannel>
         {
             private static PlayersManager s_Singlton;
-            private List<PlayerData> m_PlayersDatas = new List<PlayerData>();
+            private List<PlayerInternalManger.PlayerData> m_PlayersDatas = new List<PlayerInternalManger.PlayerData>();
             public static PlayersManager Singlton
             {
                 get
@@ -30,7 +31,7 @@ namespace DiningCombat
 
             public void InitPlayer()
             {
-                foreach (PlayerData player in s_GameManager.GetPlayersInitialization())
+                foreach (PlayerInternalManger.PlayerData player in s_GameManager.GetPlayersInitialization())
                 {
                     GameObject spawn = Instantiate(player.m_Prefap, player.m_InitPos, player.m_Quaternion);
                     m_PlayersDatas.Add(player);
@@ -77,61 +78,6 @@ namespace DiningCombat
 
             //    return s_Singlton;
             //}
-        }
-
-        internal struct PlayerData
-        {
-            public readonly Vector3 m_InitPos;
-            public readonly Quaternion m_Quaternion;
-            public readonly GameObject m_Prefap;
-            public readonly string m_Name;
-            private GameObject m_Player;
-            private ePlayerModeType m_ModeType;
-            private bool m_IsInit;
-
-            public bool IsAi => m_ModeType == ePlayerModeType.OfflineAiPlayer
-                || m_ModeType == ePlayerModeType.OnlineAiPlayer;
-
-            public PlayerData(GameObject i_Prefap, string i_Name,
-                ePlayerModeType i_ModeType, Vector3 i_InitPos)
-            {
-                m_Prefap = i_Prefap;
-                m_ModeType = i_ModeType;
-                m_Name = i_Name;
-                m_InitPos = i_InitPos;
-                m_Quaternion = Quaternion.identity;
-                m_Player = null;
-                m_IsInit = false;
-            }
-
-            internal void Init(GameObject i_Player)
-            {
-                if (i_Player == null)
-                {
-                    Debug.LogError("Init i_Player is unscscful");
-                    return;
-                }
-                if (m_IsInit)
-                {
-                    Debug.LogError("the Initialization the player Can only happen once");
-                    return;
-                }
-
-                m_Player = i_Player;
-                m_Player.name = m_Name;
-                m_Player.tag = TagNames.k_Player;
-                PlayerMovement.Builder(m_Player, m_ModeType);
-                PlayerHand.Builder(m_Player, m_ModeType);
-                m_IsInit = true;
-            }
-
-            public bool GetPosition(out Vector3 o_Position)
-            {
-                bool isPlayerAllive = m_Player != null;
-                o_Position = isPlayerAllive ? m_Player.transform.position : Vector3.zero;
-
-                return isPlayerAllive;
-            }
         }
     }
 }

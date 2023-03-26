@@ -30,7 +30,7 @@ namespace DiningCombat
         private ManagerGameFoodObj m_FoodObjBuilder;
         private PlayersManager m_PlayersManager;
         public event Action GameOver;
-        public static List<Managers.PlayerData> s_PlayerDatas = new List<Managers.PlayerData>();
+        //public static List<PlayerData> s_PlayerDatas = new List<PlayerData>();
 
         public bool IsRunning => true;
         public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < m_MaxNumOfFoodObj;
@@ -113,10 +113,11 @@ namespace DiningCombat
 
         public GameObject SpawnGameFoodObj()
         {
-            Debug.Log("in SpawnGameFoodObj");
-            Vector3 v = GetRandomPositionInMap();
-            Debug.Log("Vector3 : " + v);
-            bool isSpawn = m_FoodObjBuilder.SpawnGameFoodObj(v, out GameObject o_Spawn);
+            //Debug.Log("in SpawnGameFoodObj");
+            //Vector3 v = GetRandomPositionInMap();
+            //Debug.Log("Vector3 : " + v);
+            bool isSpawn = m_FoodObjBuilder.SpawnGameFoodObj(GetRandomPositionInMap(), out GameObject o_Spawn);
+
             if (isSpawn)
             {
                 ++m_NumOfExistingFoobObj;
@@ -156,11 +157,11 @@ namespace DiningCombat
             o_TimeToWait = 0;
         }
 
-        internal List<Managers.PlayerData> GetPlayersInitialization()
+        internal List<Player.PlayerInternalManger.PlayerData> GetPlayersInitialization()
         {
-            return new List<Managers.PlayerData>()
+            return new List<Player.PlayerInternalManger.PlayerData>()
             {
-                new Managers.PlayerData(m_PlayrPrefab, "player",
+                new Player.PlayerInternalManger.PlayerData(m_PlayrPrefab, "player",
                 ePlayerModeType.OfflinePlayer, GetRandomPositionInMap())
             };
         }

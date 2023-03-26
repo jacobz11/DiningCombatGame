@@ -1,9 +1,13 @@
-﻿using Assets.Scrips_new.Util.Channels.Internal;
+﻿using Abstraction.DiningCombat.Player;
+using Abstraction.Player;
+using Abstraction.Player.DiningCombat;
+using Assets.Scrips_new.Util.Channels.Internal;
 using DiningCombat;
+using DiningCombat.Managers.Player;
 using System;
 using System.Collections;
 using UnityEngine;
-using Util.Abstraction;
+using static DiningCombat.GameGlobal;
 
 namespace Player
 {
@@ -140,6 +144,64 @@ namespace Player
             res = isMinBigger ? i_Min : isMaxSmaller ? i_Max : i_x;
 
             return isMinBigger && isMaxSmaller;
+        }
+        internal struct PlayerData
+        {
+            public readonly Vector3 m_InitPos;
+            public readonly Quaternion m_Quaternion;
+            public readonly GameObject m_Prefap;
+            public readonly string m_Name;
+            private GameObject m_Player;
+            private ePlayerModeType m_ModeType;
+            private bool m_IsInit;
+
+            public bool IsAi => m_ModeType == ePlayerModeType.OfflineAiPlayer
+                || m_ModeType == ePlayerModeType.OnlineAiPlayer;
+
+            public PlayerData(GameObject i_Prefap, string i_Name,
+                ePlayerModeType i_ModeType, Vector3 i_InitPos)
+            {
+                m_Prefap = i_Prefap;
+                m_ModeType = i_ModeType;
+                m_Name = i_Name;
+                m_InitPos = i_InitPos;
+                m_Quaternion = Quaternion.identity;
+                m_Player = null;
+                m_IsInit = false;
+            }
+
+            internal void Init(GameObject i_Player)
+            {
+                if (i_Player == null)
+                {
+                    Debug.LogError("Init i_Player is unscscful");
+                    return;
+                }
+                if (m_IsInit)
+                {
+                    Debug.LogError("the Initialization the player Can only happen once");
+                    return;
+                }
+
+                m_Player = i_Player;
+                m_Player.name = m_Name;
+                m_Player.tag = TagNames.k_Player;
+                PlayerInternalManger manger = m_Player.AddComponent<PlayerInternalManger>();
+                PlayerMovement.Builder(m_Player, m_ModeType, out PlayerMovement movement,
+                    out PlayerMovementImplementor implementor);
+                PlayerHand.Builder(m_Player, m_ModeType, out PlayerHand o_PlayerHand,
+                    out StateMachineImplemntor o_StateMachineImplemntor);
+
+                m_IsInit = true;
+            }
+
+            public bool GetPosition(out Vector3 o_Position)
+            {
+                bool isPlayerAllive = m_Player != null;
+                o_Position = isPlayerAllive ? m_Player.transform.position : Vector3.zero;
+
+                return isPlayerAllive;
+            }
         }
     }
 }

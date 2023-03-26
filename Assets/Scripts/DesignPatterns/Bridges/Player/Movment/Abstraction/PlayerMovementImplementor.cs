@@ -8,7 +8,7 @@ namespace Abstraction
     {
         namespace Player
         {
-            internal abstract class PlayerMovementImplementor : MonoBehaviour
+            public abstract class PlayerMovementImplementor : MonoBehaviour
             {
                 [SerializeField]
                 [Range(0.0001f, 2f)]
@@ -40,23 +40,7 @@ namespace Abstraction
 
                 public virtual void MoveHorizontal()
                 {
-                    if (IsMovment(m_Horizontal, out bool o_IsForward))
-                    {
-                        if (o_IsForward)
-                        {
-                            m_Movement.MoveForward();
-                        }
-                        else
-                        {
-                            m_Movement.MoveBackward();
-                        }
-                    }
-
-                    m_Horizontal = 0f;
-                }
-                public virtual void MoveVertonta()
-                {
-                    if (IsMovment(m_Vertical, out bool o_IsLeft))
+                    if (IsMovment(m_Horizontal, out bool o_IsLeft))
                     {
                         if (o_IsLeft)
                         {
@@ -65,6 +49,23 @@ namespace Abstraction
                         else
                         {
                             m_Movement.MoveRight();
+                        }
+                    }
+
+                    m_Horizontal = 0f;
+                }
+
+                public virtual void MoveVertonta()
+                {
+                    if (IsMovment(m_Vertical, out bool o_IsForward))
+                    {
+                        if (o_IsForward)
+                        {
+                            m_Movement.MoveForward();
+                        }
+                        else
+                        {
+                            m_Movement.MoveBackward();
                         }
                     }
 
