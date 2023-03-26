@@ -1,9 +1,9 @@
-using Assets.Scripts.Player.PickUpItem;
+using DiningCombat;
 using System;
 using System.Collections;
 using UnityEngine;
 
-public class AiThrew :ThrowingGameObj
+public class AiThrew  : MonoBehaviour
 {
     private GameObject m_FoodToThrow;
     [SerializeField]
@@ -27,7 +27,7 @@ public class AiThrew :ThrowingGameObj
         }
     }
 
-    public override float ForceMulti 
+    public float ForceMulti 
     { 
         get => m_ForceMulti;
         set => m_ForceMulti = value;
@@ -57,10 +57,10 @@ public class AiThrew :ThrowingGameObj
     public IEnumerator ShotAtThePlayer()
     {
         yield return new WaitForSeconds(m_TimeToThrew);
-        ThrowObj();
+        //ThrowObj();
     }
 
-    internal override void SetGameFoodObj(GameObject i_GameObject)
+    internal void SetGameFoodObj(GameObject i_GameObject)
     {
         m_FoodToThrow = i_GameObject;
         m_FoodToThrow.transform.position = transform.position - transform.forward;
@@ -69,23 +69,23 @@ public class AiThrew :ThrowingGameObj
 
         if (obj != null)
         {
-            obj.SetHolderFoodObj(this);
+            //obj.SetHolderFoodObj(this);
         }
     }
 
-    internal override void ThrowObj()
-    {
-        float lineToPleyr = Vector3.Distance(transform.position, m_Pleyer.transform.position);
-        GameFoodObj gameFoodObj = m_FoodToThrow.GetComponent<GameFoodObj>();
+    //internal override void ThrowObj()
+    //{
+    //    float lineToPleyr = Vector3.Distance(transform.position, m_Pleyer.transform.position);
+    //    GameFoodObj gameFoodObj = m_FoodToThrow.GetComponent<GameFoodObj>();
 
-        gameFoodObj.HitPlayer += m_Score.OnHitPlayer;
+    //    gameFoodObj.HitPlayer += m_Score.OnHitPlayer;
 
-        m_FoodToThrow.GetComponent<GameFoodObj>().ThrowFood(m_ForceMulti, calaV3());
-        m_FoodToThrow = null;
-    }
+    //    m_FoodToThrow.GetComponent<GameFoodObj>().ThrowFood(m_ForceMulti, calaV3());
+    //    m_FoodToThrow = null;
+    //}
 
-    public override Transform GetPoint()
-    {
-        return this.transform;
-    }
+    //public override Transform GetPoint()
+    //{
+    //    return this.transform;
+    //}
 }

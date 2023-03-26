@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-
 public class TestsChannelCanvas : MonoBehaviour
 {
     [SerializeField]
@@ -15,16 +11,9 @@ public class TestsChannelCanvas : MonoBehaviour
     [SerializeField]
     private float m_TimeToShowActine;
 
-    private Dictionary<string, TestCase> m_Dictionary = new Dictionary<string, TestCase>();
-    //private Dictionary<int, string> m_KeysInDropDropdown;
-
     private void Awake()
     {
         List<TMP_Dropdown.OptionData> list = new List<TMP_Dropdown.OptionData>();
-        foreach (string test in m_Dictionary.Keys)
-        {
-            list.Add(new TMP_Dropdown.OptionData(test));
-        }
 
         dropdown.options = list;
         dropdown.onValueChanged.AddListener(OnDropdownChanged);

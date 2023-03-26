@@ -1,12 +1,6 @@
 ﻿using DiningCombat;
 using System;
 using UnityEngine;
-using Assets.Scripts.Player;
-using Assets.Scripts.Player.PickUpItem;
-using Assets.Scripts.FoodObj;
-using Unity.VisualScripting;
-using static UnityEngine.GraphicsBuffer;
-using TMPro;
 
 public class GameFoodObj : MonoBehaviour
 {
@@ -16,7 +10,7 @@ public class GameFoodObj : MonoBehaviour
 
     private bool m_IsThrow;
     private Rigidbody m_Rigidbody;
-    private ThrowingGameObj m_HoldingGameObj;
+    //private ThrowingGameObj m_HoldingGameObj;
     [SerializeField]
     private Vector3 m_Offset = new Vector3(-0.042f, -0.112f, 0.622f);
     [SerializeField]
@@ -91,69 +85,69 @@ public class GameFoodObj : MonoBehaviour
         m_Rigidbody.AddForce(i_ThrowDirection);
     }
 
-    internal void SetHolderFoodObj(ThrowingGameObj i_HoldingGameObj)
-    {
-        m_HoldingGameObj = i_HoldingGameObj;
+    //internal void SetHolderFoodObj(ThrowingGameObj i_HoldingGameObj)
+    //{
+    //    m_HoldingGameObj = i_HoldingGameObj;
 
-        if(m_HoldingGameObj)
-        {
-            //this.transform.rotation = m_OffsetRo;
-            Transform point = this.m_HoldingGameObj.GetPoint();
-            this.transform.SetParent(point, true);
-            this.transform.position = point.position + m_Offset;
-            float uDistance = Vector3.Distance(this.transform.position, point.position);
-            Debug.Log(uDistance);
+    //    if(m_HoldingGameObj)
+    //    {
+    //        //this.transform.rotation = m_OffsetRo;
+    //        Transform point = this.m_HoldingGameObj.GetPoint();
+    //        this.transform.SetParent(point, true);
+    //        this.transform.position = point.position + m_Offset;
+    //        float uDistance = Vector3.Distance(this.transform.position, point.position);
+    //        Debug.Log(uDistance);
 
-            if (m_HoldingGameObj is HandPickUp)
-            {
-                this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            }
-        }
-    }
+    //        //if (m_HoldingGameObj is HandPickUp)
+    //        //{
+    //        //    this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+    //        //}
+    //    }
+    //}
 
-    private void updatePosition()
-    {
-        GameObject pickUpItem = m_HoldingGameObj.gameObject;
-        this.transform.position = pickUpItem.transform.position;
-        this.transform.SetParent(pickUpItem.transform, false);
-        this.transform.localPosition = pickUpItem.transform.localPosition;
+    //private void updatePosition()
+    //{
+    //    GameObject pickUpItem = m_HoldingGameObj.gameObject;
+    //    this.transform.position = pickUpItem.transform.position;
+    //    this.transform.SetParent(pickUpItem.transform, false);
+    //    this.transform.localPosition = pickUpItem.transform.localPosition;
 
-        if (m_HoldingGameObj is HandPickUp)
-        {
-            m_Rigidbody.useGravity = false;
-        }
-    }
+    //    if (m_HoldingGameObj is HandPickUp)
+    //    {
+    //        m_Rigidbody.useGravity = false;
+    //    }
+    //}
 
-    private void collisionAfterThrowingHandler(Collision i_Collision)
-    {
-        if (isPlayer(i_Collision))
-        {
-            PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
-            int kill = 0;
-            float hitPoint = GetHitPonit();
+    //private void collisionAfterThrowingHandler(Collision i_Collision)
+    //{
+    //    if (isPlayer(i_Collision))
+    //    {
+    //        PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
+    //        int kill = 0;
+    //        float hitPoint = GetHitPonit();
 
-            if (playerHit != null)
-            {
-                if (playerHit.HitYou(hitPoint))
-                {
-                    kill = 1;
-                }
-            }
+    //        if (playerHit != null)
+    //        {
+    //            if (playerHit.HitYou(hitPoint))
+    //            {
+    //                kill = 1;
+    //            }
+    //        }
 
-            if (m_HoldingGameObj.DidIHurtMyself(i_Collision))
-            {
-                Debug.Log("you stupid son of a bitch? You hurt yourself");
-            }
-            else
-            {
-                Debug.Log("OnHitPlayer");
-                OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
-            }
-        }
+    //        if (m_HoldingGameObj.DidIHurtMyself(i_Collision))
+    //        {
+    //            Debug.Log("you stupid son of a bitch? You hurt yourself");
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("OnHitPlayer");
+    //            OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
+    //        }
+    //    }
 
-        performTheEffect();
-        destruction();
-    }
+    //    performTheEffect();
+    //    destruction();
+    //}
 
     private float GetHitPonit()
     {
@@ -190,7 +184,7 @@ public class GameFoodObj : MonoBehaviour
     {
         if (IsThrow && m_HitPlayerMull != 0)
         {
-            collisionAfterThrowingHandler(i_Collision);
+            //collisionAfterThrowingHandler(i_Collision);
         }
         //else if (isPlayer(i_Collision)) 
         //{
@@ -239,11 +233,11 @@ public class GameFoodObj : MonoBehaviour
     {
     }
 
-    internal bool GetCollectPosition(out Vector3 o_pod)
-    {
-        bool isCollect = m_HoldingGameObj != null;
-        o_pod = isCollect ? transform.position : Vector3.zero;
+    //internal bool GetCollectPosition(out Vector3 o_pod)
+    //{
+    //    //bool isCollect = m_HoldingGameObj != null;
+    //    //o_pod = isCollect ? transform.position : Vector3.zero;
 
-        return isCollect;
-    }
+    //    //return isCollect;
+    //}
 }

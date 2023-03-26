@@ -55,17 +55,14 @@ namespace DiningCombat
         {
             public const float k_MaxPlayerLife = 100;
 
-            // Player-Movement
             public const float k_DefaultPlayerMovementJumpHeight = 2f;
             public const float k_DefaultPlayerMovementRunSpeed = 20;
             public const float k_DefaultPlayerMovementRunSideSpeed = 5;
             public const float k_DefaultPlayerMovementGroundCheckDistance = 0.2F;
             public const float k_DefaultPlayerMovementGravity = -9.81F;
 
-            // CameraFollow
             public const float k_DefaultCameraFollowMouseSensetivity = 1000f;
 
-            // PickUpItem
             public const float k_MinDistanceToPickUp = 2f;
             public const int k_MaxItemToPick = 1;
         }
@@ -88,8 +85,10 @@ namespace DiningCombat
         {
             OfflinePlayer,
             OfflineAiPlayer,
+            OfflineTestPlayer,
             OnlinePlayer,
             OnlineAiPlayer,
+            OnlineTestPlayer,
         }
     }
 }
