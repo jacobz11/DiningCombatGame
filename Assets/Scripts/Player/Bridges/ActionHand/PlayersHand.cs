@@ -83,7 +83,7 @@ namespace DiningCombat.Player
                 }
 
                 public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type,
-                    out PlayerHand o_Player, out StateMachineImplemntor o_Implementor)
+                    out PlayerHand o_Player, out OfflinePlayerStateMachine o_Implementor)
                 {
                     o_Player = i_PlayerCharacter.AddComponent<PlayerHand>();
 
@@ -91,7 +91,7 @@ namespace DiningCombat.Player
                     {
                         case ePlayerModeType.OfflinePlayer:
                             Debug.Log("Builder  PlayerMovement : OfflinePlayer");
-                            o_Implementor = i_PlayerCharacter.AddComponent<StateMachineImplemntor>();
+                            o_Implementor = i_PlayerCharacter.AddComponent<OfflinePlayerStateMachine>();
                             o_Implementor.SetPlayerHand(o_Player);
                             o_Implementor.BuildOfflinePlayerState();
                             //List<State> states = new List<State> 

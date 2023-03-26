@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace DiningCombat.Player.Offline.State
 {
-    internal class StateHoldsObj : DCState
+    internal class StateHoldsObjOffline : DCState
     {
         //private const byte k_AddState = 1;
         private float initTimeEnteState;
 
-        public StateHoldsObj(byte stateId, string stateName)
+        public StateHoldsObjOffline(byte stateId, string stateName)
             : base(stateId, stateName)
         {
         }

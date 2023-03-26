@@ -2,10 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Player
+namespace DiningCombat.Player.UI
 {
-    namespace UI
-    {
         internal class PlayerUi : Behaviour
         {
             public event EventHandler PlayerDeath;
@@ -106,6 +104,6 @@ namespace Player
                 }
             }
         }
-    }
+    
 }
 

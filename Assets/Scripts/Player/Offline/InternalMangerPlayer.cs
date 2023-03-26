@@ -1,5 +1,7 @@
-﻿using Assets.Scrips_new.Util.Channels.Internal;
+﻿using Assets.Scrips_new.AI.Algo;
+using Assets.Scrips_new.Util.Channels.Internal;
 using DiningCombat.FoodObj;
+using DiningCombat.Player.UI;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -7,7 +9,7 @@ using static DiningCombat.GameGlobal;
 
 namespace DiningCombat.Player.Manger
 {
-    internal class PlayerInternalManger : IManager<PlayerInternalChannel>
+    internal class InternalMangerPlayer : IManager<PlayerInternalChannel>
     {
         public const int k_KillMullPonit = 100;
         private const float k_MinAdditionForce = 20;
@@ -112,7 +114,7 @@ namespace DiningCombat.Player.Manger
             m_IsHoldingFoodObj = false;
         }
 
-        protected static PlayerInternalManger InitPlayerInternalManger()
+        protected static InternalMangerPlayer InitPlayerInternalManger()
         {
             // TODO : fix it 
             Debug.Log("TODO: Fix it");
@@ -173,6 +175,7 @@ namespace DiningCombat.Player.Manger
                     Debug.LogError("Init i_Player is unscscful");
                     return;
                 }
+
                 if (m_IsInit)
                 {
                     Debug.LogError("the Initialization the player Can only happen once");
@@ -182,11 +185,15 @@ namespace DiningCombat.Player.Manger
                 m_Player = i_Player;
                 m_Player.name = m_Name;
                 m_Player.tag = TagNames.k_Player;
-                PlayerInternalManger manger = m_Player.AddComponent<PlayerInternalManger>();
+                InternalMangerPlayer manger = m_Player.AddComponent<InternalMangerPlayer>();
+
                 PlayerMovement.Builder(m_Player, m_ModeType, out PlayerMovement movement,
                     out PlayerMovementImplementor implementor);
+
                 PlayerHand.Builder(m_Player, m_ModeType, out PlayerHand o_PlayerHand,
-                    out StateMachineImplemntor o_StateMachineImplemntor);
+                    out OfflinePlayerStateMachine o_StateMachineImplemntor);
+
+                m_Player.AddComponent<PlayerUi>();
 
                 m_IsInit = true;
             }

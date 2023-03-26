@@ -6,7 +6,7 @@ using DiningCombat.FoodObj;
 
 namespace DiningCombat.Player.Manger
 {
-    public class StateMachineImplemntor : MonoBehaviourStateMachine
+    public class OfflinePlayerStateMachine : MonoBehaviourStateMachine
     {
         private PlayerHand m_PlayersHand;
         private GameObject m_FoodObj;
@@ -57,15 +57,18 @@ namespace DiningCombat.Player.Manger
             if (m_PlayersHand != null)
             {
                 List<DCState> states = new List<DCState>();
-                StateFree free = new StateFree(0, "free");
-                free.PlayerCollectedFood += OnPlayerSetFoodObj;
-                StateHoldsObj holdsObj = new StateHoldsObj(1, "holding");
-                StatePowering powering = new StatePowering(2, "powering");
-                StateThrowing throwing = new StateThrowing(3, "throwing");
+                StateFreeOffline free = new StateFreeOffline(0, "free");
                 states.Add(free);
+                free.PlayerCollectedFood += OnPlayerSetFoodObj;
+
+                StateHoldsObjOffline holdsObj =  new StateHoldsObjOffline(1, "holding");
                 states.Add(holdsObj);
+
+                StatePoweringOffline powering = new StatePoweringOffline(2, "powering");
                 states.Add(powering);
+                StateThrowingOffline throwing = new StateThrowingOffline(3, "throwing");
                 states.Add(throwing);
+
                 SetStates(states);
             }
             else

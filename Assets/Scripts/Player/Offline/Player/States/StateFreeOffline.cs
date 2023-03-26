@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace DiningCombat.Player.Offline.State
 {
-    internal class StateFree : DCState
+    internal class StateFreeOffline : DCState
     {
         public event Action<GameObject> PlayerCollectedFood;
 
         public GameObject m_FoodObj;
-        public StateFree(byte stateId, string stateName)
+        public StateFreeOffline(byte stateId, string stateName)
             : base(stateId, stateName)
         {
         }

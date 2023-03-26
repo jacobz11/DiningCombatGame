@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using DiningCombat.Channels.Player;
-using static DiningCombat.GameGlobal;
-using Player;
 
 namespace DiningCombat.Managers
 {
         internal class PlayersManager : IManager<PlayersMangerChannel>
         {
             private static PlayersManager s_Singlton;
-            private List<Player.Manger.PlayerInternalManger.PlayerData> m_PlayersDatas = new List<Player.Manger.PlayerInternalManger.PlayerData>();
+            private List<Player.Manger.InternalMangerPlayer.PlayerData> m_PlayersDatas = new List<Player.Manger.InternalMangerPlayer.PlayerData>();
             public static PlayersManager Singlton
             {
                 get
@@ -27,12 +25,11 @@ namespace DiningCombat.Managers
 
             public void InitPlayer()
             {
-                foreach (Player.Manger.PlayerInternalManger.PlayerData player in s_GameManager.GetPlayersInitialization())
+                foreach (Player.Manger.InternalMangerPlayer.PlayerData player in s_GameManager.GetPlayersInitialization())
                 {
                     GameObject spawn = Instantiate(player.m_Prefap, player.m_InitPos, player.m_Quaternion);
                     m_PlayersDatas.Add(player);
                     player.Init(spawn);
-
                 }
             }
 

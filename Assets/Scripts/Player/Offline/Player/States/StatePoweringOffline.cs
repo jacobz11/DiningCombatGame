@@ -3,10 +3,10 @@ using System;
 
 namespace DiningCombat.Player.Offline.State
 {
-    internal class StatePowering : DCState
+    internal class StatePoweringOffline : DCState
     {
         public event Action<float> OnPower;
-        public StatePowering(byte stateId, string stateName)
+        public StatePoweringOffline(byte stateId, string stateName)
             : base(stateId, stateName)
         {
         }

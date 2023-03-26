@@ -2,10 +2,10 @@
 
 namespace Assets.Scrips_new.AI.Stats
 {
-    internal class FreeHand<IAiAlgoAgent> : DCState
+    internal class FreeHandOfflineAI<IAiAlgoAgent> : DCState
     {
         private readonly IAiAlgoAgent agent;
-        public FreeHand(byte stateId, string stateName, IAiAlgoAgent agent) : base(stateId, stateName)
+        public FreeHandOfflineAI(byte stateId, string stateName, IAiAlgoAgent agent) : base(stateId, stateName)
         {
             this.agent = agent;
         }

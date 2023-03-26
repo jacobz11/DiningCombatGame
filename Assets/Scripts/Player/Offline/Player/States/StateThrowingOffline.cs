@@ -2,9 +2,9 @@
 
 namespace DiningCombat.Player.Offline.State
 {
-    internal class StateThrowing : DCState
+    internal class StateThrowingOffline : DCState
     {
-        public StateThrowing(byte stateId, string stateName)
+        public StateThrowingOffline(byte stateId, string stateName)
             : base(stateId, stateName)
         {
         }
