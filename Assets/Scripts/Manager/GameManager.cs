@@ -30,7 +30,7 @@ namespace DiningCombat
         private ManagerGameFoodObj m_FoodObjBuilder;
         private PlayersManager m_PlayersManager;
         public event Action GameOver;
-        //public static List<PlayerData> s_PlayerDatas = new List<PlayerData>();
+        //public static List<PlayerDataG> s_PlayerDatas = new List<PlayerDataG>();
 
         public bool IsRunning => true;
         public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < m_MaxNumOfFoodObj;
@@ -162,7 +162,9 @@ namespace DiningCombat
             return new List<Player.Manger.PlayerData>()
             {
                 new Player.Manger.PlayerData(m_PlayrPrefab, "player",
-                ePlayerModeType.OfflinePlayer, GetRandomPositionInMap())
+                ePlayerModeType.OfflinePlayer, GetRandomPositionInMap()),
+                new Player.Manger.PlayerData(m_PlayrPrefab, "ai", ePlayerModeType.OfflineAiPlayer,
+                GetRandomPositionInMap()),
             };
         }
     }

@@ -4,7 +4,6 @@ using DesignPatterns.Abstraction;
 using System.Collections.Generic;
 using Unity.MLAgents;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts.AI
 {
@@ -12,6 +11,12 @@ namespace Assets.Scripts.AI
     {
         protected SimpleAiAlgo m_Agent;
         protected Vector3 m_CurrentTarget;
+
+        private void Awake()
+        {
+            m_Agent = new SimpleAiAlgo();
+        }
+
         public virtual Vector3 Target
         {
             get { return m_CurrentTarget; }
@@ -22,12 +27,9 @@ namespace Assets.Scripts.AI
             m_Agent.SetData(i_UpdatedTargetList);
         }
 
-        public abstract void Update();
-
         public virtual void RunAlgo()
         {
             Target = m_Agent.RunAlgo(this.transform.position);
         }
-
     }
 }

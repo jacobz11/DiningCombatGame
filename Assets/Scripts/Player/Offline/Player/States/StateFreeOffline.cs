@@ -9,10 +9,6 @@ namespace DiningCombat.Player.Offline.State
         public event Action<GameObject> PlayerCollectedFood;
 
         public GameObject m_FoodObj;
-        //public StateFreeOffline(byte stateId, string stateName)
-        //    : base(stateId, stateName)
-        //{
-        //}
 
         private bool HaveGameObject => this.m_FoodObj != null;
 

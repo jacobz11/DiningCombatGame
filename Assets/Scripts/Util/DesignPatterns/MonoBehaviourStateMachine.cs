@@ -7,7 +7,7 @@ namespace DesignPatterns.Abstraction
 public abstract class MonoBehaviourStateMachine : MonoBehaviour
 {
     protected List<DCState> m_States;
-    private byte m_CurrentState;
+    private byte m_CurrentState = 0;
     protected byte m_InitialState = 0;
     protected bool m_IsDefaultToInitialState = true;
     protected bool m_IsModulo = true;
@@ -17,12 +17,13 @@ public abstract class MonoBehaviourStateMachine : MonoBehaviour
         get => m_CurrentState;
         private set => m_CurrentState = value;
     }
+
     protected virtual DCState CurrentStates => m_States[m_CurrentState];
 
     public virtual void SetStates(List<DCState> i_States)
     {
         bool isValid = i_States != null && i_States.Count > 0;
-
+        Debug.Log("SetStates :");
         if (!isValid)
         {
             throw new InvalidOperationException("States must be initialized and contain at least one element");
@@ -33,6 +34,7 @@ public abstract class MonoBehaviourStateMachine : MonoBehaviour
         {
             state.ChangeState += OnChangeState;
         }
+
         m_CurrentState = m_InitialState;
 
     }

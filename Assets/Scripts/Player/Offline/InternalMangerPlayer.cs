@@ -153,6 +153,8 @@ namespace DiningCombat.Player.Manger
                 return;
             }
             GameObject spawnPlayer = Instantiate(i_PlayerData.m_Prefap, i_PlayerData.m_InitPos, i_PlayerData.m_Quaternion);
+            Camera cam =spawnPlayer.GetComponentInChildren<Camera>();
+            cam.targetDisplay = i_PlayerData.m_PlayerNum;
             i_PlayerData.Init(spawnPlayer);
             spawnPlayer.name = i_PlayerData.m_Name;
             spawnPlayer.tag = TagNames.k_Player;
@@ -166,27 +168,29 @@ namespace DiningCombat.Player.Manger
             {
                 case ePlayerModeType.OfflinePlayer:
                     Debug.Log("Builder  PlayerMovement : OfflinePlayer");
-                    PlayerMovementImplementor o_Implementor = spawnPlayer.AddComponent<OfflinePlayerMovement>();
-                    o_Implementor.SetPlayerMovement(movement);
-
-                    OfflinePlayerStateMachine playerHandStateMachine = spawnPlayer.AddComponent<OfflinePlayerStateMachine>();
-                    playerHandStateMachine.SetPlayerHand(playerHand);
-                    playerHandStateMachine.BuildOfflinePlayerState();
+                    OfflinePlayerMovement offlinPlayerMovment = spawnPlayer.AddComponent<OfflinePlayerMovement>();
+                    offlinPlayerMovment.SetPlayerMovement(movement);
+                    OfflinePlayerStateMachine offlinePlayerHandStateMachine = spawnPlayer.AddComponent<OfflinePlayerStateMachine>();
+                    offlinePlayerHandStateMachine.SetPlayerHand(playerHand);
+                    offlinePlayerHandStateMachine.BuildOfflinePlayerState();
                     break;
                 case ePlayerModeType.OnlinePlayer:
                     Debug.Log("Builder  PlayerMovement : OnlinePlayer");
                     return;
                 case ePlayerModeType.OfflineAiPlayer:
                     Debug.Log("Builder  PlayerMovement : OfflineAiPlayer");
-                    o_Implementor = null;
+                    OfflineAIMovement offlineAIMovement = spawnPlayer.AddComponent<OfflineAIMovement>();
+                    offlineAIMovement.SetPlayerMovement(movement);
+                    OfflineAIStateMachine offlineAIHandStateMachine = spawnPlayer.AddComponent<OfflineAIStateMachine>();
+                    offlineAIHandStateMachine.SetPlayerHand(playerHand);
+                    offlineAIHandStateMachine.BuildOfflineAIState();
                     return;
                 case ePlayerModeType.OnlineAiPlayer:
                     Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
-                    o_Implementor = null;
                     return;
                 case ePlayerModeType.OfflineTestPlayer:
-                    o_Implementor = spawnPlayer.AddComponent<PlayerMovementStub>();
-                    o_Implementor.SetPlayerMovement(movement);
+                    PlayerMovementStub PlayerMovmentSub = spawnPlayer.AddComponent<PlayerMovementStub>();
+                    PlayerMovmentSub.SetPlayerMovement(movement);
                     break;
                 case ePlayerModeType.OnlineTestPlayer:
                     Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");

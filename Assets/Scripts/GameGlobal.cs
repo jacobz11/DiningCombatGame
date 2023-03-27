@@ -51,7 +51,7 @@ namespace DiningCombat
 
         }
 
-        public static class PlayerData
+        public static class PlayerDataG
         {
             public const float k_MaxPlayerLife = 100;
 
