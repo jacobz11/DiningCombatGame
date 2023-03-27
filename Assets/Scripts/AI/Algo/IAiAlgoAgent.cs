@@ -8,6 +8,6 @@ namespace Assets.Scrips_new.AI.Algo
 
         List<TData> GetData();
 
-        TReslut RunAlgo();
+        TReslut RunAlgo(TData data);
     }
 }

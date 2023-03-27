@@ -5,6 +5,14 @@ namespace Assets.Scrips_new.AI.Algo
 {
     internal class AIPlayer<IAiAlgoAgent> : MonoBehaviourStateMachine
     {
-        List<IAiAlgoAgent> agents;
+
+        private void Awake()
+        {
+        }
+
+        public void RunAlog()
+        {
+
+        }
     }
 }

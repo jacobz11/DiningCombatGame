@@ -157,11 +157,11 @@ namespace DiningCombat
             o_TimeToWait = 0;
         }
 
-        internal List<Player.Manger.InternalMangerPlayer.PlayerData> GetPlayersInitialization()
+        internal List<Player.Manger.PlayerData> GetPlayersInitialization()
         {
-            return new List<Player.Manger.InternalMangerPlayer.PlayerData>()
+            return new List<Player.Manger.PlayerData>()
             {
-                new Player.Manger.InternalMangerPlayer.PlayerData(m_PlayrPrefab, "player",
+                new Player.Manger.PlayerData(m_PlayrPrefab, "player",
                 ePlayerModeType.OfflinePlayer, GetRandomPositionInMap())
             };
         }

@@ -1,6 +1,7 @@
-﻿using Assets.Scrips_new.AI.Algo;
-using Assets.Scrips_new.Util.Channels.Internal;
+﻿using Assets.Scrips_new.Util.Channels.Internal;
+using Assets.Scripts.Test.Stubs;
 using DiningCombat.FoodObj;
+using DiningCombat.Player.Offline.Movement;
 using DiningCombat.Player.UI;
 using System;
 using System.Collections;
@@ -143,68 +144,65 @@ namespace DiningCombat.Player.Manger
 
             return isMinBigger && isMaxSmaller;
         }
-        internal struct PlayerData
+
+        public static void Builder(PlayerData i_PlayerData)
         {
-            public readonly Vector3 m_InitPos;
-            public readonly Quaternion m_Quaternion;
-            public readonly GameObject m_Prefap;
-            public readonly string m_Name;
-            private GameObject m_Player;
-            private ePlayerModeType m_ModeType;
-            private bool m_IsInit;
-
-            public bool IsAi => m_ModeType == ePlayerModeType.OfflineAiPlayer
-                || m_ModeType == ePlayerModeType.OnlineAiPlayer;
-
-            public PlayerData(GameObject i_Prefap, string i_Name,
-                ePlayerModeType i_ModeType, Vector3 i_InitPos)
+            if (i_PlayerData.IsInitialize)
             {
-                m_Prefap = i_Prefap;
-                m_ModeType = i_ModeType;
-                m_Name = i_Name;
-                m_InitPos = i_InitPos;
-                m_Quaternion = Quaternion.identity;
-                m_Player = null;
-                m_IsInit = false;
+                Debug.LogError("player cant be  Initialize twice");
+                return;
             }
+            GameObject spawnPlayer = Instantiate(i_PlayerData.m_Prefap, i_PlayerData.m_InitPos, i_PlayerData.m_Quaternion);
+            i_PlayerData.Init(spawnPlayer);
+            spawnPlayer.name = i_PlayerData.m_Name;
+            spawnPlayer.tag = TagNames.k_Player;
 
-            internal void Init(GameObject i_Player)
+            InternalMangerPlayer manger = spawnPlayer.AddComponent<InternalMangerPlayer>();
+            PlayerMovement movement = spawnPlayer.AddComponent<PlayerMovement>();
+            PlayerHand playerHand = spawnPlayer.AddComponent<PlayerHand>();
+
+
+            switch (i_PlayerData.m_ModeType)
             {
-                if (i_Player == null)
-                {
-                    Debug.LogError("Init i_Player is unscscful");
+                case ePlayerModeType.OfflinePlayer:
+                    Debug.Log("Builder  PlayerMovement : OfflinePlayer");
+                    PlayerMovementImplementor o_Implementor = spawnPlayer.AddComponent<OfflinePlayerMovement>();
+                    o_Implementor.SetPlayerMovement(movement);
+
+                    OfflinePlayerStateMachine playerHandStateMachine = spawnPlayer.AddComponent<OfflinePlayerStateMachine>();
+                    playerHandStateMachine.SetPlayerHand(playerHand);
+                    playerHandStateMachine.BuildOfflinePlayerState();
+                    break;
+                case ePlayerModeType.OnlinePlayer:
+                    Debug.Log("Builder  PlayerMovement : OnlinePlayer");
                     return;
-                }
-
-                if (m_IsInit)
-                {
-                    Debug.LogError("the Initialization the player Can only happen once");
+                case ePlayerModeType.OfflineAiPlayer:
+                    Debug.Log("Builder  PlayerMovement : OfflineAiPlayer");
+                    o_Implementor = null;
                     return;
-                }
-
-                m_Player = i_Player;
-                m_Player.name = m_Name;
-                m_Player.tag = TagNames.k_Player;
-                InternalMangerPlayer manger = m_Player.AddComponent<InternalMangerPlayer>();
-
-                PlayerMovement.Builder(m_Player, m_ModeType, out PlayerMovement movement,
-                    out PlayerMovementImplementor implementor);
-
-                PlayerHand.Builder(m_Player, m_ModeType, out PlayerHand o_PlayerHand,
-                    out OfflinePlayerStateMachine o_StateMachineImplemntor);
-
-                m_Player.AddComponent<PlayerUi>();
-
-                m_IsInit = true;
+                case ePlayerModeType.OnlineAiPlayer:
+                    Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
+                    o_Implementor = null;
+                    return;
+                case ePlayerModeType.OfflineTestPlayer:
+                    o_Implementor = spawnPlayer.AddComponent<PlayerMovementStub>();
+                    o_Implementor.SetPlayerMovement(movement);
+                    break;
+                case ePlayerModeType.OnlineTestPlayer:
+                    Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
+                    return;
+                default:
+                    return;
             }
 
-            public bool GetPosition(out Vector3 o_Position)
-            {
-                bool isPlayerAllive = m_Player != null;
-                o_Position = isPlayerAllive ? m_Player.transform.position : Vector3.zero;
+            // TODO : this 
+            //PlayerMovement.Builder(m_Player, m_ModeType, out PlayerMovement movement,
+            //    out PlayerMovementImplementor implementor);
 
-                return isPlayerAllive;
-            }
+            //PlayerHand.Builder(m_Player, m_ModeType, out PlayerHand o_PlayerHand,
+            //    out OfflinePlayerStateMachine o_StateMachineImplemntor);
+
+            spawnPlayer.AddComponent<PlayerUi>();
         }
     }
 }
