@@ -34,8 +34,9 @@ namespace DiningCombat.AI.Offline.Movement
             base.MoveHorizontal();
         }
 
-        public override void Jump()
+        public override bool Jump()
         {
+            return false;
             if (Input.GetButtonDown("Jump"))
             {
                 m_Movement.Jump();

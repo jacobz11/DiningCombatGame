@@ -12,18 +12,22 @@ namespace DiningCombat.Player
         protected float m_Horizontal;
         protected float m_Vertical;
         protected PlayerAnimationChannel m_AnimationChannel;
+        protected bool m_IsAnyMovement = false;
+
 
         private void Awake()
         {
             m_AnimationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+
             if (m_AnimationChannel == null)
             {
                 Debug.LogError("the PlayerAnimationChannel Not found");
             }
         }
-        public bool IsIdeal()
+
+        public void Ideal()
         {
-            return IsVertical(out bool _) && IsHorizontal(out bool _);
+            //m_AnimationChannel.
         }
 
         public static bool IsMovment(float i_Vale, out bool o_IsPositive)
@@ -54,6 +58,7 @@ namespace DiningCombat.Player
                 {
                     m_Movement.MoveLeft();
                 }
+                m_IsAnyMovement = true;
                 m_AnimationChannel.SetPlayerAnimationToRun();
             }
 
@@ -75,16 +80,21 @@ namespace DiningCombat.Player
                     m_AnimationChannel.SetPlayerAnimationToRunBack();
 
                 }
+                m_IsAnyMovement = true;
             }
 
             m_Vertical = 0f;
         }
-        public virtual void Jump()
+        public virtual bool Jump()
         {
+            bool res = false;
             if (m_Movement.Jump())
             {
                 m_AnimationChannel.SetPlayerAnimationToJump();
+                res = true;
             }
+
+            return res;
         }
         public virtual void SetPlayerMovement(PlayerMovement playerMovement)
         {

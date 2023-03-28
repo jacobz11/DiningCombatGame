@@ -10,10 +10,15 @@ namespace DiningCombat.Player.Offline.Movement
 
         void Update()
         {
+            m_IsAnyMovement = false;
             MoveVertonta();
             MoveHorizontal();
             MoveRotating();
-            Jump();
+
+            if (Jump() && m_IsAnyMovement)
+            {
+                Ideal();
+            }
         }
 
         public override void MoveVertonta()
@@ -27,12 +32,14 @@ namespace DiningCombat.Player.Offline.Movement
             base.MoveHorizontal();
         }
 
-        public override void Jump()
+        public override bool Jump()
         {
             if (Input.GetButtonDown("Jump"))
             {
-                base.Jump();
+                return base.Jump();
             }
+
+            return false;
         }
         private void MoveRotating()
         {

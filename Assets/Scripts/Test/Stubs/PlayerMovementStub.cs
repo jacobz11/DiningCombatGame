@@ -63,7 +63,7 @@ namespace Assets.Scripts.Test.Stubs
             }
         }
 
-        public override void Jump()
+        public override bool Jump()
         {
             if (m_IsJumped)
             {
@@ -71,6 +71,7 @@ namespace Assets.Scripts.Test.Stubs
                 m_Movement.Jump();
                 m_IsJumped = false;
             }
+            return m_IsJumped;
         }
         private void MoveRotating()
         {
