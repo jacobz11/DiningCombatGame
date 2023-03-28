@@ -31,7 +31,7 @@ namespace DiningCombat.Player.Offline.Movement
         {
             if (Input.GetButtonDown("Jump"))
             {
-                m_Movement.Jump();
+                base.Jump();
             }
         }
         private void MoveRotating()

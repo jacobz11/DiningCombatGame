@@ -8,7 +8,7 @@ namespace Abstraction
             void MoveBackward();
             void MoveLeft();
             void MoveRight();
-            void Jump();
+            bool Jump();
         }
     }
 }

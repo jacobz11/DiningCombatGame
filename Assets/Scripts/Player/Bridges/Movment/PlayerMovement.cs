@@ -34,14 +34,16 @@ namespace DiningCombat.Player
             set => this.m_IsGrounded = value;
         }
 
-        public virtual void Jump()
+        public virtual bool Jump()
         {
-            //Debug.Log("Jump PlayerMovement IsGrounded = " + IsGrounded);
-
+            bool res = false;
             if (IsGrounded)
             {
                 m_Rb.AddForce(Vector3.up * m_JumpHeight);
+                res = true;
             }
+
+            return res;
         }
         public virtual void MoveBackward()
         {

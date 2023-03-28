@@ -156,6 +156,7 @@ namespace DiningCombat.Player.Manger
             Camera cam =spawnPlayer.GetComponentInChildren<Camera>();
             cam.targetDisplay = i_PlayerData.m_PlayerNum;
             i_PlayerData.Init(spawnPlayer);
+
             spawnPlayer.name = i_PlayerData.m_Name;
             spawnPlayer.tag = TagNames.k_Player;
 
