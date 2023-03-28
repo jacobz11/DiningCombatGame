@@ -8,7 +8,7 @@ public class PlayerAnimationChannel : MonoBehaviour
     Animator anim;
     public event Action onThrowPoint;
     public event Action OnRunFast; 
-    [SerializeField] private GameObject pickUpPoint;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -72,6 +72,7 @@ public class PlayerAnimationChannel : MonoBehaviour
 
     public void SetPlayerAnimationToRunFast()
     {
+        Debug.Log("in SetPlayerAnimationToRunFast");
         anim.SetBool("isRunFast", true);
     }
 

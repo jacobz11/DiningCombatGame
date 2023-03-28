@@ -1,5 +1,7 @@
+using System;
 using System.Diagnostics;
 using UnityEngine;
+using System.Collections;
 
 namespace DiningCombat.Player.Offline.Movement
 {
@@ -8,9 +10,11 @@ namespace DiningCombat.Player.Offline.Movement
     {
         private const string AxisMouseX = "Mouse X";
 
+
         void Update()
         {
             m_IsAnyMovement = false;
+            RunBoostUpdate();
             MoveVertonta();
             MoveHorizontal();
             MoveRotating();
@@ -18,6 +22,14 @@ namespace DiningCombat.Player.Offline.Movement
             if (Jump() && m_IsAnyMovement)
             {
                 Ideal();
+            }
+        }
+
+        private void RunBoostUpdate()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                StartCoroutine(BoostRunning());
             }
         }
 

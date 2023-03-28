@@ -1,5 +1,7 @@
 ﻿using DesignPatterns.Abstraction;
+using DiningCombat.Player.Manger;
 using System;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace DiningCombat.Player.Offline.State
@@ -12,21 +14,36 @@ namespace DiningCombat.Player.Offline.State
 
         private bool HaveGameObject => this.m_FoodObj != null;
 
-
-        public void EnterCollisionFoodObj(bool isEnter, Collider other)
+        private void Awake()
         {
-            if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+            InternalMangerPlayer mangerPlayer = gameObject.GetComponent<InternalMangerPlayer>();
+            if (mangerPlayer == null ) 
             {
-                if (isEnter)
-                {
-                    this.m_FoodObj = other.gameObject;
-                }
-                else
-                {
-                    this.m_FoodObj = null;
-                }
+                Debug.Log("mangerPlayer is null");
+            }
+
+            PlayerChannel channel = gameObject.GetComponentInChildren<PlayerChannel>();
+
+            if (channel == null)
+            {
+                Debug.Log("channel is null");
+            }
+            else
+            {
+                channel.PickUpZonEnter += EnterCollisionFoodObj;
+                channel.PickUpZonExit += ExitCollisionFoodObj;
+
             }
         }
+        public void EnterCollisionFoodObj(Collider other)
+        {
+            this.m_FoodObj = other.gameObject;
+        }
+        public void ExitCollisionFoodObj(Collider other)
+        {
+            this.m_FoodObj = null;
+        }
+
 
         public virtual void OnStateExit(params object[] list)
         {

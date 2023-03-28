@@ -75,6 +75,12 @@ namespace DiningCombat.Player
             }
         }
 
+        public virtual void ChangeRunningSpeed(float i_NewRunningSpeed, out float i_OldRunningSpeed)
+        {
+            i_OldRunningSpeed = m_PlayerSpeed;
+            m_PlayerSpeed = i_NewRunningSpeed;
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Ground"))
@@ -82,6 +88,7 @@ namespace DiningCombat.Player
                 IsGrounded = true;
             }
         }
+
 
         public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type,
             out PlayerMovement o_Movement, out PlayerMovementImplementor o_Implementor)
