@@ -1,5 +1,11 @@
-﻿using System;
+﻿using DiningCombat.Channels.GameFoodObj;
+using DiningCombat.FoodObj.Managers;
+using DiningCombat.Player;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Util;
 
 namespace DiningCombat.FoodObj
 {
@@ -11,11 +17,7 @@ namespace DiningCombat.FoodObj
 
         private bool m_IsThrow;
         private Rigidbody m_Rigidbody;
-        //private ThrowingGameObj m_HoldingGameObj;
-        [SerializeField]
-        private Vector3 m_Offset = new Vector3(-0.042f, -0.112f, 0.622f);
-        [SerializeField]
-        private Vector3 m_OffsetRo = new Vector3(330.269f, -82.976f, 265.504f);
+        private PlayerHand m_PlayerHolding;
         [SerializeField]
         private ParticleSystem m_Effect;
         [SerializeField]
@@ -39,19 +41,18 @@ namespace DiningCombat.FoodObj
 
         private void Awake()
         {
-            m_Offset = new Vector3(
-                UnityEngine.Random.Range(-1f, 1f),
-                UnityEngine.Random.Range(-1f, 1f),
-                UnityEngine.Random.Range(-1f, 1f));
             m_Rigidbody = GetComponent<Rigidbody>();
+            ChannelGameFoodObj.UickedFruit.ViewingElements += addPositionToTheListOfUnpic;
+            
             if (m_Rigidbody == null)
             {
                 Debug.LogError("cant find Rigidbody");
             }
-            //if (m_HooldingPoint == null)
-            //{
-            //    Debug.LogError("Holding Game Obj in null in Awake" + this.name);
-            //}
+        }
+
+        private void addPositionToTheListOfUnpic(List<Vector3> i_ListPassedDuringTheInvoke)
+        {
+            i_ListPassedDuringTheInvoke.Add(transform.position);
         }
 
         //protected virtual void Start()
@@ -72,39 +73,27 @@ namespace DiningCombat.FoodObj
             m_Rigidbody.constraints = RigidbodyConstraints.None;
             // add Gravity
             m_Rigidbody.useGravity = true;
-
-            actualThrow(i_ForceMulti * i_ThrowDirection);
-        }
-
-
-        private void actualThrow(Vector3 i_ThrowDirection)
-        {
             IsThrow = true;
 
-            // DrawRay for  Debuging
             Debug.DrawRay(transform.position, i_ThrowDirection, Color.black, 3);
-            m_Rigidbody.AddForce(i_ThrowDirection);
+            m_Rigidbody.AddForce(i_ForceMulti * i_ThrowDirection);
         }
 
-        //internal void SetHolderFoodObj(ThrowingGameObj i_HoldingGameObj)
-        //{
-        //    m_HoldingGameObj = i_HoldingGameObj;
 
-        //    if(m_HoldingGameObj)
-        //    {
-        //        //this.transform.rotation = m_OffsetRo;
-        //        Transform point = this.m_HoldingGameObj.GetPoint();
-        //        this.transform.SetParent(point, true);
-        //        this.transform.position = point.position + m_Offset;
-        //        float uDistance = Vector3.Distance(this.transform.position, point.position);
-        //        Debug.Log(uDistance);
+        internal void PickedUp(PlayerHand i_HoldingGameObj)
+        {
+            m_PlayerHolding = i_HoldingGameObj;
 
-        //        //if (m_HoldingGameObj is HandPickUp)
-        //        //{
-        //        //    this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        //        //}
-        //    }
-        //}
+            if (m_PlayerHolding is not null)
+            {
+                //this.transform.rotation = m_OffsetRo;
+                this.transform.SetParent(this.m_PlayerHolding.PikUpPonit, true);
+                this.transform.position = this.m_PlayerHolding.PikUpPonit.position;
+                tag = GameGlobal.TagNames.k_Picked;
+                ChannelGameFoodObj.UickedFruit.ViewingElements -= addPositionToTheListOfUnpic;
+                this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            }
+        }
 
         //private void updatePosition()
         //{
@@ -119,42 +108,43 @@ namespace DiningCombat.FoodObj
         //    }
         //}
 
-        //private void collisionAfterThrowingHandler(Collision i_Collision)
-        //{
-        //    if (isPlayer(i_Collision))
-        //    {
-        //        PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
-        //        int kill = 0;
-        //        float hitPoint = GetHitPonit();
+        private void collisionAfterThrowingHandler(Collision i_Collision)
+        {
+            if (isPlayer(i_Collision))
+            {
+                //PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
+                int kill = 0;
+                float hitPoint = GetHitPonit();
 
-        //        if (playerHit != null)
-        //        {
-        //            if (playerHit.HitYou(hitPoint))
-        //            {
-        //                kill = 1;
-        //            }
-        //        }
+                //if (playerHit != null)
+                //{
+                //    if (playerHit.HitYou(hitPoint))
+                //    {
+                //        kill = 1;
+                //    }
+                //}
 
-        //        if (m_HoldingGameObj.DidIHurtMyself(i_Collision))
-        //        {
-        //            Debug.Log("you stupid son of a bitch? You hurt yourself");
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("OnHitPlayer");
-        //            OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
-        //        }
-        //    }
+                //if (m_HoldingGameObj.DidIHurtMyself(i_Collision))
+                //{
+                //    Debug.Log("you stupid son of a bitch? You hurt yourself");
+                //}
+                //else
+                //{
+                //    Debug.Log("OnHitPlayer");
+                //    OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
+                //}
+            }
 
-        //    performTheEffect();
-        //    destruction();
-        //}
+            performTheEffect();
+            destruction();
+        }
 
         private float GetHitPonit()
         {
             float x = Math.Abs(this.m_Rigidbody.velocity.x);
             float y = Math.Abs(this.m_Rigidbody.velocity.y);
             float z = Math.Abs(this.m_Rigidbody.velocity.z);
+
             Vector3 v = new Vector3(x, y, z);
             float res = m_HitPlayerMull * (x + y + z);
             m_HitPlayerMull = 0;
@@ -228,10 +218,6 @@ namespace DiningCombat.FoodObj
         protected virtual void OnDestruction(EventArgs e)
         {
             Destruction?.Invoke(this, e);
-        }
-
-        internal void CleanUpDelegatesPlayer()
-        {
         }
 
         //internal bool GetCollectPosition(out Vector3 o_pod)

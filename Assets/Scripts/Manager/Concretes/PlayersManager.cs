@@ -28,7 +28,9 @@ namespace DiningCombat.Managers
         {
             foreach (PlayerData player in s_GameManager.GetPlayersInitialization())
             {
-                InternalMangerPlayer.Builder(player);
+                GameObject spawnPlayer = Instantiate(player.m_Prefap, player.m_InitPos, player.m_Quaternion);
+                PlayerChannel channel = spawnPlayer.GetComponentInChildren<PlayerChannel>();
+                channel.Builder(player, spawnPlayer);
                 m_PlayersDatas.Add(player);
             }
         }

@@ -24,6 +24,16 @@ namespace DiningCombat.FoodObj.Managers
                 s_Singlton = value;
             }
         }
+
+        public ChannelGameFoodObj FoodChannel
+        {
+            get { return Channel as ChannelGameFoodObj; }
+        }
+
+        private void Awake()
+        {
+            m_Channel = new ChannelGameFoodObj();
+        }
         private GameObject getPrefabFrom(string i_Location)
         {
             return (GameObject)Resources.Load(i_Location, m_Type);

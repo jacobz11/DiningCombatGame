@@ -10,25 +10,46 @@ using static DiningCombat.GameGlobal;
 
 namespace DiningCombat.Player.Manger
 {
-    internal class InternalMangerPlayer : IManager<PlayerInternalChannel>
+    internal class InternalMangerPlayer : IManager<PlayerChannel>
     {
         public const int k_KillMullPonit = 100;
         private const float k_MinAdditionForce = 20;
         private const float k_MaxAdditionForce = 200;
         private const float k_MaxForce = 2000;
         private const float k_MinForce = 0;
-
+        public event Action<Collision> CollisionEnter;
+        public event Action<Collision> CollisionExit;
+        public event Action<Collider> PickUpZonEnter;
+        public event Action<Collider> PickUpZonExit;
         public event Action<float> PlayerForceChange;
         public event Action<int> PlayerScoreChange;
         public event Action<int> LifePointChange;
         public event Action PlayerDead;
+
+        [SerializeField]
+        protected GameObject m_PickUpPoint;
 
         private int m_Score = 0;
         private int m_Kills = 0;
         private int m_LifePoint;
         private float m_Force = 0;
         private bool m_IsHoldingFoodObj = false;
+        public GameObject PickUpPoint
+        {
+            get
+            {
+                return m_PickUpPoint;
+            }
+            protected set
+            {
+                m_PickUpPoint = value;
+            }
+        }
 
+        private void Awake()
+        {
+            m_Channel = GetComponentInChildren<PlayerChannel>();
+        }
         public float ForceMull
         {
             get => m_Force;
@@ -115,6 +136,36 @@ namespace DiningCombat.Player.Manger
             m_IsHoldingFoodObj = false;
         }
 
+        protected virtual void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("OnCollisionEnter");
+            CollisionEnter?.Invoke(collision);
+        }
+
+        protected virtual void OnCollisionExit(Collision collision)
+        {
+            Debug.Log("OnCollisionExit");
+            CollisionExit?.Invoke(collision);
+        }
+        protected virtual void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("OnTriggerEnter");
+            if (other.CompareTag(GameGlobal.TagNames.k_FoodObj))
+            {
+                PickUpZonEnter?.Invoke(other);
+            }
+        }
+
+        protected virtual void OnTriggerExit(Collider other)
+        {
+            Debug.Log("OnTriggerExit");
+
+            if (other.CompareTag(GameGlobal.TagNames.k_FoodObj))
+            {
+                PickUpZonExit?.Invoke(other);
+            }
+        }
+
         protected static InternalMangerPlayer InitPlayerInternalManger()
         {
             // TODO : fix it 
@@ -152,6 +203,7 @@ namespace DiningCombat.Player.Manger
                 Debug.LogError("player cant be  Initialize twice");
                 return;
             }
+
             GameObject spawnPlayer = Instantiate(i_PlayerData.m_Prefap, i_PlayerData.m_InitPos, i_PlayerData.m_Quaternion);
             Camera cam =spawnPlayer.GetComponentInChildren<Camera>();
             cam.targetDisplay = i_PlayerData.m_PlayerNum;

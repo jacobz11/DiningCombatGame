@@ -1,7 +1,6 @@
 ﻿using DesignPatterns.Abstraction;
 using DiningCombat.Player.Manger;
 using System;
-using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 namespace DiningCombat.Player.Offline.State
@@ -41,32 +40,34 @@ namespace DiningCombat.Player.Offline.State
         }
         public void ExitCollisionFoodObj(Collider other)
         {
+            //Debug.Log("ExitCollisionFoodObj");
             this.m_FoodObj = null;
         }
 
-
-        public virtual void OnStateExit(params object[] list)
+        public override void OnStateExit(params object[] list)
         {
         }
 
-        public virtual void OnStateMove(params object[] list)
+        public override void OnStateMove(params object[] list)
         {
         }
 
-        public virtual void OnStateIK(params object[] list)
+        public override void OnStateIK(params object[] list)
         {
         }
-        public virtual void OnStateEnter(params object[] list)
+        public override void OnStateEnter(params object[] list)
         {
             this.m_FoodObj = null;
             Debug.Log("init state : StateFree");
         }
 
-        public virtual void OnStateUpdate(params object[] list)
+        public override void OnStateUpdate(params object[] list)
         {
             bool isPassStage = this.HaveGameObject && Input.GetKey(KeyCode.E);
+            
             if (isPassStage)
             {
+                Debug.Log("isPassStage ");
                 PlayerCollectedFood?.Invoke(this.m_FoodObj);
             }
         }

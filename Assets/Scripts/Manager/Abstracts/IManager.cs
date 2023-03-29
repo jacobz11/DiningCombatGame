@@ -10,7 +10,7 @@ namespace DiningCombat
         protected IManager<IChannelGame> m_Singlton;
         protected IChannelGame m_Channel;
 
-        internal IChannelGame Channel { get { return m_Channel; } }
+        internal virtual IChannelGame Channel { get { return m_Channel; } }
         internal static void SetGameManager(GameManager manager)
         {
             s_GameManager = manager;

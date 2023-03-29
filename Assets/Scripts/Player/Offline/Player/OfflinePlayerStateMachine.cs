@@ -33,18 +33,19 @@ namespace DiningCombat.Player.Manger
             Player = i_Player;
         }
 
-        public virtual void Update()
+        public void Update()
         {
             CurrentStates.OnStateUpdate();
         }
-        protected virtual void OnPlayerSetFoodObj(GameObject i_ColctedFoodObj)
+        public virtual void OnPlayerSetFoodObj(GameObject i_ColctedFoodObj)
         {
             if (i_ColctedFoodObj == null)
             {
-
+                Debug.Log("OnPlayerSetFoodObj is null");
             }
             else if (i_ColctedFoodObj.GetComponent<GameFoodObj>() != null)
             {
+                Debug.Log("OnPlayerSetFoodObj");
                 m_FoodObj = i_ColctedFoodObj;
             }
             else
@@ -62,6 +63,7 @@ namespace DiningCombat.Player.Manger
                 free.StateId = 0;
                 states.Add(free);
                 free.PlayerCollectedFood += OnPlayerSetFoodObj;
+
 
                 StateHoldsObjOffline holdsObj = m_PlayersHand.AddComponent<StateHoldsObjOffline>();
                 holdsObj.StateId = 1;
