@@ -18,6 +18,7 @@ namespace DiningCombat
             public const string k_FoodObj = "FoodObj";
             public const string k_ThrowFoodObj = "ThrownObject";
             public const string k_Player = "Player";
+            public const string k_Picked = "Picked";
         }
 
         public static class AnimationName
