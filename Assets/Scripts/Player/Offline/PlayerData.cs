@@ -4,7 +4,7 @@ using static DiningCombat.GameGlobal;
 
 namespace DiningCombat.Player.Manger
 {
-    internal struct PlayerData
+    public struct PlayerData
     {
         private static int cunter =0;
         public readonly Vector3 m_InitPos;

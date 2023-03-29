@@ -16,7 +16,7 @@ namespace DiningCombat.Player
         private float m_MouseSensetivity = 20;
         [SerializeField]
         [Range(5, 100)]
-        private float m_PlayerSpeed = 30.0f;
+        private float m_PlayerSpeed = 20.0f;
         [SerializeField]
         [Range(2, 500)]
         private float m_JumpHeight = 430.0f;
