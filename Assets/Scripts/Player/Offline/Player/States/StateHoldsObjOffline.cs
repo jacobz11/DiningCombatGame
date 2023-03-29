@@ -13,13 +13,13 @@ namespace DiningCombat.Player.Offline.State
         //{
         //}
 
-        public virtual void OnStateEnter(params object[] list)
+        public override void OnStateEnter(params object[] list)
         {
             this.initTimeEnteState = Time.time;
             Debug.Log("init state : StateHoldsObj");
         }
 
-        public virtual void OnStateUpdate(params object[] list)
+        public override void OnStateUpdate(params object[] list)
         {
             if (Input.GetKey(KeyCode.E))
             {

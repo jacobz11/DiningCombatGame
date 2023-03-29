@@ -8,7 +8,7 @@ namespace DiningCombat.Player.Offline.State
         //    : base(stateId, stateName)
         //{
         //}
-        public virtual void OnStateEnter(params object[] list)
+        public override void OnStateEnter(params object[] list)
         {
             //this.playrHand.ThrowingAnimator = true;
         }
