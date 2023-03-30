@@ -199,10 +199,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.15
-  m_Height: 0.3
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.1, z: 0.15}
+  m_Radius: 0.09
+  m_Height: 0.24
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.05, z: 0.1}
 --- !u!65 &5426144447742025259
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PickUpPoint: {fileID: 7423822369782719380}
+  m_Collider: {fileID: 1086760131049314729}
 --- !u!114 &5426144447742025263
 MonoBehaviour:
   m_ObjectHideFlags: 0

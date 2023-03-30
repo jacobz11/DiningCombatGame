@@ -56,7 +56,6 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
             {
                 this.m_PlayrHand.SetGameFoodObj(this.m_FoodObj);
                 this.m_Machine.StatesIndex++;
-                Debug.Log("UpdateByState : StateFree");
             }
         }
 

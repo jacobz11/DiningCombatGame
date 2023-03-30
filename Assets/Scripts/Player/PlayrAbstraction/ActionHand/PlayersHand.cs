@@ -29,14 +29,17 @@ namespace DiningCombat.Player
                 m_AnimationChannel.SetPlayerAnimationToThrow(value); 
             }
         }
+
         public float ForceMulti
         {
             get => this.m_ChargingPower;
-            set
-            {
-                this.m_ChargingPower = Math.Max(Math.Min(value, this.m_MaxCargingPower), 0);
-            }
         }
+
+        public void SetForceMulti(float value)
+        {
+            this.m_ChargingPower = value;
+        }
+
         private void Awake()
         {
             m_AnimationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
@@ -64,7 +67,6 @@ namespace DiningCombat.Player
 
         internal void ThrowObj()
         {
-            Debug.Log("ThrowObj");
             if (this.m_FoodItem == null)
             {
                 Debug.LogError("foodItem is null");

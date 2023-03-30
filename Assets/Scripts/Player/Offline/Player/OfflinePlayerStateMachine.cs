@@ -21,7 +21,11 @@ namespace DiningCombat.Player.Manger
 
             protected override bool IsPassStage()
             {
-                return this.HaveGameObject && this.IsPowerKeyPress;
+                if (this.IsBufferTime)
+                {
+                    return this.HaveGameObject && this.IsPowerKeyPress;
+                }
+                return false;
             }
         }
 
@@ -49,7 +53,6 @@ namespace DiningCombat.Player.Manger
             {
                 if (this.IsBufferTime)
                 {
-                    Debug.Log("IsBufferTime " + Input.GetKeyUp(KeyCode.E));
                     return Input.GetKeyUp(KeyCode.E);
                 }
 

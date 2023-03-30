@@ -32,7 +32,8 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
     [SerializeField]
     protected GameObject m_PickUpPoint;
-
+    [SerializeField]
+    private Collider m_Collider; 
     private int m_Score = 0;
     private int m_Kills = 0;
     private int m_LifePoint;
@@ -143,6 +144,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
     public void OnPlayerSetFoodObj(GameObject i_GameObject)
     {
         m_IsHoldingFoodObj = i_GameObject != null;
+        m_Collider.enabled = !m_IsHoldingFoodObj;
     }
 
     public void OnPlayerFoodThrown()
@@ -160,6 +162,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
     {
         CollisionExit?.Invoke(collision);
     }
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(GameGlobal.TagNames.k_FoodObj))
@@ -237,7 +240,6 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
             default:
                 return;
         }
-
         AddingListenersToAnimationEvent(playerHand, acitonHandStateMachine);
         AddingListeners(playerHand, acitonHandStateMachine);
     }
@@ -245,8 +247,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
     private PlayerData AddAbstrcts(PlayerData i_PlayerData,
                                     GameObject spawnPlayer,
                                     out PlayerMovement o_Movement,
-                                    out PlayerHand o_PlayerHand
-        )
+                                    out PlayerHand o_PlayerHand)
     {
         i_PlayerData.Init(spawnPlayer);
         o_Movement = spawnPlayer.AddComponent<PlayerMovement>();
@@ -261,6 +262,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
         i_StateMachine.Free.PlayerCollectedFood += OnPlayerSetFoodObj;
         i_StateMachine.Free.PlayerCollectedFood += i_StateMachine.OnPlayerSetFoodObj;
         i_StateMachine.Free.PlayerCollectedFood += i_PlayerHand.SetGameFoodObj;
+        PlayerForceChange += i_PlayerHand.SetForceMulti;
         PickUpZonEnter += i_StateMachine.Free.EnterCollisionFoodObj;
         PickUpZonExit += i_StateMachine.Free.ExitCollisionFoodObj;
     }

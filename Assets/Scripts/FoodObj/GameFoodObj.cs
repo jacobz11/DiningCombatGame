@@ -1,8 +1,10 @@
 ﻿using DiningCombat.Channels.GameFoodObj;
 using DiningCombat.Player;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace DiningCombat.FoodObj
 {
@@ -23,6 +25,7 @@ namespace DiningCombat.FoodObj
         [SerializeField]
         [Range(0f, 100f)]
         private float m_MaxHitPlayerMull;
+        public int FramesToExitPlayer = 5;
 
         public bool IsThrow
         {
@@ -54,15 +57,22 @@ namespace DiningCombat.FoodObj
 
         public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
         {
+            EnableRagdoll();
             transform.parent = null;
-            m_Rigidbody.constraints = RigidbodyConstraints.None;
             m_Rigidbody.useGravity = true;
-            IsThrow = true;
-
-            Debug.DrawRay(transform.position, i_ThrowDirection, Color.black, 3);
             m_Rigidbody.AddForce(i_ForceMulti * i_ThrowDirection);
+            StartCoroutine(WaitForFrames());
+            Debug.DrawRay(transform.position, i_ThrowDirection, Color.black, 3);
         }
 
+        private IEnumerator WaitForFrames()
+        {
+            for(int i =0; i< FramesToExitPlayer; ++i)
+            {
+                yield return null;
+            }
+            IsThrow = true;
+        }
 
         internal void PickedUp(PlayerHand i_HoldingGameObj)
         {
@@ -74,8 +84,22 @@ namespace DiningCombat.FoodObj
                 this.transform.position = this.m_PlayerHolding.PikUpPonit.position;
                 tag = GameGlobal.TagNames.k_Picked;
                 ChannelGameFoodObj.s_UickedFruit.ViewingElements -= addPositionToTheListOfUnpic;
-                this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                DisableRagdoll();
             }
+        }
+
+        // Let the rigidbody take control and detect collisions.
+        void EnableRagdoll()
+        {
+            m_Rigidbody.isKinematic = false;
+            m_Rigidbody.detectCollisions = true;
+        }
+
+        // Let animation control the rigidbody and ignore collisions.
+        void DisableRagdoll()
+        {
+            m_Rigidbody.isKinematic = true;
+            m_Rigidbody.detectCollisions = false;
         }
 
         private void collisionAfterThrowingHandler(Collision i_Collision)

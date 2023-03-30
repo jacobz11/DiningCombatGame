@@ -2,7 +2,9 @@
 using DesignPatterns.Abstraction;
 using DiningCombat.FoodObj;
 using DiningCombat.Player;
+using System;
 using System.Collections.Generic;
+using Unity.Barracuda;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
@@ -11,7 +13,6 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
     {
         private PlayerHand m_PlayersHand;
         private GameObject m_FoodObj;
-
 
         public StateFree Free
         {
@@ -63,6 +64,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             if (i_ColctedFoodObj == null)
             {
+                m_CurrentState = 0;
                 Debug.Log("OnPlayerSetFoodObj is null");
             }
             else if (i_ColctedFoodObj.GetComponent<GameFoodObj>() != null)

@@ -167,7 +167,6 @@ namespace DiningCombat
 
         private void Awake()
         {
-            Debug.Log("Awake");
             Singlton = this;
             m_FoodObjBuilder = ManagerGameFoodObj.InitManagerGameFood();
             m_PlayersManager = PlayersManager.InitPlayersManager();

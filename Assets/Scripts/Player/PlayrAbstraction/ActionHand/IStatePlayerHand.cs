@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player.Offline.Player.States
         protected AcitonHandStateMachine m_Machine;
         private float initTimeEnteState;
 
-        protected bool IsBufferTime => Time.time - this.initTimeEnteState > 0.2f;
+        protected bool IsBufferTime => Time.time - this.initTimeEnteState > 0.5f;
         protected IStatePlayerHand(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
         {
             this.m_PlayrHand = i_PickUpItem;
