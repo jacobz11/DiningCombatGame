@@ -12,8 +12,6 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 {
     internal abstract class StateHoldsObj : IStatePlayerHand
     {
-        private float initTimeEnteState;
-
         public StateHoldsObj(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
             : base(i_PickUpItem, i_Machine)
         {
@@ -31,8 +29,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         public override void OnStateEnter(params object[] list)
         {
-            //this.m_PlayrHand.ForceMulti = 0;
-            this.initTimeEnteState = Time.time;
+            base.OnStateEnter(list);
             Debug.Log("init state : StateHoldsObj");
         }
 

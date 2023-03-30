@@ -39,21 +39,11 @@ namespace DiningCombat.Player
             set
             {
                 this.m_ChargingPower = Math.Max(Math.Min(value, this.m_MaxCargingPower), 0);
-                //m_ForceMultiUi.UpdateFilliStatus = this.m_ChargingPower;
             }
         }
         private void Awake()
         {
             m_AnimationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            TriggerAction?.Invoke(true, other);
-        }
-        private void OnTriggerExit(Collider other)
-        {
-            TriggerAction?.Invoke(false, other);
         }
 
         internal void SetGameFoodObj(GameObject i_GameObject)
@@ -80,6 +70,7 @@ namespace DiningCombat.Player
 
         internal void ThrowObj()
         {
+            Debug.Log("ThrowObj");
             if (this.m_FoodItem == null)
             {
                 Debug.LogError("foodItem is null");

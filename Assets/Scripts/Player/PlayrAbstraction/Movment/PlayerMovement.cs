@@ -20,8 +20,6 @@ namespace DiningCombat.Player
         [SerializeField]
         [Range(2, 500)]
         private float m_JumpHeight = 430.0f;
-        [SerializeField]
-        private float m_GravityValue = -9.81f;
 
         private void Awake()
         {

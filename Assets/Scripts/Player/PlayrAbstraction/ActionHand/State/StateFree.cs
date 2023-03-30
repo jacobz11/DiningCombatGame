@@ -1,12 +1,7 @@
 ﻿using Assets.Scripts.Player.Offline.Player.States;
-using DiningCombat.Player.Manger;
 using DiningCombat.Player;
 using DiningCombat;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
@@ -51,6 +46,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             this.m_PlayrHand.SetGameFoodObj(null);
             this.m_FoodObj = null;
+            base.OnStateEnter(list);
             Debug.Log("init state : StateFree");
         }
 

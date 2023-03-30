@@ -1,11 +1,7 @@
 ﻿using Assets.Scripts.Player.Offline.Player.States;
-using DiningCombat.Player.Manger;
 using DiningCombat.Player;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
@@ -13,9 +9,6 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
     internal abstract class StatePowering : IStatePlayerHand
     {
         public event Action<float> OnPower;
-        private float initTimeEnteState;
-
-        protected bool IsBufferTime => Time.time - this.initTimeEnteState > 0.2f;
 
         public StatePowering(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
             : base(i_PickUpItem, i_Machine)
@@ -24,11 +17,10 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         protected abstract bool IsPassStage();
 
-
         public override void OnStateEnter(params object[] list)
         {
             Debug.Log("init state : StatePowering");
-            this.initTimeEnteState = Time.time;
+            base.OnStateEnter(list);
         }
 
         public override void OnStateExit(params object[] list)
@@ -44,6 +36,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
             }
             else if (this.IsPassStage())
             {
+                Debug.Log("StatePowering : IsPassStage ");
                 this.m_Machine.StatesIndex++;
             }
             else
@@ -52,10 +45,19 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
             }
         }
 
+        public IEnumerator OnTringPoint()
+        {
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+
+            OnPower?.Invoke(float.NegativeInfinity);
+        }
+
         private void StepBack()
         {
             if (this.IsBufferTime)
             {
+                OnPower?.Invoke(float.NegativeInfinity);
                 this.m_Machine.StatesIndex--;
             }
         }
@@ -63,6 +65,8 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             return "StatePowering : ";
         }
+
+        
 
         ///// <inheritdoc/>
         //public bool IsPassStage()
@@ -77,6 +81,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         private void AddToForceMulti()
         {
+            Debug.Log("AddToForceMulti");
             OnPower?.Invoke(Time.deltaTime * 1400);
         }
     }

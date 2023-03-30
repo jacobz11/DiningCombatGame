@@ -1,11 +1,8 @@
 ﻿using DiningCombat.Channels.GameFoodObj;
-using DiningCombat.FoodObj.Managers;
 using DiningCombat.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Util;
 
 namespace DiningCombat.FoodObj
 {
@@ -55,23 +52,10 @@ namespace DiningCombat.FoodObj
             i_ListPassedDuringTheInvoke.Add(transform.position);
         }
 
-        //protected virtual void Start()
-        //{
-        //    //m_Rigidbody = GetComponent<Rigidbody>();
-        //    //m_Effect.Stop();
-        //    if (m_HooldingPoint == null)
-        //    {
-        //        Debug.LogError("Holding Game Obj in null in Start :" + this.name);
-        //    }
-        //}
-
-
         public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
         {
-            // remove parent
             transform.parent = null;
             m_Rigidbody.constraints = RigidbodyConstraints.None;
-            // add Gravity
             m_Rigidbody.useGravity = true;
             IsThrow = true;
 
@@ -86,7 +70,6 @@ namespace DiningCombat.FoodObj
 
             if (m_PlayerHolding is not null)
             {
-                //this.transform.rotation = m_OffsetRo;
                 this.transform.SetParent(this.m_PlayerHolding.PikUpPonit, true);
                 this.transform.position = this.m_PlayerHolding.PikUpPonit.position;
                 tag = GameGlobal.TagNames.k_Picked;
@@ -94,19 +77,6 @@ namespace DiningCombat.FoodObj
                 this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             }
         }
-
-        //private void updatePosition()
-        //{
-        //    GameObject pickUpItem = m_HoldingGameObj.gameObject;
-        //    this.transform.position = pickUpItem.transform.position;
-        //    this.transform.SetParent(pickUpItem.transform, false);
-        //    this.transform.localPosition = pickUpItem.transform.localPosition;
-
-        //    if (m_HoldingGameObj is HandPickUp)
-        //    {
-        //        m_Rigidbody.useGravity = false;
-        //    }
-        //}
 
         private void collisionAfterThrowingHandler(Collision i_Collision)
         {
@@ -219,13 +189,5 @@ namespace DiningCombat.FoodObj
         {
             Destruction?.Invoke(this, e);
         }
-
-        //internal bool GetCollectPosition(out Vector3 o_pod)
-        //{
-        //    //bool isCollect = m_HoldingGameObj != null;
-        //    //o_pod = isCollect ? transform.position : Vector3.zero;
-
-        //    //return isCollect;
-        //}
     }
 }

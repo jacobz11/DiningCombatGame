@@ -42,6 +42,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             CurrentStates.OnStateUpdate();
         }
+
         public virtual void OnPlayerSetFoodObj(GameObject i_ColctedFoodObj)
         {
             if (i_ColctedFoodObj == null)
@@ -58,32 +59,5 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
                 Debug.LogError("Colcted Food Obj is null not FoodObj type");
             }
         }
-
-        //internal void BuildOfflinePlayerState()
-        //{
-        //    if (m_PlayersHand != null)
-        //    {
-        //        List<IDCState> states = new List<IDCState>();
-        //        StateFreeOffline free = new StateFreeOffline(m_PlayersHand, this);
-        //        states.Add(free);
-        //        free.PlayerCollectedFood += OnPlayerSetFoodObj;
-
-
-        //        StateHoldsObjOffline holdsObj = new StateHoldsObjOffline(m_PlayersHand, this);
-        //        states.Add(holdsObj);
-
-        //        StatePoweringOffline powering = new StatePoweringOffline(m_PlayersHand, this);
-        //        states.Add(powering);
-
-        //        StateThrowingOffline throwing = new StateThrowingOffline(m_PlayersHand, this);
-        //        states.Add(throwing);
-
-        //        SetStates(states);
-        //    }
-        //    else
-        //    {
-        //        Debug.LogError("Missing component PlayersHand - It is impossible to create StateMachineImplemntor without a PlayersHand");
-        //    }
-        //}
     }
 }

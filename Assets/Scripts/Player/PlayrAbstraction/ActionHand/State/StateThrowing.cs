@@ -1,11 +1,6 @@
 ﻿using Assets.Scripts.Player.Offline.Player.States;
-using DiningCombat.Player.Manger;
 using DiningCombat.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 {
@@ -16,8 +11,15 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
         }
 
+        internal void ThrowingPointObj()
+        {
+            Debug.Log("ThrowingPointObj");
+        }
+
         public override void OnStateEnter(params object[] list)
         {
+            base.OnStateEnter(list);
+            Debug.Log(" StateThrowing init");
             this.m_PlayrHand.ThrowingAnimator = true;
         }
 

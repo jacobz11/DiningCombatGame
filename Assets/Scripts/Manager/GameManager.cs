@@ -58,6 +58,12 @@ namespace DiningCombat
         [SerializeField]
         [Range(20, 1000)]
         private float m_MinForce;
+        [SerializeField]
+        private GameObject m_PrefabUIHP;
+        [SerializeField]
+        private GameObject m_PrefabUIPower;        
+        [SerializeField]
+        private GameObject m_PrefabUIScore;
 
         public byte MaxNumOfFoodObj
         {
@@ -118,6 +124,47 @@ namespace DiningCombat
         public bool IsRunning => true;
         public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < MaxNumOfFoodObj;
 
+        public bool GetPrefabUiHP(out GameObject gameObject)
+        {
+            if (m_PrefabUIHP is null)
+            {
+                gameObject = null;
+                return false;
+            }
+            else
+            {
+                gameObject = m_PrefabUIHP;
+                return true;
+            }
+        }
+
+        public bool GetPrefabUIPower(out GameObject gameObject)
+        {
+            if (m_PrefabUIPower is null)
+            {
+                gameObject = null;
+                return false;
+            }
+            else
+            {
+                gameObject = m_PrefabUIPower;
+                return true;
+            }
+        }
+
+        public bool GetPrefabUIScore(out GameObject gameObject)
+        {
+            if (m_PrefabUIScore is null)
+            {
+                gameObject = null;
+                return false;
+            }
+            else
+            {
+                gameObject = m_PrefabUIScore;
+                return true;
+            }
+        }
 
         private void Awake()
         {

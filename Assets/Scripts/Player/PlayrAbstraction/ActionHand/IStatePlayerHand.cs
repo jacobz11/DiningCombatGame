@@ -10,7 +10,9 @@ namespace Assets.Scripts.Player.Offline.Player.States
     {
         protected PlayerHand m_PlayrHand;
         protected AcitonHandStateMachine m_Machine;
+        private float initTimeEnteState;
 
+        protected bool IsBufferTime => Time.time - this.initTimeEnteState > 0.2f;
         protected IStatePlayerHand(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
         {
             this.m_PlayrHand = i_PickUpItem;
@@ -18,7 +20,10 @@ namespace Assets.Scripts.Player.Offline.Player.States
         }
         public bool IsPowerKeyPress => Input.GetKey(KeyCode.E);
 
-        public abstract void OnStateEnter(params object[] list);
+        public virtual void OnStateEnter(params object[] list)
+        {
+            this.initTimeEnteState = Time.time;
+        }
         public abstract void OnStateExit(params object[] list);
         public virtual void OnStateIK(params object[] list)
         {

@@ -15,11 +15,8 @@ namespace DiningCombat.Player.UI
         private int m_Kills = 0;
         private string m_PlayerFormtToShow;
         private GameObject m_Player;
-        [SerializeField]
         private Text m_Score;
-        [SerializeField]
         private FilliStatus m_HpSlder;
-        [SerializeField]
         private FilliStatus m_ForceMultiUi;
 
         private float HP
@@ -41,43 +38,78 @@ namespace DiningCombat.Player.UI
             }
         }
 
-        private void Start()
+        private void Awake()
         {
-            if (m_HpSlder == null)
+            Canvas canvas = Component.FindObjectOfType<Canvas>();
+            if (canvas is null)
             {
-                m_HpSlder = FindObjctInCanvas<FilliStatus>("Hp");
-                if (m_HpSlder == null)
-                {
-                    Debug.LogError("no find the Hp - Slder ");
-                }
+                Debug.LogError("canvas is null");
             }
             else
             {
-                m_LifePoint = m_HpSlder.GetSliderCurAndMaxAndMinValue(out m_MaxSlderVal,
-                    out m_MinSlderVal);
-            }
-
-
-            if (m_Score == null)
-            {
-                m_Score = FindUiObjInCanvas<Text>("Score");
-                if (m_Score == null)
+                if (GameManager.Singlton.GetPrefabUiHP(out GameObject o_HPrefab))
                 {
-                    Debug.LogError("no find the Text elment "); 
+                    m_HpSlder = (Instantiate(o_HPrefab, canvas.transform)).GetComponent<FilliStatus>();
+                    if (m_HpSlder is null)
+                    {
+                        Debug.LogWarning("m_HpSlder is null");
+                    }
+                }
+
+                if (GameManager.Singlton.GetPrefabUIPower(out GameObject o_PowerPrefab))
+                {
+                    m_ForceMultiUi = (Instantiate(o_PowerPrefab, canvas.transform)).GetComponent<FilliStatus>();
+                    if (m_ForceMultiUi is null)
+                    {
+                        Debug.LogWarning("m_ForceMultiUi is null");
+                    }
+                }
+
+                if (GameManager.Singlton.GetPrefabUIScore(out GameObject o_ScorePrefab))
+                {
+                    m_Score = (Instantiate(o_ScorePrefab, canvas.transform)).GetComponent<Text>();
+                    if (m_Score is null)
+                    {
+                        Debug.LogWarning("m_Score is null");
+                    }
                 }
             }
+            //m_HpSlder = canvas.
+            //if (m_HpSlder == null)
+            //{
+            //    m_HpSlder = FindObjctInCanvas<FilliStatus>("Hp");
+            //    if (m_HpSlder == null)
+            //    {
+            //        Debug.LogError("no find the Hp - Slder ");
+            //    }
+            //}
+            //else
+            //{
+            //    m_LifePoint = m_HpSlder.GetSliderCurAndMaxAndMinValue(out m_MaxSlderVal,
+            //        out m_MinSlderVal);
+            //}
 
-            if (m_ForceMultiUi == null)
-            {
-                m_ForceMultiUi = FindObjctInCanvas<FilliStatus>("Power");
-                if (m_ForceMultiUi == null)
-                {
-                    Debug.LogError("no find the Text Force-Multi- Ui ");
-                }
-            }
+
+            //if (m_Score == null)
+            //{
+            //    m_Score = FindUiObjInCanvas<Text>("Score");
+            //    if (m_Score == null)
+            //    {
+            //        Debug.LogError("no find the Text elment ");
+            //    }
+            //}
+
+            //if (m_ForceMultiUi == null)
+            //{
+            //    m_ForceMultiUi = FindObjctInCanvas<FilliStatus>("Power");
+            //    if (m_ForceMultiUi == null)
+            //    {
+            //        Debug.LogError("no find the Text Force-Multi- Ui ");
+            //    }
+            //}
 
 
-            m_PlayerFormtToShow = gameObject.name + ": {0}";
+            //m_PlayerFormtToShow = gameObject.name + ": {0}";
             //ScoreValue = 0;
         }
 
@@ -115,7 +147,7 @@ namespace DiningCombat.Player.UI
 
         public void OnPlayerForceChange(float i_NewF)
         {
-            //Debug.Log("OnPlayerForceChange : " +i_NewF);
+            Debug.Log("OnPlayerForceChange : " +i_NewF);
             m_ForceMultiUi.UpdateFilliStatus =i_NewF;
         }
 

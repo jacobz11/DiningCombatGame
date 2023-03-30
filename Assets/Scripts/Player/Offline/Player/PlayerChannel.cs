@@ -90,28 +90,36 @@ public class PlayerChannel : MonoBehaviour, IInternalChannel
 
     public void ChangeForce(float i_AdditionForce)
     {
-        if (!isInReng(i_AdditionForce,
-            MaxAdditionForce,
-            MinAdditionForce,
-            out float o_ForceAdding))
+        if (i_AdditionForce == float.NegativeInfinity)
         {
-            Debug.LogError("How the AdditionForce "+ i_AdditionForce + " is that out of range?");
+            m_Force = 0;
         }
-        float NewForce = ForceMull + o_ForceAdding;
-        //Debug.Log("i_AdditionForce : " + i_AdditionForce + ", MaxAdditionForce :" + MaxAdditionForce
-        //   + ", MinAdditionForce" + MinAdditionForce + ", o_ForceAdding" + o_ForceAdding +
-        //   ", NewForce " + NewForce);
-
-        if (!isInReng(NewForce,
-            MaxForce,
-            MinForce,
-            out float o_NewForce))
+        else
         {
-            Debug.LogError("How the NewForce "+ o_ForceAdding + "is that out of range?");
-        }
+            if (!isInReng(i_AdditionForce,
+           MaxAdditionForce,
+           MinAdditionForce,
+           out float o_ForceAdding))
+            {
+                Debug.LogError("How the AdditionForce " + i_AdditionForce + " is that out of range?");
+            }
+            float NewForce = ForceMull + o_ForceAdding;
+            //Debug.Log("i_AdditionForce : " + i_AdditionForce + ", MaxAdditionForce :" + MaxAdditionForce
+            //   + ", MinAdditionForce" + MinAdditionForce + ", o_ForceAdding" + o_ForceAdding +
+            //   ", NewForce " + NewForce);
 
-        //Debug.Log(", ForceMull + o_ForceAdding " + ForceMull + o_ForceAdding + ", o_NewForce : "+o_NewForce);
-        //m_Force = o_NewForce;
+            if (!isInReng(NewForce,
+                MaxForce,
+                MinForce,
+                out float o_NewForce))
+            {
+                Debug.LogError("How the NewForce " + o_ForceAdding + "is that out of range?");
+            }
+
+            //Debug.Log(", ForceMull + o_ForceAdding " + ForceMull + o_ForceAdding + ", o_NewForce : "+o_NewForce);
+            m_Force = o_NewForce;
+        }
+       
         PlayerForceChange?.Invoke(m_Force);
     }
 
@@ -262,6 +270,18 @@ public class PlayerChannel : MonoBehaviour, IInternalChannel
             default:
                 return;
         }
+        PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+        if (animationChannel != null)
+        {
+            animationChannel.onThrowPoint += playerHand.ThrowObj;
+            animationChannel.onThrowPoint += stateThrowing.ThrowingPointObj;
+            animationChannel.onThrowPoint += CoroutinePoweringState(poweringState);
+        }
+        else
+        {
+            Debug.Log(" animationChannel is null");
+        }
+
         poweringState.OnPower += ChangeForce;
         freeState.PlayerCollectedFood += OnPlayerSetFoodObj;
         freeState.PlayerCollectedFood += acitonHandStateMachine.OnPlayerSetFoodObj;
@@ -279,8 +299,8 @@ public class PlayerChannel : MonoBehaviour, IInternalChannel
         //    out OfflinePlayerStateMachine o_StateMachineImplemntor);
     }
 
-    private void playerChannel_PickUpZonEnter(Collider obj)
+    private Action CoroutinePoweringState(StatePowering poweringState)
     {
-        throw new NotImplementedException();
+       return () => StartCoroutine(poweringState.OnTringPoint());
     }
 }
