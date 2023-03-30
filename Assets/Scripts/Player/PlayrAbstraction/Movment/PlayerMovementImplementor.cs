@@ -20,7 +20,7 @@ namespace DiningCombat.Player
         private float m_StandbyTime = 50;
         private float m_LestBost;
 
-        private Action RunAnimation;
+        private Action<bool> RunAnimation;
         protected PlayerMovement m_Movement;
         protected float m_Horizontal;
         protected float m_Vertical;
@@ -46,6 +46,17 @@ namespace DiningCombat.Player
             m_LestBost = Time.time - m_StandbyTime* 2;
         }
 
+
+        protected void AnimationRunnig(bool i_IsJump)
+        {
+            if (!i_IsJump)
+            {
+                RunAnimation?.Invoke(m_IsAnyMovement);
+            }
+            m_IsAnyMovement = false;
+        }
+
+
         public void Ideal()
         {
             //m_AnimationChannel.
@@ -55,16 +66,6 @@ namespace DiningCombat.Player
         {
             o_IsPositive = i_Vale > 0f;
             return Math.Abs(i_Vale) > s_MinMovmentAbs;
-        }
-        public bool IsVertical(out bool o_IsLeft)
-        {
-            o_IsLeft = m_Vertical > 0;
-            return Math.Abs(m_Vertical) > s_MinMovmentAbs;
-        }
-        public bool IsHorizontal(out bool o_IsForward)
-        {
-            o_IsForward = m_Horizontal > 0;
-            return Math.Abs(m_Horizontal) > s_MinMovmentAbs;
         }
 
         public virtual void MoveHorizontal()
@@ -80,7 +81,6 @@ namespace DiningCombat.Player
                     m_Movement.MoveLeft();
                 }
                 m_IsAnyMovement = true;
-                RunAnimation?.Invoke();
             }
 
             m_Horizontal = 0f;
@@ -113,21 +113,23 @@ namespace DiningCombat.Player
 
         public virtual void MoveVertonta()
         {
+            bool isRunBack = false;
             if (IsMovment(m_Vertical, out bool o_IsForward))
             {
                 if (o_IsForward)
                 {
                     m_Movement.MoveForward();
-                    RunAnimation?.Invoke();
+                    m_IsAnyMovement= true;
                 }
                 else
                 {
                     m_Movement.MoveBackward();
-                    m_AnimationChannel.SetPlayerAnimationToRunBack();
-
+                    isRunBack = true;
+                    m_IsAnyMovement = false;
                 }
-                m_IsAnyMovement = true;
             }
+            m_AnimationChannel.SetPlayerAnimationToRunBack(isRunBack);
+            RunAnimation?.Invoke(o_IsForward);
 
             m_Vertical = 0f;
         }
@@ -136,7 +138,7 @@ namespace DiningCombat.Player
             bool res = false;
             if (m_Movement.Jump())
             {
-                m_AnimationChannel.SetPlayerAnimationToJump();
+                m_AnimationChannel.SetPlayerAnimationToJump(true);
                 res = true;
             }
 

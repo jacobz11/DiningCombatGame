@@ -66,22 +66,8 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
             return "StatePowering : ";
         }
 
-        
-
-        ///// <inheritdoc/>
-        //public bool IsPassStage()
-        //{
-        //    if (this.IsBufferTime)
-        //    {
-        //        return Input.GetKeyUp(KeyCode.E) && this.m_PlayrHand.ForceMulti > 50;
-        //    }
-
-        //    return false;
-        //}
-
         private void AddToForceMulti()
         {
-            Debug.Log("AddToForceMulti");
             OnPower?.Invoke(Time.deltaTime * 1400);
         }
     }

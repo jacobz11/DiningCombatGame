@@ -77,7 +77,6 @@ namespace DiningCombat.Player.UI
 
         public void OnPlayerForceChange(float i_NewF)
         {
-            Debug.Log("OnPlayerForceChange : " +i_NewF);
             m_ForceMultiUi.UpdateFilliStatus =i_NewF;
         }
     }

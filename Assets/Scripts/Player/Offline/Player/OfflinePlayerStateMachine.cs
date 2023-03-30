@@ -7,12 +7,6 @@ namespace DiningCombat.Player.Manger
     {
         internal override void BuildState()
         {
-            //StateFreeOffline freeState = new StateFreeOffline(Player, this);
-            //StateHoldsObjOffline stateHolding = new StateHoldsObjOffline(Player, this);
-            //StatePoweringOffline poweringState = new StatePoweringOffline(Player, this);
-            //StateThrowingOffline stateThrowing = new StateThrowingOffline(Player, this);
-            //SetStates(freeState, stateHolding, poweringState, stateThrowing);
-
             SetStates(new StateFreeOffline(Player, this), new StateHoldsObjOffline(Player, this),
                 new StatePoweringOffline(Player, this), new StateThrowingOffline(Player, this));
 

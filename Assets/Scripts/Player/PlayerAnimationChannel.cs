@@ -5,24 +5,33 @@ using System;
 
 public class PlayerAnimationChannel : MonoBehaviour
 {
-    Animator anim;
-    public event Action onThrowPoint;
+    Animator m_Anim;
+    public event Action ThrowPoint;
     public event Action OnRunFast; 
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        m_Anim = GetComponent<Animator>();
+        ThrowPoint += () => StartCoroutine(StopAnimationToThrow());
     }
 
-    public void ThrowPoint()
+    private IEnumerator StopAnimationToThrow()
+    {
+        yield return null;
+        yield return null;
+        m_Anim.SetBool("isThrow", false);
+        m_Anim.SetBool("isThrow2", false);
+    }
+
+    public void EnterThrowPoint()
     {
         Debug.Log("Enter throw point");
-        onThrowPoint?.Invoke();
+        ThrowPoint?.Invoke();
     }
 
-    public void SetPlayerAnimationToRunFast()
+    public void SetPlayerAnimationToRunFast(bool i_IsActive)
     {
-        anim.SetBool("isRunFast", true);
+        m_Anim.SetBool("isRunFast", i_IsActive);
     }
 
     public void RunFast()
@@ -30,38 +39,38 @@ public class PlayerAnimationChannel : MonoBehaviour
         OnRunFast?.Invoke();
     }
 
-    public void SetPlayerAnimationToRun()
+    public void SetPlayerAnimationToRun(bool i_IsActive)
     {
-        anim.SetBool("isRun", true);
+        m_Anim.SetBool("isRun", i_IsActive);
     }
 
-    public void SetPlayerAnimationToThrow()
+    public void SetPlayerAnimationToThrow(bool i_IsActive)
     {
-        anim.SetBool("isThrow", true);
+        m_Anim.SetBool("isThrow", i_IsActive);
     }
 
-    public void SetPlayerAnimationToRunBack()
+    public void SetPlayerAnimationToRunBack(bool i_IsActive)
     {
-        anim.SetBool("isRunBack", true);
+        m_Anim.SetBool("isRunBack", i_IsActive);
     }
 
-    public void SetPlayerAnimationToIdleFall()
+    public void SetPlayerAnimationToIdleFall(bool i_IsActive)
     {
-        anim.SetBool("isIdleFall", true);
+        m_Anim.SetBool("isIdleFall", i_IsActive);
     }
 
-    public void SetPlayerAnimationToJump()
+    public void SetPlayerAnimationToJump(bool i_IsActive)
     {
-        anim.SetBool("isJump", true);
+        m_Anim.SetBool("isJump", i_IsActive);
     }
 
-    public void SetPlayerAnimationToThrow2()
+    public void SetPlayerAnimationToThrow2(bool i_IsActive)
     {
-        anim.SetBool("isThrow2", true);
+        m_Anim.SetBool("isThrow2", i_IsActive);
     }
 
-    public void SetPlayerAnimationToWin()
+    public void SetPlayerAnimationToWin(bool i_IsActive)
     {
-        anim.SetBool("isWin", true);
+        m_Anim.SetBool("isWin", i_IsActive);
     }
 }

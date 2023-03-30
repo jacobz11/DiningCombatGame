@@ -271,9 +271,9 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
         if (animationChannel != null)
         {
-            animationChannel.onThrowPoint += i_PlayerHand.ThrowObj;
-            animationChannel.onThrowPoint += i_StateMachine.Throwing.ThrowingPointObj;
-            animationChannel.onThrowPoint += CoroutinePoweringState(i_StateMachine.Powering);
+            animationChannel.ThrowPoint += i_PlayerHand.ThrowObj;
+            animationChannel.ThrowPoint += i_StateMachine.Throwing.ThrowingPointObj;
+            animationChannel.ThrowPoint += CoroutinePoweringState(i_StateMachine.Powering);
         }
         else
         {

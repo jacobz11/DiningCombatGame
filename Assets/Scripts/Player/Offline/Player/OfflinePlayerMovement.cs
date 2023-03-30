@@ -12,17 +12,13 @@ namespace DiningCombat.Player.Offline.Movement
 
         void Update()
         {
-            m_IsAnyMovement = false;
             RunBoostUpdate();
-            MoveVertonta();
             MoveHorizontal();
+            MoveVertonta();
             MoveRotating();
-
-            if (Jump() && m_IsAnyMovement)
-            {
-                Ideal();
-            }
+            AnimationRunnig(Jump());
         }
+
 
         private void RunBoostUpdate()
         {

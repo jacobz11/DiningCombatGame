@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Player.Offline.Player.States;
 using DiningCombat.Player;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
@@ -13,7 +14,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         internal void ThrowingPointObj()
         {
-            Debug.Log("ThrowingPointObj");
+            m_Machine.StatesIndex = 0;
         }
 
         public override void OnStateEnter(params object[] list)
