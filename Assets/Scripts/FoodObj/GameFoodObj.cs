@@ -9,7 +9,7 @@ using Util;
 
 namespace DiningCombat.FoodObj
 {
-    public class GameFoodObj : MonoBehaviour
+    internal class GameFoodObj : MonoBehaviour
     {
         public event EventHandler HitPlayer;
 
@@ -42,7 +42,7 @@ namespace DiningCombat.FoodObj
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
-            ChannelGameFoodObj.UickedFruit.ViewingElements += addPositionToTheListOfUnpic;
+            ChannelGameFoodObj.s_UickedFruit.ViewingElements += addPositionToTheListOfUnpic;
             
             if (m_Rigidbody == null)
             {
@@ -90,7 +90,7 @@ namespace DiningCombat.FoodObj
                 this.transform.SetParent(this.m_PlayerHolding.PikUpPonit, true);
                 this.transform.position = this.m_PlayerHolding.PikUpPonit.position;
                 tag = GameGlobal.TagNames.k_Picked;
-                ChannelGameFoodObj.UickedFruit.ViewingElements -= addPositionToTheListOfUnpic;
+                ChannelGameFoodObj.s_UickedFruit.ViewingElements -= addPositionToTheListOfUnpic;
                 this.m_Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             }
         }

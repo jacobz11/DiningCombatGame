@@ -10,7 +10,6 @@ namespace DiningCombat.Player.Offline.Movement
     {
         private const string AxisMouseX = "Mouse X";
 
-
         void Update()
         {
             m_IsAnyMovement = false;

@@ -1,5 +1,4 @@
-﻿using DiningCombat.Player.UI;
-using UnityEngine;
+﻿using UnityEngine;
 using static DiningCombat.GameGlobal;
 
 namespace DiningCombat.Player.Manger

@@ -26,7 +26,7 @@ namespace DiningCombat.Managers
 
         public void InitPlayer()
         {
-            foreach (PlayerData player in s_GameManager.GetPlayersInitialization())
+            foreach (PlayerData player in GameManager.Singlton.GetPlayersInitialization())
             {
                 GameObject spawnPlayer = Instantiate(player.m_Prefap, player.m_InitPos, player.m_Quaternion);
                 PlayerChannel channel = spawnPlayer.GetComponentInChildren<PlayerChannel>();
@@ -51,9 +51,9 @@ namespace DiningCombat.Managers
         {
             if (Singlton == null)
             {
-                PlayersManager instance = s_GameManager.AddComponent<PlayersManager>();
+                PlayersManager instance = GameManager.Singlton.AddComponent<PlayersManager>();
                 //instance.SetFoodPrefab();
-                s_GameManager.GameOver += instance.OnGameOver;
+                GameManager.Singlton.GameOver += instance.OnGameOver;
                 Singlton = instance;
             }
             else
@@ -63,18 +63,6 @@ namespace DiningCombat.Managers
 
             return Singlton;
         }
-
-        //protected override IManager<PlayersMangerChannel> Instance()
-        //{
-        //    if (s_Singlton == null)
-        //    {
-        //        PlayersManager playerManager = s_GameManager.AddComponent<PlayersManager>();
-        //        playerManager.InitPlayer();
-        //        s_Singlton = playerManager;
-        //    }
-
-        //    return s_Singlton;
-        //}
     }
 }
 

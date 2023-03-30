@@ -641,7 +641,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &577102740
 Transform:
@@ -670,11 +670,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af840b4fb8a92b840be487ea039f14d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxNumOfFoodObj: 19
-  m_NumOfInitGameObj: 2
-  m_NumOfSecondsBetweenSpawn: 1.66
+  m_MaxNumOfFoodObj: 42
+  m_NumOfInitGameObj: 4
+  m_NumOfSecondsBetweenSpawn: 1.98
   m_MaxPosition: {x: 19, y: 5, z: 19}
   m_MinPosition: {x: -19, y: 3, z: -19}
+  m_KillMullPonit: 100
+  m_MinAdditionForce: 6.9
+  m_MaxAdditionForce: 50
+  m_MaxForce: 2000
+  m_MinForce: 0
   m_PlayrPrefab: {fileID: 5426144447844866299, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
 --- !u!1 &583334022
 GameObject:
@@ -1816,8 +1821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Offset: {x: 0, y: 0, z: 0}
-  m_OffsetRo: {x: 330.269, y: -82.976, z: 265.504}
   m_Effect: {fileID: 0}
   m_HitPlayerMull: 0
   m_MaxHitPlayerMull: 0

@@ -1,23 +1,13 @@
-﻿using DesignPatterns.Abstraction;
+﻿using Assets.Scripts.Player.PlayrAbstraction.ActionHand;
+using DiningCombat.Player.Manger;
 
 namespace DiningCombat.Player.Offline.State
 {
-    internal class StateThrowingOffline : DCState
+    internal class StateThrowingOffline : StateThrowing
     {
-        //public StateThrowingOffline(byte stateId, string stateName)
-        //    : base(stateId, stateName)
-        //{
-        //}
-        public override void OnStateEnter(params object[] list)
+        public StateThrowingOffline(PlayerHand i_PickUpItem, OfflinePlayerStateMachine i_Machine) 
+            : base(i_PickUpItem, i_Machine)
         {
-            //this.playrHand.ThrowingAnimator = true;
-        }
-
-
-
-        public override string ToString()
-        {
-            return "StateThrowing : " + this.name;
         }
     }
 }

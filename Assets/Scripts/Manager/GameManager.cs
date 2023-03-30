@@ -7,23 +7,106 @@ using Util.Abstraction;
 using static DiningCombat.GameGlobal;
 using Random = UnityEngine.Random;
 using DiningCombat.FoodObj.Managers;
+using Assets.Scripts.Manager;
+
 namespace DiningCombat
 {
     internal class GameManager : MonoBehaviour
     {
+        private static GameManager s_Instance;
+        public static GameManager Singlton 
+        { 
+            get =>s_Instance;
+            private set
+            {
+                if (s_Instance is null)
+                {
+                    s_Instance = value;
+                }
+                else
+                {
+                    Debug.LogError("GameManager Singlton can only set once");
+                }
+            }
+        }
+
         [SerializeField]
         [Range(10, 100)]
         private byte m_MaxNumOfFoodObj;
         [SerializeField]
         [Range(0, 10)]
-        public byte m_NumOfInitGameObj;
-        [SerializeField]
+        private byte m_NumOfInitGameObj;
         [Range(0, 10)]
+        [SerializeField]
         public float m_NumOfSecondsBetweenSpawn;
         [SerializeField]
         private Vector3 m_MaxPosition;
         [SerializeField]
         private Vector3 m_MinPosition;
+        [SerializeField]
+        [Range(10, 1000)]
+        private int m_KillMullPonit;
+        [SerializeField]
+        [Range(5, 50)]
+        private float m_MinAdditionForce;
+        [SerializeField]
+        [Range(10, 200)]
+        private float m_MaxAdditionForce;
+        [SerializeField]
+        [Range(500, 5000)]
+        private float m_MaxForce;
+        [SerializeField]
+        [Range(20, 1000)]
+        private float m_MinForce;
+
+        public byte MaxNumOfFoodObj
+        {
+            get { return m_MaxNumOfFoodObj; }
+        }
+
+        public byte NumOfInitGameObj
+        {
+            get { return m_NumOfInitGameObj; }
+        }
+        public float NumOfSecondsBetweenSpawn
+        {
+            get { return m_NumOfSecondsBetweenSpawn; }
+        }
+        public Vector3 MinPosition
+        {
+            get { return m_MinPosition; }
+        }
+        public Vector3 MaxPosition
+        {
+            get { return m_MaxPosition; }
+        }
+
+        public int KillMullPonit
+        {
+            get => m_KillMullPonit;
+            //  internal set; 
+        }
+        public float MinAdditionForce
+        {
+            get => m_MinAdditionForce;
+            //  internal set; 
+        }
+        public float MaxAdditionForce
+        {
+            get => m_MaxAdditionForce;
+            //  internal set; 
+        }
+        public float MaxForce
+        {
+            get => m_MaxForce;
+            //  internal set; 
+        }
+        public float MinForce
+        {
+            get => m_MinForce;
+            //  internal set; 
+        }
+
         [SerializeField]
         private GameObject m_PlayrPrefab;
         private byte m_NumOfExistingFoobObj;
@@ -33,13 +116,14 @@ namespace DiningCombat
         //public static List<PlayerDataG> s_PlayerDatas = new List<PlayerDataG>();
 
         public bool IsRunning => true;
-        public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < m_MaxNumOfFoodObj;
+        public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < MaxNumOfFoodObj;
+
 
         private void Awake()
         {
-            ManagerGameFoodObj.SetGameManager(this);
+            Debug.Log("Awake");
+            Singlton = this;
             m_FoodObjBuilder = ManagerGameFoodObj.InitManagerGameFood();
-            PlayersManager.SetGameManager(this);
             m_PlayersManager = PlayersManager.InitPlayersManager();
             m_PlayersManager.InitPlayer();
             StartCoroutine(SpawnCoroutine());
@@ -64,29 +148,27 @@ namespace DiningCombat
 
             //m_MaxPosition = new Vector3(minX, 0.25f, minZ);
             //m_MinPosition = new Vector3(maxX, 0.25f, maxZ);
-
-
         }
 
         private IEnumerator SpawnCoroutine()
         {
-            yield return new WaitForSeconds(m_NumOfSecondsBetweenSpawn);
+            yield return new WaitForSeconds(NumOfSecondsBetweenSpawn);
             while (IsRunning)
             {
                 if (IsSpawnNewGameObj)
                 {
                     this.SpawnGameFoodObj();
                 }
-                yield return new WaitForSeconds(m_NumOfSecondsBetweenSpawn);
+                yield return new WaitForSeconds(NumOfSecondsBetweenSpawn);
             }
         }
 
         public Vector3 GetRandomPositionInMap()
         {
             return new Vector3(
-                Random.Range(m_MinPosition.x, m_MaxPosition.x),
-                Random.Range(m_MinPosition.y, m_MaxPosition.y),
-                Random.Range(m_MinPosition.z, m_MaxPosition.z)
+                Random.Range(MinPosition.x, MaxPosition.x),
+                Random.Range(MinPosition.y, MaxPosition.y),
+                Random.Range(MinPosition.z, MaxPosition.z)
             );
         }
 
@@ -148,13 +230,13 @@ namespace DiningCombat
 
         internal void EndInitMainCoroutine(IManager<IChannelGame> managerGameFoodObj, out float o_TimeToWait)
         {
+            o_TimeToWait = 0;
             if (managerGameFoodObj is ManagerGameFoodObj)
             {
-                this.m_NumOfExistingFoobObj = m_NumOfInitGameObj;
-                o_TimeToWait = (float)m_NumOfSecondsBetweenSpawn;
+                this.m_NumOfExistingFoobObj = NumOfInitGameObj;
+                o_TimeToWait = (float)NumOfSecondsBetweenSpawn;
             }
 
-            o_TimeToWait = 0;
         }
 
         internal List<Player.Manger.PlayerData> GetPlayersInitialization()

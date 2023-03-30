@@ -45,7 +45,7 @@ namespace DiningCombat.FoodObj.Managers
         public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
         {
             bool isSpawn = false;
-            if (s_GameManager.IsSpawnNewGameObj)
+            if (GameManager.Singlton.IsSpawnNewGameObj)
             {
                 o_Spawn = SpawnGameFoodObj(i_Position);
                 isSpawn = true;
@@ -62,20 +62,20 @@ namespace DiningCombat.FoodObj.Managers
         {
             GameObject spawn = Instantiate(GetRnaomFoodObj(), i_Position, Quaternion.identity);
             GameFoodObj foodObj = spawn.GetComponent<GameFoodObj>();
-            foodObj.Destruction += s_GameManager.OnDestruction_GameFoodObj;
+            foodObj.Destruction += GameManager.Singlton.OnDestruction_GameFoodObj;
             //foodObj.Collect += OnFoodCollect;
             return spawn;
         }
 
         private void SetFoodPrefab()
         {
-            if (s_GameManager == null)
+            if (GameManager.Singlton == null)
             {
                 Debug.LogError("GameManager is null ");
             }
             else
             {
-                List<string> loctingOfPrefab = s_GameManager.GetAllLoctingOfFoodPrefab();
+                List<string> loctingOfPrefab = GameManager.Singlton.GetAllLoctingOfFoodPrefab();
                 m_FoodPrefab = new List<GameObject>();
 
                 foreach (string go in loctingOfPrefab)
@@ -92,19 +92,19 @@ namespace DiningCombat.FoodObj.Managers
 
         internal override IEnumerable MainCoroutine()
         {
-            for (byte i = 0; i < s_GameManager.m_NumOfInitGameObj; i++)
+            for (byte i = 0; i < GameManager.Singlton.NumOfInitGameObj; i++)
             {
-                SpawnGameFoodObj(s_GameManager.GetRandomPositionInMap());
+                SpawnGameFoodObj(GameManager.Singlton.GetRandomPositionInMap());
             }
 
             //s_GameManager.EndInitMainCoroutine(this, out float o_TimeToWait);
             //yield return new WaitForSeconds(o_TimeToWait);
 
-            while (s_GameManager.IsRunning)
+            while (GameManager.Singlton.IsRunning)
             {
-                if (SpawnGameFoodObj(s_GameManager.GetRandomPositionInMap(), out GameObject _))
+                if (SpawnGameFoodObj(GameManager.Singlton.GetRandomPositionInMap(), out GameObject _))
                 {
-                    yield return new WaitForSeconds(s_GameManager.m_NumOfSecondsBetweenSpawn);
+                    yield return new WaitForSeconds(GameManager.Singlton.m_NumOfSecondsBetweenSpawn);
                 }
                 else
                 {
@@ -117,14 +117,14 @@ namespace DiningCombat.FoodObj.Managers
         {
             if (Singlton == null)
             {
-                if (s_GameManager == null)
+                if (GameManager.Singlton == null)
                 {
                     Debug.Log("this it null");
                 }
 
-                ManagerGameFoodObj instance = s_GameManager.AddComponent<ManagerGameFoodObj>();
+                ManagerGameFoodObj instance = GameManager.Singlton.AddComponent<ManagerGameFoodObj>();
                 instance.SetFoodPrefab();
-                s_GameManager.GameOver += instance.OnGameOver;
+                GameManager.Singlton.GameOver += instance.OnGameOver;
                 Singlton = instance;
             }
             else
@@ -134,16 +134,5 @@ namespace DiningCombat.FoodObj.Managers
 
             return Singlton;
         }
-        //protected override IManager<ChannelGameFoodObj> Instance()
-        //{
-        //    if (Singlton == null)
-        //    {
-        //        SetFoodPrefab();
-        //        s_GameManager.GameOver += OnGameOver;
-        //        m_Singlton = this;
-        //    }
-
-        //    return m_Singlton;
-        //}
     }
 }

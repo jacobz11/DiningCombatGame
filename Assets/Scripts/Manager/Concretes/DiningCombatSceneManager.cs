@@ -6,7 +6,7 @@ namespace DiningCombat
 {
     namespace Managers
     {
-        public class DiningCombatSceneManager : MonoBehaviour
+        internal class DiningCombatSceneManager : MonoBehaviour
         {
             [SerializeField]
             private Button m_NewGameBtn;

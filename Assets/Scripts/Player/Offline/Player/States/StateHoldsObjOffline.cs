@@ -1,35 +1,22 @@
-﻿using DesignPatterns.Abstraction;
+﻿using Assets.Scripts.Player.Offline.Player.States;
+using Assets.Scripts.Player.PlayrAbstraction.ActionHand;
+using DesignPatterns.Abstraction;
+using DiningCombat.Player.Manger;
+using System;
 using UnityEngine;
 
 namespace DiningCombat.Player.Offline.State
 {
-    internal class StateHoldsObjOffline : DCState
+    internal class StateHoldsObjOffline : StateHoldsObj 
     {
-        //private const byte k_AddState = 1;
-        private float initTimeEnteState;
-
-        //public StateHoldsObjOffline(byte stateId, string stateName)
-        //    : base(stateId, stateName)
-        //{
-        //}
-
-        public override void OnStateEnter(params object[] list)
+        public StateHoldsObjOffline(PlayerHand i_PickUpItem, OfflinePlayerStateMachine i_Machine)
+            : base(i_PickUpItem, i_Machine)
         {
-            this.initTimeEnteState = Time.time;
-            Debug.Log("init state : StateHoldsObj");
         }
 
-        public override void OnStateUpdate(params object[] list)
+        protected override bool IsPassStage()
         {
-            if (Input.GetKey(KeyCode.E))
-            {
-                ChangeStateHappened((byte)(StateId + 1));
-            }
-        }
-
-        public override string ToString()
-        {
-            return "StateHoldsObj : " + this.name;
+            return this.IsPowerKeyPress;
         }
     }
 }

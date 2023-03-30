@@ -4,79 +4,48 @@ using UnityEngine;
 
 namespace DesignPatterns.Abstraction
 {
-public abstract class MonoBehaviourStateMachine : MonoBehaviour
-{
-    protected List<DCState> m_States;
-    private byte m_CurrentState = 0;
-    protected byte m_InitialState = 0;
-    protected bool m_IsDefaultToInitialState = true;
-    protected bool m_IsModulo = true;
-
-    protected virtual byte StatesIndex
+    public abstract class MonoBehaviourStateMachine : MonoBehaviour
     {
-        get => m_CurrentState;
-        private set => m_CurrentState = value;
-    }
+        private static int bugCunter = 0;
 
-    protected virtual DCState CurrentStates => m_States[m_CurrentState];
+        protected IDCState[] m_States;
+        protected int m_CurrentState = 0;
+        protected byte m_InitialState = 0;
+        protected bool m_IsDefaultToInitialState = true;
+        protected bool m_IsModulo = true;
 
-    public virtual void SetStates(List<DCState> i_States)
-    {
-        bool isValid = i_States != null && i_States.Count > 0;
-        Debug.Log("SetStates :");
-        if (!isValid)
+        public virtual int StatesIndex
         {
-            throw new InvalidOperationException("States must be initialized and contain at least one element");
-        }
-        m_States = i_States;
-
-        foreach (DCState state in m_States)
-        {
-            state.ChangeState += OnChangeState;
-        }
-
-        m_CurrentState = m_InitialState;
-
-    }
-
-    protected virtual void OnChangeState(byte i_ChangeStatTo)
-    {
-        byte newState = i_ChangeStatTo;
-        if (m_CurrentState == i_ChangeStatTo)
-        {
-            Debug.LogError("A state change to the current state has happened : " + CurrentStates.ToString());
-            return;
-        }
-
-        bool isOverflow = i_ChangeStatTo > m_States.Count;
-
-        if (isOverflow)
-        {
-            if (m_IsModulo)
+            get => m_CurrentState;
+            set
             {
-                newState = (byte)(i_ChangeStatTo % m_States.Count);
-            }
-            else if (m_IsDefaultToInitialState)
-            {
-                newState = m_InitialState;
-            }
-            else
-            {
-                Debug.LogError("m_IsDefaultToInitialState" + CurrentStates.ToString());
+                m_States[m_CurrentState].OnStateExit();
+                m_CurrentState = value % m_States.Length;
+                m_States[m_CurrentState].OnStateEnter();
             }
         }
 
-        if (m_CurrentState == newState)
+        protected virtual IDCState CurrentStates => m_States[m_CurrentState];
+
+        public virtual void SetStates(params IDCState[] i_States)
         {
-            Debug.LogError("A state change to the current state has happened : " + CurrentStates.ToString());
+            bugCunter ++;
+            bool isValid = i_States != null && i_States.Length > 0;
+            Debug.Log("SetStates :"+ bugCunter);
+
+            if (!isValid)
+            {
+                Debug.LogError("States must be initialized and contain at least one element");
+            }
+            m_States = i_States;
+
+            m_CurrentState = m_InitialState;
         }
-        else
+
+        public virtual void SetStates(List<IDCState> i_States)
         {
-            CurrentStates.OnStateExit();
-            m_CurrentState = newState;
-            CurrentStates.OnStateEnter();
+            SetStates(i_States.ToArray());
         }
     }
-}
 }
 

@@ -10,7 +10,7 @@ namespace DiningCombat
         {
             public class ChannelGameFoodObj : ScriptableObject, IChannelGame
             {
-                public static ChannelObserver<Vector3> UickedFruit = new ChannelObserver<Vector3>();
+                public static ChannelObserver<Vector3> s_UickedFruit = new ChannelObserver<Vector3>();
             }
         }
     }

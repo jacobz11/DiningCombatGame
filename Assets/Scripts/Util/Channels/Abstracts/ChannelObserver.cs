@@ -11,9 +11,15 @@ namespace Util
 
         public void Invoke()
         {
+            List<T> list = GetAllDataFromViewingElements();
+            Viewer?.Invoke(list);
+        }
+
+        private List<T> GetAllDataFromViewingElements()
+        {
             List<T> list = new List<T>();
             ViewingElements?.Invoke(list);
-            Viewer?.Invoke(list);
+            return list;
         }
     }
 }

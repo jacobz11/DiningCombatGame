@@ -67,20 +67,6 @@ namespace DiningCombat
             public const float k_MinDistanceToPickUp = 2f;
             public const int k_MaxItemToPick = 1;
         }
-        // ==================================================
-        // Default-SerializeField-val
-        // k_ Default - class name - var name
-        // ==================================================
-
-        public static void Dedugger(string i_ClassName, string i_FuncName, string i_Vars)
-        {
-            Debug.Log(i_ClassName+"->( "+ i_FuncName +"):  "+ i_Vars);  
-        }
-
-        public static string GetGameGlobalLocation()
-        {
-            return null;
-        }
 
         public enum ePlayerModeType
         {

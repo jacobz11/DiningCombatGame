@@ -225,7 +225,7 @@ namespace DiningCombat.Player.Manger
                     offlinPlayerMovment.SetPlayerMovement(movement);
                     OfflinePlayerStateMachine offlinePlayerHandStateMachine = spawnPlayer.AddComponent<OfflinePlayerStateMachine>();
                     offlinePlayerHandStateMachine.SetPlayerHand(playerHand);
-                    offlinePlayerHandStateMachine.BuildOfflinePlayerState();
+                    //offlinePlayerHandStateMachine.BuildOfflinePlayerState();
                     break;
                 case ePlayerModeType.OnlinePlayer:
                     Debug.Log("Builder  PlayerMovement : OnlinePlayer");
@@ -236,7 +236,7 @@ namespace DiningCombat.Player.Manger
                     offlineAIMovement.SetPlayerMovement(movement);
                     OfflineAIStateMachine offlineAIHandStateMachine = spawnPlayer.AddComponent<OfflineAIStateMachine>();
                     offlineAIHandStateMachine.SetPlayerHand(playerHand);
-                    offlineAIHandStateMachine.BuildOfflineAIState();
+                    //offlineAIHandStateMachine.BuildOfflineAIState();
                     return;
                 case ePlayerModeType.OnlineAiPlayer:
                     Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
