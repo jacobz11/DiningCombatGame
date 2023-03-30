@@ -90,15 +90,13 @@ namespace DiningCombat.FoodObj.Managers
             throw new NotImplementedException();
         }
 
-        internal override IEnumerable MainCoroutine()
+        internal override IEnumerator MainCoroutine()
         {
             for (byte i = 0; i < GameManager.Singlton.NumOfInitGameObj; i++)
             {
                 SpawnGameFoodObj(GameManager.Singlton.GetRandomPositionInMap());
             }
-
-            //s_GameManager.EndInitMainCoroutine(this, out float o_TimeToWait);
-            //yield return new WaitForSeconds(o_TimeToWait);
+            yield return null;
 
             while (GameManager.Singlton.IsRunning)
             {

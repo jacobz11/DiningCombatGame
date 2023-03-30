@@ -8,9 +8,9 @@ namespace DiningCombat.FoodObj
 {
     internal class GameFoodObj : MonoBehaviour
     {
-        public event EventHandler HitPlayer;
+        public event Action<float, int> HitPlayer;
 
-        public event EventHandler Destruction;
+        public event Action Destruction;
 
         private bool m_IsThrow;
         private Rigidbody m_Rigidbody;
@@ -82,27 +82,22 @@ namespace DiningCombat.FoodObj
         {
             if (isPlayer(i_Collision))
             {
-                //PlayerHp playerHit = i_Collision.gameObject.GetComponent<PlayerHp>();
-                int kill = 0;
-                float hitPoint = GetHitPonit();
+                IntiraelPlayerManger playerManger = i_Collision.gameObject.GetComponent<IntiraelPlayerManger>();
+                if (playerManger != null)
+                {
+                    float hitPoint = GetHitPonit();
+                    playerManger.HitPlayer(hitPoint, out bool o_IsKiil);
+                    int kill = o_IsKiil ? 1 : 0;
 
-                //if (playerHit != null)
-                //{
-                //    if (playerHit.HitYou(hitPoint))
-                //    {
-                //        kill = 1;
-                //    }
-                //}
-
-                //if (m_HoldingGameObj.DidIHurtMyself(i_Collision))
-                //{
-                //    Debug.Log("you stupid son of a bitch? You hurt yourself");
-                //}
-                //else
-                //{
-                //    Debug.Log("OnHitPlayer");
-                //    OnHitPlayer(new EventHitPlayer(kill, (int)hitPoint));
-                //}
+                    if (m_PlayerHolding.DidIHurtMyself(i_Collision))
+                    {
+                        Debug.Log("you stupid son of a bitch? You hurt yourself");
+                    }
+                    else
+                    {
+                        HitPlayer?.Invoke(hitPoint, kill);
+                    }
+                }
             }
 
             performTheEffect();
@@ -145,49 +140,14 @@ namespace DiningCombat.FoodObj
         {
             if (IsThrow && m_HitPlayerMull != 0)
             {
-                //collisionAfterThrowingHandler(i_Collision);
+                collisionAfterThrowingHandler(i_Collision);
             }
-            //else if (isPlayer(i_Collision)) 
-            //{
-            //    this.m_Rigidbody.velocity = getInverseVelocity(i_Collision.gameObject);
-            //}
-
-        }
-
-        private Vector3 getInverseVelocity(GameObject gameObject)
-        {
-            Debug.Log("in getInverseVelocity");
-            float invX = 0;
-            float invY = 0;
-            float invZ = 0;
-            if (gameObject != null)
-            {
-                Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-                if (rigidbody != null)
-                {
-                    invX = rigidbody.velocity.x * (-0.5f);
-                    //invY = rigidbody.velocity.y * (-0.5f);
-                    invZ = rigidbody.velocity.z * (-0.5f);
-                }
-            }
-
-            return new Vector3(invX, invY, invZ);
-        }
-
-        protected virtual void OnHitPlayer(EventArgs e)
-        {
-            HitPlayer?.Invoke(this, e);
         }
 
         private void destruction()
         {
-            OnDestruction(EventArgs.Empty);
+            Destruction?.Invoke();
             Destroy(this.gameObject, 1);
-        }
-
-        protected virtual void OnDestruction(EventArgs e)
-        {
-            Destruction?.Invoke(this, e);
         }
     }
 }

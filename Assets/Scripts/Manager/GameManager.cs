@@ -1,3 +1,4 @@
+using DiningCombat.FoodObj.Managers;
 using DiningCombat.Managers;
 using System;
 using System.Collections;
@@ -6,17 +7,15 @@ using UnityEngine;
 using Util.Abstraction;
 using static DiningCombat.GameGlobal;
 using Random = UnityEngine.Random;
-using DiningCombat.FoodObj.Managers;
-using Assets.Scripts.Manager;
 
 namespace DiningCombat
 {
     internal class GameManager : MonoBehaviour
     {
         private static GameManager s_Instance;
-        public static GameManager Singlton 
-        { 
-            get =>s_Instance;
+        public static GameManager Singlton
+        {
+            get => s_Instance;
             private set
             {
                 if (s_Instance is null)
@@ -61,7 +60,7 @@ namespace DiningCombat
         [SerializeField]
         private GameObject m_PrefabUIHP;
         [SerializeField]
-        private GameObject m_PrefabUIPower;        
+        private GameObject m_PrefabUIPower;
         [SerializeField]
         private GameObject m_PrefabUIScore;
 
@@ -172,42 +171,12 @@ namespace DiningCombat
             Singlton = this;
             m_FoodObjBuilder = ManagerGameFoodObj.InitManagerGameFood();
             m_PlayersManager = PlayersManager.InitPlayersManager();
+        }
+
+        private void Start()
+        {
             m_PlayersManager.InitPlayer();
-            StartCoroutine(SpawnCoroutine());
-        }
-
-        void Start()
-        {
-
-            //GameObject ground = GameObject.Find(GameGlobal.GameObjectName.k_Ground);
-
-            //// X 
-            //float minX = ground.transform.position.x - (ground.transform.localScale.x / 2);
-            //float maxX = ground.transform.position.x + (ground.transform.localScale.x / 2);
-
-            //// Y
-            ////float minY = ground.transform.position.y - (ground.transform.localScale.y / 2);
-            ////float maxY = ground.transform.position.y + (ground.transform.localScale.y / 2);
-
-            //// Z
-            //float minZ = ground.transform.position.z - (ground.transform.localScale.z / 2);
-            //float maxZ = ground.transform.position.z + (ground.transform.localScale.z / 2);
-
-            //m_MaxPosition = new Vector3(minX, 0.25f, minZ);
-            //m_MinPosition = new Vector3(maxX, 0.25f, maxZ);
-        }
-
-        private IEnumerator SpawnCoroutine()
-        {
-            yield return new WaitForSeconds(NumOfSecondsBetweenSpawn);
-            while (IsRunning)
-            {
-                if (IsSpawnNewGameObj)
-                {
-                    this.SpawnGameFoodObj();
-                }
-                yield return new WaitForSeconds(NumOfSecondsBetweenSpawn);
-            }
+            StartCoroutine(m_FoodObjBuilder.MainCoroutine());
         }
 
         public Vector3 GetRandomPositionInMap()
@@ -219,32 +188,8 @@ namespace DiningCombat
             );
         }
 
-        private void initPlayers()
-        {
-            for (int i = 0; i < 1; i++)
-            {
-                spawnPlayer(ePlayerModeType.OfflinePlayer);
-            }
-        }
-
-        private void spawnPlayer(ePlayerModeType modeType)
-        {
-            Debug.Log("spawnPlayer  modeType :" + modeType);
-        }
-
-        private void initGameFoodObj()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                SpawnGameFoodObj();
-            }
-        }
-
         public GameObject SpawnGameFoodObj()
         {
-            //Debug.Log("in SpawnGameFoodObj");
-            //Vector3 v = GetRandomPositionInMap();
-            //Debug.Log("Vector3 : " + v);
             bool isSpawn = m_FoodObjBuilder.SpawnGameFoodObj(GetRandomPositionInMap(), out GameObject o_Spawn);
 
             if (isSpawn)
@@ -255,23 +200,24 @@ namespace DiningCombat
             return null;
         }
 
-        public virtual void OnDestruction_GameFoodObj(object sender, EventArgs e)
+        public virtual void OnDestruction_GameFoodObj()
         {
             --m_NumOfExistingFoobObj;
         }
 
         protected virtual void OnDestruction_Player(object sender, EventArgs e)
         {
+
         }
 
         internal List<string> GetAllLoctingOfFoodPrefab()
         {
             return new List<string>()
             {
-                GameGlobal.FoodObjData.k_AppleLocation,
-                GameGlobal.FoodObjData.k_FlourLocation,
-                GameGlobal.FoodObjData.k_CabbageLocation,
-                GameGlobal.FoodObjData.k_TomatoLocation
+                FoodObjData.k_AppleLocation,
+                FoodObjData.k_FlourLocation,
+                FoodObjData.k_CabbageLocation,
+                FoodObjData.k_TomatoLocation
             };
         }
 
@@ -283,7 +229,6 @@ namespace DiningCombat
                 this.m_NumOfExistingFoobObj = NumOfInitGameObj;
                 o_TimeToWait = (float)NumOfSecondsBetweenSpawn;
             }
-
         }
 
         internal List<Player.Manger.PlayerData> GetPlayersInitialization()

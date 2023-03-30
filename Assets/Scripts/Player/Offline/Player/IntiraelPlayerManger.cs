@@ -1,20 +1,17 @@
-using Assets.Scripts.Test.Stubs;
-using DiningCombat;
-using DiningCombat.FoodObj;
-using DiningCombat.Player.Manger;
-using DiningCombat.Player.Offline.Movement;
-using DiningCombat.Player.UI;
-using DiningCombat.Player;
 using System;
 using UnityEngine;
+using DiningCombat;
 using Util.Abstraction;
+using DiningCombat.FoodObj;
+using DiningCombat.Player;
+using DiningCombat.Player.UI;
+using DiningCombat.Player.Manger;
+using DiningCombat.Player.Offline.Movement;
+using Assets.Scripts.Test.Stubs;
 using static DiningCombat.GameGlobal;
-using DiningCombat.Player.Offline.State;
-using Assets.Scrips_new.AI.Stats;
 using Assets.Scripts.Player.PlayrAbstraction.ActionHand;
-using Assets.Scripts.Player.Offline.AI.Stats;
 
-public class PlayerChannel : MonoBehaviour, IInternalChannel
+public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 {
     private int KillMullPonit => GameManager.Singlton.KillMullPonit;
     private float MinAdditionForce => GameManager.Singlton.MinAdditionForce;
@@ -200,62 +197,32 @@ public class PlayerChannel : MonoBehaviour, IInternalChannel
             Debug.LogError("player cant be  Initialize twice");
             return;
         }
-        Debug.Log("Builder :" + i_PlayerData.m_Name);
-        //GameObject spawnPlayer = Instantiate(i_PlayerData.m_Prefap, i_PlayerData.m_InitPos, i_PlayerData.m_Quaternion);
-        Camera cam = spawnPlayer.GetComponentInChildren<Camera>();
-        cam.targetDisplay = i_PlayerData.m_PlayerNum;
-        i_PlayerData.Init(spawnPlayer);
-
-        spawnPlayer.name = i_PlayerData.m_Name;
-        spawnPlayer.tag = TagNames.k_Player;
-
-        PlayerMovement movement = spawnPlayer.AddComponent<PlayerMovement>();
-        PlayerHand playerHand = spawnPlayer.AddComponent<PlayerHand>();
-        playerHand.SetPickUpPoint(m_PickUpPoint.transform);
+        Debug.Log("Builder :" + i_PlayerData.r_Name);
+        SetCamToDiffDisply(i_PlayerData, spawnPlayer);
+        i_PlayerData = AddAbstrcts(i_PlayerData, spawnPlayer,
+                        out PlayerMovement movement, out PlayerHand playerHand);
         PlayerMovementImplementor playerMovementImplementor = null;
         AcitonHandStateMachine acitonHandStateMachine = null;
-        StateFree freeState = null;
-        StateHoldsObj stateHolding = null;
-        StatePowering poweringState = null;
-        StateThrowing stateThrowing = null;
 
-        switch (i_PlayerData.m_ModeType)
+        switch (i_PlayerData.r_ModeType)
         {
             case ePlayerModeType.OfflinePlayer:
-                PlayerUi playerUi = spawnPlayer.AddComponent<PlayerUi>();
-                Debug.Log("Builder playerUi :");
-                PlayerForceChange += playerUi.OnPlayerForceChange;
-                Debug.Log("Builder playerUi.OnPlayerForceChange :");
-
-                Debug.Log("Builder  PlayerMovement : OfflinePlayer");
+                AddPlayerUi(spawnPlayer);
                 playerMovementImplementor = spawnPlayer.AddComponent<OfflinePlayerMovement>();
                 playerMovementImplementor.SetPlayerMovement(movement);
-
-                OfflinePlayerStateMachine offlinePlayerHandStateMachine = spawnPlayer.AddComponent<OfflinePlayerStateMachine>();
-                offlinePlayerHandStateMachine.SetPlayerHand(playerHand);
-
-                freeState = new StateFreeOffline(playerHand, offlinePlayerHandStateMachine);
-                stateHolding = new StateHoldsObjOffline(playerHand, offlinePlayerHandStateMachine);
-                poweringState = new StatePoweringOffline(playerHand, offlinePlayerHandStateMachine);
-                stateThrowing = new StateThrowingOffline(playerHand, offlinePlayerHandStateMachine);
-                acitonHandStateMachine =(AcitonHandStateMachine) offlinePlayerHandStateMachine;
+                acitonHandStateMachine = spawnPlayer.AddComponent<OfflinePlayerStateMachine>();
+                acitonHandStateMachine.SetPlayerHand(playerHand);
+                acitonHandStateMachine.BuildState();
                 break;
             case ePlayerModeType.OnlinePlayer:
                 Debug.Log("Builder  PlayerMovement : OnlinePlayer");
                 return;
             case ePlayerModeType.OfflineAiPlayer:
-                Debug.Log("Builder  PlayerMovement : OfflineAiPlayer");
-                OfflineAIMovement offlineAIMovement = spawnPlayer.AddComponent<OfflineAIMovement>();
-                offlineAIMovement.SetPlayerMovement(movement);
-
-                OfflineAIStateMachine offlineAIHandStateMachine = spawnPlayer.AddComponent<OfflineAIStateMachine>();
-                offlineAIHandStateMachine.SetPlayerHand(playerHand);
-
-                freeState = new FreeHandOfflineAI(playerHand, offlineAIHandStateMachine);
-                stateHolding = new StateHoldsObjOfflineAI(playerHand, offlineAIHandStateMachine);
-                poweringState = new StatePoweringOfflineAI(playerHand, offlineAIHandStateMachine);
-                stateThrowing = new StateThrowingOfflineAI(playerHand, offlineAIHandStateMachine);
-                acitonHandStateMachine = (AcitonHandStateMachine)offlineAIHandStateMachine;
+                playerMovementImplementor = spawnPlayer.AddComponent<OfflineAIMovement>();
+                playerMovementImplementor.SetPlayerMovement(movement);
+                acitonHandStateMachine = spawnPlayer.AddComponent<OfflineAIStateMachine>();
+                acitonHandStateMachine.SetPlayerHand(playerHand);
+                acitonHandStateMachine.BuildState();
                 break;
             case ePlayerModeType.OnlineAiPlayer:
                 Debug.Log("Builder  PlayerMovement : OnlineAiPlayer");
@@ -270,33 +237,60 @@ public class PlayerChannel : MonoBehaviour, IInternalChannel
             default:
                 return;
         }
+
+        AddingListenersToAnimationEvent(playerHand, acitonHandStateMachine);
+        AddingListeners(playerHand, acitonHandStateMachine);
+    }
+
+    private PlayerData AddAbstrcts(PlayerData i_PlayerData,
+                                    GameObject spawnPlayer,
+                                    out PlayerMovement o_Movement,
+                                    out PlayerHand o_PlayerHand
+        )
+    {
+        i_PlayerData.Init(spawnPlayer);
+        o_Movement = spawnPlayer.AddComponent<PlayerMovement>();
+        o_PlayerHand = spawnPlayer.AddComponent<PlayerHand>();
+        o_PlayerHand.SetPickUpPoint(m_PickUpPoint.transform);
+        return i_PlayerData;
+    }
+
+    private void AddingListeners(PlayerHand i_PlayerHand, AcitonHandStateMachine i_StateMachine)
+    {
+        i_StateMachine.Powering.OnPower += ChangeForce;
+        i_StateMachine.Free.PlayerCollectedFood += OnPlayerSetFoodObj;
+        i_StateMachine.Free.PlayerCollectedFood += i_StateMachine.OnPlayerSetFoodObj;
+        i_StateMachine.Free.PlayerCollectedFood += i_PlayerHand.SetGameFoodObj;
+        PickUpZonEnter += i_StateMachine.Free.EnterCollisionFoodObj;
+        PickUpZonExit += i_StateMachine.Free.ExitCollisionFoodObj;
+    }
+
+    private void AddingListenersToAnimationEvent(PlayerHand i_PlayerHand, AcitonHandStateMachine i_StateMachine)
+    {
         PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+
         if (animationChannel != null)
         {
-            animationChannel.onThrowPoint += playerHand.ThrowObj;
-            animationChannel.onThrowPoint += stateThrowing.ThrowingPointObj;
-            animationChannel.onThrowPoint += CoroutinePoweringState(poweringState);
+            animationChannel.onThrowPoint += i_PlayerHand.ThrowObj;
+            animationChannel.onThrowPoint += i_StateMachine.Throwing.ThrowingPointObj;
+            animationChannel.onThrowPoint += CoroutinePoweringState(i_StateMachine.Powering);
         }
         else
         {
             Debug.Log(" animationChannel is null");
         }
+    }
 
-        poweringState.OnPower += ChangeForce;
-        freeState.PlayerCollectedFood += OnPlayerSetFoodObj;
-        freeState.PlayerCollectedFood += acitonHandStateMachine.OnPlayerSetFoodObj;
-        freeState.PlayerCollectedFood += playerHand.SetGameFoodObj;
-        PickUpZonEnter += freeState.EnterCollisionFoodObj;
-        PickUpZonExit += freeState.ExitCollisionFoodObj;
-        acitonHandStateMachine.SetStates(freeState, stateHolding, poweringState, stateThrowing);
-        Debug.Log("Builder end :" + i_PlayerData.m_Name);
+    private void AddPlayerUi(GameObject spawnPlayer)
+    {
+        PlayerUi playerUi = spawnPlayer.AddComponent<PlayerUi>();
+        PlayerForceChange += playerUi.OnPlayerForceChange;
+    }
 
-        // TODO : this 
-        //PlayerMovement.Builder(m_Player, m_ModeType, out PlayerMovement movement,
-        //    out PlayerMovementImplementor implementor);
-
-        //PlayerHand.Builder(m_Player, m_ModeType, out PlayerHand o_PlayerHand,
-        //    out OfflinePlayerStateMachine o_StateMachineImplemntor);
+    private static void SetCamToDiffDisply(PlayerData i_PlayerData, GameObject spawnPlayer)
+    {
+        Camera cam = spawnPlayer.GetComponentInChildren<Camera>();
+        cam.targetDisplay = i_PlayerData.r_PlayerNum;
     }
 
     private Action CoroutinePoweringState(StatePowering poweringState)

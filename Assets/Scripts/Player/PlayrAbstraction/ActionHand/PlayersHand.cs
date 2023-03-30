@@ -106,6 +106,11 @@ namespace DiningCombat.Player
             }
         }
 
+        internal bool DidIHurtMyself(Collision i_Collision)
+        {
+            return this.gameObject.Equals(i_Collision.gameObject);
+        }
+
         //public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type,
         //    out PlayerHand o_Player, out OfflinePlayerStateMachine o_Implementor)
         //{

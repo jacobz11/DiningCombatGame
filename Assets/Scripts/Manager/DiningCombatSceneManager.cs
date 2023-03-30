@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class DiningCombatSceneManager : MonoBehaviour
 {
-    //
     [SerializeField]
     private Button m_NewGameBtn;
     [SerializeField]

@@ -5,37 +5,37 @@ namespace DiningCombat.Player.Manger
 {
     public struct PlayerData
     {
-        private static int cunter =0;
-        public readonly Vector3 m_InitPos;
-        public readonly Quaternion m_Quaternion;
-        public readonly GameObject m_Prefap;
-        public readonly string m_Name;
-        public readonly ePlayerModeType m_ModeType;
-        public readonly int m_PlayerNum;
+        private static int s_Cunter =0;
+        public readonly Vector3 r_InitPos;
+        public readonly Quaternion r_Quaternion;
+        public readonly GameObject r_Prefap;
+        public readonly string r_Name;
+        public readonly ePlayerModeType r_ModeType;
+        public readonly int r_PlayerNum;
         private GameObject m_Player;
         private bool m_IsInit;
         public bool IsInitialize => m_IsInit;
 
         private static int getCunter()
         {
-            int res = cunter;
-            cunter++;
+            int res = s_Cunter;
+            s_Cunter++;
             return res;
         }
-        public bool IsAi => m_ModeType == ePlayerModeType.OfflineAiPlayer
-            || m_ModeType == ePlayerModeType.OnlineAiPlayer;
+        public bool IsAi => r_ModeType == ePlayerModeType.OfflineAiPlayer
+            || r_ModeType == ePlayerModeType.OnlineAiPlayer;
 
         public PlayerData(GameObject i_Prefap, string i_Name,
             ePlayerModeType i_ModeType, Vector3 i_InitPos)
         {
-            m_Prefap = i_Prefap;
-            m_ModeType = i_ModeType;
-            m_Name = i_Name;
-            m_InitPos = i_InitPos;
-            m_Quaternion = Quaternion.identity;
+            r_Prefap = i_Prefap;
+            r_ModeType = i_ModeType;
+            r_Name = i_Name;
+            r_InitPos = i_InitPos;
+            r_Quaternion = Quaternion.identity;
             m_Player = null;
             m_IsInit = false;
-            m_PlayerNum = getCunter();
+            r_PlayerNum = getCunter();
         }
 
         internal void Init(GameObject i_Player)
@@ -53,7 +53,9 @@ namespace DiningCombat.Player.Manger
             }
             m_Player = i_Player;
             m_IsInit = true;
-    }
+            i_Player.name = r_Name;
+            i_Player.tag = TagNames.k_Player;
+        }
 
     public bool GetPosition(out Vector3 o_Position)
         {

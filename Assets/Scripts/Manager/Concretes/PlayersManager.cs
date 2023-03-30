@@ -11,7 +11,7 @@ namespace DiningCombat.Managers
     internal class PlayersManager : IManager<PlayersMangerChannel>
     {
         private static PlayersManager s_Singlton;
-        private List<Player.Manger.PlayerData> m_PlayersDatas = new List<Player.Manger.PlayerData>();
+        private List<PlayerData> m_PlayersDatas = new List<PlayerData>();
         public static PlayersManager Singlton
         {
             get
@@ -28,17 +28,11 @@ namespace DiningCombat.Managers
         {
             foreach (PlayerData player in GameManager.Singlton.GetPlayersInitialization())
             {
-                GameObject spawnPlayer = Instantiate(player.m_Prefap, player.m_InitPos, player.m_Quaternion);
-                PlayerChannel channel = spawnPlayer.GetComponentInChildren<PlayerChannel>();
+                GameObject spawnPlayer = Instantiate(player.r_Prefap, player.r_InitPos, player.r_Quaternion);
+                IntiraelPlayerManger channel = spawnPlayer.GetComponentInChildren<IntiraelPlayerManger>();
                 channel.Builder(player, spawnPlayer);
                 m_PlayersDatas.Add(player);
             }
-        }
-
-        internal override IEnumerable MainCoroutine()
-        {
-            // TDOO : this 
-            yield return null;
         }
 
         internal override void OnGameOver()
@@ -62,6 +56,11 @@ namespace DiningCombat.Managers
             }
 
             return Singlton;
+        }
+
+        internal override IEnumerator MainCoroutine()
+        {
+            throw new NotImplementedException();
         }
     }
 }

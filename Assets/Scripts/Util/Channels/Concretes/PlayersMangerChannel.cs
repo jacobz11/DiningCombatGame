@@ -1,31 +1,9 @@
 ﻿using System;
 using Util.Abstraction;
 
-namespace DiningCombat
+namespace DiningCombat.Channels.Player
 {
-    namespace Channels
+    internal class PlayersMangerChannel : IChannelGame
     {
-        namespace Player
-        {
-            internal class PlayersMangerChannel : IChannelGame
-            {
-                public class AnimationChannel
-                {
-                    public event Action ThrowingPoint;
-
-                    internal void OnThrowingPoint()
-                    {
-                        ThrowingPoint?.Invoke();
-                    }
-                }
-
-                public AnimationChannel Animation;
-
-                public void OnThrowingPointEntet()
-                {
-                    Animation.OnThrowingPoint();
-                }
-            }
-        }
     }
 }

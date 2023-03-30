@@ -9,5 +9,8 @@ namespace Assets.Scrips_new.AI.Algo
         List<TData> GetData();
 
         TReslut RunAlgo(TData data);
+        float GetAxis(string v);
+        bool Jump();
+        void RunAlog();
     }
 }

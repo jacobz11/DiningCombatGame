@@ -2,16 +2,10 @@
 using Util;
 using Util.Abstraction;
 
-namespace DiningCombat
+namespace DiningCombat.Channels.GameFoodObj
 {
-    namespace Channels
+    public class ChannelGameFoodObj : ScriptableObject, IChannelGame
     {
-        namespace GameFoodObj
-        {
-            public class ChannelGameFoodObj : ScriptableObject, IChannelGame
-            {
-                public static ChannelObserver<Vector3> s_UickedFruit = new ChannelObserver<Vector3>();
-            }
-        }
+        public static ChannelObserver<Vector3> s_UickedFruit = new ChannelObserver<Vector3>();
     }
 }

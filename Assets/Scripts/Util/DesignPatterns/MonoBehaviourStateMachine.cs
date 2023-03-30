@@ -6,8 +6,6 @@ namespace DesignPatterns.Abstraction
 {
     public abstract class MonoBehaviourStateMachine : MonoBehaviour
     {
-        private static int bugCunter = 0;
-
         protected IDCState[] m_States;
         protected int m_CurrentState = 0;
         protected byte m_InitialState = 0;
@@ -29,9 +27,7 @@ namespace DesignPatterns.Abstraction
 
         public virtual void SetStates(params IDCState[] i_States)
         {
-            bugCunter ++;
             bool isValid = i_States != null && i_States.Length > 0;
-            Debug.Log("SetStates :"+ bugCunter);
 
             if (!isValid)
             {

@@ -11,7 +11,7 @@ namespace DiningCombat
         
         internal virtual IChannelGame Channel { get { return m_Channel; } }
 
-        internal abstract IEnumerable MainCoroutine();
+        internal abstract IEnumerator MainCoroutine();
 
         internal abstract void OnGameOver();
     }
