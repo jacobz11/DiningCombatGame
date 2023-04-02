@@ -51,13 +51,14 @@ namespace DiningCombat.Player.Manger
                 Debug.LogError("the Initialization the player Can only happen once");
                 return;
             }
+
             m_Player = i_Player;
             m_IsInit = true;
             i_Player.name = r_Name;
             i_Player.tag = TagNames.k_Player;
         }
 
-    public bool GetPosition(out Vector3 o_Position)
+        public bool GetPosition(out Vector3 o_Position)
         {
             bool isPlayerAllive = m_Player != null;
             o_Position = isPlayerAllive ? m_Player.transform.position : Vector3.zero;

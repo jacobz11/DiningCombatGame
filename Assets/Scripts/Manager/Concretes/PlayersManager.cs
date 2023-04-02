@@ -46,7 +46,6 @@ namespace DiningCombat.Managers
             if (Singlton == null)
             {
                 PlayersManager instance = GameManager.Singlton.AddComponent<PlayersManager>();
-                //instance.SetFoodPrefab();
                 GameManager.Singlton.GameOver += instance.OnGameOver;
                 Singlton = instance;
             }

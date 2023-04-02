@@ -78,7 +78,6 @@ public class PlayerAnimationChannel : MonoBehaviour
 
     internal void OnPlayerDead()
     {
-        Debug.Log("OnPlayerDead");
         SetPlayerAnimationToIdleFall(true);
     }
 

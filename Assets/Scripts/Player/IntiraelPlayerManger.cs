@@ -34,46 +34,43 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
     protected GameObject m_PickUpPoint;
     [SerializeField]
     private Collider m_Collider; 
+
     private int m_Score = 0;
     private int m_Kills = 0;
-    private int m_LifePoint = 1;
+    private int m_LifePoint = 100;
     private float m_Force = 0;
     private bool m_IsHoldingFoodObj = false;
 
     public GameObject PickUpPoint
     {
-        get
-        {
-            return m_PickUpPoint;
-        }
-        protected set
-        {
-            m_PickUpPoint = value;
-        }
+        get => m_PickUpPoint;
+        protected set => m_PickUpPoint = value;
     }
 
-    public float ForceMull
-    {
+    public float ForceMull 
+    { 
         get => m_Force;
+        private set
+        {
+            m_Force = value;
+            PlayerForceChange?.Invoke(m_Force);
+        }
     }
-    public int Kills
+    public int Kills { get => m_Kills; }
+
+    public int LifePoint 
     {
-        get => m_Kills;
+        get => m_LifePoint; 
+        private set
+        {
+            m_LifePoint = value;
+            LifePointChange?.Invoke(m_LifePoint);
+        }
     }
 
-    public int LifePoint
-    {
-        get => m_LifePoint;
-    }
+    public bool IsHoldingFoodObj { get => m_IsHoldingFoodObj; }
 
-    public bool IsHoldingFoodObj
-    {
-        get => m_IsHoldingFoodObj;
-    }
-
-    internal void FoodThrownByPlayerHit(GameFoodObj i_FoodThrown,
-        float i_ScoreHitPoint,
-        int i_ThrownKills)
+    internal void FoodThrownByPlayerHit(GameFoodObj i_FoodThrown, float i_ScoreHitPoint, int i_ThrownKills)
     {
         if (i_FoodThrown == null)
         {
@@ -86,60 +83,47 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
         PlayerScoreChange?.Invoke(m_Score);
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="i_AdditionForce"> float.NegativeInfinity to make foce 0</param>
     public void ChangeForce(float i_AdditionForce)
     {
-        if (i_AdditionForce == float.NegativeInfinity)
+        if (isResetingForce(i_AdditionForce))
         {
-            m_Force = 0;
+            ForceMull = 0;
         }
         else
         {
-            if (!isInReng(i_AdditionForce,
-           MaxAdditionForce,
-           MinAdditionForce,
-           out float o_ForceAdding))
-            {
-                Debug.LogError("How the AdditionForce " + i_AdditionForce + " is that out of range?");
-            }
-            float NewForce = ForceMull + o_ForceAdding;
-            //Debug.Log("i_AdditionForce : " + i_AdditionForce + ", MaxAdditionForce :" + MaxAdditionForce
-            //   + ", MinAdditionForce" + MinAdditionForce + ", o_ForceAdding" + o_ForceAdding +
-            //   ", NewForce " + NewForce);
-
-            if (!isInReng(NewForce,
-                MaxForce,
-                MinForce,
-                out float o_NewForce))
-            {
-                Debug.LogError("How the NewForce " + o_ForceAdding + "is that out of range?");
-            }
-            m_Force = o_NewForce;
+            IsInReng(i_AdditionForce, MaxAdditionForce, MinAdditionForce, out float o_ForceAdding);
+            IsInReng(ForceMull + o_ForceAdding, MaxForce, MinForce, out float o_NewForce);
+            ForceMull = o_NewForce;
         }
-       
-        PlayerForceChange?.Invoke(m_Force);
+
+        static bool isResetingForce(float i_AdditionForce)
+            => i_AdditionForce == float.NegativeInfinity;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="i_HitForce">the hit Force</param>
+    /// <param name="o_IsKill">if the hit kill the Player</param>
+    /// <exception cref="Exception">i_HitForce mast be a non-negative number </exception>
     public void HitPlayer(float i_HitForce, out bool o_IsKill)
     {
-        Debug.Log("HitPlayer : LifePoint : " + m_LifePoint + " , i_HitForce " + i_HitForce);
         if (i_HitForce < 0)
         {
             throw new Exception("Why negative mf");
         }
 
-        m_LifePoint -= (int)i_HitForce;
+        LifePoint -= (int)i_HitForce;
         o_IsKill = m_LifePoint <= 0;
 
         if (o_IsKill)
         {
-            Debug.Log("o_IsKill");
             PlayerDead?.Invoke();
         }
-        else
-        {
-            Debug.Log("m_LifePoint : " + m_LifePoint);
-            LifePointChange?.Invoke(m_LifePoint);
-        }
+
     }
 
     public void OnPlayerSetFoodObj(GameObject i_GameObject)
@@ -155,7 +139,6 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollisionEnter");
         CollisionEnter?.Invoke(collision);
     }
 
@@ -185,7 +168,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
     }
 
-    public static bool isInReng(float i_x, float i_Max, float i_Min, out float res)
+    public static bool IsInReng(float i_x, float i_Max, float i_Min, out float res)
     {
         bool isMinBigger = i_x < i_Min;
         bool isMaxSmaller = i_x > i_Max;
@@ -201,10 +184,9 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
             Debug.LogError("player cant be  Initialize twice");
             return;
         }
-        Debug.Log("Builder :" + i_PlayerData.r_Name);
-        SetCamToDiffDisply(i_PlayerData, spawnPlayer);
-        i_PlayerData = AddAbstrcts(i_PlayerData, spawnPlayer,
-                        out BridgeAbstraction3DMovement movement, out BridgeAbstractionAction playerHand);
+
+        SetCamToDiffDisply(i_PlayerData.r_PlayerNum, spawnPlayer);
+        i_PlayerData = AddAbstrcts(i_PlayerData, spawnPlayer, out BridgeAbstraction3DMovement movement, out BridgeAbstractionAction playerHand);
         BridgeImplementor3DMovement playerMovementImplementor = null;
         BridgeImplementorAcitonStateMachine acitonHandStateMachine = null;
 
@@ -241,19 +223,19 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
             default:
                 return;
         }
+
         AddingListenersToAnimationEvent(playerHand, acitonHandStateMachine);
         AddingListeners(playerHand, acitonHandStateMachine);
     }
 
-    private PlayerData AddAbstrcts(PlayerData i_PlayerData,
-                                    GameObject spawnPlayer,
-                                    out BridgeAbstraction3DMovement o_Movement,
-                                    out BridgeAbstractionAction o_PlayerHand)
+    private PlayerData AddAbstrcts(PlayerData i_PlayerData, GameObject spawnPlayer,
+                out BridgeAbstraction3DMovement o_Movement, out BridgeAbstractionAction o_PlayerHand)
     {
         i_PlayerData.Init(spawnPlayer);
         o_Movement = spawnPlayer.AddComponent<BridgeAbstraction3DMovement>();
         o_PlayerHand = spawnPlayer.AddComponent<BridgeAbstractionAction>();
         o_PlayerHand.SetPickUpPoint(m_PickUpPoint.transform);
+
         return i_PlayerData;
     }
 
@@ -271,18 +253,16 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
     private void AddingListenersToAnimationEvent(BridgeAbstractionAction i_PlayerHand, BridgeImplementorAcitonStateMachine i_StateMachine)
     {
         PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+        if (animationChannel == null)
+        {
+            Debug.Log("AnimationChannel is null");
+            return;
+        }
 
-        if (animationChannel != null)
-        {
-            animationChannel.ThrowPoint += i_PlayerHand.ThrowObj;
-            animationChannel.ThrowPoint += i_StateMachine.Throwing.ThrowingPointObj;
-            animationChannel.ThrowPoint += CoroutinePoweringState(i_StateMachine.Powering);
-            PlayerDead += animationChannel.OnPlayerDead;
-        }
-        else
-        {
-            Debug.Log(" animationChannel is null");
-        }
+        animationChannel.ThrowPoint += i_PlayerHand.ThrowObj;
+        animationChannel.ThrowPoint += i_StateMachine.Throwing.ThrowingPointObj;
+        animationChannel.ThrowPoint += CoroutinePoweringState(i_StateMachine.Powering);
+        PlayerDead += animationChannel.OnPlayerDead;
     }
 
     private void AddPlayerUi(GameObject spawnPlayer)
@@ -291,10 +271,10 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
         PlayerForceChange += playerUi.OnPlayerForceChange;
     }
 
-    private static void SetCamToDiffDisply(PlayerData i_PlayerData, GameObject spawnPlayer)
+    private static void SetCamToDiffDisply(int i_TargetDisplay, GameObject spawnPlayer)
     {
         Camera cam = spawnPlayer.GetComponentInChildren<Camera>();
-        cam.targetDisplay = i_PlayerData.r_PlayerNum;
+        cam.targetDisplay = i_TargetDisplay;
     }
 
     private Action CoroutinePoweringState(StatePowering poweringState)

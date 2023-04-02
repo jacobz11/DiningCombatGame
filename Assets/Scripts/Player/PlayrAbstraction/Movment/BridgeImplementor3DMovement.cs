@@ -6,17 +6,15 @@ namespace DiningCombat.Player
 {
     public abstract class BridgeImplementor3DMovement : MonoBehaviour
     {
-        [SerializeField]
-        [Range(0.0001f, 2f)]
+        private bool ToFastRunnig => true;
+        private bool ToRunnig => false;
+        [SerializeField] [Range(0.0001f, 2f)]
         private static float s_MinMovmentAbs;
-        [SerializeField]
-        [Range(31f, 200f)]
+        [SerializeField] [Range(31f, 200f)]
         private float m_BoostRunnigSpeed = 31;
-        [SerializeField]
-        [Range(1f, 20f)]
+        [SerializeField] [Range(1f, 20f)]
         private float m_BoostTime = 5;
-        [SerializeField]
-        [Range(1f, 200f)]
+        [SerializeField] [Range(1f, 200f)]
         private float m_StandbyTime = 50;
         private float m_LestBost;
 
@@ -28,7 +26,6 @@ namespace DiningCombat.Player
         protected bool m_IsAnyMovement = false;
 
         public bool IsWaitingBoostTimeOver => Time.time >= m_LestBost + m_StandbyTime;
-        private float ALotOfTimeToPreventDoubleEntry => (m_StandbyTime + m_BoostTime) * 10 ;
 
         private void Awake()
         {
@@ -46,7 +43,6 @@ namespace DiningCombat.Player
             m_LestBost = Time.time - m_StandbyTime* 2;
         }
 
-
         protected void AnimationRunnig(bool i_IsJump)
         {
             if (!i_IsJump)
@@ -54,12 +50,6 @@ namespace DiningCombat.Player
                 RunAnimation?.Invoke(m_IsAnyMovement);
             }
             m_IsAnyMovement = false;
-        }
-
-
-        public void Ideal()
-        {
-            //m_AnimationChannel.
         }
 
         public static bool IsMovment(float i_Vale, out bool o_IsPositive)
@@ -90,17 +80,14 @@ namespace DiningCombat.Player
         {
             if (IsWaitingBoostTimeOver)
             {
-                m_LestBost = Time.time + ALotOfTimeToPreventDoubleEntry;
+                ALotOfTimeToPreventDoubleEntry();
                 Debug.Log("BoostRunning IsWaitingBoostTimeOver");
-                RunAnimation += m_AnimationChannel.SetPlayerAnimationToRunFast;
-                RunAnimation -= m_AnimationChannel.SetPlayerAnimationToRun;
+                changRuningAniamtion(ToFastRunnig);
                 m_Movement.ChangeRunningSpeed(m_BoostRunnigSpeed, out float o_RunningSpeed);
-                
-                yield return new WaitForSeconds(m_BoostTime);
 
+                yield return new WaitForSeconds(m_BoostTime);
                 m_Movement.ChangeRunningSpeed(o_RunningSpeed, out float _);
-                RunAnimation += m_AnimationChannel.SetPlayerAnimationToRun;
-                RunAnimation -= m_AnimationChannel.SetPlayerAnimationToRunFast;
+                changRuningAniamtion(ToRunnig);
                 m_LestBost = Time.time;
                 Debug.Log("BoostRunning IsWaitingBoostTimeOver IS OVER");
 
@@ -108,6 +95,25 @@ namespace DiningCombat.Player
             else
             {
                 Debug.Log("BoostRunning NOT  IsWaitingBoostTimeOver");
+            }
+        }
+
+        private void ALotOfTimeToPreventDoubleEntry()
+        {
+            m_LestBost = Time.time + (m_StandbyTime + m_BoostTime) * 10;
+        }
+
+        private void changRuningAniamtion(bool i_IsToFastRunnin)
+        {
+            if (i_IsToFastRunnin)
+            {
+                RunAnimation += m_AnimationChannel.SetPlayerAnimationToRunFast;
+                RunAnimation -= m_AnimationChannel.SetPlayerAnimationToRun;
+            }
+            else
+            {
+                RunAnimation += m_AnimationChannel.SetPlayerAnimationToRun;
+                RunAnimation -= m_AnimationChannel.SetPlayerAnimationToRunFast;
             }
         }
 
@@ -145,6 +151,7 @@ namespace DiningCombat.Player
 
             return res;
         }
+
         public virtual void SetPlayerMovement(BridgeAbstraction3DMovement playerMovement)
         {
             m_Movement = playerMovement;

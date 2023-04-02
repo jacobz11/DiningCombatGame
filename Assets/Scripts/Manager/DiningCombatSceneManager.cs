@@ -8,7 +8,6 @@ public class DiningCombatSceneManager : MonoBehaviour
     private Button m_NewGameBtn;
     [SerializeField]
     private Button m_OnlineGameBtn;
-
     [SerializeField]
     private Button m_QuitBtn;
     [SerializeField]

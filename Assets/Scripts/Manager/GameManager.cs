@@ -29,33 +29,21 @@ namespace DiningCombat
             }
         }
 
-        [SerializeField]
-        [Range(10, 100)]
+        [SerializeField] [Range(10, 100)]
         private byte m_MaxNumOfFoodObj;
-        [SerializeField]
-        [Range(0, 10)]
+        [SerializeField] [Range(0, 10)]
         private byte m_NumOfInitGameObj;
-        [Range(0, 10)]
-        [SerializeField]
+        [SerializeField] [Range(0, 10)]
         public float m_NumOfSecondsBetweenSpawn;
-        [SerializeField]
-        private Vector3 m_MaxPosition;
-        [SerializeField]
-        private Vector3 m_MinPosition;
-        [SerializeField]
-        [Range(10, 1000)]
+        [SerializeField] [Range(10, 1000)]
         private int m_KillMullPonit;
-        [SerializeField]
-        [Range(5, 50)]
+        [SerializeField] [Range(5, 50)]
         private float m_MinAdditionForce;
-        [SerializeField]
-        [Range(10, 200)]
+        [SerializeField] [Range(10, 200)]
         private float m_MaxAdditionForce;
-        [SerializeField]
-        [Range(500, 5000)]
+        [SerializeField] [Range(500, 5000)]
         private float m_MaxForce;
-        [SerializeField]
-        [Range(20, 1000)]
+        [SerializeField] [Range(20, 1000)]
         private float m_MinForce;
         [SerializeField]
         private GameObject m_PrefabUIHP;
@@ -63,6 +51,18 @@ namespace DiningCombat
         private GameObject m_PrefabUIPower;
         [SerializeField]
         private GameObject m_PrefabUIScore;
+        [SerializeField]
+        private Vector3 m_MaxPosition;
+        [SerializeField]
+        private Vector3 m_MinPosition;
+        [SerializeField]
+        private GameObject m_PlayrPrefab;
+        private byte m_NumOfExistingFoobObj;
+        private ManagerGameFoodObj m_FoodObjBuilder;
+        private PlayersManager m_PlayersManager;
+        public event Action GameOver;
+        public bool IsRunning => true;
+        public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < MaxNumOfFoodObj;
 
         public byte MaxNumOfFoodObj
         {
@@ -111,58 +111,24 @@ namespace DiningCombat
             get => m_MinForce;
             //  internal set; 
         }
-
-        [SerializeField]
-        private GameObject m_PlayrPrefab;
-        private byte m_NumOfExistingFoobObj;
-        private ManagerGameFoodObj m_FoodObjBuilder;
-        private PlayersManager m_PlayersManager;
-        public event Action GameOver;
         //public static List<PlayerDataG> s_PlayerDatas = new List<PlayerDataG>();
-
-        public bool IsRunning => true;
-        public bool IsSpawnNewGameObj => m_NumOfExistingFoobObj < MaxNumOfFoodObj;
 
         public bool GetPrefabUiHP(out GameObject gameObject)
         {
-            if (m_PrefabUIHP is null)
-            {
-                gameObject = null;
-                return false;
-            }
-            else
-            {
-                gameObject = m_PrefabUIHP;
-                return true;
-            }
+            gameObject = m_PrefabUIHP;
+            return m_PrefabUIHP is not null;
         }
 
         public bool GetPrefabUIPower(out GameObject gameObject)
         {
-            if (m_PrefabUIPower is null)
-            {
-                gameObject = null;
-                return false;
-            }
-            else
-            {
-                gameObject = m_PrefabUIPower;
-                return true;
-            }
+            gameObject = m_PrefabUIPower;
+            return m_PrefabUIPower is not null;
         }
 
         public bool GetPrefabUIScore(out GameObject gameObject)
         {
-            if (m_PrefabUIScore is null)
-            {
-                gameObject = null;
-                return false;
-            }
-            else
-            {
-                gameObject = m_PrefabUIScore;
-                return true;
-            }
+            gameObject = m_PrefabUIScore;
+            return m_PrefabUIScore is not null;
         }
 
         private void Awake()
@@ -188,15 +154,12 @@ namespace DiningCombat
         }
 
         public GameObject SpawnGameFoodObj()
-        {
-            bool isSpawn = m_FoodObjBuilder.SpawnGameFoodObj(GetRandomPositionInMap(), out GameObject o_Spawn);
-
-            if (isSpawn)
+        { 
+            if (m_FoodObjBuilder.SpawnGameFoodObj(GetRandomPositionInMap(), out GameObject o_Spawn))
             {
                 ++m_NumOfExistingFoobObj;
-                return o_Spawn;
             }
-            return null;
+            return o_Spawn;
         }
 
         public virtual void OnDestruction_GameFoodObj()

@@ -45,14 +45,11 @@ namespace DiningCombat.FoodObj.Managers
         public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
         {
             bool isSpawn = false;
+            o_Spawn = null;
             if (GameManager.Singlton.IsSpawnNewGameObj)
             {
                 o_Spawn = SpawnGameFoodObj(i_Position);
                 isSpawn = true;
-            }
-            else
-            {
-                o_Spawn = null;
             }
 
             return isSpawn;
@@ -69,19 +66,17 @@ namespace DiningCombat.FoodObj.Managers
 
         private void SetFoodPrefab()
         {
-            if (GameManager.Singlton == null)
+            if (GameManager.Singlton is null)
             {
-                Debug.LogError("GameManager is null ");
+                Debug.LogError("GameManager is null");
+                return;
             }
-            else
-            {
-                List<string> loctingOfPrefab = GameManager.Singlton.GetAllLoctingOfFoodPrefab();
-                m_FoodPrefab = new List<GameObject>();
+            List<string> loctingOfPrefab = GameManager.Singlton.GetAllLoctingOfFoodPrefab();
+            m_FoodPrefab = new List<GameObject>();
 
-                foreach (string go in loctingOfPrefab)
-                {
-                    m_FoodPrefab.Add(getPrefabFrom(go));
-                }
+            foreach (string go in loctingOfPrefab)
+            {
+                m_FoodPrefab.Add(getPrefabFrom(go));
             }
         }
 
@@ -113,9 +108,13 @@ namespace DiningCombat.FoodObj.Managers
 
         public static ManagerGameFoodObj InitManagerGameFood()
         {
-            if (Singlton == null)
+            if (Singlton is not null)
             {
-                if (GameManager.Singlton == null)
+                Debug.LogWarning("Singlton is not null");
+            }
+            else
+            {
+                if (GameManager.Singlton is null)
                 {
                     Debug.Log("this it null");
                 }
@@ -125,11 +124,6 @@ namespace DiningCombat.FoodObj.Managers
                 GameManager.Singlton.GameOver += instance.OnGameOver;
                 Singlton = instance;
             }
-            else
-            {
-                Debug.LogWarning("Singlton is not null");
-            }
-
             return Singlton;
         }
     }
