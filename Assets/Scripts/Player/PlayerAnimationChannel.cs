@@ -6,6 +6,8 @@ using System;
 public class PlayerAnimationChannel : MonoBehaviour
 {
     Animator m_Anim;
+    private float i_NumOfSecondsBefurDestroy  = 5f;
+
     public event Action ThrowPoint;
     public event Action OnRunFast; 
 
@@ -72,5 +74,16 @@ public class PlayerAnimationChannel : MonoBehaviour
     public void SetPlayerAnimationToWin(bool i_IsActive)
     {
         m_Anim.SetBool("isWin", i_IsActive);
+    }
+
+    internal void OnPlayerDead()
+    {
+        Debug.Log("OnPlayerDead");
+        SetPlayerAnimationToIdleFall(true);
+    }
+
+    private void OnDestroy()
+    {
+        SetPlayerAnimationToIdleFall(false);
     }
 }

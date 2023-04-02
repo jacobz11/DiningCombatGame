@@ -36,7 +36,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
     private Collider m_Collider; 
     private int m_Score = 0;
     private int m_Kills = 0;
-    private int m_LifePoint;
+    private int m_LifePoint = 1;
     private float m_Force = 0;
     private bool m_IsHoldingFoodObj = false;
 
@@ -113,8 +113,6 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
             {
                 Debug.LogError("How the NewForce " + o_ForceAdding + "is that out of range?");
             }
-
-            //Debug.Log(", ForceMull + o_ForceAdding " + ForceMull + o_ForceAdding + ", o_NewForce : "+o_NewForce);
             m_Force = o_NewForce;
         }
        
@@ -123,6 +121,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
     public void HitPlayer(float i_HitForce, out bool o_IsKill)
     {
+        Debug.Log("HitPlayer : LifePoint : " + m_LifePoint + " , i_HitForce " + i_HitForce);
         if (i_HitForce < 0)
         {
             throw new Exception("Why negative mf");
@@ -133,10 +132,12 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
         if (o_IsKill)
         {
+            Debug.Log("o_IsKill");
             PlayerDead?.Invoke();
         }
         else
         {
+            Debug.Log("m_LifePoint : " + m_LifePoint);
             LifePointChange?.Invoke(m_LifePoint);
         }
     }
@@ -203,9 +204,9 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
         Debug.Log("Builder :" + i_PlayerData.r_Name);
         SetCamToDiffDisply(i_PlayerData, spawnPlayer);
         i_PlayerData = AddAbstrcts(i_PlayerData, spawnPlayer,
-                        out PlayerMovement movement, out PlayerHand playerHand);
-        PlayerMovementImplementor playerMovementImplementor = null;
-        AcitonHandStateMachine acitonHandStateMachine = null;
+                        out BridgeAbstraction3DMovement movement, out BridgeAbstractionAction playerHand);
+        BridgeImplementor3DMovement playerMovementImplementor = null;
+        BridgeImplementorAcitonStateMachine acitonHandStateMachine = null;
 
         switch (i_PlayerData.r_ModeType)
         {
@@ -246,17 +247,17 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
 
     private PlayerData AddAbstrcts(PlayerData i_PlayerData,
                                     GameObject spawnPlayer,
-                                    out PlayerMovement o_Movement,
-                                    out PlayerHand o_PlayerHand)
+                                    out BridgeAbstraction3DMovement o_Movement,
+                                    out BridgeAbstractionAction o_PlayerHand)
     {
         i_PlayerData.Init(spawnPlayer);
-        o_Movement = spawnPlayer.AddComponent<PlayerMovement>();
-        o_PlayerHand = spawnPlayer.AddComponent<PlayerHand>();
+        o_Movement = spawnPlayer.AddComponent<BridgeAbstraction3DMovement>();
+        o_PlayerHand = spawnPlayer.AddComponent<BridgeAbstractionAction>();
         o_PlayerHand.SetPickUpPoint(m_PickUpPoint.transform);
         return i_PlayerData;
     }
 
-    private void AddingListeners(PlayerHand i_PlayerHand, AcitonHandStateMachine i_StateMachine)
+    private void AddingListeners(BridgeAbstractionAction i_PlayerHand, BridgeImplementorAcitonStateMachine i_StateMachine)
     {
         i_StateMachine.Powering.OnPower += ChangeForce;
         i_StateMachine.Free.PlayerCollectedFood += OnPlayerSetFoodObj;
@@ -267,7 +268,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
         PickUpZonExit += i_StateMachine.Free.ExitCollisionFoodObj;
     }
 
-    private void AddingListenersToAnimationEvent(PlayerHand i_PlayerHand, AcitonHandStateMachine i_StateMachine)
+    private void AddingListenersToAnimationEvent(BridgeAbstractionAction i_PlayerHand, BridgeImplementorAcitonStateMachine i_StateMachine)
     {
         PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
 
@@ -276,6 +277,7 @@ public class IntiraelPlayerManger : MonoBehaviour, IInternalChannel
             animationChannel.ThrowPoint += i_PlayerHand.ThrowObj;
             animationChannel.ThrowPoint += i_StateMachine.Throwing.ThrowingPointObj;
             animationChannel.ThrowPoint += CoroutinePoweringState(i_StateMachine.Powering);
+            PlayerDead += animationChannel.OnPlayerDead;
         }
         else
         {

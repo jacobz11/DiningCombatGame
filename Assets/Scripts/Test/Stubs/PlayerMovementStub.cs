@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Test.Stubs
 {
-    internal class PlayerMovementStub : PlayerMovementImplementor
+    internal class PlayerMovementStub : BridgeImplementor3DMovement
     {
         [SerializeField]
         [Range(-10, 10)]

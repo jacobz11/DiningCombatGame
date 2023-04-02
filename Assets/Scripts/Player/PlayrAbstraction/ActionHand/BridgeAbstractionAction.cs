@@ -1,12 +1,10 @@
 ﻿using System;
 using UnityEngine;
 using DiningCombat.FoodObj;
-using static DiningCombat.GameGlobal;
-using DiningCombat.Player.Manger;
 
 namespace DiningCombat.Player
 {
-    public class PlayerHand : MonoBehaviour
+    public class BridgeAbstractionAction : MonoBehaviour
     {
         [SerializeField]
         [Range(500f, 3000f)]

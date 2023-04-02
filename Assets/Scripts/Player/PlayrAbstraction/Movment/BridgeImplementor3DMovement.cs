@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DiningCombat.Player
 {
-    public abstract class PlayerMovementImplementor : MonoBehaviour
+    public abstract class BridgeImplementor3DMovement : MonoBehaviour
     {
         [SerializeField]
         [Range(0.0001f, 2f)]
@@ -21,7 +21,7 @@ namespace DiningCombat.Player
         private float m_LestBost;
 
         private Action<bool> RunAnimation;
-        protected PlayerMovement m_Movement;
+        protected BridgeAbstraction3DMovement m_Movement;
         protected float m_Horizontal;
         protected float m_Vertical;
         protected PlayerAnimationChannel m_AnimationChannel;
@@ -133,6 +133,7 @@ namespace DiningCombat.Player
 
             m_Vertical = 0f;
         }
+
         public virtual bool Jump()
         {
             bool res = false;
@@ -144,7 +145,7 @@ namespace DiningCombat.Player
 
             return res;
         }
-        public virtual void SetPlayerMovement(PlayerMovement playerMovement)
+        public virtual void SetPlayerMovement(BridgeAbstraction3DMovement playerMovement)
         {
             m_Movement = playerMovement;
         }

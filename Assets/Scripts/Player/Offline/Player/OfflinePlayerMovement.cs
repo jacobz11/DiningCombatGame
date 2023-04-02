@@ -6,7 +6,7 @@ using System.Collections;
 namespace DiningCombat.Player.Offline.Movement
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    internal class OfflinePlayerMovement : PlayerMovementImplementor
+    internal class OfflinePlayerMovement : BridgeImplementor3DMovement
     {
         private const string AxisMouseX = "Mouse X";
 

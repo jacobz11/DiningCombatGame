@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         public GameObject m_FoodObj;
 
-        public StateFree(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
+        public StateFree(BridgeAbstractionAction i_PickUpItem, BridgeImplementorAcitonStateMachine i_Machine)
             : base(i_PickUpItem, i_Machine)
         {
             this.m_FoodObj = null;

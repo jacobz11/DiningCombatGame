@@ -10,7 +10,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
     {
         public event Action<float> OnPower;
 
-        public StatePowering(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
+        public StatePowering(BridgeAbstractionAction i_PickUpItem, BridgeImplementorAcitonStateMachine i_Machine)
             : base(i_PickUpItem, i_Machine)
         {
         }

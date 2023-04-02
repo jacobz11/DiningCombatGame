@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 {
-    internal class AcitonHandStateMachine : MonoBehaviourStateMachine
+    internal class BridgeImplementorAcitonStateMachine : MonoBehaviourStateMachine
     {
-        private PlayerHand m_PlayersHand;
+        private BridgeAbstractionAction m_PlayersHand;
         private GameObject m_FoodObj;
 
         public StateFree Free
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             get => m_States[3] as StateThrowing;
         }
-        public PlayerHand Player
+        public BridgeAbstractionAction Player
         {
             get { return m_PlayersHand; }
             set
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
             }
         }
 
-        public virtual void SetPlayerHand(PlayerHand i_Player)
+        public virtual void SetPlayerHand(BridgeAbstractionAction i_Player)
         {
             Debug.Log("SetPlayerHand ");
             Player = i_Player;

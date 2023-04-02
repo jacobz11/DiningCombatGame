@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DiningCombat.Player.Manger
 {
-    internal class OfflineAIStateMachine : AcitonHandStateMachine
+    internal class OfflineAIStateMachine : BridgeImplementorAcitonStateMachine
     {
         public override void Update()
         {
@@ -24,7 +24,7 @@ namespace DiningCombat.Player.Manger
 
         internal class FreeHandOfflineAI : StateFree
         {
-            public FreeHandOfflineAI(PlayerHand i_PickUpItem, OfflineAIStateMachine i_Machine)
+            public FreeHandOfflineAI(BridgeAbstractionAction i_PickUpItem, OfflineAIStateMachine i_Machine)
                 : base(i_PickUpItem, i_Machine)
             {
             }
@@ -38,7 +38,7 @@ namespace DiningCombat.Player.Manger
         internal class StateHoldsObjOfflineAI : StateHoldsObj
         {
 
-            public StateHoldsObjOfflineAI(PlayerHand i_PickUpItem, OfflineAIStateMachine i_Machine)
+            public StateHoldsObjOfflineAI(BridgeAbstractionAction i_PickUpItem, OfflineAIStateMachine i_Machine)
                 : base(i_PickUpItem, i_Machine)
             {
             }
@@ -52,7 +52,7 @@ namespace DiningCombat.Player.Manger
         internal class StatePoweringOfflineAI : StatePowering
         {
 
-            public StatePoweringOfflineAI(PlayerHand i_PickUpItem, OfflineAIStateMachine i_Machine)
+            public StatePoweringOfflineAI(BridgeAbstractionAction i_PickUpItem, OfflineAIStateMachine i_Machine)
                 : base(i_PickUpItem, i_Machine)
             {
             }
@@ -65,7 +65,7 @@ namespace DiningCombat.Player.Manger
 
         internal class StateThrowingOfflineAI : StateThrowing
         {
-            public StateThrowingOfflineAI(PlayerHand i_PickUpItem, OfflineAIStateMachine i_Machine)
+            public StateThrowingOfflineAI(BridgeAbstractionAction i_PickUpItem, OfflineAIStateMachine i_Machine)
                 : base(i_PickUpItem, i_Machine)
             {
             }

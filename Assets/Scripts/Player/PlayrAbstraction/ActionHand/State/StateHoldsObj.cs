@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 {
     internal abstract class StateHoldsObj : IStatePlayerHand
     {
-        public StateHoldsObj(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
+        public StateHoldsObj(BridgeAbstractionAction i_PickUpItem, BridgeImplementorAcitonStateMachine i_Machine)
             : base(i_PickUpItem, i_Machine)
         {
         }

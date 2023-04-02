@@ -7,7 +7,7 @@ using static DiningCombat.GameGlobal;
 
 namespace DiningCombat.Player
 {
-    public class PlayerMovement : MonoBehaviour, IMovement, IRotation
+    public class BridgeAbstraction3DMovement : MonoBehaviour, IMovement, IRotation
     {
         private bool m_IsGrounded;
         private Rigidbody m_Rb;
@@ -89,9 +89,9 @@ namespace DiningCombat.Player
 
 
         public static void Builder(GameObject i_PlayerCharacter, ePlayerModeType i_Type,
-            out PlayerMovement o_Movement, out PlayerMovementImplementor o_Implementor)
+            out BridgeAbstraction3DMovement o_Movement, out BridgeImplementor3DMovement o_Implementor)
         {
-            o_Movement = i_PlayerCharacter.AddComponent<PlayerMovement>();
+            o_Movement = i_PlayerCharacter.AddComponent<BridgeAbstraction3DMovement>();
 
             switch (i_Type)
             {
@@ -124,7 +124,6 @@ namespace DiningCombat.Player
                     o_Implementor = null;
                     return;
             }
-            // TODO : this 
         }
     }
 }

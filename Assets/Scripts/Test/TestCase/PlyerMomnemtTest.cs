@@ -8,8 +8,8 @@ namespace Test.Player
         private void Start()
         {
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            PlayerMovement.Builder(gameObject, DiningCombat.GameGlobal.ePlayerModeType.OfflineTestPlayer,
-                out PlayerMovement o_Movement, out PlayerMovementImplementor o_Implementor);
+            BridgeAbstraction3DMovement.Builder(gameObject, DiningCombat.GameGlobal.ePlayerModeType.OfflineTestPlayer,
+                out BridgeAbstraction3DMovement o_Movement, out BridgeImplementor3DMovement o_Implementor);
             m_Object = gameObject;
         }
 

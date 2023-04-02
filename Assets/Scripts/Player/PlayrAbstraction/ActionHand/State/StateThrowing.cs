@@ -7,7 +7,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 {
     internal abstract class StateThrowing : IStatePlayerHand
     {
-        public StateThrowing(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
+        public StateThrowing(BridgeAbstractionAction i_PickUpItem, BridgeImplementorAcitonStateMachine i_Machine)
             : base(i_PickUpItem, i_Machine)
         {
         }

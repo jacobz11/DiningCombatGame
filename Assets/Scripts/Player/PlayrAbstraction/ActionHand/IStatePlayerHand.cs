@@ -8,12 +8,12 @@ namespace Assets.Scripts.Player.Offline.Player.States
 {
     internal abstract class IStatePlayerHand : IDCState
     {
-        protected PlayerHand m_PlayrHand;
-        protected AcitonHandStateMachine m_Machine;
+        protected BridgeAbstractionAction m_PlayrHand;
+        protected BridgeImplementorAcitonStateMachine m_Machine;
         private float initTimeEnteState;
 
         protected bool IsBufferTime => Time.time - this.initTimeEnteState > 0.5f;
-        protected IStatePlayerHand(PlayerHand i_PickUpItem, AcitonHandStateMachine i_Machine)
+        protected IStatePlayerHand(BridgeAbstractionAction i_PickUpItem, BridgeImplementorAcitonStateMachine i_Machine)
         {
             this.m_PlayrHand = i_PickUpItem;
             this.m_Machine = i_Machine;

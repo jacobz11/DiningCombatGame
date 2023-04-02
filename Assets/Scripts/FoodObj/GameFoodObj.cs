@@ -16,7 +16,7 @@ namespace DiningCombat.FoodObj
 
         private bool m_IsThrow;
         private Rigidbody m_Rigidbody;
-        private PlayerHand m_PlayerHolding;
+        private BridgeAbstractionAction m_PlayerHolding;
         [SerializeField]
         private ParticleSystem m_Effect;
         [SerializeField]
@@ -74,7 +74,7 @@ namespace DiningCombat.FoodObj
             IsThrow = true;
         }
 
-        internal void PickedUp(PlayerHand i_HoldingGameObj)
+        internal void PickedUp(BridgeAbstractionAction i_HoldingGameObj)
         {
             m_PlayerHolding = i_HoldingGameObj;
 
@@ -104,11 +104,14 @@ namespace DiningCombat.FoodObj
 
         private void collisionAfterThrowingHandler(Collision i_Collision)
         {
+            Debug.Log("collisionAfterThrowingHandler : "  + isPlayer(i_Collision)); 
             if (isPlayer(i_Collision))
             {
-                IntiraelPlayerManger playerManger = i_Collision.gameObject.GetComponent<IntiraelPlayerManger>();
+                Debug.Log("in (isPlayer(i_Collision)");
+                IntiraelPlayerManger playerManger = i_Collision.gameObject.GetComponentInChildren<IntiraelPlayerManger>();
                 if (playerManger != null)
                 {
+                    Debug.Log("playerManger != null ");
                     float hitPoint = GetHitPonit();
                     playerManger.HitPlayer(hitPoint, out bool o_IsKiil);
                     int kill = o_IsKiil ? 1 : 0;

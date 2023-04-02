@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DiningCombat.Player.Manger
 {
-    internal class OfflineAIMovement :PlayerMovementImplementor  // IAgent //Agent
+    internal class OfflineAIMovement :BridgeImplementor3DMovement  // IAgent //Agent
     {
         private IAiAlgoAgent<Vector3, Vector3> m_Ai;
 
