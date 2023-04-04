@@ -19,7 +19,6 @@ namespace DiningCombat.Player.Offline.Movement
             AnimationRunnig(Jump());
         }
 
-
         private void RunBoostUpdate()
         {
             if (Input.GetKeyDown(KeyCode.Q))
@@ -33,6 +32,7 @@ namespace DiningCombat.Player.Offline.Movement
             this.m_Vertical = Input.GetAxis("Vertical");
             base.MoveVertonta();
         }
+
         public override void MoveHorizontal()
         {
             this.m_Horizontal = Input.GetAxis("Horizontal");
@@ -48,6 +48,7 @@ namespace DiningCombat.Player.Offline.Movement
 
             return false;
         }
+
         private void MoveRotating()
         {
             m_Movement.Rotate(Input.GetAxis(AxisMouseX));

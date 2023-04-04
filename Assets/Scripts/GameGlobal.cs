@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace DiningCombat
@@ -11,6 +12,7 @@ namespace DiningCombat
             public const string k_PickUpPoint = "PickUpPoint";
             public const string k_Ground = "Ground";
         }
+
         public static class TagNames
         {
             public const string k_Ground = "Ground";
@@ -49,7 +51,6 @@ namespace DiningCombat
             public const string k_Flour = "Flour";
             public const byte k_FlourVar = 3;
             public const string k_FlourLocation = @"FoodPrefab\Flour";
-
         }
 
         public static class PlayerDataG

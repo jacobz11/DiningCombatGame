@@ -54,8 +54,15 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             if (this.IsPassStage())
             {
-                this.m_PlayrHand.SetGameFoodObj(this.m_FoodObj);
-                this.m_Machine.StatesIndex++;
+                if (m_FoodObj is not null)
+                {
+                    this.m_PlayrHand.SetGameFoodObj(this.m_FoodObj);
+                    this.m_Machine.StatesIndex++;
+                }
+                else
+                {
+                    Debug.LogError(" nhuihiuhuihiuhiu ");
+                }
             }
         }
 

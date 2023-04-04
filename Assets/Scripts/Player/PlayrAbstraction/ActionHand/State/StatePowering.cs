@@ -25,11 +25,13 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         public override void OnStateExit(params object[] list)
         {
+            this.m_PlayrHand.ThrowingAnimator = true;
         }
 
 
         public override void OnStateUpdate(params object[] list)
         {
+            // TODO : 
             if (this.IsPowerKeyPress)
             {
                 this.AddToForceMulti();
@@ -61,6 +63,7 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
                 this.m_Machine.StatesIndex--;
             }
         }
+
         public override string ToString()
         {
             return "StatePowering : ";

@@ -54,7 +54,7 @@ namespace DiningCombat.Player
         }
         public virtual void MoveLeft()
         {
-            transform.Translate(Vector3.left * Time.deltaTime * m_PlayerSpeed);
+             transform.Translate(Vector3.left * Time.deltaTime * m_PlayerSpeed);
         }
         public virtual void MoveRight()
         {

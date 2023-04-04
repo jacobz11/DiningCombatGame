@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using System.Collections;
 using System.Collections.Generic;
 using DiningCombat.Channels.GameFoodObj;
+using Util;
 
 namespace DiningCombat.FoodObj.Managers
 {
@@ -13,6 +14,8 @@ namespace DiningCombat.FoodObj.Managers
         private static Type m_Type = typeof(GameObject);
         private List<GameObject> m_FoodPrefab;
         private static ManagerGameFoodObj s_Singlton;
+        public ChannelObserver<Vector3> m_UickedFruit;// = new ChannelObserver<Vector3>();
+
         public static ManagerGameFoodObj Singlton
         {
             get
@@ -33,15 +36,19 @@ namespace DiningCombat.FoodObj.Managers
         private void Awake()
         {
             m_Channel = new ChannelGameFoodObj();
+            m_UickedFruit = new ChannelObserver<Vector3>();
         }
+
         private GameObject getPrefabFrom(string i_Location)
         {
             return (GameObject)Resources.Load(i_Location, m_Type);
         }
+
         public GameObject GetRnaomFoodObj()
         {
             return m_FoodPrefab[Random.RandomRange(0, m_FoodPrefab.Count - 1)];
         }
+
         public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
         {
             bool isSpawn = false;
@@ -60,7 +67,7 @@ namespace DiningCombat.FoodObj.Managers
             GameObject spawn = Instantiate(GetRnaomFoodObj(), i_Position, Quaternion.identity);
             GameFoodObj foodObj = spawn.GetComponent<GameFoodObj>();
             foodObj.Destruction += GameManager.Singlton.OnDestruction_GameFoodObj;
-            //foodObj.Collect += OnFoodCollect;
+            m_UickedFruit.ViewingElements += foodObj.ViewElement;
             return spawn;
         }
 
@@ -125,6 +132,11 @@ namespace DiningCombat.FoodObj.Managers
                 Singlton = instance;
             }
             return Singlton;
+        }
+
+        internal List<Vector3> GetAllUnpicFood()
+        {
+            return m_UickedFruit.GetAllDataFromViewingElements();
         }
     }
 }

@@ -2,9 +2,6 @@
 using DesignPatterns.Abstraction;
 using DiningCombat.FoodObj;
 using DiningCombat.Player;
-using System;
-using System.Collections.Generic;
-using Unity.Barracuda;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
@@ -51,7 +48,6 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 
         public virtual void SetPlayerHand(BridgeAbstractionAction i_Player)
         {
-            Debug.Log("SetPlayerHand ");
             Player = i_Player;
         }
 

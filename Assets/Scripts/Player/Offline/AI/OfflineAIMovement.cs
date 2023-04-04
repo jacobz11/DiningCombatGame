@@ -1,23 +1,32 @@
 ﻿using Assets.Scrips_new.AI.Algo;
+using Assets.Scripts.AI.Algo;
 using UnityEngine;
 
 namespace DiningCombat.Player.Manger
 {
     internal class OfflineAIMovement :BridgeImplementor3DMovement  // IAgent //Agent
     {
-        private IAiAlgoAgent<Vector3, Vector3> m_Ai;
+        private SimpleAiAlgo m_Ai;
+        [SerializeField]
+        [Range(0f, 1f)]
+        private float m_AutoRotationSpeed = 0.01f;
+        [SerializeField]
+        private bool isTest = false;
 
-        public IAiAlgoAgent<Vector3, Vector3> Ai 
+        public SimpleAiAlgo Ai 
         { 
             get { return m_Ai; } 
             set { m_Ai = value; }
         }
+
+        private new void Awake()
+        {
+            base.Awake();
+            m_Ai = new SimpleAiAlgo(this.transform);
+        }
+
         void Update()
         {
-            if (true)
-            {
-                return;
-            }
             Ai.RunAlog();
             MoveVertonta();
             MoveHorizontal();
@@ -27,12 +36,12 @@ namespace DiningCombat.Player.Manger
 
         public override void MoveVertonta()
         {
-            this.m_Vertical = Ai.GetAxis("Vertical");
+            this.m_Vertical = Ai.GetVerticalAxis();
             base.MoveVertonta();
         }
         public override void MoveHorizontal()
         {
-            this.m_Horizontal = Ai.GetAxis("Horizontal");
+            this.m_Horizontal = Ai.GetHorizontalAxis();
             base.MoveHorizontal();
         }
 
@@ -46,7 +55,7 @@ namespace DiningCombat.Player.Manger
         }
         private void MoveRotating()
         {
-           m_Movement.Rotate(Ai.GetAxis("Rotate"));
+           m_Movement.Rotate(Ai.GetRotateAxis()* m_AutoRotationSpeed);
         }
 
         private string GetDebuggerDisplay()

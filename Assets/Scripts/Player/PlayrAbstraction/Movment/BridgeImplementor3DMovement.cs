@@ -27,7 +27,7 @@ namespace DiningCombat.Player
 
         public bool IsWaitingBoostTimeOver => Time.time >= m_LestBost + m_StandbyTime;
 
-        private void Awake()
+        protected void Awake()
         {
             m_AnimationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
 
@@ -134,7 +134,14 @@ namespace DiningCombat.Player
                     m_IsAnyMovement = false;
                 }
             }
-            m_AnimationChannel.SetPlayerAnimationToRunBack(isRunBack);
+            if(m_AnimationChannel is null)
+            {
+                Debug.Log("m_AnimationChannel is null");
+            }
+            else
+            {
+                m_AnimationChannel.SetPlayerAnimationToRunBack(isRunBack);
+            }
             RunAnimation?.Invoke(o_IsForward);
 
             m_Vertical = 0f;

@@ -1,22 +1,25 @@
-﻿using DiningCombat.Channels.GameFoodObj;
+﻿using Assets.Scripts.Util.Channels.Abstracts;
+using DiningCombat.Channels.GameFoodObj;
 using DiningCombat.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 namespace DiningCombat.FoodObj
 {
-    internal class GameFoodObj : MonoBehaviour
+    internal class GameFoodObj : MonoBehaviour , IViewingElementsPosition
     {
         public event Action<float, int> HitPlayer;
 
         public event Action Destruction;
+        public event Action<GameFoodObj> Collect;
 
         private bool m_IsThrow;
         private Rigidbody m_Rigidbody;
         private BridgeAbstractionAction m_PlayerHolding;
+        [SerializeField]
+        private Transform m_HolldingPoint;
         [SerializeField]
         private ParticleSystem m_Effect;
         [SerializeField]
@@ -37,12 +40,10 @@ namespace DiningCombat.FoodObj
             }
         }
 
-        public Action<GameFoodObj> Collect { get; internal set; }
-
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
-            ChannelGameFoodObj.s_UickedFruit.ViewingElements += addPositionToTheListOfUnpic;
+            //ChannelGameFoodObj.s_UickedFruit.ViewingElements += addPositionToTheListOfUnpic;
             
             if (m_Rigidbody == null)
             {
@@ -50,10 +51,10 @@ namespace DiningCombat.FoodObj
             }
         }
 
-        private void addPositionToTheListOfUnpic(List<Vector3> i_ListPassedDuringTheInvoke)
-        {
-            i_ListPassedDuringTheInvoke.Add(transform.position);
-        }
+        //private void addPositionToTheListOfUnpic(List<Vector3> i_ListPassedDuringTheInvoke)
+        //{
+        //    i_ListPassedDuringTheInvoke.Add(transform.position);
+        //}
 
         public void ThrowFood(float i_ForceMulti, Vector3 i_ThrowDirection)
         {
@@ -83,7 +84,8 @@ namespace DiningCombat.FoodObj
                 this.transform.SetParent(this.m_PlayerHolding.PikUpPonit, true);
                 this.transform.position = this.m_PlayerHolding.PikUpPonit.position;
                 tag = GameGlobal.TagNames.k_Picked;
-                ChannelGameFoodObj.s_UickedFruit.ViewingElements -= addPositionToTheListOfUnpic;
+                Managers.ManagerGameFoodObj.Singlton.m_UickedFruit.ViewingElements -= ViewElement;
+                //ChannelGameFoodObj.s_UickedFruit.ViewingElements -= addPositionToTheListOfUnpic;
                 DisableRagdoll();
             }
         }
@@ -104,10 +106,8 @@ namespace DiningCombat.FoodObj
 
         private void collisionAfterThrowingHandler(Collision i_Collision)
         {
-            Debug.Log("collisionAfterThrowingHandler : "  + isPlayer(i_Collision)); 
             if (isPlayer(i_Collision))
             {
-                Debug.Log("in (isPlayer(i_Collision)");
                 IntiraelPlayerManger playerManger = i_Collision.gameObject.GetComponentInChildren<IntiraelPlayerManger>();
                 if (playerManger != null)
                 {
@@ -175,6 +175,11 @@ namespace DiningCombat.FoodObj
         {
             Destruction?.Invoke();
             Destroy(this.gameObject, 1);
+        }
+
+        public void ViewElement(List<Vector3> elements)
+        {
+            elements.Add(transform.position);
         }
     }
 }

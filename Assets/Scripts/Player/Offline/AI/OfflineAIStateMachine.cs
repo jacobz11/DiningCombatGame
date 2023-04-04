@@ -7,14 +7,7 @@ namespace DiningCombat.Player.Manger
     {
         public override void Update()
         {
-            if (m_States is null || m_States.Length == 0)
-            {
-                Debug.Log("m_States is not valid");
-            }
-            else
-            {
-                base.Update();
-            }
+            base.Update();
         }
         internal override void BuildState()
         {
@@ -31,8 +24,10 @@ namespace DiningCombat.Player.Manger
 
             protected override bool IsPassStage()
             {
-                return false;
+                return HaveGameObject;
             }
+
+            
         }
 
         internal class StateHoldsObjOfflineAI : StateHoldsObj

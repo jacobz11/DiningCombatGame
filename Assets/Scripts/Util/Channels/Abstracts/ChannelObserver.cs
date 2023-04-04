@@ -15,7 +15,7 @@ namespace Util
             Viewer?.Invoke(list);
         }
 
-        private List<T> GetAllDataFromViewingElements()
+        public List<T> GetAllDataFromViewingElements()
         {
             List<T> list = new List<T>();
             ViewingElements?.Invoke(list);

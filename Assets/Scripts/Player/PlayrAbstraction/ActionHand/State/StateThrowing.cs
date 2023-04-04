@@ -21,7 +21,6 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             base.OnStateEnter(list);
             Debug.Log(" StateThrowing init");
-            this.m_PlayrHand.ThrowingAnimator = true;
         }
 
         public override void OnStateExit(params object[] list)
