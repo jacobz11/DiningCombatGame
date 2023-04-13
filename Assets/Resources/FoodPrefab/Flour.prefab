@@ -107,8 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7192988446319441971}
   - component: {fileID: 4921163551931436405}
-  - component: {fileID: 803269861720986884}
   - component: {fileID: -6790392511193119763}
+  - component: {fileID: 2134179030616025932}
   m_Layer: 0
   m_Name: Flour
   m_TagString: FoodObj
@@ -149,23 +149,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &803269861720986884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6155610106964904069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.55, y: 0, z: 0}
-  m_Effect: {fileID: 2826399002054249459, guid: c98edd945d2558e4bb65a0203f79a116, type: 3}
-  m_HitPlayerMull: 0.35
-  m_MaxHitPlayerMull: 11.6
-  FramesToExitPlayer: 5
 --- !u!135 &-6790392511193119763
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -179,6 +162,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2134179030616025932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6155610106964904069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46598ae43ba127b45a3d8ef5700ff631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FramesToExitPlayer: 5
+  m_EffectPrePab: {fileID: 0}
 --- !u!1 &7422028446004819180
 GameObject:
   m_ObjectHideFlags: 0

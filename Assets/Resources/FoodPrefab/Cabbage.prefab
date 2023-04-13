@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4810439061843127168}
   - component: {fileID: 7723094390133362636}
-  - component: {fileID: -2234611914800480377}
   - component: {fileID: 3993145262059571948}
+  - component: {fileID: 3917149706964464908}
   m_Layer: 0
   m_Name: Cabbage
   m_TagString: FoodObj
@@ -52,23 +52,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2234611914800480377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5482208656449768719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.5, y: 0, z: 0}
-  m_Effect: {fileID: 2826399002054249459, guid: c98edd945d2558e4bb65a0203f79a116, type: 3}
-  m_HitPlayerMull: 0.43
-  m_MaxHitPlayerMull: 51.2
-  FramesToExitPlayer: 5
 --- !u!135 &3993145262059571948
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -82,6 +65,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3917149706964464908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5482208656449768719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46598ae43ba127b45a3d8ef5700ff631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FramesToExitPlayer: 5
+  m_EffectPrePab: {fileID: 0}
 --- !u!1 &6216075270002160110
 GameObject:
   m_ObjectHideFlags: 0

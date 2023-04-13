@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6015070691376942220}
   - component: {fileID: 8142976864650545036}
-  - component: {fileID: 5655396114899551053}
   - component: {fileID: 3308383252960559151}
+  - component: {fileID: 7034272043525779898}
   m_Layer: 0
   m_Name: Apple
   m_TagString: FoodObj
@@ -52,23 +52,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5655396114899551053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587910177826891101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47f0da6ea3ffcd842a54f879aa3eaf62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionOffset: {x: 0.5, y: 0, z: 0}
-  m_Effect: {fileID: 2826399002054249459, guid: c98edd945d2558e4bb65a0203f79a116, type: 3}
-  m_HitPlayerMull: 0.51
-  m_MaxHitPlayerMull: 57.6
-  FramesToExitPlayer: 5
 --- !u!135 &3308383252960559151
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -82,6 +65,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7034272043525779898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3587910177826891101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46598ae43ba127b45a3d8ef5700ff631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FramesToExitPlayer: 5
+  m_EffectPrePab: {fileID: 0}
 --- !u!1 &5632784650316008937
 GameObject:
   m_ObjectHideFlags: 0
