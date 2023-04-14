@@ -67,7 +67,7 @@ public class IntiraelPlayerManger : MonoBehaviour
     {
         Kills = 0;
         Score = 0;
-        m_LifePoint = GameGlobal.PlayerDataG.k_InitLifePoint;
+        //m_LifePoint = GameGlobal.PlayerDataG.k_InitLifePoint;
         IsHoldingFoodObj = false;
     }
 

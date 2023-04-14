@@ -55,23 +55,6 @@ namespace DiningCombat
             public const string k_FlourLocation = @"FoodPrefab\Flour";
         }
 
-        public static class PlayerDataG
-        {
-            public const float k_MaxPlayerLife = 100;
-
-            public const float k_DefaultPlayerMovementJumpHeight = 2f;
-            public const float k_DefaultPlayerMovementRunSpeed = 20;
-            public const float k_DefaultPlayerMovementRunSideSpeed = 5;
-            public const float k_DefaultPlayerMovementGroundCheckDistance = 0.2F;
-            public const float k_DefaultPlayerMovementGravity = -9.81F;
-
-            public const float k_DefaultCameraFollowMouseSensetivity = 1000f;
-
-            public const float k_MinDistanceToPickUp = 2f;
-            public const int k_MaxItemToPick = 1;
-            public const int k_InitLifePoint = 100;
-        }
-
         public enum ePlayerModeType
         {
             OfflinePlayer,

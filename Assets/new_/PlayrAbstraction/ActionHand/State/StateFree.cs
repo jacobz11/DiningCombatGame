@@ -1,63 +1,49 @@
 ﻿using Assets.Scripts.Player.Offline.Player.States;
-using DiningCombat.Player;
-using DiningCombat;
 using System;
 using UnityEngine;
+using DesignPatterns.Abstraction;
 
 namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
 {
-    internal abstract class StateFree : IStatePlayerHand
+    internal class StateFree : IStatePlayerHand
     {
-        public event Action<GameObject> PlayerCollectedFood;
+        private const string k_FoodObj = "uncollct";
+        //private AcitonStateMachine m_AcitonStateMachine;
+        private FoodObject m_FoodObj;
 
-        public GameObject m_FoodObj;
+        public event Action<CollectedFoodEvent> PlayerCollectedFood;
 
-        public StateFree(BridgeAbstractionAction i_PickUpItem, BridgeImplementorAcitonStateMachine i_Machine)
-            : base(i_PickUpItem, i_Machine)
+        public class CollectedFoodEvent : EventArgs
         {
-            this.m_FoodObj = null;
+            public FoodObject gameFood;
         }
 
         protected bool HaveGameObject => this.m_FoodObj != null;
 
-        protected abstract bool IsPassStage();
+        //public StateFree(AcitonStateMachine i_AcitonStateMachine)
+        //{
+        //    m_FoodObj = null;
+        //    m_AcitonStateMachine = i_AcitonStateMachine;
+        //}
 
-        public override void EnterCollisionFoodObj(Collider other)
+        public void EnterCollisionFoodObj(Collider other)
         {
-            if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+            if (other.transform.TryGetComponent<FoodObject>(out FoodObject o_FoodObj))
             {
-                this.m_FoodObj = other.gameObject;
+                //if (o_FoodObj.CanCollect())
+                //{
+                //    this.m_FoodObj = o_FoodObj;
+                //}
             }
         }
 
-        public override void ExitCollisionFoodObj(Collider other)
+        public void ExitCollisionFoodObj(Collider other)
         {
-            if (other.gameObject.CompareTag(GameGlobal.TagNames.k_FoodObj))
+            if (m_FoodObj is not null)
             {
-                this.m_FoodObj = null;
-            }
-        }
-
-        public override void OnStateExit(params object[] list)
-        {
-        }
-
-        public override void OnStateEnter(params object[] list)
-        {
-            base.OnStateEnter(list);
-            this.m_PlayrHand.SetGameFoodObj(null);
-            this.m_FoodObj = null;
-            Debug.Log("init state : StateFree");
-        }
-
-        public override void OnStateUpdate(params object[] list)
-        {
-            if (this.IsPassStage() && m_Buffer.IsBufferOver())
-            {
-                if (m_FoodObj is not null)
+                if (other.gameObject.CompareTag(k_FoodObj))
                 {
-                    this.m_PlayrHand.SetGameFoodObj(this.m_FoodObj);
-                    this.m_Machine.StatesIndex++;
+                    this.m_FoodObj = null;
                 }
             }
         }
@@ -66,5 +52,44 @@ namespace Assets.Scripts.Player.PlayrAbstraction.ActionHand
         {
             return "StateFree : ";
         }
+
+        public void OnSteteEnter()
+        {
+            this.m_FoodObj = null;
+            Debug.Log("init state : StateFree");
+        }
+
+
+        public void OnSteteExit()
+        {
+            PlayerCollectedFood?.Invoke(new CollectedFoodEvent()
+            {
+                gameFood = m_FoodObj
+            });
+        }
+
+        public void Update()
+        {
+        }
+
+        public bool OnPickUpAction()
+        {
+            return HaveGameObject
+                && m_FoodObj.CurrentStatus.TryCollect(m_AcitonStateMachine.PicUpPoint);
+        }
+        public void OnChargingAction()
+        {
+        }
+
+        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
+        {
+            switch (i_State)
+            {
+                case IDCState.eState.ExitingState:
+                    PlayerCollectedFood += i_Action;
+                    break;
+            }
+        }
     }
+
 }
