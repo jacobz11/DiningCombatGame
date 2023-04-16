@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 namespace DesignPatterns.Abstraction
 {
     public interface IDCState

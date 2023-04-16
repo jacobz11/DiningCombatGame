@@ -1,3 +1,9 @@
-﻿internal interface IStateMachine<T1, T2>
+﻿using DesignPatterns.Abstraction;
+
+internal interface IStateMachine<T, TIndex> where T : IDCState
 {
+    public T CurrentStatu { get; }
+
+    TIndex Index { get; }
+
 }

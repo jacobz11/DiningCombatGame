@@ -1,29 +1,30 @@
 ﻿using System;
 
-    [Serializable]
-    internal struct Cuntter
+[Serializable]
+internal struct Cuntter
+{
+    public short m_Max;
+    public short m_Min;
+    private short m_Value;
+        
+        
+    public bool TryInc()
     {
-        public short m_Max;
-        public short m_Min;
-        private short m_Value;
-
-        public bool TryInc()
+        bool canInc = m_Value <= m_Max;
+        if (canInc)
         {
-            bool canInc = m_Value <= m_Max;
-            if (canInc)
-            {
-                m_Value++;
-            }
-            return canInc;
+            m_Value++;
         }
-
-        public bool TryDec()
-        {
-            bool canDec = m_Value >= m_Min;
-            if (canDec)
-            {
-                m_Value--;
-            }
-            return canDec;
-        }
+        return canInc;
     }
+
+    public bool TryDec()
+    {
+        bool canDec = m_Value >= m_Min;
+        if (canDec)
+        {
+            m_Value--;
+        }
+        return canDec;
+    }
+}

@@ -1,5 +1,8 @@
-﻿internal interface IFoodState
+﻿using DesignPatterns.Abstraction;
+using UnityEngine;
+
+internal interface IFoodState : IDCState    
 {
-    void OnSteteEnter();
-    void OnSteteExit();
+    bool ThrowingAction();
+    bool TryCollect(AcitonStateMachine i_Collcter);
 }

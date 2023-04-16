@@ -1,18 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.scrips;
 using UnityEngine;
+using System;
+using Assets.Scripts.Player;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action<Collider> OnExitCollisionFoodObj;
+    public event Action<Collider> OnEnterCollisionFoodObj;
+    public event Action OnPickUpAction;
+    public event Action OnChargingAction;
+    [SerializeField] private GameInput gameInput;
+    [SerializeField] private Transform m_PickUpPoint;
+    private PlayerMovment m_Movment;
+    private Rigidbody m_Rigidbody;
+    //private AcitonStateMachine m_AcitonHand;
+
+    public Transform PicUpPoint { get; internal set; }
+
+    private void Awake()
     {
-        
+        m_Rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        gameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
+    }
+
+    private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
+    {
+        Debug.Log("GameInput_OnChargingAction");
     }
 }
