@@ -2763,7 +2763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Prefap: {fileID: 0}
   m_CuntterOfFoodInTheGame:
-    m_Max: 2
+    m_Max: 15
     m_Min: 0
   m_SpawnData:
     m_SpawnTimeBuffer: 1.5
@@ -2781,6 +2781,7 @@ MonoBehaviour:
     - {fileID: 1579650163785305974, guid: 8c58dd4b031106f4ea26293794bbb442, type: 3}
     - {fileID: 7680476970656670080, guid: d71923cd0fded964ea68e2d78e7d3082, type: 3}
     - {fileID: 476650111608544264, guid: 8f5220f1bce0d2b448dd7cbc23e5439c, type: 3}
+    - {fileID: 1579650163785305974, guid: 6062ecf1766a3b94a974591bb2046213, type: 3}
 --- !u!4 &2125214546
 Transform:
   m_ObjectHideFlags: 0
@@ -2843,11 +2844,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FlourPool:
-    m_Prefap: {fileID: 7379061964215497701, guid: c98edd945d2558e4bb65a0203f79a116, type: 3}
+    m_Prefap: {fileID: 2826399002054249459, guid: c98edd945d2558e4bb65a0203f79a116, type: 3}
   m_PomegranatePool:
-    m_Prefap: {fileID: 854523289628350174, guid: 182ac83a43825a94c9fb8db147ca2506, type: 3}
-  m_PopcornPool:
-    m_Prefap: {fileID: 7100243384355620640, guid: 38826ab28f9e4c544997a316fa24970f, type: 3}
+    m_Prefap: {fileID: 854523289628350144, guid: 182ac83a43825a94c9fb8db147ca2506, type: 3}
+  m_BananaPool:
+    m_Prefap: {fileID: 7100243384355620647, guid: 38826ab28f9e4c544997a316fa24970f, type: 3}
 --- !u!1001 &3816416617879895441
 PrefabInstance:
   m_ObjectHideFlags: 0

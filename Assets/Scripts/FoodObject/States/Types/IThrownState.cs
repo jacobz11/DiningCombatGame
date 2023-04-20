@@ -7,7 +7,7 @@ using Assets.Scripts.FoodObject.Pools;
 
 namespace Assets.DataObject
 {
-    internal abstract class IThrownState : IFoodState, IAnimationDisturbing, IDamaging
+    internal abstract class IThrownState : IFoodState, IAnimationDisturbing, IDamaging, IThrownObj
     {
         public event Action OnReturnToPool;
         public class HitPointEventArgs : EventArgs
@@ -51,11 +51,13 @@ namespace Assets.DataObject
 
         public virtual void Update()
         {
+            Debug.Log("IThrownState");
         }
 
         public virtual void OnSteteExit()
         {
         }
+        
 
         public virtual void OnSteteEnter()
         {

@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2250693250324899303}
   - component: {fileID: 8808579752082733611}
-  - component: {fileID: 1502618802061912511}
+  - component: {fileID: 1083902622202088164}
   - component: {fileID: 1039290500526698479}
   - component: {fileID: -4482980943158089321}
   - component: {fileID: -2038578333747916954}
   m_Layer: 0
   m_Name: Banana
-  m_TagString: Untagged
+  m_TagString: FoodObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,8 +54,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1502618802061912511
-BoxCollider:
+--- !u!136 &1083902622202088164
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -64,9 +64,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 0.13436294}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.11319989
+  m_Height: 0.82204634
+  m_Direction: 0
+  m_Center: {x: -0.032699876, y: -0.0050339955, z: -0.0067118877}
 --- !u!114 &1039290500526698479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 6162616094248623806}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 2
   m_Height: 0.1
   m_Direction: 1

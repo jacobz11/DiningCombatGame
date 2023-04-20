@@ -3,6 +3,7 @@ using DesignPatterns.Abstraction;
 using System;
 using UnityEngine;
 using static Assets.DataObject.ThrownActionTypesBuilder;
+using static Assets.Scripts.FoodObject.Pools.FoodEffactPool;
 
 namespace Assets.DataObject
 {
@@ -16,7 +17,7 @@ namespace Assets.DataObject
         protected float m_Countdown;
         protected eElementSpecialByName m_EffectType;
         protected Transform m_Transform;
-        protected GameObject m_Effect;
+        protected ParticleSystem m_Effect;
         private GameObject m_ObjectVisal;
         private GameObject m_TransparentObjectVisal;
         private Collider m_Triger;
@@ -36,6 +37,7 @@ namespace Assets.DataObject
 
         public override void OnSteteEnter()
         {
+            Debug.Log("OnSteteEnter MineLike");
             base.OnSteteEnter();
             m_TimeBefuerCollision = 0;
             m_Countdown = r_CountdownTime;
@@ -45,11 +47,13 @@ namespace Assets.DataObject
             m_ObjectVisal.SetActive(!i_Visibility);
             m_TransparentObjectVisal.SetActive(i_Visibility);
         }
-        public void Update()
+        public override void Update()
         {
+
             m_TimeBefuerCollision += Time.deltaTime;
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
+            Debug.Log("m_Countdown :" + m_Countdown + " isCountdownOver :" + isCountdownOver + " IsActionHappen " + IsActionHappen);
             if (isCountdownOver || !IsActionHappen)
             {
                 ReturnToPool();
@@ -65,11 +69,12 @@ namespace Assets.DataObject
             Debug.Log("ReturnToPool");
             if (m_Effect!= null)
             {
+                m_Effect.gameObject.SetActive(false);
+                m_Effect.Stop();
                 FoodEffactPool.Instance[m_EffectType].ReturnToPool(m_Effect);
                 m_Effect = null;
             }
             ToggleBetweenVisibility(false);
-
             m_Triger.enabled = false;
             base.ReturnToPool();
         }
@@ -79,6 +84,7 @@ namespace Assets.DataObject
             m_Triger.enabled = true;
             m_Rigidbody.AddForce(0.5f, 0.5f, 0.5f);
         }
+
         public override void Activation(Collider i_Collider)
         {
             if (m_TimeBefuerCollision < k_TImeToTrow)
@@ -86,7 +92,9 @@ namespace Assets.DataObject
                 return;
             }
             m_Countdown = r_EffctTime;
-            m_Effect = FoodEffactPool.Instance[m_EffectType].Get();
+
+            DisplayEffect();
+
             IsActionHappen = true;
             float damage = CalculatorDamag();
             float ponits = 0;
@@ -107,6 +115,14 @@ namespace Assets.DataObject
             {
 
             });
+        }
+
+        protected void DisplayEffect()
+        {
+            m_Effect = FoodEffactPool.Instance[m_EffectType].Get();
+            m_Effect.transform.position = m_Transform.position;
+            m_Effect.gameObject.SetActive(true);
+            m_Effect.Play();
         }
     }
 }

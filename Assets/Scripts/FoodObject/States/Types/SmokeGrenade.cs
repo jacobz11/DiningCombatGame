@@ -13,13 +13,17 @@ namespace Assets.DataObject
         {
         }
 
+        public override void OnSteteEnter()
+        {
+            base.OnSteteEnter();
+            Debug.Log("GrenadeLike OnSteteEnter");
+        }
+
         public override float CalculatorDamag() => 0f;
         
         public override void Activate()
         {
-            m_Effect = FoodEffactPool.Instance[m_EffectType].Get();
-            m_Effect.transform.position = m_Transform.position;
-            m_Effect.SetActive(true);
+            DisplayEffect();
             m_Countdown = r_EffctTime;
         }
     }

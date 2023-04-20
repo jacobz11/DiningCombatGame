@@ -6,11 +6,12 @@ using UnityEngine;
 namespace Assets.Util.DesignPatterns
 {
     [Serializable]
-    internal abstract class GenericObjectPool<T> : NetworkBehaviour  where T : Component
+    public abstract class GenericObjectPool<T> : NetworkBehaviour  where T : Component
     {
         private const int k_AddingParTime = 1;
         [SerializeField]
         private T m_Prefap;
+        public T Prefap { get { return m_Prefap; } set { m_Prefap = value; } }
 
         public static GenericObjectPool<T> Instance { get; protected set; }
 

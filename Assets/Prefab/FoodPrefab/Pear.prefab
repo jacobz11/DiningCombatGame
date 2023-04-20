@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8268314845606116356}
   - component: {fileID: 638343850881997988}
-  - component: {fileID: 7634548293043042589}
   - component: {fileID: -7381125959600561522}
   - component: {fileID: 2492114828018071848}
+  - component: {fileID: 5847829297609392822}
   m_Layer: 0
   m_Name: Pear
   m_TagString: Untagged
@@ -52,19 +52,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &7634548293043042589
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6549573676523198308}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.25853333, y: 0.25272468, z: 0.21783057}
-  m_Center: {x: 0.002537474, y: -0.002177909, z: 0.010112688}
 --- !u!114 &-7381125959600561522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +100,20 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!136 &5847829297609392822
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6549573676523198308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.11234772
+  m_Height: 0.3058071
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.006095022, z: -0.0075359344}
 --- !u!1001 &4086961002912357385
 PrefabInstance:
   m_ObjectHideFlags: 0

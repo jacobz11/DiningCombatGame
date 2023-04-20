@@ -127,9 +127,9 @@ namespace Assets.DataObject
                 case eThrownActionTypes.Throwing:
                     return new ThrownState(this);
                 case eThrownActionTypes.SmokeGrenade:
-                    return new ThrownState(this);
+                    return new SmokeGrenade(this);
                 case eThrownActionTypes.Grenade:
-                    return new ThrownState(this);
+                    return new GrenadeLike(this);
                 case eThrownActionTypes.Mine:
                     return new MineLike(this);
             }
@@ -137,6 +137,17 @@ namespace Assets.DataObject
             return new ThrownState(this);
         }
 
+        internal Type GetBuildType()
+        {
+            switch (m_Type)
+            {
+                case eThrownActionTypes.Throwing:       return typeof(ThrownState);
+                case eThrownActionTypes.Grenade:        return typeof(ThrownState);
+                case eThrownActionTypes.SmokeGrenade:   return typeof(SmokeGrenade);
+                case eThrownActionTypes.Mine:           return typeof(MineLike);
+            }
+            return typeof(ThrownState);
+        }
 
         public static implicit operator IThrownState(ThrownActionTypesBuilder i_Builder)
         {
@@ -145,9 +156,9 @@ namespace Assets.DataObject
                 case eThrownActionTypes.Throwing:
                     return new ThrownState(i_Builder);
                 case eThrownActionTypes.SmokeGrenade:
-                    return new ThrownState(i_Builder);
+                    return new SmokeGrenade(i_Builder);
                 case eThrownActionTypes.Grenade:
-                    return new ThrownState(i_Builder);
+                    return new GrenadeLike(i_Builder);
                 case eThrownActionTypes.Mine:
                     return new MineLike(i_Builder);
             }

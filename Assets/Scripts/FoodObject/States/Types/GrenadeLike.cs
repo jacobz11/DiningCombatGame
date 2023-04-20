@@ -4,6 +4,7 @@ using DesignPatterns.Abstraction;
 using System;
 using UnityEngine;
 using static Assets.DataObject.ThrownActionTypesBuilder;
+using static Assets.Scripts.FoodObject.Pools.FoodEffactPool;
 
 namespace Assets.DataObject
 {
@@ -16,7 +17,7 @@ namespace Assets.DataObject
         protected float m_Countdown;
         protected eElementSpecialByName m_EffectType;
         protected Transform m_Transform;
-        protected GameObject m_Effect;
+        protected ParticleSystem m_Effect;
 
         public GrenadeLike(ThrownActionTypesBuilder i_BuilderData) : base(i_BuilderData)
         {
@@ -25,10 +26,12 @@ namespace Assets.DataObject
             m_EffectType = i_BuilderData.m_ElementName;
             r_ForceHitExsplostin = i_BuilderData.m_GrenadeData.ForceHitExsplostin;
             r_Radius = i_BuilderData.m_GrenadeData.InpactRadius;
+            m_Transform = i_BuilderData.Transform;
         }
 
         public override void OnSteteEnter()
         {
+            Debug.Log("GrenadeLike OnSteteEnter");
             base.OnSteteEnter();
             m_Rigidbody.AddForce(ActionDirection);
             m_Countdown = r_CountdownTime;
@@ -40,7 +43,7 @@ namespace Assets.DataObject
         }
 
         public override float CalculatorDamag() => Vector2AsRang.Random(RangeDamage);
-        public void Update()
+        public override void Update()
         {
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
@@ -58,14 +61,29 @@ namespace Assets.DataObject
         }
         protected override void ReturnToPool()
         {
-            FoodEffactPool.Instance[m_EffectType].ReturnToPool(m_Effect);
-            m_Effect = null;
+            Debug.Log("ReturnToPool");
+            if (m_Effect != null)
+            {
+                m_Effect.gameObject.SetActive(false);
+                m_Effect.Stop();
+                FoodEffactPool.Instance[m_EffectType].ReturnToPool(m_Effect);
+                m_Effect = null;
+            }
             base.ReturnToPool();
+        }
+
+        protected void DisplayEffect()
+        {
+            m_Effect = FoodEffactPool.Instance[m_EffectType].Get();
+
+            m_Effect.gameObject.transform.position = m_Transform.position;
+            m_Effect.gameObject.SetActive(true);
+            m_Effect.Play();
         }
 
         public override void Activate()
         {
-            m_Effect = FoodEffactPool.Instance[m_EffectType].Get();
+            DisplayEffect();
             IsActionHappen = true;
             float damage = CalculatorDamag();
             float ponits = 0;

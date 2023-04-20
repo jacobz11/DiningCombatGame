@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7690828581495308181}
   - component: {fileID: 468031488773159180}
-  - component: {fileID: 7690263621845932168}
+  - component: {fileID: 4087393567106011512}
   - component: {fileID: -7914682843659413139}
   - component: {fileID: 350215174463078247}
   m_Layer: 0
   m_Name: Cabbage
-  m_TagString: Untagged
+  m_TagString: FoodObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,8 +52,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &7690263621845932168
-BoxCollider:
+--- !u!136 &4087393567106011512
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -62,9 +62,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.28272226, y: 0.17213434, z: 0.36377382}
-  m_Center: {x: 0.0061808676, y: 0.05478558, z: -0.00007665157}
+  m_Radius: 0.08738105
+  m_Height: 0.29880583
+  m_Direction: 2
+  m_Center: {x: 0.011042334, y: 0.08499156, z: 0}
 --- !u!114 &-7914682843659413139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,16 +126,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01e6e32335b88f244a146af71bb8d6ea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.41667503
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 01e6e32335b88f244a146af71bb8d6ea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9298384
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 01e6e32335b88f244a146af71bb8d6ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0.03033
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01e6e32335b88f244a146af71bb8d6ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00088
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01e6e32335b88f244a146af71bb8d6ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.02457
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01e6e32335b88f244a146af71bb8d6ea, type: 3}
       propertyPath: m_LocalRotation.w

@@ -15,11 +15,9 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     public event Action OnCollect;
     private Rigidbody m_Rigidbody;
     private AcitonStateMachine m_Collector;
+    private Type m_Type;
     [SerializeField]
     private ThrownActionTypesBuilder m_TypeBuild;
-    [Range(0, 200)]
-    [SerializeField] 
-    private int m_Frames = 5;
 
     #region State
     private IFoodState[] m_FoodStates;
@@ -49,8 +47,10 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         m_Rigidbody = GetComponent<Rigidbody>();
         UncollectState uncollect = new UncollectState(this);
         uncollect.Collect += Uncollect_Collect;
+        m_Type = m_TypeBuild.GetBuildType();
         IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
         thrownState.OnReturnToPool += thrownState_OnReturnToPool;
+
         m_FoodStates = new IFoodState[]
         {
             uncollect,
@@ -113,11 +113,13 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         IDamaging damaging = CurrentState as IDamaging;
         if (damaging is not null)
         {
+            Debug.Log("OnCollisionEnter");
             damaging.Activation(collision);
         }
     }
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter");
         IDamaging damaging = CurrentState as IDamaging;
         if (damaging is not null)
         {

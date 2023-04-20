@@ -7,7 +7,9 @@ using UnityEngine;
 internal class ThrownState : IThrownState
 {
     public const int k_Indx = 2;
-    private const float k_TImeToTrow = 0.7f;
+    private const float k_TimeToTrow = 0.7f;
+    private const float k_TimeToReturn = 7.7f;
+    
     private float m_TimeBefuerCollision;
     public ThrownState(ThrownActionTypesBuilder i_Data) : base(i_Data)
     {
@@ -28,11 +30,15 @@ internal class ThrownState : IThrownState
             IsActionHappen = true;
         }
         m_TimeBefuerCollision += Time.deltaTime;
+        if (m_TimeBefuerCollision > k_TimeToReturn)
+        {
+            ReturnToPool();
+        }
     }
 
     public override void Activation(Collision collision)
     {
-        if (m_TimeBefuerCollision < k_TImeToTrow)
+        if (m_TimeBefuerCollision < k_TimeToReturn)
         {
             return;
         }
