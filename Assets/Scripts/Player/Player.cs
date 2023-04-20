@@ -1,7 +1,6 @@
 using Assets.scrips;
 using UnityEngine;
 using System;
-using Assets.Scripts.Player;
 using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour

@@ -12,6 +12,7 @@ TagManager:
   - ThrownObject
   - wall
   - Picked
+  - water
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3410645433308712802}
   - component: {fileID: 8964540270728255978}
   - component: {fileID: 3830942412399067739}
+  - component: {fileID: -2648449364674545514}
+  - component: {fileID: 704359654250084138}
   m_Layer: 0
   m_Name: Tomato
   m_TagString: Untagged
@@ -27,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 476650111608544264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5573423041251406675}
   m_Father: {fileID: 0}
@@ -63,6 +65,54 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.16483685, y: 0.11065316, z: 0.19418143}
   m_Center: {x: 0.00096704066, y: 0.05426705, z: -0.0050761774}
+--- !u!114 &-2648449364674545514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476650111608544264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0895eeaecb857f74989fed93cb5826d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TypeBuild:
+    m_Type: 0
+    m_ElementName: 0
+    m_MaxDamagePoint: 0
+    m_MinDamagePoint: 0
+    m_GameFoodObj: {fileID: 0}
+    m_MinData:
+      m_Triger: {fileID: 0}
+      m_InpactRadius: 0
+      m_EffctTime: 0
+      m_ForceHitExsplostin: 0
+      m_CountdownTime: 0
+      m_GameObjectVisal: {fileID: 0}
+      m_AlmostTransparent: {fileID: 0}
+    m_GrenadeData:
+      InpactRadius: 0
+      EffctTime: 0
+      LifeTimeUntilAction: 0
+      ForceHitExsplostin: 0
+  m_Frames: 5
+--- !u!114 &704359654250084138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476650111608544264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &5391512198511662264
 PrefabInstance:
   m_ObjectHideFlags: 0

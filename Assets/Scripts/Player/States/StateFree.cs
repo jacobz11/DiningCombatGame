@@ -72,7 +72,7 @@ internal class StateFree : IStatePlayerHand
     public bool OnPickUpAction(out GameFoodObj o_Collcted)
     {
         bool canCollect = HaveGameObject
-            && m_FoodObj.CurrentStatu.TryCollect(m_AcitonStateMachine);
+            && m_FoodObj.CurrentState.TryCollect(m_AcitonStateMachine);
         o_Collcted = canCollect ? m_FoodObj : null;
 
         return canCollect;

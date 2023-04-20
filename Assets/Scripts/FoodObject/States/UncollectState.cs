@@ -4,6 +4,7 @@ using UnityEngine;
 
 internal class UncollectState : IFoodState
 {
+    public const int k_Indx = 0;
     public event Action<AcitonStateMachine> Collect;
     private GameFoodObj gameFood;
     public UncollectState(GameFoodObj gameFood)
@@ -30,8 +31,16 @@ internal class UncollectState : IFoodState
         return true;
     }
 
-    public bool ThrowingAction()
+    public bool IsThrowingAction()
     {
         return false;
+    }
+
+    public void Update()
+    {}
+
+    public void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount)
+    {
+        Debug.LogWarning("trying to set Throw Direction in CollectState");
     }
 }

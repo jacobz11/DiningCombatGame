@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Unity.Netcode;
 
 namespace Assets.scrips
 {
-    internal class GameInput : MonoBehaviour
+    internal class GameInput : NetworkBehaviour
     {
         public static GameInput Instance { get; private set; }
 

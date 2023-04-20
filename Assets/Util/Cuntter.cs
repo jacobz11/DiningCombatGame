@@ -27,4 +27,9 @@ internal struct Cuntter
         }
         return canDec;
     }
+
+    internal bool CanInc()
+    {
+        return m_Value <= m_Max;
+    }
 }

@@ -2,7 +2,7 @@
 
 internal interface IStateMachine<T, TIndex> where T : IDCState
 {
-    public T CurrentStatu { get; }
+    public T CurrentState { get; }
 
     TIndex Index { get; }
 

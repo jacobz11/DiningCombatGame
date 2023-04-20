@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 internal struct PlayerMovmentData
 {
+    [Range(5, 100)]
     public float m_MouseSensetivity;
     [Range(5, 100)]
     public float m_PlayerSpeed;

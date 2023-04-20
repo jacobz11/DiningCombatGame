@@ -1,20 +1,22 @@
 ﻿namespace Assets.scrips
 {
+    using Assets.Scripts.Manger;
     using System;
+    using Unity.Netcode;
     using UnityEngine;
     using UnityEngine.EventSystems;
 
-    internal class PlayerMovment : MonoBehaviour
+    internal class PlayerMovment : NetworkBehaviour
     {
         private const float k_PlayerHeight = 2f;
         private const float k_PlayerRadius = 0.7f;
-
-
+        public static int m_cunnter =0;
+        public static Color[] m_Colors = new Color[] { Color.red, Color.green, Color.blue };
         private bool m_IsRunnig;
         private bool m_IsRunnigBack;
 
 
-        private GameInput m_GameInput;
+        //private GameInput m_GameInput;
         private Rigidbody m_Rb;
 
 
@@ -36,7 +38,7 @@
         }
         public float RotationeNormalized
         {
-            get => m_MovmentData.m_MouseSensetivity * m_GameInput.GetRotin() * Time.deltaTime;
+            get => m_MovmentData.m_MouseSensetivity * GameInput.Instance.GetRotin() * Time.deltaTime;
             private set => m_MovmentData.m_MouseSensetivity = value;
         }
         public bool IsRunnig
@@ -47,7 +49,7 @@
             }
             private set
             {
-                if (value != m_IsRunnig)
+                if (value ^ m_IsRunnig)
                 {
                     m_IsRunnig = value;
                     OnIsRunnigChang?.Invoke(m_IsRunnig);
@@ -62,7 +64,7 @@
             }
             private set
             {
-                if (value != m_IsRunnigBack)
+                if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
                     OnIsRunnigBackChang?.Invoke(m_IsRunnigBack);
@@ -74,28 +76,79 @@
         private void Awake()
         {
             m_Rb = GetComponent<Rigidbody>();
-            m_GameInput = GetComponent<GameInput>();
+            
             m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
         private void Start()
         {
-            m_GameInput.OnJumpAction += GameInput_OnJumpAction;
+            
+        }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            GameInput.Instance.OnJumpAction += GameInput_OnJumpAction;
+            Camera camera = gameObject.GetComponentInChildren<Camera>();
+            //camera.targetDisplay = 
+            camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
+            //Color color = m_Colors[UnityEngine.Random.Range(0, m_Colors.Length - 1)];
+            //GetComponent<MeshRenderer>().material.color = Color.red;
         }
 
         public void Update()
         {
-            UpdateIsGrounded();
-            if (IsGrounded)
+            if (IsLocalPlayer)
             {
-                HandleGroundedMovement(m_GameInput.GetMovementVectorNormalized());
+                HandleMovementClientRpc();
+                HandleRotationeClientRpc();
+            }
+        }
+
+        [ClientRpc]
+        private void HandleMovementClientRpc() 
+        {
+            float speed = PlayerSpeedNormalized;
+            float yOffset = 0;
+            if (!IsGrounded)
+            {
+                speed *= m_MovmentData.m_JumpSlowDonwSpeep;
+                //yOffset = Position.y;
+            }
+            
+            Vector3 movment = HandleMovement(GameInput.Instance.GetMovementVectorNormalized(), yOffset, speed);
+            if (!IsGrounded || movment == Vector3.zero)
+            {
+                if (movment.z < float.Epsilon)
+                {
+                    IsRunnig = false;
+                    IsRunnigBack = true;
+                }
+                else
+                {
+                    IsRunnig = true;
+                    IsRunnigBack = false;
+                }
             }
             else
             {
-                HandleMovementWhileJumping(m_GameInput.GetMovementVectorNormalized());
+                IsRunnig = false;
+                IsRunnigBack = false;
             }
-            HandleRotatione();
+            HandleMovementServerRpc(movment);
+            //else
+            //{
+            //    Vector3 movnet = 
+            //    IsRunnig = false;
+            //    IsRunnigBack = false;
+            //    moment = HandleMovementWhileJumping(m_GameInput.GetMovementVectorNormalized());
+            //}
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void HandleMovementServerRpc(Vector3 i_Movment)
+        {
+            transform.Translate(i_Movment);
         }
         #endregion
         //public PlayerMovment(Rigidbody i_Rb, PlayerMovmentDataSO i_MovmentDataSO, Transform transform, GameInput gameInput)
@@ -104,11 +157,11 @@
         //    m_GameInput = gameInput;
         //    m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
         //    m_MovmentData = i_MovmentDataSO;
-        //    m_Transform = transform;    
+        //    Transform = transform;    
         //}
 
         #region Handle Movement
-        private void HandleGroundedMovement(Vector2 i_InputVector)
+        private Vector3 HandleGroundedMovement(Vector2 i_InputVector)
         {
             Vector3 movment = HandleMovement(i_InputVector, 0, PlayerSpeedNormalized);
             if (movment == Vector3.zero)
@@ -129,14 +182,16 @@
                     IsRunnigBack = false;
                 }
             }
+            return movment;
         }
-        private void HandleMovementWhileJumping(Vector2 i_InputVector)
-        {
-            float speed = PlayerSpeedNormalized * m_MovmentData.m_JumpSlowDonwSpeep;
-            HandleMovement(i_InputVector, Position.y, speed);
-            IsRunnig = false;
-            IsRunnigBack = false;
-        }
+        //private Vector3 HandleMovementWhileJumping(Vector2 i_InputVector)
+        //{
+        //    float speed = PlayerSpeedNormalized * m_MovmentData.m_JumpSlowDonwSpeep;
+        //    Vector3 movnet = HandleMovement(i_InputVector, Position.y, speed);
+        //    IsRunnig = false;
+        //    IsRunnigBack = false;
+        //    return movnet;
+        //}
 
         private Vector3 HandleMovement(Vector2 i_InputVector, float i_YPosition, float i_MoveDistance)
         {
@@ -164,27 +219,9 @@
 
             if (canMove)
             {
-                transform.Translate(moveDir * i_MoveDistance);
-                return moveDir;
+                return moveDir * i_MoveDistance;
             }
             return Vector3.zero;
-            //    if (i_InputVector.x < 0)
-            //    {
-            //        Debug.Log("sfndj");
-            //        IsRunnig = true;
-            //        IsRunnigBack = false;
-            //    }
-            //    else 
-            //    {
-            //        IsRunnig = false;
-            //        IsRunnigBack = true;
-            //    }
-            //}
-            //else
-            //{
-            //    IsRunnig = false;
-            //    IsRunnigBack = true;
-            //}
 
             bool IsInReng(float moveDir)
             {
@@ -204,14 +241,23 @@
             float distToGround = 0f;
             IsGrounded = !Physics.Raycast(Position, -Vector3.up, (float)(distToGround + 0.1), m_MovmentData.m_Ground, QueryTriggerInteraction.UseGlobal);
         }
-
-        private void HandleRotatione()
+        [ClientRpc]
+        private void HandleRotationeClientRpc()
         {
-            transform.Rotate(Vector3.up, RotationeNormalized);
+            HandleRotationeServerRpc(RotationeNormalized);
+        }
+        [ServerRpc(RequireOwnership = false)]
+        private void HandleRotationeServerRpc(float i_RotationeNormalized)
+        {
+            transform.Rotate(Vector3.up, i_RotationeNormalized);
         }
 
         internal void GameInput_OnJumpAction(object sender, EventArgs e)
         {
+            if (!IsOwner)
+            {
+                return;
+            }
             if (IsGrounded)
             {
                 m_Rb.AddForce(Vector3.up * m_MovmentData.m_JumpHeight);

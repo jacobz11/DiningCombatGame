@@ -3,9 +3,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Util.Channels
 {
+    [Serializable]
     internal struct TimeBuffer : IBuffer<float>
     {
         private float m_LestUpdate;
+        [SerializeField]
         private float m_UpdateRate;
 
         public static float Default => 5.0f;

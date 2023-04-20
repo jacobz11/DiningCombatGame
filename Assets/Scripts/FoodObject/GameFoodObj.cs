@@ -1,36 +1,132 @@
-﻿using DiningCombat;
+﻿using Assets.DataObject;
+using Assets.Scripts.Util.Channels.Abstracts;
+using DiningCombat;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Barracuda;
+using Unity.Netcode;
 using UnityEngine;
+using static ThrownState;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-internal class GameFoodObj : MonoBehaviour, IStateMachine<IFoodState, int>, IVisible
+internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IVisible, IViewingElementsPosition
 {
-    private IFoodState[] foodStates;
-    private int m_StatuIndex;
-    public IFoodState CurrentStatu
-    {
-        get => foodStates[m_StatuIndex];
-    }
-
+    public event Action OnCollect;
     private Rigidbody m_Rigidbody;
-    private AcitonStateMachine m_Collecter;
-    public IFoodState UncollectState => foodStates[0];
-    public IFoodState CollectState => foodStates[1];
-    public IFoodState ThrownState => foodStates[2];
+    private AcitonStateMachine m_Collector;
+    [SerializeField]
+    private ThrownActionTypesBuilder m_TypeBuild;
+    [Range(0, 200)]
+    [SerializeField] 
+    private int m_Frames = 5;
+
+    #region State
+    private IFoodState[] m_FoodStates;
+    private int m_StatuIndex;
+    public IFoodState CurrentState
+    {
+        get => m_FoodStates[m_StatuIndex];
+    }
 
     public int Index
     {
         get => m_StatuIndex;
         private set
         {
-            CurrentStatu.OnSteteExit();
+            CurrentState.OnSteteExit();
             m_StatuIndex = value;
-            CurrentStatu.OnSteteEnter();
+            CurrentState.OnSteteEnter();
         }
     }
+    #endregion
+    public bool IsUesed => throw new NotImplementedException();
 
     public event Action Destruction;
 
+    private void Awake()
+    {
+        m_Rigidbody = GetComponent<Rigidbody>();
+        UncollectState uncollect = new UncollectState(this);
+        uncollect.Collect += Uncollect_Collect;
+        IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
+        thrownState.OnReturnToPool += thrownState_OnReturnToPool;
+        m_FoodStates = new IFoodState[]
+        {
+            uncollect,
+            new CollectState(m_Rigidbody, transform, this),
+            thrownState,
+        };
+    }
+
+    private void thrownState_OnReturnToPool()
+    {
+        ManagerGameFoodObj.Instance.ReturnToPool(this);
+        CurrentState.OnSteteExit();
+        m_StatuIndex = 0;
+        tag = GameGlobal.TagNames.k_FoodObj;
+    }
+
+    #region Uncollect 
+    private void Uncollect_Collect(AcitonStateMachine i_Collecter)
+    {
+        if (i_Collecter is not null)
+        {
+            m_Collector = i_Collecter;
+            this.transform.position = m_Collector.PicUpPoint.position;
+            tag = GameGlobal.TagNames.k_Picked;
+            Index = CollectState.k_Indx;
+            OnCollect?.Invoke();
+        }
+    }
+
+    internal bool CanCollect()
+    {
+        return Index == UncollectState.k_Indx;
+    }
+
+    #endregion
+    #region Collact
+    internal void StopPowering()
+    {
+
+    }
+    internal Vector3 GetCollctorPositin()
+    {
+        return m_Collector is null ? transform.position : m_Collector.PicUpPoint.position;
+    }
+    #endregion
+    #region Throwing
+    public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
+    {
+        if (CurrentState.IsThrowingAction())
+        {
+            Index = ThrownState.k_Indx;
+            IThrownState thrownState = CurrentState as IThrownState;
+            thrownState.SetCollcter(m_Collector);
+            thrownState.SetThrowDirection(i_Direction, i_PowerAmount);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        IDamaging damaging = CurrentState as IDamaging;
+        if (damaging is not null)
+        {
+            damaging.Activation(collision);
+        }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        IDamaging damaging = CurrentState as IDamaging;
+        if (damaging is not null)
+        {
+            damaging.Activation(other);
+        }
+    }
+
+    #endregion
+    #region Pool
     public void Hide()
     {
         this.gameObject.SetActive(false);
@@ -40,92 +136,40 @@ internal class GameFoodObj : MonoBehaviour, IStateMachine<IFoodState, int>, IVis
     {
         this.gameObject.SetActive(true);
     }
+    #endregion
 
-    private void Awake()
+    public void ViewElement(List<Vector3> elements)
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        UncollectState uncollect = new UncollectState(this);
-        uncollect.Collect += Uncollect_Collect;
-        foodStates = new IFoodState[]
-        {
-            uncollect,
-            new CollectState(m_Rigidbody),
-            new ThrownState(m_Rigidbody),
-        };
+        elements.Add(transform.position);
     }
 
-    private void Uncollect_Collect(AcitonStateMachine i_Collecter)
-    {
-        if (i_Collecter is not null)
-        {
-            m_Collecter = i_Collecter;
-            this.transform.position = m_Collecter.PicUpPoint.position;
-            this.transform.SetParent(m_Collecter.PicUpPoint, true);
-            tag = GameGlobal.TagNames.k_Picked;
-            Index = 1;
-            //ManagerGameFoodObj.Instance.UickedFruit -= ViewElement;
-        }
-    }
+    public bool Unsed() => false;
 
-    internal bool CanCollect()
-    {
-        return Index == 0;
-    }
+    public void OnEndUsing() { }
 
-    public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
+    private void Update()
     {
-        if (CurrentStatu.ThrowingAction())
-        {
-            transform.parent = null;
-            StartCoroutine(ThrowingActionCoroutine(i_Direction, i_PowerAmount));
-        }
-    }
-
-    private IEnumerator ThrowingActionCoroutine(Vector3 i_Direction, float i_PowerAmount)
-    {
-        yield return new WaitForFixedUpdate();
-        yield return new WaitForEndOfFrame();
-        EnableRagdoll();
-        m_Rigidbody.AddForce(i_PowerAmount * i_Direction);
-        Debug.DrawRay(transform.position, i_Direction, Color.black, 3);
-    }
-    public void EnableRagdoll()
-    {
-        m_Rigidbody.isKinematic = false;
-        m_Rigidbody.detectCollisions = true;
-    }
-    internal void StopPowering()
-    {
-        if (Index == 1)
-        {
-            Index++;
-        } 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (Index == 2)
-        {
-            if (collision.gameObject.TryGetComponent<PlayerLifePoint>(out PlayerLifePoint o_PlayerLifePoint))
-            {
-                if (!collision.gameObject.Equals(m_Collecter.gameObject))
-                 {
-                    float hitPoint = HitPintCalculator();
-                    o_PlayerLifePoint.OnHitPlayer(hitPoint, out bool o_IsKiil);
-                    int kill = o_IsKiil ? 1 : 0;
-                    m_Collecter.GetScore().HitPlayer(collision, hitPoint, kill);
-                }
-            }
-            Destroy(this);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        Destruction?.Invoke();
-    }
-    private float HitPintCalculator()
-    {
-        return m_Rigidbody.velocity.magnitude;
+        CurrentState.Update();
     }
 }
+
+//    internal void OnStartTrowing()
+//{
+//    if (Index == CollectState.k_Indx)
+//    {
+//        StartCoroutine(WaitNFrameAndSetToNetxIndex(m_Frames));
+//    }
+//    IEnumerator WaitNFrameAndSetToNetxIndex(int n)
+//    {
+//        for (int i = 0; i < n; i++)
+//        {
+//            yield return new WaitForEndOfFrame();
+//        }
+//        EnableRagdoll();
+//        Index = ThrownState.k_Indx;
+//    }
+//public void EnableRagdoll()
+//{
+//    Rigidbody.isKinematic = false;
+//    Rigidbody.detectCollisions = true;
+//}
