@@ -3,11 +3,10 @@ using System;
 using UnityEngine;
 using DesignPatterns.Abstraction;
 using Assets.Util;
-using Assets.Scripts.FoodObject.Pools;
 
 namespace Assets.DataObject
 {
-    internal abstract class IThrownState : IFoodState, IAnimationDisturbing, IDamaging, IThrownObj
+    internal abstract class IThrownState : IFoodState, IAnimationDisturbing, IDamaging
     {
         public event Action OnReturnToPool;
         public class HitPointEventArgs : EventArgs
