@@ -2,20 +2,17 @@
 using Assets.Scripts.Util.Channels.Abstracts;
 using DiningCombat;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Barracuda;
 using Unity.Netcode;
 using UnityEngine;
-using static ThrownState;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IVisible, IViewingElementsPosition
 {
+    public enum eThrowAnimationType { Throwing, Falling}
     public event Action OnCollect;
     private Rigidbody m_Rigidbody;
     private AcitonStateMachine m_Collector;
-    private Type m_Type;
+    private eThrowAnimationType m_AnimationType;
     [SerializeField]
     private ThrownActionTypesBuilder m_TypeBuild;
 
@@ -47,7 +44,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         m_Rigidbody = GetComponent<Rigidbody>();
         UncollectState uncollect = new UncollectState(this);
         uncollect.Collect += Uncollect_Collect;
-        m_Type = m_TypeBuild.GetBuildType();
+        m_AnimationType = m_TypeBuild.m_AnimationType;
         IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
         thrownState.OnReturnToPool += thrownState_OnReturnToPool;
 
@@ -87,9 +84,9 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
 
     #endregion
     #region Collact
-    internal void StopPowering()
+    internal eThrowAnimationType StopPowering()
     {
-
+        return m_AnimationType;
     }
     internal Vector3 GetCollctorPositin()
     {

@@ -1,17 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-internal class PlayerLifePoint : MonoBehaviour
+public class PlayerLifePoint : MonoBehaviour
 {
+    public event Action OnPlayerDead;
     private const float k_StrtingLifePoint = 100f; 
     [SerializeField]
-    private LifePointsVisual m_LifePointsVisual;
+    private List<LifePointsVisual> m_LifePointsVisual;
     private float m_LifePoint;
+
+    public bool IsAi { get; internal set; }
 
     private void Awake()
     {
         m_LifePoint = k_StrtingLifePoint;
     }
+
+    private void Start()
+    {
+        GameOverLogic.Instance.CharacterEntersTheGame(this);
+        PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+        if (animationChannel is null)
+        {
+            Debug.Log("animationChannel is null");
+        }
+        else
+        {
+            OnPlayerDead += animationChannel.OnPlayerDead;
+        }
+    }
+
     internal void OnHitPlayer(float hitPoint, out bool o_IsKiil)
     {
         if (hitPoint < 0)
@@ -21,9 +40,16 @@ internal class PlayerLifePoint : MonoBehaviour
         }
         m_LifePoint -= hitPoint;
         o_IsKiil = m_LifePoint <= 0;
+        if (o_IsKiil)
+        {
+            OnPlayerDead?.Invoke();
+        }
+
         float normalizHp = hitPoint / k_StrtingLifePoint;
-        //Array.ForEach(m_LifePointsVisual, (LifePointsVisual l) => { l.UpdateBarNormalized(normalizHp); });
-        m_LifePointsVisual.UpdateBarNormalized(normalizHp);
+        m_LifePointsVisual.ForEach(visual =>
+            {
+                visual.UpdateBarNormalized(normalizHp);
+            });
     }
 
     public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)
@@ -39,5 +65,10 @@ internal class PlayerLifePoint : MonoBehaviour
         }
 
         return isPlayer;
+    }
+
+    internal void AddLifePointsVisual(LifePointsVisual i_LifePointsVisual)
+    {
+        //m_LifePointsVisual.Add(i_LifePointsVisual);
     }
 }

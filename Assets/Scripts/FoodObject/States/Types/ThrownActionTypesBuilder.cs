@@ -72,6 +72,8 @@ namespace Assets.DataObject
         public MineData m_MinData;
         public GrenadeData m_GrenadeData;
         public ThrowingData m_ThrowingData;
+        public GameFoodObj.eThrowAnimationType m_AnimationType;
+
         [Serializable]
         public struct MineData
         {

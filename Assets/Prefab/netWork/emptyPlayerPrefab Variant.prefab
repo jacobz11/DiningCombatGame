@@ -1032,7 +1032,6 @@ MonoBehaviour:
     MaxPower: 1800
     DataTimeAddingPower: 1400
   m_PoweringVisual: {fileID: 0}
-  m_PlayerScore: {fileID: 1765360067}
 --- !u!114 &1765360066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,7 +1044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bad260ae35e8e479ad96cb359596a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LifePointsVisual: {fileID: 2036549577}
+  m_LifePointsVisual:
+  - {fileID: 2036549577}
 --- !u!114 &1765360067
 MonoBehaviour:
   m_ObjectHideFlags: 0

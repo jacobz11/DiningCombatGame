@@ -5,12 +5,27 @@ namespace Assets.scrips.UI
 
     internal class PoweringVisual : MonoBehaviour
     {
+        public static PoweringVisual Instance { get; private set; }
+        
         [SerializeField]
         private Image m_PoweringBar;
 
         public bool StartingFullAmont => false;
 
         public Image BarImage => m_PoweringBar;
+
+        private void Awake()
+        {
+            if (Instance is null) 
+            {
+                Instance = this;
+            }
+        }
+
+        public PoweringVisual GetPoweringVisual()
+        {
+            return this;
+        }
 
         public void Hide()
         {

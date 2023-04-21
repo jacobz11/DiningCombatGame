@@ -20,19 +20,6 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
         ThrowPoint += () => StartCoroutine(StopAnimationToThrow());
     }
 
-    private void Start()
-    {
-        //PlayerMovment player = GetComponentInParent<PlayerMovment>();
-        //if (player != null) 
-        //{
-        //    player.OnIsRunnigBackChang += player_OnIsRunnigBackChang;
-        //    player.OnIsRunnigChang += player_OnIsRunnigChang;
-        //}
-        //else
-        //{
-        //    Debug.Log("cant find PlayerMovment");
-        //}
-    }
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -57,11 +44,6 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
         }
     }
 
-    //public override void OnStartClient()
-    //{
-    //    base.OnNetworkSpawn();
-    //    Debug.Log("dsd");
-    //}
     private void player_OnIsRunnigChang(bool i_IsActive)
     {
         m_Anim.SetBool("isRun", i_IsActive);
@@ -113,7 +95,7 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
 
     public void SetPlayerAnimationToIdleFall(bool i_IsActive)
     {
-        //m_Anim.SetBool("isIdleFall", i_IsActive);
+        m_Anim.SetBool("isIdleFall", i_IsActive);
     }
 
     public void SetPlayerAnimationToJump()
@@ -136,8 +118,8 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
         SetPlayerAnimationToIdleFall(true);
     }
 
-    private void OnDestroy()
+    internal void SetPlayerAnimationDroping()
     {
-        SetPlayerAnimationToIdleFall(false);
+        Debug.Log("SetPlayerAnimationDroping");
     }
 }

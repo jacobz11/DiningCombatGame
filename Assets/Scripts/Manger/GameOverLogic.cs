@@ -1,3 +1,4 @@
+using Assets.Scripts.Manger;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,27 +7,51 @@ using UnityEngine;
 
 public class GameOverLogic : MonoBehaviour
 {
+    
     private const string k_FormatLivingPlayer = "Living: {0}";
     public event Action GameOverOccured;
-    [SerializeField] TMP_Text m_Text;
-    [SerializeField] TMP_Text m_GameOverText;
     private int m_NumOfAlivePlayers;
     private int m_LivingPlayerCounter;
-    public int LivingPlayers
+    [SerializeField] TMP_Text m_GameOverText;
+    [SerializeField] TMP_Text m_TextLivingPlayers;
+    [SerializeField] LifePointsVisual m_LifePointsVisual;
+    private int LivingPlayers
     {
         get => m_LivingPlayerCounter;
         set
         {
             m_LivingPlayerCounter = value;
-            m_Text.text = string.Format(k_FormatLivingPlayer, m_LivingPlayerCounter);
+            m_TextLivingPlayers.text = string.Format(k_FormatLivingPlayer, m_LivingPlayerCounter);
         }
     }
 
+    public static GameOverLogic Instance { get; private set; }
+
+    public void CharacterEntersTheGame(PlayerLifePoint i_Player)
+    {
+        if (!i_Player.IsAi)
+        {
+            m_NumOfAlivePlayers++;
+            i_Player.OnPlayerDead += Player_OnPlayerDead;
+            i_Player.AddLifePointsVisual(m_LifePointsVisual);
+        }
+        else
+        {
+            i_Player.OnPlayerDead += AI_OnAiDead;
+        }
+        LivingPlayers++;
+    }
     private void Awake()
     {
+        if (Instance is not null)
+        {
+            return;
+        }
+        Instance = this;
         GameOverOccured += ShowGameOverText;
         m_GameOverText.enabled = false;
-        m_LivingPlayerCounter = 0;
+        m_TextLivingPlayers.enabled = true;
+        LivingPlayers = 0;
         m_NumOfAlivePlayers = 0;
     }
 
@@ -42,7 +67,6 @@ public class GameOverLogic : MonoBehaviour
 
     private void Player_OnPlayerDead(bool isAlive)
     {
-        Debug.Log("cubeScript_CubeDestroyed " + isAlive + " Alives: " + m_NumOfAlivePlayers);
         LivingPlayers--;
         if (isAlive)
         {

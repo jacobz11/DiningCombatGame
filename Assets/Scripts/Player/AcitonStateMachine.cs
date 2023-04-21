@@ -5,19 +5,20 @@ using Assets.scrips.UI;
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using static GameFoodObj;
 
 internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
 {
+    private Action<eThrowAnimationType> LaunchingAnimation;
     private IStatePlayerHand[] m_Stats;
     private int m_StateIndex;
+    private PlayerScore m_PlayerScore;
     [SerializeField]
     private Transform m_PicUpPoint;
     [SerializeField] 
     private PoweringData m_Powering;
     [SerializeField]
     private PoweringVisual m_PoweringVisual;
-    [SerializeField]
-    private PlayerScore m_PlayerScore;
 
     private GameFoodObj m_FoodObj;
     public Transform PicUpPoint { get => m_PicUpPoint; }
@@ -70,9 +71,25 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         AddLisenrToInput(GetComponent<GameInput>());
 
         PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
+        LaunchingAnimation += (eThrowAnimationType animationType) =>
+        {
+            switch (animationType)
+            {
+                case eThrowAnimationType.Throwing:
+                    channel.SetPlayerAnimationToThrow(0f);
+                    break;
+                case eThrowAnimationType.Falling:
+                    channel.SetPlayerAnimationDroping();
+                    break;
+                default:
+                    channel.SetPlayerAnimationToThrow(0f);
+                    break;
+            }
+        };
+        
         StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
-        //powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
-        powering.OnStopPowering += channel.SetPlayerAnimationToThrow;
+        m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
+        powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
         channel.ThrowPoint += Animation_ThrowPoint;
         channel.ThrowPoint += () => { powering.OnThrowPoint(out float _); };
         channel.StartTrowing += channel_StartTrowing;
@@ -108,8 +125,9 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     {
         if (Index == StatePowering.k_Indx)
         {
-            m_FoodObj.StopPowering();
+            eThrowAnimationType animationType = m_FoodObj.StopPowering();
             Index = StateThrowing.k_Indx;
+            LaunchingAnimation(animationType);
         }
     }
 

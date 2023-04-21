@@ -19,7 +19,7 @@ internal class ThrownState : IThrownState
     public override void OnSteteEnter()
     {
         base.OnSteteEnter();
-        m_TimeBefuerCollision = Time.time;
+        m_TimeBefuerCollision = 0f;
     }
 
     public override void Update()
@@ -38,8 +38,9 @@ internal class ThrownState : IThrownState
 
     public override void Activation(Collision collision)
     {
-        if (m_TimeBefuerCollision < k_TimeToReturn)
+        if (m_TimeBefuerCollision > k_TimeToTrow)
         {
+            Debug.Log("Collision befor the time");
             return;
         }
         float damage = CalculatorDamag();
