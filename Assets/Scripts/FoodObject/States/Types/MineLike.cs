@@ -2,6 +2,7 @@
 using DesignPatterns.Abstraction;
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Assets.DataObject.ThrownActionTypesBuilder;
 using static Assets.Scripts.FoodObject.Pools.FoodEffactPool;
 
@@ -11,28 +12,30 @@ namespace Assets.DataObject
     {
         private const float k_TImeToTrow = 0.7f;
         protected readonly float r_CountdownTime;
-        protected readonly float r_EffctTime;
-        private readonly float r_ForceHitExsplostin;
-        private readonly float r_Radius;
         protected float m_Countdown;
         protected eElementSpecialByName m_EffectType;
         protected Transform m_Transform;
         protected ParticleSystem m_Effect;
+        protected readonly float r_EffectTime;
+        private readonly float r_ForceHitExsplostin;
+        private readonly float r_Radius;
+        private float m_TimeBefuerCollision;
         private GameObject m_ObjectVisal;
         private GameObject m_TransparentObjectVisal;
         private Collider m_Triger;
-        private float m_TimeBefuerCollision;
 
         public MineLike(ThrownActionTypesBuilder i_BuilderData) 
             : base(i_BuilderData)
         {
+            m_Triger = i_BuilderData.m_MinData.m_Triger;
+            r_Radius = i_BuilderData.m_MinData.m_InpactRadius;
+            m_Transform = i_BuilderData.Transform;
             m_EffectType = i_BuilderData.m_ElementName;
+            r_EffectTime = i_BuilderData.m_MinData.m_EffctTime;
+            m_ObjectVisal = i_BuilderData.m_MinData.m_GameObjectVisal;
             r_CountdownTime = i_BuilderData.m_MinData.m_CountdownTime;
             r_ForceHitExsplostin = i_BuilderData.m_MinData.m_ForceHitExsplostin;
-            r_Radius = i_BuilderData.m_MinData.m_InpactRadius;
-            m_ObjectVisal = i_BuilderData.m_MinData.m_GameObjectVisal;
             m_TransparentObjectVisal = i_BuilderData.m_MinData.m_AlmostTransparent;
-            m_Triger = i_BuilderData.m_MinData.m_Triger;
         }
 
         public override void OnSteteEnter()
@@ -54,7 +57,7 @@ namespace Assets.DataObject
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
             Debug.Log("m_Countdown :" + m_Countdown + " isCountdownOver :" + isCountdownOver + " IsActionHappen " + IsActionHappen);
-            if (isCountdownOver || !IsActionHappen)
+            if (isCountdownOver)
             {
                 ReturnToPool();
             }
@@ -66,7 +69,6 @@ namespace Assets.DataObject
 
         protected override void ReturnToPool()
         {
-            Debug.Log("ReturnToPool");
             if (m_Effect!= null)
             {
                 m_Effect.gameObject.SetActive(false);
@@ -87,12 +89,15 @@ namespace Assets.DataObject
 
         public override void Activation(Collider i_Collider)
         {
-            if (m_TimeBefuerCollision < k_TImeToTrow)
+
+            bool isMinTime = m_TimeBefuerCollision < k_TImeToTrow;
+            bool isHitEinv = i_Collider.CompareTag("environment");
+            if (isMinTime || IsActionHappen || isHitEinv)
             {
                 return;
             }
-            m_Countdown = r_EffctTime;
 
+            m_Countdown = r_EffectTime;
             DisplayEffect();
 
             IsActionHappen = true;

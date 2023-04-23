@@ -25,7 +25,9 @@ internal class ThrownState : IThrownState
         {
             m_Rigidbody.AddForce(ActionDirection);
             IsActionHappen = true;
+            m_TimeBefuerCollision = 0f;
         }
+
         m_TimeBefuerCollision += Time.deltaTime;
         if (m_TimeBefuerCollision > k_TimeToReturn)
         {
@@ -35,11 +37,12 @@ internal class ThrownState : IThrownState
 
     public override void Activation(Collision collision)
     {
-        if (m_TimeBefuerCollision > k_TimeToTrow)
+        if (m_TimeBefuerCollision < k_TimeToTrow)
         {
             Debug.Log("Collision befor the time");
             return;
         }
+
         float damage = CalculatorDamag();
         bool isHitPlayer = PlayerLifePoint.TryToDamagePlayer(collision.gameObject, damage, out bool o_IsKiil);
 
@@ -54,6 +57,7 @@ internal class ThrownState : IThrownState
                 m_PlayerTrown = Activator.gameObject
             });
         }
+        m_TimeBefuerCollision = k_TimeToReturn;
 
         bool IsHitMyself(Collision collision)
         {

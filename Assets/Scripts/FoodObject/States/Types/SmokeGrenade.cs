@@ -24,7 +24,7 @@ namespace Assets.DataObject
         public override void Activate()
         {
             DisplayEffect();
-            m_Countdown = r_EffctTime;
+            m_Countdown = r_EffectTime;
         }
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 794783374}
   m_Layer: 5
   m_Name: Backgrund
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 799339021}
   m_Layer: 0
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 1042539475}
   m_Layer: 5
   m_Name: Bar
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 2036549577}
   m_Layer: 5
   m_Name: LifePoint (1)
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,6 +321,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54236948389385467, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 5561349426305759274, guid: d5a40eae43fb0e54f9f321f5a780966b, type: 3}
     - target: {fileID: 79282879296689983, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 9.253423
@@ -472,6 +476,30 @@ PrefabInstance:
     - target: {fileID: 2430756543272813126, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.7516218
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933033168500499048, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Size.x
+      value: 0.62413037
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933033168500499048, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Size.y
+      value: 1.7388564
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933033168500499048, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Size.z
+      value: 0.5030078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933033168500499048, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Center.x
+      value: -0.110813335
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933033168500499048, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9134448
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933033168500499048, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Center.z
+      value: 0.04268852
       objectReference: {fileID: 0}
     - target: {fileID: 2933151201801862632, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

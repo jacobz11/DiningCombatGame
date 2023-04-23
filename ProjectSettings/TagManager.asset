@@ -13,6 +13,8 @@ TagManager:
   - wall
   - Picked
   - water
+  - environment
+  - UI
   layers:
   - Default
   - TransparentFX

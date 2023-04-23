@@ -11,7 +11,7 @@ namespace Assets.DataObject
     internal class GrenadeLike : IThrownState
     {
         protected readonly float r_CountdownTime;
-        protected readonly float r_EffctTime;
+        protected readonly float r_EffectTime;
         private readonly float r_ForceHitExsplostin;
         private readonly float r_Radius;
         protected float m_Countdown;
@@ -21,12 +21,12 @@ namespace Assets.DataObject
 
         public GrenadeLike(ThrownActionTypesBuilder i_BuilderData) : base(i_BuilderData)
         {
-            r_CountdownTime = i_BuilderData.m_GrenadeData.LifeTimeUntilAction;
-            r_EffctTime = i_BuilderData.m_GrenadeData.EffctTime;
-            m_EffectType = i_BuilderData.m_ElementName;
-            r_ForceHitExsplostin = i_BuilderData.m_GrenadeData.ForceHitExsplostin;
             r_Radius = i_BuilderData.m_GrenadeData.InpactRadius;
             m_Transform = i_BuilderData.Transform;
+            r_EffectTime = i_BuilderData.m_GrenadeData.EffctTime;
+            m_EffectType = i_BuilderData.m_ElementName;
+            r_CountdownTime = i_BuilderData.m_GrenadeData.LifeTimeUntilAction;
+            r_ForceHitExsplostin = i_BuilderData.m_GrenadeData.ForceHitExsplostin;
         }
 
         public override void OnSteteEnter()
@@ -84,6 +84,7 @@ namespace Assets.DataObject
         public override void Activate()
         {
             DisplayEffect();
+            m_Countdown = r_EffectTime;
             IsActionHappen = true;
             float damage = CalculatorDamag();
             float ponits = 0;

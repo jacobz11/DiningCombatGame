@@ -15,6 +15,7 @@ public class NetworkBtnStrting : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Awake NetworkBtnStrting");
         m_StartAsHost.onClick.AddListener(() =>
         {
             Debug.Log("Host");

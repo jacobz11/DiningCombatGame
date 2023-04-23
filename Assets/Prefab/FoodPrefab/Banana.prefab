@@ -89,9 +89,9 @@ MonoBehaviour:
     m_MinData:
       m_Triger: {fileID: -2038578333747916954}
       m_InpactRadius: 0.95
-      m_EffctTime: 1.25
-      m_ForceHitExsplostin: 0.63
-      m_CountdownTime: 2.66
+      m_EffctTime: 0.63
+      m_ForceHitExsplostin: 2.08
+      m_CountdownTime: 2.04
       m_GameObjectVisal: {fileID: 9194159423107725365}
       m_AlmostTransparent: {fileID: 2047789097798618130}
     m_GrenadeData:
@@ -99,7 +99,7 @@ MonoBehaviour:
       EffctTime: 0
       LifeTimeUntilAction: 0
       ForceHitExsplostin: 0
-  m_Frames: 5
+    m_AnimationType: 0
 --- !u!114 &-4482980943158089321
 MonoBehaviour:
   m_ObjectHideFlags: 0

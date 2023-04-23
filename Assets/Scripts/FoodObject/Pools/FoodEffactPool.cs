@@ -67,9 +67,6 @@ namespace Assets.Scripts.FoodObject.Pools
             {
                 Debug.Log("m_PrefapFlour is null");
             }
-            //m_FlourPool.Prefap = m_PrefapFlour;
-            //m_PomegranatePool.Prefap = m_PrefapPomegranate;
-            //m_BananaPool.Prefap = m_PrefapBanana;
         }
         
         public ParticleSystemPool this[eElementSpecialByName i_Type]
