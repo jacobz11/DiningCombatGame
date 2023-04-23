@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/V2DiningCombat.unity
+    path: Assets/Scenes/V3DiningCombat.unity
     guid: 5735c6e077808fa449d57bef5e2b1250
   - enabled: 0
     path: Assets/Scenes/MainMenu.unity

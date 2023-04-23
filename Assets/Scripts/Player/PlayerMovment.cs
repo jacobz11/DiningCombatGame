@@ -92,7 +92,7 @@
             Camera camera = gameObject.GetComponentInChildren<Camera>();
             //camera.targetDisplay = 
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
-            //Color color = m_Colors[UnityEngine.Random.Range(0, m_Colors.Length - 1)];
+            //Color color = m_Materials[UnityEngine.Random.Range(0, m_Materials.Length - 1)];
             //GetComponent<MeshRenderer>().material.color = Color.red;
         }
 
