@@ -1,7 +1,4 @@
 ﻿using Assets.DataObject;
-using Assets.Util;
-using DesignPatterns.Abstraction;
-using System;
 using UnityEngine;
 
 internal class ThrownState : IThrownState
