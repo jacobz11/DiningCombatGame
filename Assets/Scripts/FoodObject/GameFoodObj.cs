@@ -110,13 +110,11 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         IDamaging damaging = CurrentState as IDamaging;
         if (damaging is not null)
         {
-            Debug.Log("OnCollisionEnter");
             damaging.Activation(collision);
         }
     }
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
         IDamaging damaging = CurrentState as IDamaging;
         if (damaging is not null)
         {

@@ -56,7 +56,7 @@ namespace Assets.DataObject
             m_TimeBefuerCollision += Time.deltaTime;
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
-            Debug.Log("m_Countdown :" + m_Countdown + " isCountdownOver :" + isCountdownOver + " IsActionHappen " + IsActionHappen);
+            //Debug.Log("m_Countdown :" + m_Countdown + " isCountdownOver :" + isCountdownOver + " IsActionHappen " + IsActionHappen);
             if (isCountdownOver)
             {
                 ReturnToPool();
