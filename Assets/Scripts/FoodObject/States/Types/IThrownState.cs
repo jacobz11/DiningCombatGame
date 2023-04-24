@@ -60,7 +60,6 @@ namespace Assets.DataObject
 
         public virtual void OnSteteEnter()
         {
-            Debug.Log("OnSteteEnter IThrownState");
             EnableRagdoll();
             ActionDirection = Vector3.zero;
             Activator = null;

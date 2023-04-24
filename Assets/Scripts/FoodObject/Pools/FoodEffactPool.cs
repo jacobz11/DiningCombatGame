@@ -9,6 +9,8 @@ namespace Assets.Scripts.FoodObject.Pools
 {
     internal class FoodEffactPool : NetworkBehaviour
     {
+        [SerializeField]
+        private GameObject m_ObjectLayer;
         [Serializable]
         public class ParticleSystemPool
         {
@@ -17,7 +19,7 @@ namespace Assets.Scripts.FoodObject.Pools
             private ParticleSystem m_Prefap;
 
             protected Queue<ParticleSystem> m_Objects = new Queue<ParticleSystem>();
-
+            public Transform ObjectLayer { get; set; }
             public ParticleSystem Get()
             {
                 if (m_Objects.Count == 0)
@@ -37,6 +39,7 @@ namespace Assets.Scripts.FoodObject.Pools
             protected virtual void AddObject(int i_Count)
             {
                 ParticleSystem newObj = GameObject.Instantiate(m_Prefap);
+                newObj.transform.parent = ObjectLayer.transform;
                 newObj.gameObject.SetActive(false);
                 m_Objects.Enqueue(newObj);
             }
@@ -67,6 +70,9 @@ namespace Assets.Scripts.FoodObject.Pools
             {
                 Debug.Log("m_PrefapFlour is null");
             }
+            m_FlourPool.ObjectLayer = m_ObjectLayer.transform;
+            m_PomegranatePool.ObjectLayer = m_ObjectLayer.transform;
+            m_BananaPool.ObjectLayer = m_ObjectLayer.transform;
         }
         
         public ParticleSystemPool this[eElementSpecialByName i_Type]

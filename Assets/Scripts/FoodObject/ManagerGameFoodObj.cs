@@ -29,7 +29,6 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
         base.Awake();
         Instance = this;
         int numOfSetToEnterThePool = 5;
-        //InitializationPool(numOfSetToEnterThePool);
     }
 
     protected override void AddObject(int i_Count)

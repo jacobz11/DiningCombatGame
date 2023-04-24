@@ -31,7 +31,6 @@ namespace Assets.DataObject
 
         public override void OnSteteEnter()
         {
-            Debug.Log("GrenadeLike OnSteteEnter");
             base.OnSteteEnter();
             m_Rigidbody.AddForce(ActionDirection);
             m_Countdown = r_CountdownTime;
@@ -61,7 +60,6 @@ namespace Assets.DataObject
         }
         protected override void ReturnToPool()
         {
-            Debug.Log("ReturnToPool");
             if (m_Effect != null)
             {
                 m_Effect.gameObject.SetActive(false);
