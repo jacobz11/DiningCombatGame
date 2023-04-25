@@ -14,11 +14,14 @@ public class EnvironmentManger : MonoBehaviour
     [SerializeField]
     private GameObject m_WaterPrefab;
     [SerializeField]
-    private TimeBuffer m_Time;
+    private TimeBuffer m_WaterTimer;
     [SerializeField]
     private GameObject m_WaterObject;
+    [SerializeField]
+    private TimeBuffer m_NpcTimer;
     private GraphDC m_WaterGraph;
     private bool m_IsEnding;
+
     public bool IsInit { get; private set; }
 
     private void Awake()
@@ -51,10 +54,17 @@ public class EnvironmentManger : MonoBehaviour
         {
             return;
         }
-        if (m_Time.IsBufferOver())
+        if (m_WaterTimer.IsBufferOver())
         {
             m_WaterGraph.Activate();
-            m_Time.Clear();
+            m_WaterTimer.Clear();
+        }
+        if (m_NpcTimer.IsBufferOver())
+        {
+            m_NpcTimer.Clear();
+            FollowWP chicken = ChickenPool.Instance.Get();
+            chicken.transform.position = new Vector3(0.0f, 3f, 0.0f);
+            chicken.gameObject.SetActive(true);
         }
     }
 }

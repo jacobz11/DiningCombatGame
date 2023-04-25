@@ -3344,6 +3344,8 @@ GameObject:
   - component: {fileID: 2125214548}
   - component: {fileID: 2125214549}
   - component: {fileID: 2125214550}
+  - component: {fileID: 2125214551}
+  - component: {fileID: 2125214552}
   m_Layer: 0
   m_Name: mangers
   m_TagString: Untagged
@@ -3447,9 +3449,11 @@ MonoBehaviour:
     m_Dimensions: {x: 24, y: 0, z: 24}
     m_YMinOffset: 0
   m_WaterPrefab: {fileID: 3543954857221768823, guid: 9a012f11fab5dde4683f18e78d16fc78, type: 3}
-  m_Time:
-    m_UpdateRate: 10
+  m_WaterTimer:
+    m_UpdateRate: 3
   m_WaterObject: {fileID: 14250920}
+  m_NpcTimer:
+    m_UpdateRate: 15
 --- !u!114 &2125214549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3484,3 +3488,29 @@ MonoBehaviour:
   m_GameOverText: {fileID: 1990072892}
   m_TextLivingPlayers: {fileID: 671421373}
   m_LifePointsVisual: {fileID: 0}
+--- !u!114 &2125214551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125214543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08bb9685aa1ded43ab03a4dd4174a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Prefap: {fileID: 8664999477565403573, guid: 626e4c8147238fb4ba809c6c551f1378, type: 3}
+--- !u!114 &2125214552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125214543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd87b7e204beea48a67a5ac1c13ba6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Prefap: {fileID: 2049666486, guid: a223b01755baeef4cb6ab0c6bb46942b, type: 3}

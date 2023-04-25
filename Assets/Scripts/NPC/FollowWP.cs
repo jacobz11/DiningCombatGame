@@ -1,3 +1,4 @@
+using Assets.Scripts.Environment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -85,11 +86,14 @@ public class FollowWP : MonoBehaviour
     private void ArrivedToWaypoint()
     {
         CuurentWp++;
-        GameObject egg = Instantiate(m_EggPrefab, transform.position - m_Buffer, Quaternion.identity);
+        Egg egg = EggPool.Instance.Get();
+        egg.transform.position = transform.position - m_Buffer;
+        egg.gameObject.SetActive(true);
+        //GameObject egg = Instantiate(m_EggPrefab, , Quaternion.identity);
     }
 
     private void folowWP_OnEngRund()
     {
-        Debug.Log("folowWP_OnEngRund");
+        ChickenPool.Instance.ReturnToPool(this);
     }
 }

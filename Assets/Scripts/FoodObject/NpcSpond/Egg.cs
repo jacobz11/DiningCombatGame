@@ -11,6 +11,7 @@ public class Egg : MonoBehaviour
     private GameObject m_BrokenEgg;
     [SerializeField]
     private float m_DisplayTimeAfterTriggerEnter;
+    private const float k_Damage = 11f;
 
     public void OnExitPool(Vector3 i_Pos)
     {
@@ -23,12 +24,13 @@ public class Egg : MonoBehaviour
     {
         m_WholeEgg.gameObject.SetActive(false);
         m_BrokenEgg.gameObject.SetActive(true);
+        PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out bool _);
         StartCoroutine(ReturToPool());
     }
 
     private IEnumerator ReturToPool()
     {
         yield return new WaitForSeconds(m_DisplayTimeAfterTriggerEnter);
-        //EggPool.Instance.ReturnToPool(this);
+        EggPool.Instance.ReturnToPool(this);
     }
 }
