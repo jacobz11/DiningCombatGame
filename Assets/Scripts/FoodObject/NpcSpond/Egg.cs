@@ -30,7 +30,8 @@ public class Egg : MonoBehaviour
 
     private IEnumerator ReturToPool()
     {
+        Debug.Log("ReturToPool");
         yield return new WaitForSeconds(m_DisplayTimeAfterTriggerEnter);
         EggPool.Instance.ReturnToPool(this);
-    }
+    }    
 }

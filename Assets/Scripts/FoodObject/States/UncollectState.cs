@@ -10,22 +10,21 @@ internal class UncollectState : IFoodState
     public UncollectState(GameFoodObj gameFood)
     {
         this.gameFood = gameFood;
-
     }
     public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
     {
     }
 
-    public void OnSteteEnter()
+    public virtual void OnSteteEnter()
     {
 
     }
 
-    public void OnSteteExit()
+    public virtual void OnSteteExit()
     {
     }
 
-    public bool TryCollect(AcitonStateMachine i_Collcter)
+    public virtual bool TryCollect(AcitonStateMachine i_Collcter)
     {
         Collect?.Invoke(i_Collcter);
         return true;
@@ -36,7 +35,7 @@ internal class UncollectState : IFoodState
         return false;
     }
 
-    public void Update()
+    public virtual void Update()
     {}
 
     public void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount)

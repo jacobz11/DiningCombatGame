@@ -3394,7 +3394,7 @@ MonoBehaviour:
     m_YMinOffset: 0
   m_AllFoodPrefab:
     FoodPrefab:
-    - {fileID: 6162616094248623806, guid: 4ad2c4a8fc0547243ad5e78309209e96, type: 3}
+    - {fileID: 2932613626013476028, guid: 6b5e59d33d0d84648bf4460fb94fd55f, type: 3}
     - {fileID: 1705349755764092669, guid: 35a05d432518efe4dbe326e820bf1bcc, type: 3}
     - {fileID: 4873284290809304590, guid: 4187fb98f3b00da46b7a80c44b5c2fee, type: 3}
     - {fileID: 6549573676523198308, guid: a4b91064422027242bb112b8274ce36c, type: 3}
@@ -3402,6 +3402,7 @@ MonoBehaviour:
     - {fileID: 7680476970656670080, guid: d71923cd0fded964ea68e2d78e7d3082, type: 3}
     - {fileID: 476650111608544264, guid: 8f5220f1bce0d2b448dd7cbc23e5439c, type: 3}
     - {fileID: 1579650163785305974, guid: 6062ecf1766a3b94a974591bb2046213, type: 3}
+    - {fileID: 6162616094248623806, guid: 4ad2c4a8fc0547243ad5e78309209e96, type: 3}
 --- !u!4 &2125214546
 Transform:
   m_ObjectHideFlags: 0
@@ -3473,6 +3474,8 @@ MonoBehaviour:
     m_Prefap: {fileID: 854523289628350144, guid: 182ac83a43825a94c9fb8db147ca2506, type: 3}
   m_BananaPool:
     m_Prefap: {fileID: 7100243384355620647, guid: 38826ab28f9e4c544997a316fa24970f, type: 3}
+  m_PopcornPool:
+    m_Prefap: {fileID: 0}
 --- !u!114 &2125214550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3487,7 +3490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GameOverText: {fileID: 1990072892}
   m_TextLivingPlayers: {fileID: 671421373}
-  m_LifePointsVisual: {fileID: 0}
+  m_LifePointsVisual: {fileID: 104136702}
 --- !u!114 &2125214551
 MonoBehaviour:
   m_ObjectHideFlags: 0

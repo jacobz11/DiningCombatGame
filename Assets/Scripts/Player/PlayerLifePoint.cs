@@ -47,9 +47,9 @@ public class PlayerLifePoint : MonoBehaviour
 
         float normalizHp = hitPoint / k_StrtingLifePoint;
         m_LifePointsVisual.ForEach(visual =>
-            {
+        {
                 visual.UpdateBarNormalized(normalizHp);
-            });
+        });
     }
 
     public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)

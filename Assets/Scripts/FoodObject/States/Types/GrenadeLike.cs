@@ -1,10 +1,7 @@
 ﻿using Assets.Scripts.FoodObject.Pools;
 using Assets.Util;
-using DesignPatterns.Abstraction;
-using System;
 using UnityEngine;
 using static Assets.DataObject.ThrownActionTypesBuilder;
-using static Assets.Scripts.FoodObject.Pools.FoodEffactPool;
 
 namespace Assets.DataObject
 {
@@ -73,7 +70,6 @@ namespace Assets.DataObject
         protected void DisplayEffect()
         {
             m_Effect = FoodEffactPool.Instance[m_EffectType].Get();
-
             m_Effect.gameObject.transform.position = m_Transform.position;
             m_Effect.gameObject.SetActive(true);
             m_Effect.Play();
@@ -115,7 +111,7 @@ namespace Assets.DataObject
     [SerializeField]
     private GameObject m_ExplodPartical;
     [SerializeField]
-    private float r_ForceHitExsplostin = 200;
+    private float m_ForceHitExsplostin = 200;
     [SerializeField]
     private float damage;
 
@@ -147,7 +143,7 @@ namespace Assets.DataObject
         {
             if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
             {
-                o_Rb.AddExplosionForce(r_ForceHitExsplostin, transform.position, m_Radius);
+                o_Rb.AddExplosionForce(m_ForceHitExsplostin, transform.position, m_Radius);
             }
             if (PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool o_IsKill))
             {

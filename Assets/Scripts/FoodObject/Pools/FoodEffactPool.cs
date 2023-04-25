@@ -54,7 +54,8 @@ namespace Assets.Scripts.FoodObject.Pools
         private ParticleSystemPool m_PomegranatePool;
         [SerializeField]
         private ParticleSystemPool m_BananaPool;
-
+        [SerializeField]
+        private ParticleSystemPool m_PopcornPool;
         public static FoodEffactPool Instance { get; protected set; }
 
         private void Awake()
@@ -90,6 +91,9 @@ namespace Assets.Scripts.FoodObject.Pools
                         break;
                     case eElementSpecialByName.BananaMine:
                         res = m_BananaPool;
+                        break;
+                    case eElementSpecialByName.NpcCorn:
+                        res = m_PopcornPool;
                         break;
                     default:
                         Debug.LogError("try to get not exiting" + i_Type);

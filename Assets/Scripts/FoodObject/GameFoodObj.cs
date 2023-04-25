@@ -10,14 +10,14 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
 {
     public enum eThrowAnimationType { Throwing, Falling}
     public event Action OnCollect;
-    private Rigidbody m_Rigidbody;
     private AcitonStateMachine m_Collector;
-    private eThrowAnimationType m_AnimationType;
+    protected Rigidbody m_Rigidbody;
+    protected eThrowAnimationType m_AnimationType;
     [SerializeField]
-    private ThrownActionTypesBuilder m_TypeBuild;
+    protected ThrownActionTypesBuilder m_TypeBuild;
 
     #region State
-    private IFoodState[] m_FoodStates;
+    protected IFoodState[] m_FoodStates;
     private int m_StatuIndex;
     public IFoodState CurrentState
     {
@@ -27,7 +27,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     public int Index
     {
         get => m_StatuIndex;
-        private set
+        protected set
         {
             CurrentState.OnSteteExit();
             m_StatuIndex = value;
@@ -56,7 +56,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         };
     }
 
-    private void thrownState_OnReturnToPool()
+    protected void thrownState_OnReturnToPool()
     {
         ManagerGameFoodObj.Instance.ReturnToPool(this);
         CurrentState.OnSteteExit();
@@ -64,8 +64,12 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         tag = GameGlobal.TagNames.k_FoodObj;
     }
 
+    private void OnEnable()
+    {
+        Index = 0;
+    }
     #region Uncollect 
-    private void Uncollect_Collect(AcitonStateMachine i_Collecter)
+    protected void Uncollect_Collect(AcitonStateMachine i_Collecter)
     {
         if (i_Collecter is not null)
         {
@@ -73,10 +77,14 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
             this.transform.position = m_Collector.PicUpPoint.position;
             tag = GameGlobal.TagNames.k_Picked;
             Index = CollectState.k_Indx;
-            OnCollect?.Invoke();
+            CollectInvoke();
         }
     }
 
+    protected virtual void CollectInvoke()
+    {
+        OnCollect?.Invoke();
+    }
     internal bool CanCollect()
     {
         return Index == UncollectState.k_Indx;
@@ -150,24 +158,3 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         CurrentState.Update();
     }
 }
-
-//    internal void OnStartTrowing()
-//{
-//    if (Index == CollectState.k_Indx)
-//    {
-//        StartCoroutine(WaitNFrameAndSetToNetxIndex(m_Frames));
-//    }
-//    IEnumerator WaitNFrameAndSetToNetxIndex(int n)
-//    {
-//        for (int i = 0; i < n; i++)
-//        {
-//            yield return new WaitForEndOfFrame();
-//        }
-//        EnableRagdoll();
-//        Index = ThrownState.k_Indx;
-//    }
-//public void EnableRagdoll()
-//{
-//    Rigidbody.isKinematic = false;
-//    Rigidbody.detectCollisions = true;
-//}

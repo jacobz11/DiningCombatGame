@@ -58,6 +58,7 @@ namespace Assets.DataObject
             PomegranateGrenade,
             // mine
             BananaMine,
+            NpcCorn,
         }
 
         public eThrownActionTypes m_Type;
