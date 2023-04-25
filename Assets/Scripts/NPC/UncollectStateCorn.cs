@@ -12,14 +12,20 @@ namespace Assets.Scripts.NPC
         private float m_Countdown;
         private NavMeshAgent m_Agent;
         private RoomDimension m_RoomDimension;
-        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, RoomDimension room) : base(gameFood)
+        private GameObject[] m_GameObjects;
+        private int m_GameObjectsCount;
+        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, RoomDimension room, GameObject[] gameObjects) : base(gameFood)
         {
             m_Agent = i_Agent;
             m_RoomDimension = room;
+            m_GameObjects = gameObjects;
+            Debug.Log("m_GameObjects.Length " + m_GameObjects.Length);
         }
+
 
         public override void Update()
         {
+            Debug.Log("pos :" + m_GameObjects[m_GameObjectsCount].transform.position + "m_GameObjectsCount " + m_GameObjectsCount);
             m_Countdown -= Time.deltaTime;
             if (m_Countdown >= 0) 
             {
@@ -27,7 +33,12 @@ namespace Assets.Scripts.NPC
             }
             if (ReachTheDestination())
             {
-                m_Agent.SetDestination(m_RoomDimension.GetRendonPos());
+                m_GameObjectsCount++;
+                if (m_GameObjectsCount >= m_GameObjects.Length)
+                {
+                    m_GameObjectsCount = 0;
+                }
+                m_Agent.SetDestination(m_GameObjects[m_GameObjectsCount].transform.position);
             }
         }
 
@@ -50,7 +61,8 @@ namespace Assets.Scripts.NPC
         public override void OnSteteEnter()
         {
             m_Countdown = k_CountdownInitial;
-            m_Agent.SetDestination(m_RoomDimension.GetRendonPos());
+            m_GameObjectsCount = 0;
+            m_Agent.SetDestination(m_GameObjects[m_GameObjectsCount].transform.position);
         }
 
         public override void OnSteteExit()
