@@ -113,6 +113,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
             damaging.Activation(collision);
         }
     }
+
     public void OnTriggerEnter(Collider other)
     {
         IDamaging damaging = CurrentState as IDamaging;

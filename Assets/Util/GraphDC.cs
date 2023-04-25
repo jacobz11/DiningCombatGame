@@ -1,11 +1,6 @@
-﻿using Assets.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Unity.Barracuda;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using Random = UnityEngine.Random;
 
 namespace Assets.Util
 {

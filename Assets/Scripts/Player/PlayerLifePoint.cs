@@ -69,6 +69,6 @@ public class PlayerLifePoint : MonoBehaviour
 
     internal void AddLifePointsVisual(LifePointsVisual i_LifePointsVisual)
     {
-        //m_LifePointsVisual.Add(i_LifePointsVisual);
+        m_LifePointsVisual.Add(i_LifePointsVisual);
     }
 }

@@ -15,7 +15,6 @@
         private bool m_IsRunnig;
         private bool m_IsRunnigBack;
 
-
         //private GameInput m_GameInput;
         private Rigidbody m_Rb;
 
@@ -23,6 +22,8 @@
         [SerializeField]
         private PlayerMovmentData m_MovmentData;
 
+        [SerializeField]
+        private Material m_Material;
 
         public event Action<bool> OnIsRunnigChang;
         public event Action<bool> OnIsRunnigBackChang;
@@ -90,15 +91,29 @@
             base.OnNetworkSpawn();
             GameInput.Instance.OnJumpAction += GameInput_OnJumpAction;
             Camera camera = gameObject.GetComponentInChildren<Camera>();
-            //camera.targetDisplay = 
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
-            //Color color = m_Materials[UnityEngine.Random.Range(0, m_Materials.Length - 1)];
-            //GetComponent<MeshRenderer>().material.color = Color.red;
+            SkinnedMeshRenderer m =gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            NetworkObject networkObj = GetComponent<NetworkObject>();
+            if (networkObj == null)
+            {
+                Debug.LogWarning("Object does not have a NetworkObject component");
+                return;
+            }
+
+            // Request ownership of the object
+            if (networkObj.IsSpawned && !networkObj.IsOwnedByServer)
+            {
+                //networkObj.O RequestOwnership();
+            }
+            if (IsHost)
+            {
+                m.material = m_Material;
+            }
         }
 
         public void Update()
         {
-            if (IsLocalPlayer)
+            if (IsOwner)
             {
                 HandleMovementClientRpc();
                 HandleRotationeClientRpc();
