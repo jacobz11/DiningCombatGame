@@ -42,7 +42,6 @@ internal class StateFree : IStatePlayerHand
         if (m_FoodObj is not null && m_FoodObj.gameObject.Equals(other))
         {
             this.m_FoodObj = null;
-            
         }
     }
 
@@ -66,9 +65,10 @@ internal class StateFree : IStatePlayerHand
         });
     }
 
-    public void Update()
+    public virtual void Update()
     {
     }
+
     public bool OnPickUpAction(out GameFoodObj o_Collcted)
     {
         bool canCollect = HaveGameObject

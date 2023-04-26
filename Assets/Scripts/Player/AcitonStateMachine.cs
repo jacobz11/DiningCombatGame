@@ -16,7 +16,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     [SerializeField]
     private Transform m_PicUpPoint;
     [SerializeField] 
-    private PoweringData m_Powering;
+    protected PoweringData m_Powering;
     [SerializeField]
     private PoweringVisual m_PoweringVisual;
 
@@ -97,7 +97,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         CurrentState.OnSteteEnter();
     }
 
-    private void channel_StartTrowing()
+    protected void channel_StartTrowing()
     {
         //m_FoodObj.OnStartTrowing();
     }
@@ -121,7 +121,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     #endregion
 
     #region Chnaging state
-    private void powering_OnStopPowering(float obj)
+    protected void powering_OnStopPowering(float obj)
     {
         if (Index == StatePowering.k_Indx)
         {
@@ -131,7 +131,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         }
     }
 
-    private void holdsing_OnStartCharging()
+    protected virtual void holdsing_OnStartCharging()
     {
         if (Index == StateHoldsObj.k_Indx)
         {
@@ -148,7 +148,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
             Index = StateHoldsObj.k_Indx;
         }
     }
-    private void Animation_ThrowPoint()
+    protected void Animation_ThrowPoint()
     {
         if (CurrentState.OnThrowPoint(out float o_Force))
         {
