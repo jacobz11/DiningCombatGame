@@ -7,7 +7,7 @@ namespace Assets.scrips
 {
     internal class GameInput : NetworkBehaviour
     {
-        public static GameInput Instance { get; private set; }
+        //public static GameInput Instance { get; private set; }
 
         public event EventHandler OnStartChargingAction;
         public event EventHandler OnStopChargingAction;
@@ -37,7 +37,6 @@ namespace Assets.scrips
         private PlayerInput playerInput;
         private void Awake()
         {
-            Instance = this;
             playerInput = new PlayerInput();
             playerInput.Player.Enable();
 

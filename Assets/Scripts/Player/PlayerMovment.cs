@@ -10,12 +10,12 @@
     {
         private const float k_PlayerHeight = 2f;
         private const float k_PlayerRadius = 0.7f;
-        public static int m_cunnter =0;
+        public static int m_Cunnter =0;
         public static Color[] m_Colors = new Color[] { Color.red, Color.green, Color.blue };
         private bool m_IsRunnig;
         private bool m_IsRunnigBack;
 
-        //private GameInput m_GameInput;
+        private GameInput m_GameInput;
         private Rigidbody m_Rb;
 
 
@@ -39,7 +39,7 @@
         }
         public float RotationeNormalized
         {
-            get => m_MovmentData.m_MouseSensetivity * GameInput.Instance.GetRotin() * Time.deltaTime;
+            get => m_MovmentData.m_MouseSensetivity * m_GameInput.GetRotin() * Time.deltaTime;
             private set => m_MovmentData.m_MouseSensetivity = value;
         }
         public bool IsRunnig
@@ -65,6 +65,7 @@
             }
             private set
             {
+
                 if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
@@ -89,7 +90,8 @@
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-            GameInput.Instance.OnJumpAction += GameInput_OnJumpAction;
+            m_GameInput = GetComponent<GameInput>();
+            m_GameInput.OnJumpAction += GameInput_OnJumpAction;
             Camera camera = gameObject.GetComponentInChildren<Camera>();
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m =gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -117,7 +119,13 @@
             {
                 HandleMovementClientRpc();
                 HandleRotationeClientRpc();
+                //Debug.Log("IsOwner " + OwnerClientId);
+
             }
+            //else
+            //{
+            //    Debug.Log("Is not IsOwner" + OwnerClientId);
+            //}
         }
 
         [ClientRpc]
@@ -131,8 +139,8 @@
                 //yOffset = Position.y;
             }
             
-            Vector3 movment = HandleMovement(GameInput.Instance.GetMovementVectorNormalized(), yOffset, speed);
-            if (!IsGrounded || movment == Vector3.zero)
+            Vector3 movment = HandleMovement(m_GameInput.GetMovementVectorNormalized(), yOffset, speed);
+            if (!IsGrounded && movment != Vector3.zero)
             {
                 if (movment.z < float.Epsilon)
                 {

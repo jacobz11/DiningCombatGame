@@ -39,16 +39,16 @@
         public void ExitCollisionFoodObj(Collider other)
         {/* */}
 
-        public void OnSteteEnter()
+        public virtual void OnSteteEnter()
         {
             Debug.Log("init state : StateHoldsObj");
         }
 
-        public void OnSteteExit()
+        public virtual void OnSteteExit()
         {
         }
 
-        public void Update()
+        public virtual void Update()
         {
         }
 

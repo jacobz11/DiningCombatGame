@@ -10,15 +10,15 @@ using static GameFoodObj;
 internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
 {
     private Action<eThrowAnimationType> LaunchingAnimation;
-    private IStatePlayerHand[] m_Stats;
-    private int m_StateIndex;
+    protected IStatePlayerHand[] m_Stats;
+    protected int m_StateIndex;
     private PlayerScore m_PlayerScore;
     [SerializeField]
     private Transform m_PicUpPoint;
     [SerializeField] 
     protected PoweringData m_Powering;
     [SerializeField]
-    private PoweringVisual m_PoweringVisual;
+    protected PoweringVisual m_PoweringVisual;
 
     private GameFoodObj m_FoodObj;
     public Transform PicUpPoint { get => m_PicUpPoint; }
@@ -37,6 +37,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
             CurrentState.OnSteteEnter();
         }
     }
+
     public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
 
     #region Unity
@@ -102,7 +103,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         //m_FoodObj.OnStartTrowing();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (IsOwner)
         {
@@ -139,7 +140,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         }
     }
 
-    private void GameInput_OnPickUpAction(object sender, System.EventArgs e)
+    public void GameInput_OnPickUpAction(object sender, System.EventArgs e)
     {
         bool isPickItem = CurrentState.OnPickUpAction(out GameFoodObj o_Collcted);
         if (isPickItem)
@@ -159,7 +160,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     }
     #endregion
 
-    private void GameInput_OnStartChargingAction(object sender, System.EventArgs e)
+    public virtual void GameInput_OnStartChargingAction(object sender, System.EventArgs e)
     {
         IsPower = true;
         CurrentState.OnChargingAction = true;

@@ -1,4 +1,7 @@
-﻿using Unity.Netcode;
+﻿using DiningCombat;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Scripts.Manger
@@ -29,6 +32,13 @@ namespace Assets.Scripts.Manger
             int targetDisplay = Cuntter;
             Cuntter++;
             return targetDisplay;
+        }
+
+        public IEnumerable<Vector3> GetPlayerPos(Transform i_Player)
+        {
+            return GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player)
+                .Where(player => player.transform != i_Player)
+                .Select(player => player.transform.position);
         }
     }
 }

@@ -5,43 +5,34 @@ using Assets.scrips;
 using System;
 using UnityEngine;
 using static GameFoodObj;
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.AI.States;
+using UnityEngine.AI;
+using Unity.MLAgents;
 
 internal class AIAcitonStateMachine : AcitonStateMachine
 {
     private Action<eThrowAnimationType> LaunchingAnimation;
-    private IStatePlayerHand[] m_Stats;
-    private int m_StateIndex;
-
-    private GameFoodObj m_FoodObj;
-
-    public int Index
-    {
-        get
-        {
-            return m_StateIndex;
-        }
-        set
-        {
-            CurrentState.OnSteteExit();
-            m_StateIndex = value;
-            CurrentState.OnSteteEnter();
-        }
-    }
-    public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
+    private NavMeshAgent m_Agent;
 
     #region Unity
 
-    private void Awake()
+    private new void Awake()
     {
-        StateHoldsObj holdsing = new StateHoldsObj();
-        StatePowering powering = new StatePowering(this, m_Powering);
-        StateThrowing throwing = new StateThrowing();
+        m_Agent = GetComponent<NavMeshAgent>();
+        AIStateFree free = new AIStateFree(this, m_Agent);
+        ManagerGameFoodObj.Instance.OnCollected += free.OnCollcatedAnyFood;
+        AIStateHoldsObj holdsing = new AIStateHoldsObj(m_Agent, this);
+        AIStatePowering powering = new AIStatePowering(this, m_Powering, m_Agent);
+        AIStateThrowing throwing = new AIStateThrowing(m_Agent);
         powering.OnStopPowering += powering_OnStopPowering;
         powering.OnStopPowering += throwing.powering_OnStopPowering;
         holdsing.OnStartCharging += holdsing_OnStartCharging;
+
         m_Stats = new IStatePlayerHand[]
         {
-            new StateFree(this),
+            free,
             holdsing,
             powering,
             throwing
@@ -50,8 +41,7 @@ internal class AIAcitonStateMachine : AcitonStateMachine
 
     public override void OnNetworkSpawn()
     {
-
-        base.OnNetworkSpawn();
+        //base.OnNetworkSpawn();
         LisenToPlayr();
         //AddLisenrToInput(GetComponent<GameInput>());
 
@@ -99,6 +89,10 @@ internal class AIAcitonStateMachine : AcitonStateMachine
     //    }
     //}
 
+    protected override void Update()
+    {
+        CurrentState.Update();
+    }
     private void LisenToPlayr()
     {
         Player player = GetComponent<Player>();

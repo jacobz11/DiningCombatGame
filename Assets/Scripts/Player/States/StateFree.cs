@@ -6,7 +6,7 @@ using UnityEngine;
 internal class StateFree : IStatePlayerHand
 {
     public const int k_Indx = 0;
-    private AcitonStateMachine m_AcitonStateMachine;
+    protected AcitonStateMachine m_AcitonStateMachine;
     private GameFoodObj m_FoodObj;
 
     public event Action<CollectedFoodEvent> PlayerCollectedFood;
@@ -50,14 +50,14 @@ internal class StateFree : IStatePlayerHand
         return "StateFree : ";
     }
 
-    public void OnSteteEnter()
+    public virtual void OnSteteEnter()
     {
         this.m_FoodObj = null;
         Debug.Log("init state : StateFree");
     }
 
 
-    public void OnSteteExit()
+    public virtual void OnSteteExit()
     {
         PlayerCollectedFood?.Invoke(new CollectedFoodEvent()
         {

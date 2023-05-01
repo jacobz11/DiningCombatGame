@@ -1,7 +1,9 @@
 using Assets.Scripts.Manger;
+using DiningCombat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -83,4 +85,13 @@ public class GameOverLogic : MonoBehaviour
     {
         m_GameOverText.enabled = true;
     }
+
+    //public List<Vector3> GetPlayerPos()
+    //{
+    //    GameObject[] players = GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player);
+
+    //    List<Vector3> positions = players.Select(player => player.transform.position).ToList();
+
+    //    return positions;
+    //}
 }

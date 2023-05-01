@@ -154,6 +154,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &53667440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3982638269754406075, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
+  m_PrefabInstance: {fileID: 1047937896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &53667455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53667440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de3fe6daf42d2d4fadaf3028b8c2c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PicUpPoint: {fileID: 695870847}
+  m_Powering:
+    MaxPower: 0
+    DataTimeAddingPower: 0
+  m_PoweringVisual: {fileID: 0}
 --- !u!1 &85135557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,6 +1309,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3628990442929905983, guid: 747ff1fbfb7adfc4c971b48f098dc4a1, type: 3}
+--- !u!4 &695870847 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1949516421212491733, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
+  m_PrefabInstance: {fileID: 1047937896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &717372738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,6 +2690,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI
       objectReference: {fileID: 0}
+    - target: {fileID: 3982638269754406075, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8991460776751757499, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
       propertyPath: m_Materials.Array.size
       value: 3
@@ -2679,7 +2710,8 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: 450760a940231c348ab7f9bfdc460276, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1765360060, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
 --- !u!1 &1200352762
 GameObject:

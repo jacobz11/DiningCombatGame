@@ -1,11 +1,14 @@
 ﻿using Assets.DataObject;
 using Assets.Util.DesignPatterns;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 {
+    public event Action<List<Vector3>> UncollectedPos;
+    public event Action OnCollected;
     [SerializeField]
     private Cuntter m_CuntterOfFoodInTheGame;
     [SerializeField]
@@ -78,6 +81,7 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
         foodObj.Destruction += OnDestruction_GameFoodObj;
         m_CuntterOfFoodInTheGame.TryInc();
         foodObj.OnCollect += foodObj_OnCollect;
+        UncollectedPos += foodObj.ViewElement;
 
         return foodObj.gameObject;
     }
@@ -126,5 +130,12 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
         bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
         bool isNotMax = m_CuntterOfFoodInTheGame.CanInc();
         return isTimeOver && isNotMax;
+    }
+
+    public List<Vector3> GetAllUncollcted()
+    {
+        List<Vector3> list = new List<Vector3>();
+        UncollectedPos?.Invoke(list);
+        return list;
     }
 }

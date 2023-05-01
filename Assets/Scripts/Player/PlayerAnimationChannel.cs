@@ -71,6 +71,7 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
     {
         m_Anim.SetBool("isRunFast", i_IsActive);
     }
+
     public void SetPlayerAnimationToRun(bool i_IsActive)
     {
         m_Anim.SetBool("isRun", i_IsActive);
