@@ -79,7 +79,7 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
         //    m_RoomDimension.GetRendonPos(), Quaternion.identity);
         //GameFoodObj foodObj = spawn.GetComponent<GameFoodObj>();
         GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
-        foodObj.Destruction += OnDestruction_GameFoodObj;
+        //foodObj.Destruction += OnDestruction_GameFoodObj;
         m_CuntterOfFoodInTheGame.TryInc();
         foodObj.OnCollect += foodObj_OnCollect;
         UncollectedPos += foodObj.ViewElement;

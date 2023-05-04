@@ -73,4 +73,9 @@ public class PlayerLifePoint : MonoBehaviour
     {
         m_LifePointsVisual.Add(i_LifePointsVisual);
     }
+
+    internal void Healed(LifePackage lifePackage)
+    {
+        throw new NotImplementedException();
+    }
 }

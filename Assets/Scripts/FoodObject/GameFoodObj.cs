@@ -1,12 +1,11 @@
 ﻿using Assets.DataObject;
 using Assets.Scripts.Util.Channels.Abstracts;
-using DiningCombat;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IVisible, IViewingElementsPosition
+internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IViewingElementsPosition
 {
     public enum eThrowAnimationType { Throwing, Falling }
 
