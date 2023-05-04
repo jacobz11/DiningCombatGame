@@ -15,9 +15,6 @@ public abstract class IPackage : MonoBehaviour
 
     public float Amont => m_Amont;
 
-    private void Awake()
-    {
-    }
     protected virtual void ReturnToPool()
     {
         m_Visale.SetActive(false);
