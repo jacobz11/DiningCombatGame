@@ -25,11 +25,11 @@ namespace Assets.DataObject
 
         public string TagState => GameGlobal.TagNames.k_ThrowFoodObj;
         public bool IsThrowingAction() => false;
-        public bool TryCollect(AcitonStateMachine i_Collcter)=> false;
-        protected virtual void ReturnToPool()=> OnReturnToPool?.Invoke();
+        public bool TryCollect(AcitonStateMachine i_Collcter) => false;
+        protected virtual void ReturnToPool() => OnReturnToPool?.Invoke();
         public virtual float CalculatorDamag() => Vector2AsRang.Clamp(m_Rigidbody.velocity.magnitude, RangeDamage);
-        internal void SendOnHit(HitPointEventArgs hitPointEventArgs)=> OnHit?.Invoke(hitPointEventArgs);
-        
+        internal void SendOnHit(HitPointEventArgs hitPointEventArgs) => OnHit?.Invoke(hitPointEventArgs);
+
         public IThrownState(ThrownActionTypesBuilder i_Data)
         {
             m_Rigidbody = i_Data.Rigidbody;

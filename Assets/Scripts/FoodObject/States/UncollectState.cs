@@ -10,8 +10,8 @@ internal class UncollectState : IFoodState
     private GameFoodObj gameFood;
 
     public string TagState => GameGlobal.TagNames.k_FoodObj;
-    public bool IsThrowingAction()=> false;
-    
+    public bool IsThrowingAction() => false;
+
     public UncollectState(GameFoodObj gameFood)
     {
         this.gameFood = gameFood;

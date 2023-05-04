@@ -1,5 +1,4 @@
 using Assets.scrips;
-using Assets.Scripts.Manger;
 using System;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,9 +10,9 @@ public class Player : NetworkBehaviour
     public event Action OnPickUpAction;
     public event Action OnChargingAction;
 
-    [SerializeField] 
+    [SerializeField]
     private GameInput gameInput;
-    [SerializeField] 
+    [SerializeField]
     private Transform m_PickUpPoint;
     private PlayerMovment m_Movment;
     private Rigidbody m_Rigidbody;

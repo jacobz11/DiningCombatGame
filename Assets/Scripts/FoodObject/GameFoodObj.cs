@@ -47,10 +47,10 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     public bool IsUesed => throw new NotImplementedException();
     public bool Unsed() => false;
     public void OnEndUsing() { /* Not-Implemented */}
-    protected virtual void CollectInvoke() =>  OnCollect?.Invoke();
-    internal bool CanCollect()=> Index == UncollectState.k_Indx;
-    internal eThrowAnimationType StopPowering()=> m_AnimationType;
-    internal Vector3 GetCollctorPositin()=> m_Collector is null ? transform.position : m_Collector.PicUpPoint.position;
+    protected virtual void CollectInvoke() => OnCollect?.Invoke();
+    internal bool CanCollect() => Index == UncollectState.k_Indx;
+    internal eThrowAnimationType StopPowering() => m_AnimationType;
+    internal Vector3 GetCollctorPositin() => m_Collector is null ? transform.position : m_Collector.PicUpPoint.position;
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();

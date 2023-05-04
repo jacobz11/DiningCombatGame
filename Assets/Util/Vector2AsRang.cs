@@ -8,7 +8,7 @@ namespace Assets.Util
         public static float Max(Vector2 v) => v.x;
         public static float Min(Vector2 v) => v.y;
 
-        public static Vector2 PositiveConstruction(Vector2 v)=> PositiveConstruction(v.x, v.y);
+        public static Vector2 PositiveConstruction(Vector2 v) => PositiveConstruction(v.x, v.y);
 
         public static Vector2 PositiveConstruction(float x, float y)
         {

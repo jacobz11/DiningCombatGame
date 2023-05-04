@@ -1,10 +1,9 @@
 ﻿using Assets.DataObject;
-using Assets.Util.DesignPatterns;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using UnityEngine;
 using Assets.Scripts;
+using Assets.Util.DesignPatterns;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 internal class ManagerGamePackage : GenericObjectPool<IPackage>
 {

@@ -12,7 +12,7 @@ public class PlayerLifePoint : MonoBehaviour
     private List<LifePointsVisual> m_LifePointsVisual;
     [SerializeField]
     private bool m_IsAi;
-    public bool IsAi { get => m_IsAi ; internal set => m_IsAi = value; }
+    public bool IsAi { get => m_IsAi; internal set => m_IsAi = value; }
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class PlayerLifePoint : MonoBehaviour
         }
 
         float normalizHp = hitPoint / k_StrtingLifePoint;
-        m_LifePointsVisual.ForEach(visual => {visual.UpdateBarNormalized(normalizHp); });
+        m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
     }
 
     public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)
@@ -81,8 +81,8 @@ public class PlayerLifePoint : MonoBehaviour
         {
             return;
         }
-        m_LifePoint = Math.Max(m_LifePoint + lifePackage.Amont, k_StrtingLifePoint) ;
-        
+        m_LifePoint = Math.Max(m_LifePoint + lifePackage.Amont, k_StrtingLifePoint);
+
         float normalizHp = m_LifePoint / k_StrtingLifePoint;
         m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
     }

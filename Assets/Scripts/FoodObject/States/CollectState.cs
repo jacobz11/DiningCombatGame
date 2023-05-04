@@ -14,8 +14,8 @@ internal class CollectState : IFoodState, IRagdoll
     public string TagState => GameGlobal.TagNames.k_Picked;
 
     public bool IsThrowingAction() => true;
-    public bool TryCollect(AcitonStateMachine i_Collcter)=> false;
-    public void OnSteteEnter()=> DisableRagdoll();
+    public bool TryCollect(AcitonStateMachine i_Collcter) => false;
+    public void OnSteteEnter() => DisableRagdoll();
     public CollectState()
     { /* Not-Implemented */}
 

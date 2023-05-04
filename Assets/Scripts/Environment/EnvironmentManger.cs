@@ -1,5 +1,4 @@
 using Assets.DataObject;
-using Assets.Scripts;
 using Assets.Scripts.Util.Channels;
 using Assets.Util;
 using System;

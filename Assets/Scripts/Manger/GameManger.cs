@@ -1,6 +1,4 @@
-﻿using Assets.DataObject;
-using DiningCombat;
-using System;
+﻿using DiningCombat;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;

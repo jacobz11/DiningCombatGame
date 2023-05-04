@@ -35,10 +35,10 @@ namespace Assets.Scripts.Util.Channels
             m_CurrentInx = 0;
         }
 
-        public bool IsBufferOver()=>m_CurrentInx >= m_MaxIdx;
+        public bool IsBufferOver() => m_CurrentInx >= m_MaxIdx;
 
-        public void SetDataToInit()=>Clear();
-        
+        public void SetDataToInit() => Clear();
+
         public void UpdeteData(int i_NewLest)
         {
             m_CurrentInx = i_NewLest;

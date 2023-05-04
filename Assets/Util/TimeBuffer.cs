@@ -39,7 +39,7 @@ namespace Assets.Scripts.Util.Channels
 
         public void AddToData(float i_DaltaTime)
         {
-            m_LestUpdate +=i_DaltaTime;
+            m_LestUpdate += i_DaltaTime;
         }
 
         public void UpdeteData(float i_NewLest)

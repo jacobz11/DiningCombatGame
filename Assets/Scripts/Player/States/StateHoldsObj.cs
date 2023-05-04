@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DesignPatterns.Abstraction;
+using System;
 using UnityEngine;
-using DesignPatterns.Abstraction;
 namespace Assets.scrips.Player.States
 {
     internal class StateHoldsObj : IStatePlayerHand

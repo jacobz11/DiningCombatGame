@@ -45,7 +45,7 @@ namespace Assets.Scripts.FoodObject.Pools
         }
         public static FoodEffactPool Instance { get; protected set; }
 
-        private  ParticleSystem m_PrefapFlour;
+        private ParticleSystem m_PrefapFlour;
         private ParticleSystem m_PrefapPomegranate;
         private ParticleSystem m_PrefapBanana;
 

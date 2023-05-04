@@ -1,7 +1,7 @@
-﻿using System;
-using UnityEngine;
-using Assets.scrips.Player.Data;
+﻿using Assets.scrips.Player.Data;
 using DesignPatterns.Abstraction;
+using System;
+using UnityEngine;
 namespace Assets.scrips.Player.States
 {
     internal class StatePowering : IStatePlayerHand
@@ -21,10 +21,10 @@ namespace Assets.scrips.Player.States
 
         private AcitonStateMachine m_AcitonStateMachine;
         public PoweringData m_Powering;
-      
+
         public float PowerCharging
         {
-            get=>m_PowerCharging;
+            get => m_PowerCharging;
             private set
             {
                 m_PowerCharging = value;

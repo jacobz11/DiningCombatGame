@@ -1,7 +1,6 @@
 using Assets.DataObject;
 using Assets.Scripts;
 using Assets.Scripts.NPC;
-using DiningCombat;
 using UnityEngine;
 using UnityEngine.AI;
 

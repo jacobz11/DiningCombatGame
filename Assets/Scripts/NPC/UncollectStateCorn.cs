@@ -1,5 +1,4 @@
-﻿using Assets.DataObject;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
 

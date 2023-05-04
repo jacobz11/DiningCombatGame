@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 internal class PlayerCoins : MonoBehaviour
 {
@@ -8,14 +7,14 @@ internal class PlayerCoins : MonoBehaviour
     private TMPro.TextMeshPro m_TextMeshPro;
     private int m_Value;
 
-    public int Value 
-    { 
+    public int Value
+    {
         get => m_Value;
-        private set 
+        private set
         {
             m_Value = value;
             //m_TextMeshPro.text = string.Format(k_Formt, m_Value);
-        } 
+        }
     }
     private void Awake()
     {

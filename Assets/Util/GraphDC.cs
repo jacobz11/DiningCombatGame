@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Util
 {
@@ -27,7 +27,7 @@ namespace Assets.Util
         }
         public NodeGraph this[float x, float z]
         {
-            get=> m_Ring[(int)x][(int)z];
+            get => m_Ring[(int)x][(int)z];
         }
         public GraphDC(int i_Higt, int i_Width, Vector3 i_StrtingPoint, Action<Vector3> action)
         {
@@ -113,7 +113,7 @@ namespace Assets.Util
             return isLowreRengm && isUpperRengm;
         }
 
-        public bool IsFree(Vector2 i_Pos)=> IsFree(i_Pos.x, i_Pos.y);
+        public bool IsFree(Vector2 i_Pos) => IsFree(i_Pos.x, i_Pos.y);
 
         public bool IsFree(float i_PosX, float i_PosZ)
         {

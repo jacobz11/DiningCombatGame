@@ -1,10 +1,10 @@
-using System;
-using UnityEngine;
 using Assets.scrips;
 using Assets.scrips.Player.Data;
 using Assets.scrips.Player.States;
 using Assets.scrips.UI;
+using System;
 using Unity.Netcode;
+using UnityEngine;
 using static GameFoodObj;
 
 internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
@@ -37,7 +37,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     }
 
     public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
-    internal PlayerScore GetScore()=>m_PlayerScore;
+    internal PlayerScore GetScore() => m_PlayerScore;
     #region Unity
     private void Awake()
     {

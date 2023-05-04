@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
-using System.Linq;
-using Assets.DataObject;
+﻿using Assets.DataObject;
 using Assets.Util.DesignPatterns;
+using System;
 using System.Collections.Generic;
-using Assets.Scripts;
+using System.Linq;
+using UnityEngine;
 
 internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 {

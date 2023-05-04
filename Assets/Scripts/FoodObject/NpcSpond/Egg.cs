@@ -1,4 +1,4 @@
- using Assets.Scripts.Environment;
+using Assets.Scripts.Environment;
 using System.Collections;
 using UnityEngine;
 
