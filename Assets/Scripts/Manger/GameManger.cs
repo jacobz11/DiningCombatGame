@@ -16,6 +16,8 @@ namespace Assets.Scripts.Manger
         private Room m_RoomDimension;
         [SerializeField]
         private NetworkBtnStrting m_NetworkBtn;
+        [SerializeField]
+        private GameStrting m_GameStrting;
         private GameOverLogic m_GameOverLogic;
 
         public static GameManger Instance { get; private set; }
@@ -63,23 +65,21 @@ namespace Assets.Scripts.Manger
 
                 // remove on ckile 
                 m_NetworkBtn.StartHost();
+                GameStrting.Instance.AddNumOfPlyers(o_StaringData.m_NumOfAi);
+
                 // instint Ai
-                for(int i = 0; i < o_StaringData.m_NumOfAi; i++)
+                for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
                     Debug.Log("StaringData ai ");
 
-                    GameObject ai = GameObject.Instantiate(m_AiPrifab, GatIntPosForPlayer(), Quaternion.identity);
+                    GameObject ai = GameObject.Instantiate(m_AiPrifab, GameStrting.Instance.GatIntPosForPlayer(), Quaternion.identity);
                 }
             }
             else
             {
                 Debug.Log("StaringData IsOnline ");
+                m_GameStrting.AddNumOfPlyers(1);
             }
-        }
-
-        private Vector3 GatIntPosForPlayer()
-        {
-            return m_RoomDimension.GetRendonPos();
         }
 
         public void AddCamera(GameObject i_Player)

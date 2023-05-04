@@ -1,8 +1,10 @@
 using Assets.scrips;
+using Assets.Scripts.Manger;
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     public event Action<Collider> OnExitCollisionFoodObj;
     public event Action<Collider> OnEnterCollisionFoodObj;
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        GameStrting.Instance.AddNumOfPlyers(1);
     }
 
     private void Start()
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour
         {
             gameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
         }
+        gameObject.transform.position = GameStrting.Instance.GatIntPosForPlayer();
     }
 
     private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
