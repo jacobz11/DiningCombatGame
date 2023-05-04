@@ -6,5 +6,5 @@ internal class StaringData : MonoBehaviour
     [Range(0, 10)]
     public int m_NumOfAi;
 
-    public bool IsOnline { get; internal set; }
+    public bool IsOnline => false;
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.DataObject;
 using Assets.Util.DesignPatterns;
 using System.Collections.Generic;
+using Assets.Scripts;
 
 internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 {
@@ -16,7 +17,7 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     [SerializeField]
     private SpawnData m_SpawnData;
     [SerializeField]
-    private RoomDimension m_RoomDimension;
+    private Assets.Scripts.Room m_RoomDimension;
     [SerializeField]
     private ListFoodPrefab m_AllFoodPrefab;
     public bool IsSpawnNewGameObj { get; private set; }

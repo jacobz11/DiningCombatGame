@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 1246689273}
   m_Layer: 0
   m_Name: DataToSeve
-  m_TagString: Untagged
+  m_TagString: DontDestroyOnLoad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -474,4 +474,4 @@ MonoBehaviour:
   m_Mesh: {fileID: 0}
   m_Prefab: {fileID: 0}
   m_HorizontalLayoutGroup: {fileID: 0}
-  m_GameObjectData: {fileID: 0}
+  m_GameObjectData: {fileID: 1246689273}

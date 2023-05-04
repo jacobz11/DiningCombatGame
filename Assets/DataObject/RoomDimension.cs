@@ -22,7 +22,5 @@ namespace Assets.DataObject
                 );
             return m_Center + offset;
         }
-
-
     }
 }

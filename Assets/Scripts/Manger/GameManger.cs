@@ -28,40 +28,58 @@ namespace Assets.Scripts.Manger
                 return;
             }
             Instance = this;
-            m_GameOverLogic = gameObject.AddComponent<GameOverLogic>();
+            m_GameOverLogic = gameObject.GetComponent<GameOverLogic>();
             Cuntter = 0;
+        }
+
+        private void Start()
+        {
             TryStartOffline();
         }
 
         private void TryStartOffline()
         {
             GameObject[] data = GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_DontDestroyOnLoad);
+
             if (data.Length == 0)
             {
                 Debug.Log("Data is empty");
                 return;
             }
+            else
+            {
+                Debug.Log("Data " + data.Length);
+            }
 
             if (!data[0].TryGetComponent<StaringData>(out StaringData o_StaringData))
             {
+                Debug.Log("StaringData cant get ");
                 return;
             }
 
             if (!o_StaringData.IsOnline)
             {
+                Debug.Log("StaringData Is not Online ");
+
                 // remove on ckile 
                 m_NetworkBtn.StartHost();
                 // instint Ai
                 for(int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
+                    Debug.Log("StaringData ai ");
+
                     GameObject ai = GameObject.Instantiate(m_AiPrifab, GatIntPosForPlayer(), Quaternion.identity);
                 }
+            }
+            else
+            {
+                Debug.Log("StaringData IsOnline ");
             }
         }
 
         private Vector3 GatIntPosForPlayer()
         {
-            return m_RoomDimension.GetRendPos();
+            return m_RoomDimension.GetRendonPos();
         }
 
         public void AddCamera(GameObject i_Player)

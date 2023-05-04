@@ -1,4 +1,5 @@
 using Assets.DataObject;
+using Assets.Scripts;
 using Assets.Scripts.Util.Channels;
 using Assets.Util;
 using System;
@@ -12,7 +13,7 @@ public class EnvironmentManger : MonoBehaviour
     [SerializeField]
     private SpawnData m_SpawnData;
     [SerializeField]
-    private RoomDimension m_RoomDimension;
+    private Assets.Scripts.Room m_RoomDimension;
     [SerializeField]
     private GameObject m_WaterPrefab;
     [SerializeField]
@@ -25,6 +26,7 @@ public class EnvironmentManger : MonoBehaviour
 
     private void Awake()
     {
+
         m_WaterGraph = new GraphDC((int)m_RoomDimension.Higet, (int)m_RoomDimension.Width, m_RoomDimension.m_Center, new Action<Vector3>(SpawnWater));
         m_WaterGraph.OnEnding += WaterGraph_OnEnding;
 

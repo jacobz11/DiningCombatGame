@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
+using Assets.Scripts;
 
 internal class ManagerGamePackage : GenericObjectPool<IPackage>
 {
@@ -15,7 +16,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
     [SerializeField]
     private SpawnData m_SpawnData;
     [SerializeField]
-    private RoomDimension m_RoomDimension;
+    private Room m_RoomDimension;
     [SerializeField]
     private IPackage[] m_PackagesPreFfa;
     private int m_IndexInPackagesArr;
@@ -102,9 +103,9 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
     {
         m_LestSpanw += Time.deltaTime;
         bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
-        Debug.Log("isTimeOver " + isTimeOver);
+        //Debug.Log("isTimeOver " + isTimeOver);
         bool isNotMax = m_Cuntter.CanInc();
-        Debug.Log("isNotMax  " + isNotMax);
+        //Debug.Log("isNotMax  " + isNotMax);
 
         return isTimeOver && isNotMax;
     }

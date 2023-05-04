@@ -1,4 +1,5 @@
 using Assets.DataObject;
+using Assets.Scripts;
 using Assets.Scripts.NPC;
 using DiningCombat;
 using UnityEngine;
@@ -9,7 +10,7 @@ internal class CornNpc : GameFoodObj
     private NavMeshAgent m_Agent;
 
     [SerializeField]
-    private RoomDimension m_RoomDimension;
+    private Room m_RoomDimension;
     [SerializeField]
     private GameObject[] m_GameObj;
 

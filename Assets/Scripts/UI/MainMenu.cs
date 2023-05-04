@@ -31,10 +31,17 @@ public class MainMenu : MonoBehaviour
     {
         m_Mesh.material = m_Materials[colorIndex];
     }
+    public void PlayGameOnline()
+    {
+
+    }
     public void PlayGame()
     {
         DontDestroyOnLoad(m_GameObjectData);
         SceneManager.LoadScene("V3DiningCombat");
+    }
+    public void PlayGameOfline()
+    {
     }
     public void QuitGame()
     {

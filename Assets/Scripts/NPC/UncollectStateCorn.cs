@@ -13,10 +13,10 @@ namespace Assets.Scripts.NPC
         private float m_Countdown;
         private int m_GameObjectsCount;
         private NavMeshAgent m_Agent;
-        private RoomDimension m_RoomDimension;
+        private Room m_RoomDimension;
         private GameObject[] m_GameObjects;
 
-        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, RoomDimension room, GameObject[] gameObjects) : base(gameFood)
+        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, Room room, GameObject[] gameObjects) : base(gameFood)
         {
             m_Agent = i_Agent;
             m_RoomDimension = room;
