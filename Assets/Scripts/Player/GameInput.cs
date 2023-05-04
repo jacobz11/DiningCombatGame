@@ -1,7 +1,7 @@
 ﻿using System;
-using UnityEngine.InputSystem;
-using UnityEngine;
 using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets.scrips
 {

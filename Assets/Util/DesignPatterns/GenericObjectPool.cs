@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Util.DesignPatterns
 {
     [Serializable]
-    public abstract class GenericObjectPool<T> : NetworkBehaviour  where T : Component
+    public abstract class GenericObjectPool<T> : NetworkBehaviour where T : Component
     {
         private const int k_AddingParTime = 1;
         [SerializeField]

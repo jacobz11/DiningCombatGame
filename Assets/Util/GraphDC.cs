@@ -1,21 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Assets.Util
 {
     internal class GraphDC
     {
         private Action<Vector3> m_Action;
+        public Action OnEnding;
+
+        public Vector2Int m_TopLfet;
+        public Vector2Int m_BottomRight;
+
+        private int m_Higt;
+        private int m_Width;
         private Vector3 m_StrtingPoint;
         private List<Vector2Int> m_EndPints;
         private NodeGraph[][] m_Ring;
-        private int m_Higt;
-        private int m_Width;
-        public Vector2Int m_TopLfet;
-        public Vector2Int m_BottomRight;
-        public Action OnEnding;
-
+        public NodeGraph this[Vector3 i_Pos]
+        {
+            get => this[i_Pos.x, i_Pos.z];
+        }
+        private NodeGraph this[Vector2 i_Pos]
+        {
+            get => m_Ring[(int)i_Pos.x][(int)i_Pos.y];
+        }
+        public NodeGraph this[float x, float z]
+        {
+            get=> m_Ring[(int)x][(int)z];
+        }
         public GraphDC(int i_Higt, int i_Width, Vector3 i_StrtingPoint, Action<Vector3> action)
         {
             Debug.Log("i_StrtingPoint" + i_StrtingPoint);
@@ -23,9 +36,10 @@ namespace Assets.Util
             m_Width = i_Width;
             int higt = 2 * i_Higt - 2;
             int width = 2 * i_Width - 2;
-            m_StrtingPoint  = i_StrtingPoint;
+            m_StrtingPoint = i_StrtingPoint;
             m_Action = action;
-            Init(i_Higt,i_Width);
+            Init(i_Higt, i_Width);
+
             m_EndPints = new List<Vector2Int>()
             {
                 new Vector2Int(0, 0),
@@ -33,18 +47,19 @@ namespace Assets.Util
                 new Vector2Int(higt -1, 0),
                 new Vector2Int(higt -1, width-1),
             };
-
         }
 
         public void Init(int i_Higt, int i_Width)
         {
             Debug.Assert(i_Higt > 0, "Higt is last or equle to 0");
             Debug.Assert(i_Width > 0, "Width is last or equle to 0");
+
             int higt = 2 * i_Higt;
             int width = 2 * i_Width;
+
             m_Ring = new NodeGraph[higt][];
- 
-            for(int x = 0; x< higt; x++)
+
+            for (int x = 0; x < higt; x++)
             {
                 m_Ring[x] = new NodeGraph[width];
                 //m_Ring[x] = Cerate1DArr(x);
@@ -61,11 +76,9 @@ namespace Assets.Util
             {
                 float x = i_PosX - m_Higt;
                 float z = i_PosZ - m_Width;
-                Vector3 posAction = new Vector3(x, 0, z) + m_StrtingPoint ;
+                Vector3 posAction = new Vector3(x, 0, z) + m_StrtingPoint;
                 m_Action.Invoke(posAction);
-                //Debug.Log("x :" + i_PosX + " z :" + i_PosZ);
                 Vector2Int[] neighborsList = GetNeighborsList(i_PosX, i_PosZ, false);
-                //Array.ForEach(neighborsList, (Vector2Int v) => Debug.Log(v));
                 AddNeighborsToList(neighborsList);
             };
         }
@@ -92,11 +105,6 @@ namespace Assets.Util
             m_EndPints.AddRange(Array.FindAll<Vector2Int>(i_Neighbors, (Vector2Int pos) => IsFree(pos)));
         }
 
-        private bool IsInReng(Vector2Int i_Pos)
-        {
-            return IsInReng(i_Pos.x, i_Pos.y);
-        }
-
         private bool IsInReng(float i_PosX, float i_PosZ)
         {
             bool isLowreRengm = i_PosX > -1 && i_PosZ > -1;
@@ -105,10 +113,7 @@ namespace Assets.Util
             return isLowreRengm && isUpperRengm;
         }
 
-        public bool IsFree(Vector2 i_Pos)
-        {
-            return IsFree(i_Pos.x, i_Pos.y);
-        }
+        public bool IsFree(Vector2 i_Pos)=> IsFree(i_Pos.x, i_Pos.y);
 
         public bool IsFree(float i_PosX, float i_PosZ)
         {
@@ -137,30 +142,9 @@ namespace Assets.Util
 
             Vector2Int GetAndRemoveRandomEndPint()
             {
-                //Debug.Log("m_EndPints.Count " + m_EndPints.Count);
-                //int randIndex = Random.Range(0, m_EndPints.Count);
-                //Debug.Log("randIndex :" + randIndex);
-                //Vector2Int randEndPoint = m_EndPints[randIndex];
-                //m_EndPints.RemoveAt(randIndex);
                 Vector2Int randEndPoint = m_EndPints[0];
                 m_EndPints.RemoveAt(0);
                 return randEndPoint;
-            }
-        }
-
-        public NodeGraph this[Vector3 i_Pos]
-        {
-            get => this[i_Pos.x, i_Pos.z];
-        }
-        private NodeGraph this[Vector2 i_Pos]
-        {
-            get => m_Ring[(int) i_Pos.x] [(int)i_Pos.y];
-        }
-        public NodeGraph this[float x, float z]
-        {
-            get
-            {
-                return m_Ring[(int)x][(int)z];
             }
         }
     }

@@ -2,11 +2,13 @@ using Assets.DataObject;
 using Assets.Scripts.Util.Channels;
 using Assets.Util;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvironmentManger : MonoBehaviour
 {
+    private bool m_IsEnding;
+    private GraphDC m_WaterGraph;
+
     [SerializeField]
     private SpawnData m_SpawnData;
     [SerializeField]
@@ -19,19 +21,14 @@ public class EnvironmentManger : MonoBehaviour
     private GameObject m_WaterObject;
     [SerializeField]
     private TimeBuffer m_NpcTimer;
-    private GraphDC m_WaterGraph;
-    private bool m_IsEnding;
-
     public bool IsInit { get; private set; }
 
     private void Awake()
     {
-       IsInit = true;
-       m_WaterGraph = new GraphDC((int)m_RoomDimension.Higet,
-            (int)m_RoomDimension.Width,
-            m_RoomDimension.m_Center,
-            new Action<Vector3>(SpawnWater));
+        m_WaterGraph = new GraphDC((int)m_RoomDimension.Higet, (int)m_RoomDimension.Width, m_RoomDimension.m_Center, new Action<Vector3>(SpawnWater));
         m_WaterGraph.OnEnding += WaterGraph_OnEnding;
+
+        IsInit = true;
         m_IsEnding = false;
     }
 
@@ -47,18 +44,19 @@ public class EnvironmentManger : MonoBehaviour
         water.transform.parent = m_WaterObject.transform;
     }
 
-
     void Update()
     {
         if (m_IsEnding)
         {
             return;
         }
+
         if (m_WaterTimer.IsBufferOver())
         {
             m_WaterGraph.Activate();
             m_WaterTimer.Clear();
         }
+
         if (m_NpcTimer.IsBufferOver())
         {
             m_NpcTimer.Clear();

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace DesignPatterns.Abstraction
 {
-    public interface IDCState 
+    public interface IDCState
     {
         public enum eState
         {

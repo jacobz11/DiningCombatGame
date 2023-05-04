@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Assets.Util
 {
@@ -9,7 +6,7 @@ namespace Assets.Util
     {
         public bool IsFree { get; private set; }
         private Action m_ChangeAction;
-        public NodeGraph(Action i_ChangeAction) 
+        public NodeGraph(Action i_ChangeAction)
         {
             IsFree = true;
             m_ChangeAction += i_ChangeAction;

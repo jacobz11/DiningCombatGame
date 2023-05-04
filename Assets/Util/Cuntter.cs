@@ -6,8 +6,8 @@ internal struct Cuntter
     public short m_Max;
     public short m_Min;
     private short m_Value;
-        
-        
+
+
     public bool TryInc()
     {
         bool canInc = m_Value <= m_Max;

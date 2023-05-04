@@ -4,30 +4,29 @@
     using System;
     using Unity.Netcode;
     using UnityEngine;
-    using UnityEngine.EventSystems;
 
     internal class PlayerMovment : NetworkBehaviour
     {
+        public static int m_Cunnter = 0;
+
         private const float k_PlayerHeight = 2f;
         private const float k_PlayerRadius = 0.7f;
-        public static int m_Cunnter =0;
+
         public static Color[] m_Colors = new Color[] { Color.red, Color.green, Color.blue };
+
+        public event Action<bool> OnIsRunnigChang;
+        public event Action<bool> OnIsRunnigBackChang;
+
         private bool m_IsRunnig;
         private bool m_IsRunnigBack;
 
         private GameInput m_GameInput;
         private Rigidbody m_Rb;
 
-
         [SerializeField]
         private PlayerMovmentData m_MovmentData;
-
         [SerializeField]
         private Material m_Material;
-
-        public event Action<bool> OnIsRunnigChang;
-        public event Action<bool> OnIsRunnigBackChang;
-
 
         public Vector3 Position => transform.position;
         public bool IsGrounded { get; private set; }
@@ -44,10 +43,7 @@
         }
         public bool IsRunnig
         {
-            get
-            {
-                return m_IsRunnig;
-            }
+            get => m_IsRunnig;
             private set
             {
                 if (value ^ m_IsRunnig)
@@ -59,13 +55,9 @@
         }
         public bool IsRunnigBack
         {
-            get
-            {
-                return m_IsRunnigBack;
-            }
+            get => m_IsRunnigBack;
             private set
             {
-
                 if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
@@ -78,13 +70,8 @@
         private void Awake()
         {
             m_Rb = GetComponent<Rigidbody>();
-            
-            m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
-        }
 
-        private void Start()
-        {
-            
+            m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
         public override void OnNetworkSpawn()
@@ -94,7 +81,7 @@
             m_GameInput.OnJumpAction += GameInput_OnJumpAction;
             Camera camera = gameObject.GetComponentInChildren<Camera>();
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
-            SkinnedMeshRenderer m =gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             NetworkObject networkObj = GetComponent<NetworkObject>();
             if (networkObj == null)
             {
@@ -129,7 +116,7 @@
         }
 
         [ClientRpc]
-        private void HandleMovementClientRpc() 
+        private void HandleMovementClientRpc()
         {
             float speed = PlayerSpeedNormalized;
             float yOffset = 0;
@@ -138,20 +125,14 @@
                 speed *= m_MovmentData.m_JumpSlowDonwSpeep;
                 //yOffset = Position.y;
             }
-            
+
             Vector3 movment = HandleMovement(m_GameInput.GetMovementVectorNormalized(), yOffset, speed);
+
             if (!IsGrounded && movment != Vector3.zero)
             {
-                if (movment.z < float.Epsilon)
-                {
-                    IsRunnig = false;
-                    IsRunnigBack = true;
-                }
-                else
-                {
-                    IsRunnig = true;
-                    IsRunnigBack = false;
-                }
+                bool isRunnigFord = movment.z < float.Epsilon;
+                IsRunnig = isRunnigFord;
+                IsRunnigBack = !isRunnigFord;
             }
             else
             {

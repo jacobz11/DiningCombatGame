@@ -6,7 +6,7 @@ namespace Assets.scrips.UI
     internal class PoweringVisual : MonoBehaviour
     {
         public static PoweringVisual Instance { get; private set; }
-        
+
         [SerializeField]
         private Image m_PoweringBar;
 
@@ -16,7 +16,7 @@ namespace Assets.scrips.UI
 
         private void Awake()
         {
-            if (Instance is null) 
+            if (Instance is null)
             {
                 Instance = this;
             }

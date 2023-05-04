@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class FollowWaypoints : MonoBehaviour {
+public class FollowWaypoints : MonoBehaviour
+{
 
     // Transform goal;
     // float speed = 5.0f;
@@ -19,7 +18,8 @@ public class FollowWaypoints : MonoBehaviour {
 
     public WPManager wpManager;
 
-    void Start() {
+    void Start()
+    {
         Time.timeScale = 5.0f;
         wps = wpManager.GetComponent<WPManager>().waypoints;
         // g = wpManager.GetComponent<WPManager>().graph;
@@ -30,40 +30,46 @@ public class FollowWaypoints : MonoBehaviour {
         // Invoke("GotoRuin", 2.0f);
     }
 
-    public void GotoHeli() {
+    public void GotoHeli()
+    {
 
         //g.AStar(currentNode, wps[0]);
         //currentWP = 0;
         GotoHere(0);
     }
 
-    public void GotoRuin() {
+    public void GotoRuin()
+    {
 
         //g.AStar(currentNode, wps[7]);
         //currentWP = 0;
         GotoHere(7);
     }
 
-    public void GotoRock() {
+    public void GotoRock()
+    {
 
         //g.AStar(currentNode, wps[1]);
         //currentWP = 0;
         GotoHere(1);
     }
 
-    public void GotoFactory() {
+    public void GotoFactory()
+    {
 
         //g.AStar(currentNode, wps[4]);
         //currentWP = 0;
         GotoHere(4);
     }
 
-    void GotoHere(int value) {
+    void GotoHere(int value)
+    {
 
         agent.SetDestination(wps[value].transform.position);
     }
 
-    void LateUpdate() {
+    void LateUpdate()
+    {
 
         //if (g.pathList.Count == 0 || currentWP == g.pathList.Count) return;
 

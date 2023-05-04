@@ -1,11 +1,22 @@
-
+using System.Diagnostics;
 using UnityEngine;
 
+[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class WaterEinv : MonoBehaviour
 {
-    private const float m_Damage = 0.01f;
-    private void OnTriggerStay(Collider other)
+    // TODO : Arrange that life will go down less quickly 
+    private const float k_Damage = 0.01f;
+    private void OnTriggerStay(Collider other) => PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out bool _);
+
+    #region System And Debuging
+    private string GetDebuggerDisplay()
     {
-        PlayerLifePoint.TryToDamagePlayer(other.gameObject, m_Damage, out bool _);
+        return ToString();
     }
+
+    public override string ToString()
+    {
+        return "WaterEinv";
+    }
+    #endregion
 }

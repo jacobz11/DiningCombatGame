@@ -7,14 +7,19 @@ namespace Assets.DataObject
 {
     internal class GrenadeLike : IThrownState
     {
-        protected readonly float r_CountdownTime;
-        protected readonly float r_EffectTime;
         private readonly float r_ForceHitExsplostin;
         private readonly float r_Radius;
+
+        protected readonly float r_CountdownTime;
+        protected readonly float r_EffectTime;
+
         protected float m_Countdown;
+
         protected eElementSpecialByName m_EffectType;
+
         protected Transform m_Transform;
         protected ParticleSystem m_Effect;
+        public override float CalculatorDamag() => Vector2AsRang.Random(RangeDamage);
 
         public GrenadeLike(ThrownActionTypesBuilder i_BuilderData) : base(i_BuilderData)
         {
@@ -33,12 +38,9 @@ namespace Assets.DataObject
             m_Countdown = r_CountdownTime;
         }
 
-
         public override void OnSteteExit()
-        {
-        }
+        { /* Not-Implemented */}
 
-        public override float CalculatorDamag() => Vector2AsRang.Random(RangeDamage);
         public override void Update()
         {
             m_Countdown -= Time.deltaTime;
@@ -55,6 +57,7 @@ namespace Assets.DataObject
                 }
             }
         }
+
         protected override void ReturnToPool()
         {
             if (m_Effect != null)
@@ -77,32 +80,33 @@ namespace Assets.DataObject
 
         public override void Activate()
         {
-            DisplayEffect();
-            m_Countdown = r_EffectTime;
-            IsActionHappen = true;
             float damage = CalculatorDamag();
             float ponits = 0;
             int kills = 0;
+
+            DisplayEffect();
+
+            m_Countdown = r_EffectTime;
+            IsActionHappen = true;
+
             foreach (Collider nearByObj in Physics.OverlapSphere(m_Transform.position, r_Radius))
             {
                 if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
                 {
                     o_Rb.AddExplosionForce(r_ForceHitExsplostin, m_Transform.position, r_Radius);
                 }
+
                 if (PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool o_IsKill))
                 {
                     ponits += damage;
                     kills += o_IsKill ? 1 : 0;
                 }
             }
-            base.SendOnHit(new HitPointEventArgs()
-            {
 
-            });
+            base.SendOnHit(new HitPointEventArgs() { /* Not-Implemented */});
         }
     }
 }
-
 /*
  *    private const float k_TimeOFExplod = 1.5f;
     private float m_Timr = 2;

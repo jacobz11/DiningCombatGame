@@ -6,22 +6,25 @@ namespace Assets.Scripts.Util.Channels
     [Serializable]
     internal struct TimeBuffer : IBuffer<float>
     {
+        public static float Default => 5.0f;
+
         private float m_LestUpdate;
         [SerializeField]
         private float m_UpdateRate;
 
-        public static float Default => 5.0f;
-
         public float DefaultLimt => Default;
+        public void Clear() => SetDataToInit();
+        public void SetDataToInit() => m_LestUpdate = Time.time;
+        public bool IsBufferOver() => Time.time - m_LestUpdate > m_UpdateRate;
+        public void UpdateByDaltaTime() => AddToData(Time.deltaTime);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="i_UpdateRate">the Buffer time to add</param>
-        public TimeBuffer(float i_UpdateRate) 
+        public TimeBuffer(float i_UpdateRate)
             : this(i_UpdateRate, float.MinValue)
-        {
-        }
+        { /* Not Implemented */}
 
         public TimeBuffer(float i_UpdateRate, float i_LestUpdate)
         {
@@ -34,23 +37,9 @@ namespace Assets.Scripts.Util.Channels
             m_LestUpdate = i_LestUpdate;
         }
 
-        public void SetDataToInit()
-        {
-            m_LestUpdate = Time.time;
-        }
-
-        public void UpdateByDaltaTime()
-        {
-            AddToData(Time.deltaTime);
-        }
-
         public void AddToData(float i_DaltaTime)
         {
-            m_LestUpdate =+ i_DaltaTime;
-        }
-        public bool IsBufferOver()
-        {
-            return Time.time - m_LestUpdate > m_UpdateRate;
+            m_LestUpdate +=i_DaltaTime;
         }
 
         public void UpdeteData(float i_NewLest)
@@ -58,12 +47,7 @@ namespace Assets.Scripts.Util.Channels
             m_LestUpdate = i_NewLest;
         }
 
-        public void Clear()
-        {
-            SetDataToInit();
-        }
-
-        internal void PreventDoubleEntry(float i_ActineTime) 
+        internal void PreventDoubleEntry(float i_ActineTime)
         {
             UpdeteData(Time.time + (m_UpdateRate + i_ActineTime) * 10);
         }

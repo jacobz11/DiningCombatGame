@@ -1,9 +1,9 @@
 ﻿using DesignPatterns.Abstraction;
-using System.Collections;
-using UnityEngine;
 
-internal interface IFoodState : IDCState    
+internal interface IFoodState : IDCState
 {
+    string TagState { get; }
+
     bool IsThrowingAction();
 
     bool TryCollect(AcitonStateMachine i_Collcter);

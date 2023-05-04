@@ -841,6 +841,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -11.244495
       objectReference: {fileID: 0}
+    - target: {fileID: 7766421054592693333, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8032036308898754424, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 74.37649
@@ -1013,7 +1017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb677ad6179b734abd459122862d6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SkinnedMeshRenderer: {fileID: 8991460776751757499}
   m_MovmentData:
     m_MouseSensetivity: 12
     m_PlayerSpeed: 33
@@ -1131,8 +1134,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!137 &8991460776751757499 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 54236948389385467, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
-  m_PrefabInstance: {fileID: 8937575737055390784}
-  m_PrefabAsset: {fileID: 0}

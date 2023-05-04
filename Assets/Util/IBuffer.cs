@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Scripts.Util.Channels
+﻿namespace Assets.Scripts.Util.Channels
 {
     internal interface IBuffer<T>
     {

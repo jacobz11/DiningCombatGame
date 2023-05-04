@@ -1,35 +1,33 @@
+using System;
+using UnityEngine;
 using Assets.scrips;
 using Assets.scrips.Player.Data;
 using Assets.scrips.Player.States;
 using Assets.scrips.UI;
-using System;
 using Unity.Netcode;
-using UnityEngine;
 using static GameFoodObj;
 
 internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
 {
-    private Action<eThrowAnimationType> LaunchingAnimation;
+    protected Action<eThrowAnimationType> LaunchingAnimation;
     protected IStatePlayerHand[] m_Stats;
     protected int m_StateIndex;
+
     private PlayerScore m_PlayerScore;
+    private GameFoodObj m_FoodObj;
+
     [SerializeField]
     private Transform m_PicUpPoint;
-    [SerializeField] 
+    [SerializeField]
     protected PoweringData m_Powering;
     [SerializeField]
     protected PoweringVisual m_PoweringVisual;
-
-    private GameFoodObj m_FoodObj;
     public Transform PicUpPoint { get => m_PicUpPoint; }
     public bool IsPower { get; private set; }
 
     public int Index
     {
-        get
-        {
-            return m_StateIndex;
-        }
+        get => m_StateIndex;
         set
         {
             CurrentState.OnSteteExit();
@@ -39,39 +37,52 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     }
 
     public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
-
+    internal PlayerScore GetScore()=>m_PlayerScore;
     #region Unity
-
     private void Awake()
     {
+        StateFree stateFree = new StateFree(this);
         StateHoldsObj holdsing = new StateHoldsObj();
         StatePowering powering = new StatePowering(this, m_Powering);
         StateThrowing throwing = new StateThrowing();
+
         powering.OnStopPowering += powering_OnStopPowering;
         powering.OnStopPowering += throwing.powering_OnStopPowering;
         holdsing.OnStartCharging += holdsing_OnStartCharging;
+
         m_Stats = new IStatePlayerHand[]
         {
-            new StateFree(this),
+            stateFree,
             holdsing,
             powering,
-            throwing 
+            throwing
         };
-    }
-
-    private void Start()
-    {
-
     }
 
     public override void OnNetworkSpawn()
     {
-  
+
         base.OnNetworkSpawn();
         LisenToPlayr();
         AddLisenrToInput(GetComponent<GameInput>());
 
         PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
+        StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
+        SetLaunchingAnimation(channel);
+
+        m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
+
+        powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
+        channel.ThrowPoint += Animation_ThrowPoint;
+        channel.ThrowPoint += () => { powering.OnThrowPoint(out float _); };
+        channel.StartTrowing += channel_StartTrowing;
+
+        m_StateIndex = StateFree.k_Indx;
+        CurrentState.OnSteteEnter();
+    }
+
+    protected void SetLaunchingAnimation(PlayerAnimationChannel channel)
+    {
         LaunchingAnimation += (eThrowAnimationType animationType) =>
         {
             switch (animationType)
@@ -87,21 +98,9 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
                     break;
             }
         };
-        
-        StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
-        m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
-        powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
-        channel.ThrowPoint += Animation_ThrowPoint;
-        channel.ThrowPoint += () => { powering.OnThrowPoint(out float _); };
-        channel.StartTrowing += channel_StartTrowing;
-        m_StateIndex = StateFree.k_Indx;
-        CurrentState.OnSteteEnter();
     }
-
     protected void channel_StartTrowing()
-    {
-        //m_FoodObj.OnStartTrowing();
-    }
+    {/* m_FoodObj.OnStartTrowing(); */}
 
     protected virtual void Update()
     {
@@ -143,6 +142,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     public void GameInput_OnPickUpAction(object sender, System.EventArgs e)
     {
         bool isPickItem = CurrentState.OnPickUpAction(out GameFoodObj o_Collcted);
+
         if (isPickItem)
         {
             m_FoodObj = o_Collcted;
@@ -160,6 +160,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     }
     #endregion
 
+    #region GameInput Action
     public virtual void GameInput_OnStartChargingAction(object sender, System.EventArgs e)
     {
         IsPower = true;
@@ -170,23 +171,19 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         IsPower = false;
         CurrentState.OnChargingAction = false;
     }
-
-    internal PlayerScore GetScore()
-    {
-        return m_PlayerScore;
-    }
-
+    #endregion
+    #region Add Lisenrs
     private void AddLisenrToInput(GameInput input)
     {
         input.OnStartChargingAction += GameInput_OnStartChargingAction;
         input.OnStopChargingAction += GameInput_OnStopChargingAction;
         input.OnPickUpAction += GameInput_OnPickUpAction;
     }
-
     private void LisenToPlayr()
     {
         Player player = GetComponent<Player>();
         player.OnExitCollisionFoodObj += m_Stats[StateFree.k_Indx].ExitCollisionFoodObj;
         player.OnEnterCollisionFoodObj += m_Stats[StateFree.k_Indx].EnterCollisionFoodObj;
     }
+    #endregion
 }

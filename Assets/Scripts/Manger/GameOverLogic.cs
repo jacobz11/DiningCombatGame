@@ -1,22 +1,24 @@
-using Assets.Scripts.Manger;
-using DiningCombat;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class GameOverLogic : MonoBehaviour
 {
-    
     private const string k_FormatLivingPlayer = "Living: {0}";
+
     public event Action GameOverOccured;
+
     private int m_NumOfAlivePlayers;
     private int m_LivingPlayerCounter;
-    [SerializeField] TMP_Text m_GameOverText;
-    [SerializeField] TMP_Text m_TextLivingPlayers;
-    [SerializeField] LifePointsVisual m_LifePointsVisual;
+
+    [SerializeField]
+    private TMP_Text m_GameOverText;
+    [SerializeField]
+    private TMP_Text m_TextLivingPlayers;
+    [SerializeField]
+    private LifePointsVisual m_LifePointsVisual;
+    public static GameOverLogic Instance { get; private set; }
+
     private int LivingPlayers
     {
         get => m_LivingPlayerCounter;
@@ -26,9 +28,9 @@ public class GameOverLogic : MonoBehaviour
             m_TextLivingPlayers.text = string.Format(k_FormatLivingPlayer, m_LivingPlayerCounter);
         }
     }
-
-    public static GameOverLogic Instance { get; private set; }
-
+    public void AI_OnAiDead() => Player_OnPlayerDead(false);
+    public void Player_OnPlayerDead() => Player_OnPlayerDead(true);
+    public void ShowGameOverText() => m_GameOverText.enabled = true;
     public void CharacterEntersTheGame(PlayerLifePoint i_Player)
     {
         if (!i_Player.IsAi)
@@ -41,14 +43,17 @@ public class GameOverLogic : MonoBehaviour
         {
             i_Player.OnPlayerDead += AI_OnAiDead;
         }
+
         LivingPlayers++;
     }
+
     private void Awake()
     {
         if (Instance is not null)
         {
             return;
         }
+
         Instance = this;
         GameOverOccured += ShowGameOverText;
         m_GameOverText.enabled = false;
@@ -57,35 +62,22 @@ public class GameOverLogic : MonoBehaviour
         m_NumOfAlivePlayers = 0;
     }
 
-    public void AI_OnAiDead()
-    {
-        Player_OnPlayerDead(false);
-    }
-
-    public void Player_OnPlayerDead()
-    {
-        Player_OnPlayerDead(true);
-    }
-
     private void Player_OnPlayerDead(bool isAlive)
     {
         LivingPlayers--;
+
         if (isAlive)
         {
             m_NumOfAlivePlayers--;
         }
+
         bool isGameOver = LivingPlayers <= 1 || m_NumOfAlivePlayers == 0;
+
         if (isGameOver)
         {
             GameOverOccured?.Invoke();
         }
     }
-
-    public void ShowGameOverText()
-    {
-        m_GameOverText.enabled = true;
-    }
-
     //public List<Vector3> GetPlayerPos()
     //{
     //    GameObject[] players = GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player);

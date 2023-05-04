@@ -1,26 +1,31 @@
 ﻿using Assets.scrips.Player.Data;
 using Assets.scrips.Player.States;
 using Assets.Scripts.Manger;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
-using UnityEngine.UIElements;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Scripts.AI.States
 {
     internal class AIStatePowering : StatePowering
     {
-        private NavMeshAgent m_Agent;
+        private const bool k_StopPowering = false;
+        private const float k_PoweringTime = 3.0f;
+        private const float k_UpdateRate = 1.5f;
+        private const float k_MinDistanceToTarget = 7f;
+
         private float m_Timer;
-        private AIAcitonStateMachine m_AIAcitonState;
+        private int m_UpdateTimes;
         private Vector3 m_Target;
+        private NavMeshAgent m_Agent;
         private Vector3 Position => m_Agent.transform.position;
-        public AIStatePowering(AcitonStateMachine acitonStateMachine, PoweringData i_Powering, NavMeshAgent i_Agent) 
+        public float FindPlayerClosestUpdateRate
+        {
+            get => k_UpdateRate * m_UpdateTimes;
+            private set { m_UpdateTimes = (int)value; }
+        }
+
+        public AIStatePowering(AcitonStateMachine acitonStateMachine, PoweringData i_Powering, NavMeshAgent i_Agent)
             : base(acitonStateMachine, i_Powering)
         {
             m_Agent = i_Agent;
@@ -28,10 +33,40 @@ namespace Assets.Scripts.AI.States
 
         private void FindPlayerClosest()
         {
-            m_Timer = 0;
-            m_Target = GameManger.Instance.GetPlayerPos(m_Agent.transform)
-                .OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
+            m_UpdateTimes++;
+            m_Target = GameManger.Instance.GetPlayerPos(m_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
             m_Agent.SetDestination(m_Target);
+        }
+
+        public override void OnSteteEnter()
+        {
+            base.OnSteteEnter();
+            FindPlayerClosest();
+            m_UpdateTimes = 0;
+            m_Timer = 0;
+        }
+
+        public override void Update()
+        {
+            m_Timer += Time.deltaTime;
+            m_IsPowering = ToProceedPowering();
+
+            if (!m_IsPowering)
+            {
+                OnChargingAction = k_StopPowering;
+                return;
+            }
+
+            if (m_Timer > FindPlayerClosestUpdateRate)
+            {
+                FindPlayerClosest();
+            }
+            base.Update();
+        }
+
+        private bool ToProceedPowering()
+        {
+            return m_Timer < k_PoweringTime && Vector3.Distance(m_Target, m_Agent.transform.position) > k_MinDistanceToTarget;
         }
 
         public float CalculateDistanceMoved()
@@ -43,7 +78,6 @@ namespace Assets.Scripts.AI.States
 
             //return distanceMoved;
             return 0.5f;
-
         }
     }
 }

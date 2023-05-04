@@ -1,32 +1,30 @@
-﻿namespace Assets.scrips.Player.States
+﻿using System;
+using UnityEngine;
+using Assets.scrips.Player.Data;
+using DesignPatterns.Abstraction;
+namespace Assets.scrips.Player.States
 {
-    using Assets.scrips.Player.Data;
-    using DesignPatterns.Abstraction;
-    using System;
-    using UnityEngine;
-
     internal class StatePowering : IStatePlayerHand
     {
-        public const int k_Indx = 2;
-
-        public event Action<float> OnPoweringNormalized;
-        public event Action<float> OnStopPowering;
-        private AcitonStateMachine m_AcitonStateMachine;
-        public PoweringData m_Powering;
-        public bool m_IsPowering;
         public class OnStopPoweringEventArg
         {
             public float power;
         }
+        public const int k_Indx = 2;
 
+        public event Action<float> OnPoweringNormalized;
+        public event Action<float> OnStopPowering;
+
+        public bool m_IsPowering;
         private float m_PowerCharging;
         private bool m_StopPowering;
+
+        private AcitonStateMachine m_AcitonStateMachine;
+        public PoweringData m_Powering;
+      
         public float PowerCharging
         {
-            get
-            {
-                return m_PowerCharging;
-            }
+            get=>m_PowerCharging;
             private set
             {
                 m_PowerCharging = value;
@@ -34,57 +32,46 @@
             }
         }
 
-        bool IStatePlayerHand.OnChargingAction 
-        { 
+        public bool OnChargingAction
+        {
             get => m_IsPowering;
-            set 
+            set
             {
                 if (!value)
                 {
                     OnStopPowering?.Invoke(PowerCharging);
                 }
-            } 
+            }
         }
 
-        public StatePowering(AcitonStateMachine acitonStateMachine, PoweringData i_Powering) 
+        public StatePowering(AcitonStateMachine acitonStateMachine, PoweringData i_Powering)
         {
             m_AcitonStateMachine = acitonStateMachine;
             m_Powering = i_Powering;
         }
+        #region Not-Implemented
         public void EnterCollisionFoodObj(Collider other)
-        {
-        }
-
+        {/* Not-Implemented */}
         public void ExitCollisionFoodObj(Collider other)
-        {
-        }
+        {/* Not-Implemented */}
+        public virtual void OnSteteExit()
+        {/* Not-Implemented */}
+        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
+        {/* Not-Implemented */}
+        #endregion
 
-        public void OnSteteEnter()
+        public virtual void OnSteteEnter()
         {
             m_IsPowering = m_AcitonStateMachine.IsPower;
             Debug.Log("OnSteteEnter : StatePowering");
         }
 
-        public void OnSteteExit()
-        {
-
-
-        }
-
-        public void Update()
+        public virtual void Update()
         {
             if (m_IsPowering)
             {
                 PowerCharging += m_Powering.DataTimeAddingPower * Time.deltaTime;
             }
-            else
-            {
-                Debug.Log("Else");
-            }
-        }
-
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {
         }
 
         public bool OnPickUpAction(out GameFoodObj o_Collcted)

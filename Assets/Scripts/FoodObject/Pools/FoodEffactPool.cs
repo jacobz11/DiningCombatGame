@@ -1,5 +1,4 @@
-﻿using Assets.Util.DesignPatterns;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -18,7 +17,7 @@ namespace Assets.Scripts.FoodObject.Pools
             [SerializeField]
             private ParticleSystem m_Prefap;
 
-            protected Queue<ParticleSystem> m_Objects = new Queue<ParticleSystem>();
+            protected Queue<ParticleSystem> m_Objects = new();
             public Transform ObjectLayer { get; set; }
             public ParticleSystem Get()
             {
@@ -44,23 +43,24 @@ namespace Assets.Scripts.FoodObject.Pools
                 m_Objects.Enqueue(newObj);
             }
         }
-        private ParticleSystem m_PrefapFlour;
+        public static FoodEffactPool Instance { get; protected set; }
+
+        private  ParticleSystem m_PrefapFlour;
         private ParticleSystem m_PrefapPomegranate;
         private ParticleSystem m_PrefapBanana;
 
         [SerializeField]
         private ParticleSystemPool m_FlourPool;
-        [SerializeField] 
+        [SerializeField]
         private ParticleSystemPool m_PomegranatePool;
         [SerializeField]
         private ParticleSystemPool m_BananaPool;
         [SerializeField]
         private ParticleSystemPool m_PopcornPool;
-        public static FoodEffactPool Instance { get; protected set; }
 
         private void Awake()
         {
-            if(Instance is not null)
+            if (Instance is not null)
             {
                 Destroy(this);
                 return;
@@ -75,16 +75,16 @@ namespace Assets.Scripts.FoodObject.Pools
             m_PomegranatePool.ObjectLayer = m_ObjectLayer.transform;
             m_BananaPool.ObjectLayer = m_ObjectLayer.transform;
         }
-        
+
         public ParticleSystemPool this[eElementSpecialByName i_Type]
         {
-            get 
+            get
             {
                 ParticleSystemPool res = null;
                 switch (i_Type)
                 {
                     case eElementSpecialByName.FlourSmokeGrenade:
-                        res =  m_FlourPool;
+                        res = m_FlourPool;
                         break;
                     case eElementSpecialByName.PomegranateGrenade:
                         res = m_PomegranatePool;

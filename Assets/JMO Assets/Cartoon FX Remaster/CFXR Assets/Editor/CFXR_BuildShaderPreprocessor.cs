@@ -2,8 +2,8 @@
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEditor.Rendering;
-using UnityEngine.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CartoonFX
 {
@@ -50,7 +50,7 @@ namespace CartoonFX
             {
                 return;
             }
-            
+
             if (shader.name.Contains("Cartoon FX/Remaster"))
             {
                 // Strip Cartoon FX Remaster Shader variants based on current render pipeline

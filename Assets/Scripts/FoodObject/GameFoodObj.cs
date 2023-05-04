@@ -8,11 +8,16 @@ using UnityEngine;
 
 internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IVisible, IViewingElementsPosition
 {
-    public enum eThrowAnimationType { Throwing, Falling}
+    public enum eThrowAnimationType { Throwing, Falling }
+
     public event Action OnCollect;
+    public event Action Destruction;
+
     private AcitonStateMachine m_Collector;
+
     protected Rigidbody m_Rigidbody;
     protected eThrowAnimationType m_AnimationType;
+
     [SerializeField]
     protected ThrownActionTypesBuilder m_TypeBuild;
 
@@ -31,27 +36,38 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         {
             CurrentState.OnSteteExit();
             m_StatuIndex = value;
+            tag = CurrentState.TagState;
             CurrentState.OnSteteEnter();
         }
     }
     #endregion
+    #region Pool
+    public void Hide() => this.gameObject.SetActive(false);
+    public void Show() => this.gameObject.SetActive(true);
+    #endregion
     public bool IsUesed => throw new NotImplementedException();
-
-    public event Action Destruction;
-
+    public bool Unsed() => false;
+    public void OnEndUsing() { /* Not-Implemented */}
+    protected virtual void CollectInvoke() =>  OnCollect?.Invoke();
+    internal bool CanCollect()=> Index == UncollectState.k_Indx;
+    internal eThrowAnimationType StopPowering()=> m_AnimationType;
+    internal Vector3 GetCollctorPositin()=> m_Collector is null ? transform.position : m_Collector.PicUpPoint.position;
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+
         UncollectState uncollect = new UncollectState(this);
+        IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
+        CollectState collectState = new CollectState(m_Rigidbody, transform, this);
+
         uncollect.Collect += Uncollect_Collect;
         m_AnimationType = m_TypeBuild.m_AnimationType;
-        IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
         thrownState.OnReturnToPool += thrownState_OnReturnToPool;
 
         m_FoodStates = new IFoodState[]
         {
             uncollect,
-            new CollectState(m_Rigidbody, transform, this),
+            collectState,
             thrownState,
         };
     }
@@ -60,8 +76,6 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     {
         ManagerGameFoodObj.Instance.ReturnToPool(this);
         CurrentState.OnSteteExit();
-        m_StatuIndex = 0;
-        tag = GameGlobal.TagNames.k_FoodObj;
     }
 
     private void OnEnable()
@@ -75,31 +89,13 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         {
             m_Collector = i_Collecter;
             this.transform.position = m_Collector.PicUpPoint.position;
-            tag = GameGlobal.TagNames.k_Picked;
             Index = CollectState.k_Indx;
             CollectInvoke();
         }
     }
 
-    protected virtual void CollectInvoke()
-    {
-        OnCollect?.Invoke();
-    }
-    internal bool CanCollect()
-    {
-        return Index == UncollectState.k_Indx;
-    }
-
     #endregion
     #region Collact
-    internal eThrowAnimationType StopPowering()
-    {
-        return m_AnimationType;
-    }
-    internal Vector3 GetCollctorPositin()
-    {
-        return m_Collector is null ? transform.position : m_Collector.PicUpPoint.position;
-    }
     #endregion
     #region Throwing
     public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
@@ -130,28 +126,15 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
             damaging.Activation(other);
         }
     }
-
-    #endregion
-    #region Pool
-    public void Hide()
-    {
-        this.gameObject.SetActive(false);
-    }
-
-    public void Show()
-    {
-        this.gameObject.SetActive(true);
-    }
     #endregion
 
     public void ViewElement(List<Vector3> elements)
     {
-        elements.Add(transform.position);
+        if (CanCollect())
+        {
+            elements.Add(transform.position);
+        }
     }
-
-    public bool Unsed() => false;
-
-    public void OnEndUsing() { }
 
     private void Update()
     {

@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerLifePoint : MonoBehaviour
 {
     public event Action OnPlayerDead;
-    private const float k_StrtingLifePoint = 100f; 
+    private const float k_StrtingLifePoint = 100f;
+
+    private float m_LifePoint;
     [SerializeField]
     private List<LifePointsVisual> m_LifePointsVisual;
-    private float m_LifePoint;
 
     public bool IsAi { get; internal set; }
 
@@ -21,6 +22,7 @@ public class PlayerLifePoint : MonoBehaviour
     {
         GameOverLogic.Instance.CharacterEntersTheGame(this);
         PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+
         if (animationChannel is null)
         {
             Debug.Log("animationChannel is null");
@@ -38,6 +40,7 @@ public class PlayerLifePoint : MonoBehaviour
             o_IsKiil = false;
             return;
         }
+
         m_LifePoint -= hitPoint;
         o_IsKiil = m_LifePoint <= 0;
         if (o_IsKiil)
@@ -46,15 +49,14 @@ public class PlayerLifePoint : MonoBehaviour
         }
 
         float normalizHp = hitPoint / k_StrtingLifePoint;
-        m_LifePointsVisual.ForEach(visual =>
-        {
-                visual.UpdateBarNormalized(normalizHp);
-        });
+        m_LifePointsVisual.ForEach(visual => {visual.UpdateBarNormalized(normalizHp); });
     }
 
     public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)
     {
+        Debug.Assert(i_Damage >= 0, "TryToDamagePlayer : i_Damage is nagtive");
         bool isPlayer = i_GameObject.gameObject.TryGetComponent<PlayerLifePoint>(out PlayerLifePoint o_PlayerLife);
+
         if (isPlayer)
         {
             o_PlayerLife.OnHitPlayer(i_Damage, out o_IsKill);

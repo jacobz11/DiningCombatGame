@@ -1,19 +1,23 @@
 ﻿using DesignPatterns.Abstraction;
+using DiningCombat;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-internal class CollectState : IFoodState, IAnimationDisturbing
+internal class CollectState : IFoodState, IRagdoll
 {
     public const int k_Indx = 1;
+
     private Rigidbody m_Rigidbody;
     private Transform m_Transform;
     private GameFoodObj m_GameFoodObj;
 
+    public string TagState => GameGlobal.TagNames.k_Picked;
+
+    public bool IsThrowingAction() => true;
+    public bool TryCollect(AcitonStateMachine i_Collcter)=> false;
+    public void OnSteteEnter()=> DisableRagdoll();
     public CollectState()
-    {
-    }
+    { /* Not-Implemented */}
 
     public CollectState(Rigidbody rigidbody, Transform transform, GameFoodObj gameFoodObj)
     {
@@ -30,7 +34,7 @@ internal class CollectState : IFoodState, IAnimationDisturbing
                 break;
         }
     }
-
+    #region Ragdoll
     public void DisableRagdoll()
     {
         m_Rigidbody.isKinematic = true;
@@ -42,26 +46,10 @@ internal class CollectState : IFoodState, IAnimationDisturbing
         m_Rigidbody.isKinematic = false;
         m_Rigidbody.detectCollisions = true;
     }
-
-    public void OnSteteEnter()
-    {
-        DisableRagdoll();
-    }
+    #endregion
 
     public void OnSteteExit()
-    {
-        //EnableRagdoll();
-    }
-
-    public bool IsThrowingAction()
-    {
-        return true;
-    }
-
-    public bool TryCollect(AcitonStateMachine i_Collcter)
-    {
-        return false;
-    }
+    { /* Not-Implemented */}
 
     public void Update()
     {

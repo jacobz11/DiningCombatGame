@@ -1,14 +1,16 @@
-﻿using Assets.DataObject;
-using Assets.Util.DesignPatterns;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using UnityEngine;
+using System.Linq;
+using Assets.DataObject;
+using Assets.Util.DesignPatterns;
+using System.Collections.Generic;
 
 internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 {
     public event Action<List<Vector3>> UncollectedPos;
     public event Action OnCollected;
+
+    private float m_LestSpanw;
     [SerializeField]
     private Cuntter m_CuntterOfFoodInTheGame;
     [SerializeField]
@@ -20,7 +22,6 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     public bool IsSpawnNewGameObj { get; private set; }
     public static ManagerGameFoodObj Instance { get; private set; }
 
-    private float m_LestSpanw;
 
     private void Awake()
     {
@@ -87,34 +88,29 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     }
 
     private void foodObj_OnCollect()
-    {
-    }
+    { /* Not-Implemented */}
+    internal void OnGameOver()
+    { /* Not-Implemented */}
 
     private void OnDestruction_GameFoodObj()
     {
         m_CuntterOfFoodInTheGame.TryDec();
     }
 
-    internal void OnGameOver()
-    {
-        throw new NotImplementedException();
-    }
-
     private void Start()
     {
-       if (IsServer)
+        if (IsServer)
         {
-
-            for(short i = 0; i< m_SpawnData.m_InitSpawn; i++)
+            for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
             {
                 SpawnGameFoodObj();
-            }    
+            }
         }
-       m_LestSpanw = Time.time;
+        m_LestSpanw = Time.time;
     }
     private void Update()
     {
-        if (!IsServer) 
+        if (!IsServer)
         {
             return;
         }

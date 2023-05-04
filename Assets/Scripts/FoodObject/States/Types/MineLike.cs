@@ -1,30 +1,30 @@
 ﻿using Assets.Scripts.FoodObject.Pools;
-using DesignPatterns.Abstraction;
-using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static Assets.DataObject.ThrownActionTypesBuilder;
-using static Assets.Scripts.FoodObject.Pools.FoodEffactPool;
 
 namespace Assets.DataObject
 {
     internal class MineLike : IThrownState
     {
         private const float k_TImeToTrow = 0.7f;
+
         protected readonly float r_CountdownTime;
+        protected readonly float r_EffectTime;
+
         protected float m_Countdown;
         protected eElementSpecialByName m_EffectType;
         protected Transform m_Transform;
         protected ParticleSystem m_Effect;
-        protected readonly float r_EffectTime;
+
         private readonly float r_ForceHitExsplostin;
         private readonly float r_Radius;
+
         private float m_TimeBefuerCollision;
         private GameObject m_ObjectVisal;
         private GameObject m_TransparentObjectVisal;
         private Collider m_Triger;
 
-        public MineLike(ThrownActionTypesBuilder i_BuilderData) 
+        public MineLike(ThrownActionTypesBuilder i_BuilderData)
             : base(i_BuilderData)
         {
             m_Triger = i_BuilderData.m_MinData.m_Triger;
@@ -40,7 +40,6 @@ namespace Assets.DataObject
 
         public override void OnSteteEnter()
         {
-            Debug.Log("OnSteteEnter MineLike");
             base.OnSteteEnter();
             m_TimeBefuerCollision = 0;
             m_Countdown = r_CountdownTime;
@@ -52,30 +51,27 @@ namespace Assets.DataObject
         }
         public override void Update()
         {
-
             m_TimeBefuerCollision += Time.deltaTime;
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
-            //Debug.Log("m_Countdown :" + m_Countdown + " isCountdownOver :" + isCountdownOver + " IsActionHappen " + IsActionHappen);
+
             if (isCountdownOver)
             {
                 ReturnToPool();
-            }
-            else
-            {
-                Debug.LogFormat("m_Countdown {0} m_TimeBefuerCollision {1} IsActionHappen {2}", m_Countdown, m_TimeBefuerCollision, IsActionHappen);
             }
         }
 
         protected override void ReturnToPool()
         {
-            if (m_Effect!= null)
+            #region Return To Pool Effect 
+            if (m_Effect != null)
             {
                 m_Effect.gameObject.SetActive(false);
                 m_Effect.Stop();
                 FoodEffactPool.Instance[m_EffectType].ReturnToPool(m_Effect);
                 m_Effect = null;
             }
+            #endregion
             ToggleBetweenVisibility(false);
             m_Triger.enabled = false;
             base.ReturnToPool();
@@ -89,37 +85,37 @@ namespace Assets.DataObject
 
         public override void Activation(Collider i_Collider)
         {
-
+            #region Activation not possible
             bool isMinTime = m_TimeBefuerCollision < k_TImeToTrow;
             bool isHitEinv = i_Collider.CompareTag("environment");
+
             if (isMinTime || IsActionHappen || isHitEinv)
             {
                 return;
             }
-
-            m_Countdown = r_EffectTime;
+            #endregion
             DisplayEffect();
-
-            IsActionHappen = true;
             float damage = CalculatorDamag();
             float ponits = 0;
             int kills = 0;
+            m_Countdown = r_EffectTime;
+            IsActionHappen = true;
+
             foreach (Collider nearByObj in Physics.OverlapSphere(m_Transform.position, r_Radius))
             {
                 if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
                 {
                     o_Rb.AddExplosionForce(r_ForceHitExsplostin, m_Transform.position, r_Radius);
                 }
+
                 if (PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool o_IsKill))
                 {
                     ponits += damage;
                     kills += o_IsKill ? 1 : 0;
                 }
             }
-            base.SendOnHit(new HitPointEventArgs()
-            {
 
-            });
+            base.SendOnHit(new HitPointEventArgs() { /* Not-Implemented */});
         }
 
         protected void DisplayEffect()

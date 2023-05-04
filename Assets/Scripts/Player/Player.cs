@@ -1,7 +1,6 @@
 using Assets.scrips;
-using UnityEngine;
 using System;
-using UnityEngine.EventSystems;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -9,8 +8,11 @@ public class Player : MonoBehaviour
     public event Action<Collider> OnEnterCollisionFoodObj;
     public event Action OnPickUpAction;
     public event Action OnChargingAction;
-    [SerializeField] private GameInput gameInput;
-    [SerializeField] private Transform m_PickUpPoint;
+
+    [SerializeField] 
+    private GameInput gameInput;
+    [SerializeField] 
+    private Transform m_PickUpPoint;
     private PlayerMovment m_Movment;
     private Rigidbody m_Rigidbody;
     //private AcitonStateMachine m_AcitonHand;

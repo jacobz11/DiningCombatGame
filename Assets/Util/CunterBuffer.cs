@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Util.Channels
 {
-
     internal class CunterBuffer : IBuffer<int>
     {
         private int m_CurrentInx;
@@ -31,7 +25,6 @@ namespace Assets.Scripts.Util.Channels
             m_CurrentInx = i_CurrentInx;
         }
 
-      
         public void AddToData(int i_Dalta)
         {
             m_CurrentInx += i_Dalta;
@@ -42,17 +35,10 @@ namespace Assets.Scripts.Util.Channels
             m_CurrentInx = 0;
         }
 
-        public bool IsBufferOver()
-        {
-            return m_CurrentInx >= m_MaxIdx;
-        }
+        public bool IsBufferOver()=>m_CurrentInx >= m_MaxIdx;
 
-        public void SetDataToInit()
-        {
-            Clear();
-        }
+        public void SetDataToInit()=>Clear();
         
-
         public void UpdeteData(int i_NewLest)
         {
             m_CurrentInx = i_NewLest;

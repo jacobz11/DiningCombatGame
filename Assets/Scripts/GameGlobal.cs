@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
-
-namespace DiningCombat
+﻿namespace DiningCombat
 {
     public static class GameGlobal
     {

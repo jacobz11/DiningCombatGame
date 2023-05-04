@@ -1,17 +1,16 @@
-using Assets.Scripts.Environment;
+ using Assets.Scripts.Environment;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Egg : MonoBehaviour
 {
+    private const float k_Damage = 11f;
     [SerializeField]
     private GameObject m_WholeEgg;
     [SerializeField]
     private GameObject m_BrokenEgg;
     [SerializeField]
     private float m_DisplayTimeAfterTriggerEnter;
-    private const float k_Damage = 11f;
 
     public void OnExitPool(Vector3 i_Pos)
     {
@@ -30,8 +29,7 @@ public class Egg : MonoBehaviour
 
     private IEnumerator ReturToPool()
     {
-        Debug.Log("ReturToPool");
         yield return new WaitForSeconds(m_DisplayTimeAfterTriggerEnter);
         EggPool.Instance.ReturnToPool(this);
-    }    
+    }
 }

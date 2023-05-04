@@ -1,35 +1,39 @@
-﻿using static ThrownState;
+﻿using Assets.Util;
+using DesignPatterns.Abstraction;
+using DiningCombat;
 using System;
 using UnityEngine;
-using DesignPatterns.Abstraction;
-using Assets.Util;
 
 namespace Assets.DataObject
 {
-    internal abstract class IThrownState : IFoodState, IAnimationDisturbing, IDamaging
+    internal abstract class IThrownState : IFoodState, IRagdoll, IDamaging
     {
-        public event Action OnReturnToPool;
         public class HitPointEventArgs : EventArgs
         {
             public float m_Damage;
             public GameObject m_GetHitPlayer;
             public GameObject m_PlayerTrown;
         }
-
+        public event Action OnReturnToPool;
         public event Action<HitPointEventArgs> OnHit;
+
         protected Rigidbody m_Rigidbody;
         public AcitonStateMachine Activator { get; protected set; }
         public Vector2 RangeDamage { get; protected set; }
         public Vector3 ActionDirection { get; protected set; }
         public bool IsActionHappen { get; protected set; }
 
+        public string TagState => GameGlobal.TagNames.k_ThrowFoodObj;
         public bool IsThrowingAction() => false;
-
+        public bool TryCollect(AcitonStateMachine i_Collcter)=> false;
+        protected virtual void ReturnToPool()=> OnReturnToPool?.Invoke();
+        public virtual float CalculatorDamag() => Vector2AsRang.Clamp(m_Rigidbody.velocity.magnitude, RangeDamage);
+        internal void SendOnHit(HitPointEventArgs hitPointEventArgs)=> OnHit?.Invoke(hitPointEventArgs);
+        
         public IThrownState(ThrownActionTypesBuilder i_Data)
         {
             m_Rigidbody = i_Data.Rigidbody;
-            RangeDamage = Vector2AsRang.PositiveConstruction(i_Data.m_MaxDamagePoint,
-                i_Data.m_MinDamagePoint);
+            RangeDamage = Vector2AsRang.PositiveConstruction(i_Data.m_MaxDamagePoint, i_Data.m_MinDamagePoint);
             ActionDirection = Vector3.zero;
             IsActionHappen = false;
         }
@@ -38,25 +42,17 @@ namespace Assets.DataObject
         {
             Activator = i_Collcter;
         }
-        public bool TryCollect(AcitonStateMachine i_Collcter)
-        {
-            return false;
-        }
+
         public virtual void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount)
         {
-            Debug.Log("SetThrowDirection");
             ActionDirection = i_Direction * i_PowerAmount;
         }
 
         public virtual void Update()
-        {
-            Debug.Log("IThrownState");
-        }
+        { /* Not-Implemented */}
 
         public virtual void OnSteteExit()
-        {
-        }
-        
+        { /* Not-Implemented */}
 
         public virtual void OnSteteEnter()
         {
@@ -74,7 +70,7 @@ namespace Assets.DataObject
                     break;
             }
         }
-
+        #region Ragdol
         public void DisableRagdoll()
         {
             m_Rigidbody.isKinematic = true;
@@ -86,8 +82,8 @@ namespace Assets.DataObject
             m_Rigidbody.isKinematic = false;
             m_Rigidbody.detectCollisions = true;
         }
-
-
+        #endregion
+        #region Activation 
         public virtual void Activation(Collision collision)
         {
             Debug.LogWarning("ThrownState Activation by Collision");
@@ -102,17 +98,6 @@ namespace Assets.DataObject
         {
             Debug.LogWarning("ThrownState Activation");
         }
-
-        public virtual float CalculatorDamag() => Vector2AsRang.Clamp(m_Rigidbody.velocity.magnitude, RangeDamage);
-
-        protected virtual void ReturnToPool()
-        {
-            OnReturnToPool?.Invoke();
-        }
-
-        internal void SendOnHit(HitPointEventArgs hitPointEventArgs)
-        {
-            OnHit?.Invoke(hitPointEventArgs);
-        }
+        #endregion
     }
 }

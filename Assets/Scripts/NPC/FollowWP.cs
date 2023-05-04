@@ -1,6 +1,5 @@
 using Assets.Scripts.Environment;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -41,10 +40,7 @@ public class FollowWP : MonoBehaviour
     }
     public Vector3 CuurentWpPos
     {
-        get
-        {
-            return m_Waypoints[m_CuurentWp];
-        }
+        get => m_Waypoints[m_CuurentWp];
     }
     private void Awake()
     {
@@ -89,7 +85,6 @@ public class FollowWP : MonoBehaviour
         Egg egg = EggPool.Instance.Get();
         egg.transform.position = transform.position - m_Buffer;
         egg.gameObject.SetActive(true);
-        //GameObject egg = Instantiate(m_EggPrefab, , Quaternion.identity);
     }
 
     private void folowWP_OnEngRund()

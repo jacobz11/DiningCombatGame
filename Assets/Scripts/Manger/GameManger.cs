@@ -12,7 +12,7 @@ namespace Assets.Scripts.Manger
         public int Cuntter { get; private set; }
         private void Awake()
         {
-            if (Instance is not null) 
+            if (Instance is not null)
             {
                 Destroy(this);
                 return;
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Manger
 
         public void AddCamera(GameObject i_Player)
         {
-            Camera cam =i_Player.AddComponent<Camera>();
+            Camera cam = i_Player.AddComponent<Camera>();
             cam.targetDisplay = Cuntter++;
         }
 
@@ -36,9 +36,7 @@ namespace Assets.Scripts.Manger
 
         public IEnumerable<Vector3> GetPlayerPos(Transform i_Player)
         {
-            return GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player)
-                .Where(player => player.transform != i_Player)
-                .Select(player => player.transform.position);
+            return GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player).Where(player => player.transform.position != i_Player.position).Select(player => player.transform.position);
         }
     }
 }

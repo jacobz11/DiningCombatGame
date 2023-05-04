@@ -101,28 +101,31 @@ namespace Assets.DataObject
 
         [Serializable]
         public struct ThrowingData
-        {
+        { /* Not-Implemented */}
 
-        }
         public ThrownActionTypesBuilder SetTransform(Transform transform)
         {
             Transform = transform;
             return this;
         }
+
         public ThrownActionTypesBuilder SetRigidbody(Rigidbody i_Rigidbody)
         {
             Rigidbody = i_Rigidbody;
             return this;
         }
-        public ThrownActionTypesBuilder GetGameObject(GameObject i_GameObject) 
+
+        public ThrownActionTypesBuilder GetGameObject(GameObject i_GameObject)
         {
             return this;
         }
+
         public ThrownActionTypesBuilder SetGameFoodObj(GameObject i_GameFoodObj)
         {
             m_GameFoodObj = i_GameFoodObj;
             return this;
         }
+
         public IThrownState Build()
         {
             switch (m_Type)
@@ -144,10 +147,10 @@ namespace Assets.DataObject
         {
             switch (m_Type)
             {
-                case eThrownActionTypes.Throwing:       return typeof(ThrownState);
-                case eThrownActionTypes.Grenade:        return typeof(ThrownState);
-                case eThrownActionTypes.SmokeGrenade:   return typeof(SmokeGrenade);
-                case eThrownActionTypes.Mine:           return typeof(MineLike);
+                case eThrownActionTypes.Throwing: return typeof(ThrownState);
+                case eThrownActionTypes.Grenade: return typeof(ThrownState);
+                case eThrownActionTypes.SmokeGrenade: return typeof(SmokeGrenade);
+                case eThrownActionTypes.Mine: return typeof(MineLike);
             }
             return typeof(ThrownState);
         }

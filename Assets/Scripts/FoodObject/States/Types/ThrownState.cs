@@ -6,7 +6,7 @@ internal class ThrownState : IThrownState
     public const int k_Indx = 2;
     private const float k_TimeToTrow = 0.7f;
     private const float k_TimeToReturn = 7.7f;
-    
+
     private float m_TimeBefuerCollision;
     public ThrownState(ThrownActionTypesBuilder i_Data) : base(i_Data)
     {
@@ -37,11 +37,13 @@ internal class ThrownState : IThrownState
 
     public override void Activation(Collision collision)
     {
+        #region Collision befor the time
         if (m_TimeBefuerCollision < k_TimeToTrow)
         {
             Debug.Log("Collision befor the time");
             return;
         }
+        #endregion
 
         float damage = CalculatorDamag();
         bool isHitPlayer = PlayerLifePoint.TryToDamagePlayer(collision.gameObject, damage, out bool o_IsKiil);

@@ -7,7 +7,7 @@ internal interface IDamaging
     /// x => max 
     /// y => min 
     /// </summary>
-    Vector2 RangeDamage { get;}
+    Vector2 RangeDamage { get; }
 
     Vector3 ActionDirection { get; }
 

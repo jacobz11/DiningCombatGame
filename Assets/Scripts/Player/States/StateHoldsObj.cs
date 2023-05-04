@@ -1,22 +1,22 @@
-﻿namespace Assets.scrips.Player.States
+﻿using System;
+using UnityEngine;
+using DesignPatterns.Abstraction;
+namespace Assets.scrips.Player.States
 {
-    using DesignPatterns.Abstraction;
-    using System;
-    using UnityEngine;
-
     internal class StateHoldsObj : IStatePlayerHand
     {
         public const int k_Indx = 1;
 
         private bool isActiv;
+        public bool OnPickUpAction() => false;
 
-        bool IStatePlayerHand.OnChargingAction 
-        { 
-            get => false; 
-            set 
+        bool IStatePlayerHand.OnChargingAction
+        {
+            get => false;
+            set
             {
                 OnStartCharging?.Invoke();
-            } 
+            }
         }
 
         public event Action OnStartCharging;
@@ -33,35 +33,23 @@
                 OnStartCharging?.Invoke();
             }
         }
+        #region Not-Implemented
         public void EnterCollisionFoodObj(Collider other)
-        {/* */}
-
+        {/* Not-Implemented */}
         public void ExitCollisionFoodObj(Collider other)
-        {/* */}
+        {/* Not-Implemented */}
+        public virtual void OnSteteExit()
+        {/* Not-Implemented */}
+        public virtual void Update()
+        {/* Not-Implemented */}
+        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
+        {/* Not-Implemented */}
+        #endregion
 
         public virtual void OnSteteEnter()
         {
             Debug.Log("init state : StateHoldsObj");
         }
-
-        public virtual void OnSteteExit()
-        {
-        }
-
-        public virtual void Update()
-        {
-        }
-
-        public bool OnPickUpAction()
-        {
-            return false;
-        }
-
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool OnPickUpAction(out GameFoodObj o_Collcted)
         {
             o_Collcted = null;

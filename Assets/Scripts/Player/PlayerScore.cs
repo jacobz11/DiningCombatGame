@@ -1,19 +1,15 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+﻿using UnityEngine;
 
 internal class PlayerScore : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerScoreVisel m_PlayerScoreVisel;
     private float m_ScorePoint;
     private int m_Kills;
+
+    [SerializeField]
+    private PlayerScoreVisel m_PlayerScoreVisel;
     public float ScorePoint
     {
-        get 
-        {
-            return m_ScorePoint;
-        }
+        get => m_ScorePoint;
         private set
         {
             m_ScorePoint = value;
@@ -22,10 +18,7 @@ internal class PlayerScore : MonoBehaviour
     }
     public int Kills
     {
-        get
-        {
-            return m_Kills;
-        }
+        get => m_Kills;
         private set
         {
             m_Kills = value;

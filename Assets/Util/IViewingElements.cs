@@ -6,7 +6,6 @@ namespace Assets.Scripts.Util.Channels.Abstracts
     internal interface IViewingElements<T>
     {
         void ViewElement(List<T> elements);
-
     }
 
     interface IUesableElements

@@ -1,35 +1,39 @@
 using Assets.DataObject;
 using Assets.Scripts.NPC;
 using DiningCombat;
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 internal class CornNpc : GameFoodObj
 {
+    private NavMeshAgent m_Agent;
+
     [SerializeField]
     private RoomDimension m_RoomDimension;
     [SerializeField]
     private GameObject[] m_GameObj;
-    private NavMeshAgent m_Agent;
 
     private new void Awake()
     {
         Debug.Log("CornNpc Awake");
+
         m_Rigidbody = GetComponent<Rigidbody>();
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
         m_GameObj = GameObject.FindGameObjectsWithTag("wall");
+
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
         UncollectStateCorn uncollect = new UncollectStateCorn(this, agent, m_RoomDimension, m_GameObj);
+        IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
+        CollectState collectState = new CollectState(m_Rigidbody, transform, this);
+
         uncollect.OnCountdownEnding += uncollect_OnCountdownEnding;
         uncollect.Collect += Uncollect_Collect;
         m_AnimationType = m_TypeBuild.m_AnimationType;
-        IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
         thrownState.OnReturnToPool += thrownState_OnReturnToPool;
 
         m_FoodStates = new IFoodState[]
         {
             uncollect,
-            new CollectState(m_Rigidbody, transform, this),
+            collectState,
             thrownState,
         };
     }
@@ -37,11 +41,9 @@ internal class CornNpc : GameFoodObj
     private void uncollect_OnCountdownEnding()
     {
         Index = ThrownState.k_Indx;
-        tag = GameGlobal.TagNames.k_Picked;
         Index = CollectState.k_Indx;
         CollectInvoke();
     }
-
 }
 //using Assets.Scripts.FoodObject.Pools;
 //using System;
@@ -64,7 +66,7 @@ internal class CornNpc : GameFoodObj
 //    private float m_DillyrRturningToThePool;
 //    [SerializeField]
 //    [Range(0f, 3f)]
-//    private float m_Damage;
+//    private float k_Damage;
 //    [SerializeField]
 //    [Range(0f, 3f)]
 //    private float m_Radius;
@@ -101,7 +103,7 @@ internal class CornNpc : GameFoodObj
 
 //    private float CalculatorDamage()
 //    {
-//        return m_Damage;
+//        return k_Damage;
 //    }
 
 //    protected void DisplayEffect()

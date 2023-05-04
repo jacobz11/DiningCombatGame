@@ -1,22 +1,22 @@
 ﻿using DesignPatterns.Abstraction;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 internal class StateFree : IStatePlayerHand
 {
-    public const int k_Indx = 0;
-    protected AcitonStateMachine m_AcitonStateMachine;
-    private GameFoodObj m_FoodObj;
-
-    public event Action<CollectedFoodEvent> PlayerCollectedFood;
-
     public class CollectedFoodEvent : EventArgs
     {
         public GameFoodObj gameFood;
     }
 
+    public const int k_Indx = 0;
+    public event Action<CollectedFoodEvent> PlayerCollectedFood;
+
+    protected AcitonStateMachine m_AcitonStateMachine;
+    private GameFoodObj m_FoodObj;
+
     protected bool HaveGameObject => this.m_FoodObj != null;
+    public override string ToString() => "StateFree : ";
 
     bool IStatePlayerHand.OnChargingAction { get => false; set { } }
 
@@ -36,7 +36,6 @@ internal class StateFree : IStatePlayerHand
             }
         }
     }
-
     public void ExitCollisionFoodObj(Collider other)
     {
         if (m_FoodObj is not null && m_FoodObj.gameObject.Equals(other))
@@ -45,10 +44,6 @@ internal class StateFree : IStatePlayerHand
         }
     }
 
-    public override string ToString()
-    {
-        return "StateFree : ";
-    }
 
     public virtual void OnSteteEnter()
     {
@@ -65,10 +60,6 @@ internal class StateFree : IStatePlayerHand
         });
     }
 
-    public virtual void Update()
-    {
-    }
-
     public bool OnPickUpAction(out GameFoodObj o_Collcted)
     {
         bool canCollect = HaveGameObject
@@ -77,11 +68,12 @@ internal class StateFree : IStatePlayerHand
 
         return canCollect;
     }
-
+    #region Not-Implemented
+    public virtual void Update()
+    {/* Not-Implemented */}
     public void OnChargingAction()
-    {
-    }
-
+    {/* Not-Implemented */}
+    #endregion
     public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
     {
         switch (i_State)
@@ -91,7 +83,6 @@ internal class StateFree : IStatePlayerHand
                 break;
         }
     }
-
     public bool OnThrowPoint(out float o_Force)
     {
         o_Force = 0;

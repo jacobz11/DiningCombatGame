@@ -20,8 +20,8 @@ public class MainMenu : MonoBehaviour
         {
             Button btm = Instantiate(m_Prefab);
             btm.name = material.name;
-            btm.image.material= material;
-            btm.onClick.AddListener(()=> m_Mesh.material = material);
+            btm.image.material = material;
+            btm.onClick.AddListener(() => m_Mesh.material = material);
             btm.transform.SetParent(m_HorizontalLayoutGroup.transform);
         }
         //m_HorizontalLayoutGroup.

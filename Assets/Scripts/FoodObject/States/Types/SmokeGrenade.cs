@@ -1,17 +1,13 @@
-﻿using Assets.Scripts.FoodObject.Pools;
-using DesignPatterns.Abstraction;
-using System;
-using UnityEngine;
-using static Assets.DataObject.ThrownActionTypesBuilder;
+﻿using UnityEngine;
 
 namespace Assets.DataObject
 {
     internal class SmokeGrenade : GrenadeLike
     {
-        public SmokeGrenade(ThrownActionTypesBuilder i_BuilderData) 
-            : base(i_BuilderData) 
-        {
-        }
+        public override float CalculatorDamag() => 0f;
+        public SmokeGrenade(ThrownActionTypesBuilder i_BuilderData)
+            : base(i_BuilderData)
+        { /* Not-Implemented */}
 
         public override void OnSteteEnter()
         {
@@ -19,8 +15,6 @@ namespace Assets.DataObject
             Debug.Log("GrenadeLike OnSteteEnter");
         }
 
-        public override float CalculatorDamag() => 0f;
-        
         public override void Activate()
         {
             DisplayEffect();

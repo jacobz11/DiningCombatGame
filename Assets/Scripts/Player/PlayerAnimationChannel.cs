@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
 using Assets.scrips;
-using Unity.Netcode.Components;
+using System;
+using System.Collections;
 using Unity.Netcode;
+using UnityEngine;
 
 public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
 {
@@ -12,7 +10,6 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
     public event Action JumpingEnd;
     public event Action StartTrowing;
     private Animator m_Anim;
-
 
     private void Awake()
     {
@@ -103,7 +100,7 @@ public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
     {
         m_Anim.SetTrigger("isJump");
     }
- 
+
     public void SetPlayerAnimationToThrow2(bool i_IsActive)
     {
         m_Anim.SetBool("isThrow", i_IsActive);

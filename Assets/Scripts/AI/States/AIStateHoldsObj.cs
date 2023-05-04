@@ -1,11 +1,8 @@
 ﻿using Assets.scrips.Player.States;
 using Assets.Scripts.Manger;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts.AI.States
 {
@@ -13,7 +10,9 @@ namespace Assets.Scripts.AI.States
     {
         private const float k_UpdateRate = 3;
         private const float k_MinDistance = 30;
+
         private float m_Timer;
+
         private NavMeshAgent m_Agent;
         private AIAcitonStateMachine m_AIAcitonState;
         private Vector3 m_Target;
@@ -34,14 +33,8 @@ namespace Assets.Scripts.AI.States
         private void FindPlayerClosest()
         {
             m_Timer = 0;
-            m_Target =  GameManger.Instance.GetPlayerPos(m_Agent.transform)
-                .OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
+            m_Target = GameManger.Instance.GetPlayerPos(m_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
             m_Agent.SetDestination(m_Target);
-        }
-
-        public override void OnSteteExit()
-        {
-            base.OnSteteExit();
         }
 
         public override void Update()

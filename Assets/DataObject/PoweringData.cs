@@ -4,8 +4,8 @@
     [Serializable]
     internal class PoweringData
     {
-        public float MaxPower;
-        public float DataTimeAddingPower;
+        public float MaxPower = 3000;
+        public float DataTimeAddingPower = 1400;
 
         public float NormalizingPower(float power)
         {
