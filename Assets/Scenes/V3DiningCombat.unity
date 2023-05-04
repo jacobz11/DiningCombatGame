@@ -191,7 +191,6 @@ MonoBehaviour:
   m_Ground:
     serializedVersion: 2
     m_Bits: 64
-  isActiveO: 0
 --- !u!1 &85135557
 GameObject:
   m_ObjectHideFlags: 0
@@ -3919,6 +3918,7 @@ GameObject:
   - component: {fileID: 2125214550}
   - component: {fileID: 2125214551}
   - component: {fileID: 2125214552}
+  - component: {fileID: 2125214553}
   m_Layer: 0
   m_Name: mangers
   m_TagString: Untagged
@@ -4089,3 +4089,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Prefap: {fileID: 2049666486, guid: a223b01755baeef4cb6ab0c6bb46942b, type: 3}
+--- !u!114 &2125214553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125214543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a730ec471d8226849b72042207195b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Prefap: {fileID: 0}
+  m_CuntterOfFoodInTheGame:
+    m_Max: 6
+    m_Min: 0
+  m_SpawnData:
+    m_SpawnTimeBuffer: 1.5
+    m_InitSpawn: 0
+  m_RoomDimension:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Dimensions: {x: 24, y: 5, z: 24}
+    m_YMinOffset: 3
+  m_PackagesPreFfa:
+  - {fileID: 8953605850935228548, guid: 88fb48d485a709840906695cc40cbc39, type: 3}
+  - {fileID: 1848895894873902163, guid: c43ead7272a66c84c8fc52968eb16d4a, type: 3}

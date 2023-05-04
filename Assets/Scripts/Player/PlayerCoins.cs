@@ -1,6 +1,7 @@
 ﻿using System;
+using UnityEngine;
 
-internal class PlayerCoins
+internal class PlayerCoins : MonoBehaviour
 {
     internal void AddCoins(CoinsPackage coinsPackage)
     {

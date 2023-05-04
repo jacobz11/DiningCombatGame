@@ -74,3 +74,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa961870372bdb429797b0bd0f351cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParticleSystemPreFap: {fileID: 19800006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+  m_Amont: 0
+  m_Visale: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}

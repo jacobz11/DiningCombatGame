@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class IPackage : MonoBehaviour
 {
-    private ParticleSystem m_Effect;
     [SerializeField]
     private ParticleSystem m_ParticleSystemPreFap;
     [SerializeField]
@@ -14,21 +13,21 @@ public abstract class IPackage : MonoBehaviour
     private GameObject m_Visale;
     private float m_WitingAmont;
 
+    public float Amont => m_Amont;
+
     private void Awake()
     {
-        m_Effect = Instantiate(m_ParticleSystemPreFap, transform);
     }
     protected virtual void ReturnToPool()
     {
         m_Visale.SetActive(false);
-        m_Effect.Play();
+        Instantiate(m_ParticleSystemPreFap, transform).Play();
         StartCoroutine(ReturnToPoolInNS());
     }
 
     private IEnumerator ReturnToPoolInNS()
     {
         yield return new WaitForSeconds(m_WitingAmont);
-        m_Effect.Pause();
         ManagerGamePackage.Instance.ReturnToPool(this);
     }
 }

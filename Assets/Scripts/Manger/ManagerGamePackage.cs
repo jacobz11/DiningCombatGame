@@ -11,7 +11,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
 
     private float m_LestSpanw;
     [SerializeField]
-    private Cuntter m_CuntterOfFoodInTheGame;
+    private Cuntter m_Cuntter;
     [SerializeField]
     private SpawnData m_SpawnData;
     [SerializeField]
@@ -58,7 +58,9 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
         //GameFoodObj package = spawn.GetComponent<GameFoodObj>();
         IPackage package = Get(m_RoomDimension.GetRendonPos());
         //package.Destruction += OnDestruction_GameFoodObj;
-        //m_CuntterOfFoodInTheGame.TryInc();
+        m_Cuntter.TryInc();
+        m_LestSpanw = 0;
+
         //package.OnCollect += foodObj_OnCollect;
         //UncollectedPos += package.ViewElement;
 
@@ -70,19 +72,19 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
 
     private void OnDestruction_GameFoodObj()
     {
-        m_CuntterOfFoodInTheGame.TryDec();
+        m_Cuntter.TryDec();
     }
 
     private void Start()
     {
         if (IsServer)
         {
-            for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
-            {
-                SpawnPackage();
-            }
+            //for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
+            //{
+            //    SpawnPackage();
+            //}
         }
-        m_LestSpanw = Time.time;
+        m_LestSpanw = 0;
     }
     private void Update()
     {
@@ -100,7 +102,10 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
     {
         m_LestSpanw += Time.deltaTime;
         bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
-        bool isNotMax = m_CuntterOfFoodInTheGame.CanInc();
+        Debug.Log("isTimeOver " + isTimeOver);
+        bool isNotMax = m_Cuntter.CanInc();
+        Debug.Log("isNotMax  " + isNotMax);
+
         return isTimeOver && isNotMax;
     }
 

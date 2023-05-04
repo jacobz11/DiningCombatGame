@@ -74,3 +74,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71ab7d262251349b375bd935c2d7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ParticleSystemPreFap: {fileID: 19800004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 3}
+  m_Amont: 0
+  m_Visale: {fileID: 4675816245327493143}
+--- !u!1 &4675816245327493143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2284472461364931730, guid: 021ccdbdb42615847a9a55f87e02803c, type: 3}
+  m_PrefabInstance: {fileID: 6870176925549024389}
+  m_PrefabAsset: {fileID: 0}

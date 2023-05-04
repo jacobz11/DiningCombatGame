@@ -76,6 +76,13 @@ public class PlayerLifePoint : MonoBehaviour
 
     internal void Healed(LifePackage lifePackage)
     {
-        throw new NotImplementedException();
+        if (lifePackage.Amont < 0)
+        {
+            return;
+        }
+        m_LifePoint = Math.Max(m_LifePoint + lifePackage.Amont, k_StrtingLifePoint) ;
+        
+        float normalizHp = m_LifePoint / k_StrtingLifePoint;
+        m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
     }
 }
