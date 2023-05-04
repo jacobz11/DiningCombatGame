@@ -13,7 +13,8 @@ public class MainMenu : MonoBehaviour
     private Button m_Prefab;
     [SerializeField]
     private HorizontalLayoutGroup m_HorizontalLayoutGroup;
-
+    [SerializeField]
+    private StaringData m_GameObjectData;
     private void Awake()
     {
         foreach (Material material in m_Materials)
@@ -32,7 +33,8 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
-        SceneManager.LoadScene("V2DiningCombat");
+        DontDestroyOnLoad(m_GameObjectData);
+        SceneManager.LoadScene("V3DiningCombat");
     }
     public void QuitGame()
     {

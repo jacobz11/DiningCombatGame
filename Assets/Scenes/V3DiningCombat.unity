@@ -4002,6 +4002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82182a841995a4b89552f9bcd1c93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AiPrifab: {fileID: 0}
 --- !u!114 &2125214548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4102,8 +4103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Prefap: {fileID: 0}
-  m_CuntterOfFoodInTheGame:
-    m_Max: 6
+  m_Cuntter:
+    m_Max: 0
     m_Min: 0
   m_SpawnData:
     m_SpawnTimeBuffer: 1.5

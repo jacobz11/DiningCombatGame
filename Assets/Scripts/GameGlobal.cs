@@ -12,13 +12,14 @@
         public static class TagNames
         {
             public const string k_Ground = "Ground";
-            public const string k_Capsule = "Capsule";
             public const string k_FoodObj = "FoodObj";
             public const string k_ThrowFoodObj = "ThrownObject";
             public const string k_Player = "Player";
             public const string k_Picked = "Picked";
-            public const string k_Wall = "wall";
-            public const string k_Uesed = "uesed";
+            public const string k_Ui = "UI";
+            public const string k_Environment = "environment";
+            public const string k_Water = "water";
+            public const string k_DontDestroyOnLoad = "DontDestroyOnLoad";
         }
 
         public static class AnimationName

@@ -10,8 +10,9 @@ public class PlayerLifePoint : MonoBehaviour
     private float m_LifePoint;
     [SerializeField]
     private List<LifePointsVisual> m_LifePointsVisual;
-
-    public bool IsAi { get; internal set; }
+    [SerializeField]
+    private bool m_IsAi;
+    public bool IsAi { get => m_IsAi ; internal set => m_IsAi = value; }
 
     private void Awake()
     {
