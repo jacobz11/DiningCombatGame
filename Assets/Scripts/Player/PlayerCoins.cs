@@ -4,7 +4,7 @@ internal class PlayerCoins : MonoBehaviour
 {
     public const string k_Formt = "coins : {0}";
     [SerializeField]
-    private TMPro.TextMeshPro m_TextMeshPro;
+    private TMPro.TextMeshProUGUI m_TextMeshPro;
     private int m_Value;
 
     public int Value
