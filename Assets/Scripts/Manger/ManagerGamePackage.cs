@@ -20,7 +20,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
     private IPackage[] m_PackagesPreFfa;
     private int m_IndexInPackagesArr;
     public bool IsSpawnNewGameObj { get; private set; }
-    public static ManagerGamePackage Instance { get; private set; }
+    public new static ManagerGamePackage Instance { get; private set; }
 
 
     private void Awake()

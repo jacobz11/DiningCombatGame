@@ -9,7 +9,7 @@ internal class AIAcitonStateMachine : AcitonStateMachine
 
     #region Unity
 
-    private new void Awake()
+    private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
 

@@ -13,7 +13,7 @@ internal class CornNpc : GameFoodObj
     [SerializeField]
     private GameObject[] m_GameObj;
 
-    private new void Awake()
+    private void Awake()
     {
         Debug.Log("CornNpc Awake");
 

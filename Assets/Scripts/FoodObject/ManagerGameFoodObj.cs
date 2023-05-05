@@ -20,10 +20,9 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     [SerializeField]
     private ListFoodPrefab m_AllFoodPrefab;
     public bool IsSpawnNewGameObj { get; private set; }
-    public static ManagerGameFoodObj Instance { get; private set; }
+    public new static ManagerGameFoodObj Instance { get; private set; }
 
-
-    private void Awake()
+    private new void Awake()
     {
         if (Instance is not null)
         {
