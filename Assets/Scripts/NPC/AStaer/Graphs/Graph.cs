@@ -123,6 +123,7 @@ public class Graph
                 }
             }
         }
+
         return false;
     }
 
@@ -168,8 +169,10 @@ public class Graph
                 lowestf = l[i].f;
                 iteratorCount = count;
             }
+
             count++;
         }
+
         return iteratorCount;
     }
 }

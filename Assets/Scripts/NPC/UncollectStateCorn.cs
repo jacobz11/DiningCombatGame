@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Assets.DataObject;
+using System;
+using Unity.MLAgents;
+using Unity.Services.Analytics.Internal;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts.NPC
 {
@@ -10,37 +14,52 @@ namespace Assets.Scripts.NPC
 
         public event Action OnCountdownEnding;
         private float m_Countdown;
-        private int m_GameObjectsCount;
+        private Vector3 m_Target;
         private NavMeshAgent m_Agent;
         private Room m_RoomDimension;
-        private GameObject[] m_GameObjects;
 
-        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, Room room, GameObject[] gameObjects) : base(gameFood)
+        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, Room room) : base(gameFood)
         {
             m_Agent = i_Agent;
             m_RoomDimension = room;
-            m_GameObjects = gameObjects;
-            Debug.Log("m_GameObjects.Length " + m_GameObjects.Length);
         }
 
         public override void Update()
         {
-            Debug.Log("pos :" + m_GameObjects[m_GameObjectsCount].transform.position + "m_GameObjectsCount " + m_GameObjectsCount);
+            //Debug.Log("pos :" + m_GameObjects[m_GameObjectsCount].transform.position + "m_GameObjectsCount " + m_GameObjectsCount);
             m_Countdown -= Time.deltaTime;
-            if (m_Countdown >= 0)
+            if (m_Countdown <= 0)
             {
                 OnCountdownEnding?.Invoke();
             }
 
             if (ReachTheDestination())
             {
-                m_GameObjectsCount++;
-                if (m_GameObjectsCount >= m_GameObjects.Length)
-                {
-                    m_GameObjectsCount = 0;
-                }
-                m_Agent.SetDestination(m_GameObjects[m_GameObjectsCount].transform.position);
+                Debug.Log("ReachTheDestination");
+                SetDestination();
             }
+
+            //m_Agent.gameObject.transform.LookAt(m_Target);
+            OnDrawGizmos();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (m_Agent.hasPath)
+            {
+                Vector3[] path = m_Agent.path.corners;
+                for (int i = 0; i < path.Length - 1; i++)
+                {
+                    Debug.DrawLine(path[i], path[i + 1], Color.blue);
+                }
+            }
+        }
+
+        private void SetDestination()
+        {
+            m_Target = m_RoomDimension.GetRendonPos();
+            Debug.Log("SetDestination " + m_Target);
+            m_Agent.SetDestination(m_Target);
         }
 
         private bool ReachTheDestination()
@@ -64,8 +83,7 @@ namespace Assets.Scripts.NPC
         public override void OnSteteEnter()
         {
             m_Countdown = k_CountdownInitial;
-            m_GameObjectsCount = 0;
-            m_Agent.SetDestination(m_GameObjects[m_GameObjectsCount].transform.position);
+            SetDestination();
         }
 
         public override void OnSteteExit()

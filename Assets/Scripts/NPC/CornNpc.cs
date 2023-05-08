@@ -10,18 +10,15 @@ internal class CornNpc : GameFoodObj
 
     [SerializeField]
     private Room m_RoomDimension;
-    [SerializeField]
-    private GameObject[] m_GameObj;
 
     private void Awake()
     {
         Debug.Log("CornNpc Awake");
 
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_GameObj = GameObject.FindGameObjectsWithTag("wall");
 
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        UncollectStateCorn uncollect = new UncollectStateCorn(this, agent, m_RoomDimension, m_GameObj);
+        UncollectStateCorn uncollect = new UncollectStateCorn(this, agent, m_RoomDimension);
         IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
         CollectState collectState = new CollectState(m_Rigidbody, transform, this);
 

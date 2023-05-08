@@ -18,6 +18,8 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     protected eThrowAnimationType m_AnimationType;
 
     [SerializeField]
+    private Vector3 m_OffsetOnPlayerHande;
+    [SerializeField]
     protected ThrownActionTypesBuilder m_TypeBuild;
 
     #region State
@@ -50,7 +52,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     protected virtual void CollectInvoke() => OnCollect?.Invoke();
     internal bool CanCollect() => Index == UncollectState.k_Indx;
     internal eThrowAnimationType StopPowering() => m_AnimationType;
-    internal Vector3 GetCollctorPositin() => m_Collector is null ? transform.position : m_Collector.PicUpPoint.position;
+    internal Vector3 GetCollctorPositin() => m_Collector is null ? transform.position : m_Collector.PicUpPoint.position + m_OffsetOnPlayerHande;
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();

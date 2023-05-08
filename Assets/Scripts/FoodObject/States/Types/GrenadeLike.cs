@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.FoodObject.Pools;
 using Assets.Util;
 using UnityEngine;
+
 using static Assets.DataObject.ThrownActionTypesBuilder;
 
 namespace Assets.DataObject
@@ -77,7 +78,7 @@ namespace Assets.DataObject
             m_Effect.gameObject.SetActive(true);
             m_Effect.Play();
         }
-
+   
         public override void Activate()
         {
             float damage = CalculatorDamag();
@@ -88,7 +89,6 @@ namespace Assets.DataObject
 
             m_Countdown = r_EffectTime;
             IsActionHappen = true;
-
             foreach (Collider nearByObj in Physics.OverlapSphere(m_Transform.position, r_Radius))
             {
                 if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
