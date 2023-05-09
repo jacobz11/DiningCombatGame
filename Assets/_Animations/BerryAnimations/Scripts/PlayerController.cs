@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             m_Channel.AnimationBool("isGrounded", false);
-            if (yGravitySpeed < 0f || yGravitySpeed < 2f)
+            if (yGravitySpeed is < 0f or < 2f)
             {
                 m_Channel.AnimationBool("isFalling", true);
             }

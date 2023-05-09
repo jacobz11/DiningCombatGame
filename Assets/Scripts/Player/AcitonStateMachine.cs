@@ -88,13 +88,17 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
             switch (animationType)
             {
                 case eThrowAnimationType.Throwing:
-                    channel.SetPlayerAnimationToThrow(0f);
+                    channel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Throw, true);
+                    //channel.SetPlayerAnimationToThrow(0f);
                     break;
                 case eThrowAnimationType.Falling:
-                    channel.SetPlayerAnimationDroping();
+                    channel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Throw, true);
+
+                    //channel.SetPlayerAnimationDroping();
                     break;
                 default:
-                    channel.SetPlayerAnimationToThrow(0f);
+                    channel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Throw, true);
+                    //channel.SetPlayerAnimationToThrow(0f);
                     break;
             }
         };

@@ -30,7 +30,10 @@ public class PlayerLifePoint : MonoBehaviour
         }
         else
         {
-            OnPlayerDead += animationChannel.OnPlayerDead;
+            // TODO: 
+            // OnPlayerDead +=  animationChannel.OnPlayerDead;
+            // OnPlayerDead += () => animationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames, true)
+
         }
     }
 

@@ -109,7 +109,7 @@ RectTransform:
   m_Children:
   - {fileID: 2036549575}
   m_Father: {fileID: 3982638269754406074}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -841,6 +841,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.310535
       objectReference: {fileID: 0}
+    - target: {fileID: 7423822368942574541, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 86bc8505bff380c45a98562d78adaee8, type: 2}
     - target: {fileID: 7590712453896017074, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -16.412498
@@ -938,6 +942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
   m_Animator: {fileID: 1949516420911851405}
 --- !u!114 &8590715909611544385
 MonoBehaviour:

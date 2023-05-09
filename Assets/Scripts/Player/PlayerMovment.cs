@@ -1,5 +1,6 @@
 ﻿namespace Assets.scrips
 {
+    using Assets.Scripts.AI;
     using Assets.Scripts.Manger;
     using System;
     using Unity.Netcode;
@@ -12,10 +13,11 @@
         private const float k_PlayerHeight = 2f;
         private const float k_PlayerRadius = 0.7f;
 
-        public static Color[] m_Colors = new Color[] { Color.red, Color.green, Color.blue };
+        //public static Color[] m_Colors = new Color[] { Color.red, Color.green, Color.blue };
 
-        public event Action<bool> OnIsRunnigChang;
-        public event Action<bool> OnIsRunnigBackChang;
+        //public event Action<bool> OnIsRunnigChang;
+        //public event Action<bool> OnIsRunnigBackChang;
+        private PlayerAnimationChannel m_AnimationChannel;
 
         private bool m_IsRunnig;
         private bool m_IsRunnigBack;
@@ -49,7 +51,7 @@
                 if (value ^ m_IsRunnig)
                 {
                     m_IsRunnig = value;
-                    OnIsRunnigChang?.Invoke(m_IsRunnig);
+                    //OnIsRunnigChang?.Invoke(m_IsRunnig);
                 }
             }
         }
@@ -61,7 +63,7 @@
                 if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
-                    OnIsRunnigBackChang?.Invoke(m_IsRunnigBack);
+                    //OnIsRunnigBackChang?.Invoke(m_IsRunnigBack);
                 }
             }
         }
@@ -72,6 +74,7 @@
             m_Rb = GetComponent<Rigidbody>();
 
             m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
+            m_AnimationChannel = GetComponentInChildren<PlayerAnimationChannel>();
         }
 
         public override void OnNetworkSpawn()
@@ -83,6 +86,7 @@
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             NetworkObject networkObj = GetComponent<NetworkObject>();
+
             if (networkObj == null)
             {
                 Debug.LogWarning("Object does not have a NetworkObject component");
@@ -92,7 +96,6 @@
             // Request ownership of the object
             if (networkObj.IsSpawned && !networkObj.IsOwnedByServer)
             {
-                //networkObj.O RequestOwnership();
             }
             if (IsHost)
             {
@@ -106,13 +109,8 @@
             {
                 HandleMovementClientRpc();
                 HandleRotationeClientRpc();
-                //Debug.Log("IsOwner " + OwnerClientId);
 
             }
-            //else
-            //{
-            //    Debug.Log("Is not IsOwner" + OwnerClientId);
-            //}
         }
 
         [ClientRpc]
@@ -120,6 +118,7 @@
         {
             float speed = PlayerSpeedNormalized;
             float yOffset = 0;
+            UpdateIsGrounded();
             if (!IsGrounded)
             {
                 speed *= m_MovmentData.m_JumpSlowDonwSpeep;
@@ -127,19 +126,24 @@
             }
 
             Vector3 movment = HandleMovement(m_GameInput.GetMovementVectorNormalized(), yOffset, speed);
+            Debug.Log("IsGrounded " + IsGrounded);
+            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, movment.x);
+            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, movment.z);
 
-            if (!IsGrounded && movment != Vector3.zero)
-            {
-                bool isRunnigFord = movment.z < float.Epsilon;
-                IsRunnig = isRunnigFord;
-                IsRunnigBack = !isRunnigFord;
-            }
-            else
-            {
-                IsRunnig = false;
-                IsRunnigBack = false;
-            }
+            //if (!IsGrounded && movment != Vector3.zero)
+            //{
+            //    bool isRunnigFord = movment.z < float.Epsilon;
+            //    IsRunnig = isRunnigFord;
+            //    IsRunnigBack = !isRunnigFord;
+            //}
+            //else
+            //{
+            //    IsRunnig = false;
+            //    IsRunnigBack = false;
+            //}
+
             HandleMovementServerRpc(movment);
+
             //else
             //{
             //    Vector3 movnet = 
@@ -155,48 +159,7 @@
             transform.Translate(i_Movment);
         }
         #endregion
-        //public PlayerMovment(Rigidbody i_Rb, PlayerMovmentDataSO i_MovmentDataSO, Transform transform, GameInput gameInput)
-        //{
-        //    m_Rb = i_Rb;
-        //    m_GameInput = gameInput;
-        //    m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
-        //    m_MovmentData = i_MovmentDataSO;
-        //    Transform = transform;    
-        //}
-
         #region Handle Movement
-        private Vector3 HandleGroundedMovement(Vector2 i_InputVector)
-        {
-            Vector3 movment = HandleMovement(i_InputVector, 0, PlayerSpeedNormalized);
-            if (movment == Vector3.zero)
-            {
-                IsRunnig = false;
-                IsRunnigBack = false;
-            }
-            else
-            {
-                if (movment.z < float.Epsilon)
-                {
-                    IsRunnig = false;
-                    IsRunnigBack = true;
-                }
-                else
-                {
-                    IsRunnig = true;
-                    IsRunnigBack = false;
-                }
-            }
-            return movment;
-        }
-        //private Vector3 HandleMovementWhileJumping(Vector2 i_InputVector)
-        //{
-        //    float speed = PlayerSpeedNormalized * m_MovmentData.m_JumpSlowDonwSpeep;
-        //    Vector3 movnet = HandleMovement(i_InputVector, Position.y, speed);
-        //    IsRunnig = false;
-        //    IsRunnigBack = false;
-        //    return movnet;
-        //}
-
         private Vector3 HandleMovement(Vector2 i_InputVector, float i_YPosition, float i_MoveDistance)
         {
             Vector3 moveDir = new Vector3(i_InputVector.x, i_YPosition, i_InputVector.y);
@@ -243,7 +206,13 @@
         private void UpdateIsGrounded()
         {
             float distToGround = 0f;
-            IsGrounded = !Physics.Raycast(Position, -Vector3.up, (float)(distToGround + 0.1), m_MovmentData.m_Ground, QueryTriggerInteraction.UseGlobal);
+            bool currentIsGrounded = !Physics.Raycast(Position, -Vector3.up, (float)(distToGround + 0.1), m_MovmentData.m_Ground, QueryTriggerInteraction.UseGlobal);
+            if (currentIsGrounded ^ IsGrounded)
+            {
+                IsGrounded = currentIsGrounded;
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, IsGrounded);
+            }
+
         }
         [ClientRpc]
         private void HandleRotationeClientRpc()
@@ -270,3 +239,44 @@
         #endregion
     }
 }
+
+//public PlayerMovment(Rigidbody i_Rb, PlayerMovmentDataSO i_MovmentDataSO, Transform transform, GameInput gameInput)
+//{
+//    m_Rb = i_Rb;
+//    m_GameInput = gameInput;
+//    m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
+//    m_MovmentData = i_MovmentDataSO;
+//    Transform = transform;    
+//}
+
+//private Vector3 HandleGroundedMovement(Vector2 i_InputVector)
+//{
+//    Vector3 movment = HandleMovement(i_InputVector, 0, PlayerSpeedNormalized);
+//    if (movment == Vector3.zero)
+//    {
+//        IsRunnig = false;
+//        IsRunnigBack = false;
+//    }
+//    else
+//    {
+//        if (movment.z < float.Epsilon)
+//        {
+//            IsRunnig = false;
+//            IsRunnigBack = true;
+//        }
+//        else
+//        {
+//            IsRunnig = true;
+//            IsRunnigBack = false;
+//        }
+//    }
+//    return movment;
+//}
+//private Vector3 HandleMovementWhileJumping(Vector2 i_InputVector)
+//{
+//    float speed = PlayerSpeedNormalized * m_MovmentData.m_JumpSlowDonwSpeep;
+//    Vector3 movnet = HandleMovement(i_InputVector, Position.y, speed);
+//    IsRunnig = false;
+//    IsRunnigBack = false;
+//    return movnet;
+//}
