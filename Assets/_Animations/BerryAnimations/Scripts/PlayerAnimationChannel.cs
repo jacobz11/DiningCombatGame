@@ -4,24 +4,31 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerAnimationChannel : NetworkBehaviour //MonoBehaviour //
+public class PlayerAnimationChannel : MonoBehaviour
 {
     public event Action ThrowPoint;
     public event Action JumpingEnd;
     public event Action StartTrowing;
+    //public static Action<string, bool> SetAnimationBool;
+    //public static Action<string, float> SetAnimationFloat;
     private Animator m_Anim;
 
     private void Awake()
     {
-        m_Anim = GetComponent<Animator>();
+        m_Anim = GetComponentInChildren<Animator>();
         ThrowPoint += () => StartCoroutine(StopAnimationToThrow());
     }
 
-    public override void OnNetworkSpawn()
+    public void AnimationBool(string arg1, bool arg2)
     {
-        base.OnNetworkSpawn();
-        OnStart();
+        m_Anim.SetBool(arg1, arg2);
     }
+    public void AnimationFloat(string arg1, float arg2)
+    {
+        m_Anim.SetFloat(arg1, arg2);
+    }
+
+
 
     public void OnStartTrowing()
     {
