@@ -8,8 +8,6 @@ using UnityEngine;
 public class PlayerAnimationChannel : NetworkBehaviour
 {
     public event Action ThrowPoint;
-    public event Action JumpingEnd;
-    public event Action StartTrowing;
     //public static Action<string, bool> SetAnimationBool;
     //public static Action<string, float> SetAnimationFloat;
     private Animator m_Anim;
@@ -31,10 +29,6 @@ public class PlayerAnimationChannel : NetworkBehaviour
         m_Anim.SetFloat(arg1, arg2);
     }
 
-    public void OnStartTrowing()
-    {
-        StartTrowing?.Invoke();
-    }
     private void OnStart()
     {
         PlayerMovment player = GetComponentInParent<PlayerMovment>();

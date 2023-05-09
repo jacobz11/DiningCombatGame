@@ -49,7 +49,7 @@ internal class AIAcitonStateMachine : AcitonStateMachine
         powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
         channel.ThrowPoint += Animation_ThrowPoint;
         channel.ThrowPoint += () => { powering.OnThrowPoint(out float _); };
-        channel.StartTrowing += channel_StartTrowing;
+        //channel.StartTrowing += channel_StartTrowing;
 
         m_StateIndex = StateFree.k_Indx;
         CurrentState.OnSteteEnter();
