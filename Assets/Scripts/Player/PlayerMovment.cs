@@ -128,7 +128,7 @@
             Vector3 movment = HandleMovement(m_GameInput.GetMovementVectorNormalized(), yOffset, speed);
             Debug.Log("IsGrounded " + IsGrounded);
 
-            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, movment.Z);
+            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, movment.z);
             m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, movment.x);
 
             //if (!IsGrounded && movment != Vector3.zero)
