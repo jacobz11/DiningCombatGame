@@ -84,11 +84,11 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         Index = 0;
     }
     #region Uncollect 
-    protected void Uncollect_Collect(AcitonStateMachine i_Collecter)
+    protected void Uncollect_Collect(AcitonStateMachine i_Collector)
     {
-        if (i_Collecter is not null)
+        if (i_Collector is not null)
         {
-            m_Collector = i_Collecter;
+            m_Collector = i_Collector;
             this.transform.position = m_Collector.PicUpPoint.position;
             Index = CollectState.k_Indx;
             CollectInvoke();

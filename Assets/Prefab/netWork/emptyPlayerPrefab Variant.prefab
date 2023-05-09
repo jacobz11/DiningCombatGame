@@ -1014,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 114f966ec9b4650499fae3e2f7ce1272, type: 3}
+    - target: {fileID: 7423822368942574541, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c2ed1d58809b1e040a094a60e2ba7bea, type: 2}
     - target: {fileID: 7590712453896017074, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -16.412498
@@ -1111,6 +1115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
   m_Animator: {fileID: 1949516420911851405}
 --- !u!114 &8590715909611544385
 MonoBehaviour:
