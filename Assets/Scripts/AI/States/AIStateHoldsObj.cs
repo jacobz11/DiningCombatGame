@@ -24,9 +24,9 @@ namespace Assets.Scripts.AI.States
             m_AIAcitonState = aIAcitonState;
         }
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
-            base.OnSteteEnter();
+            base.OnStateEnter();
             FindPlayerClosest();
         }
 

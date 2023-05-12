@@ -9,9 +9,9 @@ namespace Assets.DataObject
             : base(i_BuilderData)
         { /* Not-Implemented */}
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
-            base.OnSteteEnter();
+            base.OnStateEnter();
             Debug.Log("GrenadeLike OnSteteEnter");
         }
 

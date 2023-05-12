@@ -23,12 +23,12 @@
         {/* Not-Implemented */}
         #endregion
         #region when events occur
-        public virtual void OnSteteEnter()
+        public virtual void OnStateEnter()
         {
             Debug.Log("OnSteteEnter : StateThrowing");
         }
 
-        public virtual void OnSteteExit()
+        public virtual void OnStateExit()
         {
             m_PowerMull = 0f;
         }

@@ -38,9 +38,9 @@ namespace Assets.DataObject
             m_TransparentObjectVisal = i_BuilderData.m_MinData.m_AlmostTransparent;
         }
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
-            base.OnSteteEnter();
+            base.OnStateEnter();
             m_TimeBefuerCollision = 0;
             m_Countdown = r_CountdownTime;
         }

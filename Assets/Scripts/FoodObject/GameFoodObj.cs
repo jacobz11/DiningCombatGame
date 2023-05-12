@@ -12,7 +12,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     public event Action OnCollect;
     public event Action Destruction;
 
-    private AcitonStateMachine m_Collector;
+    private ActionStateMachine m_Collector;
 
     protected Rigidbody m_Rigidbody;
     protected eThrowAnimationType m_AnimationType;
@@ -35,10 +35,10 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         get => m_StatuIndex;
         protected set
         {
-            CurrentState.OnSteteExit();
+            CurrentState.OnStateExit();
             m_StatuIndex = value;
             tag = CurrentState.TagState;
-            CurrentState.OnSteteEnter();
+            CurrentState.OnStateEnter();
         }
     }
     #endregion
@@ -46,13 +46,16 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     public void Hide() => this.gameObject.SetActive(false);
     public void Show() => this.gameObject.SetActive(true);
     #endregion
+    public bool IsUsed => throw new NotImplementedException();
+
     public bool IsUesed => throw new NotImplementedException();
-    public bool Unsed() => false;
+
+    public bool Unused() => false;
     public void OnEndUsing() { /* Not-Implemented */}
     protected virtual void CollectInvoke() => OnCollect?.Invoke();
     internal bool CanCollect() => Index == UncollectState.k_Indx;
     internal eThrowAnimationType StopPowering() => m_AnimationType;
-    internal Vector3 GetCollctorPositin() => m_Collector is null ? transform.position : m_Collector.PicUpPoint.position + m_OffsetOnPlayerHande;
+    internal Vector3 GetCollectorPosition() => m_Collector is null ? transform.position : m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -76,7 +79,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     protected void thrownState_OnReturnToPool()
     {
         ManagerGameFoodObj.Instance.ReturnToPool(this);
-        CurrentState.OnSteteExit();
+        CurrentState.OnStateExit();
     }
 
     private void OnEnable()
@@ -84,17 +87,16 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         Index = 0;
     }
     #region Uncollect 
-    protected void Uncollect_Collect(AcitonStateMachine i_Collector)
+    protected void Uncollect_Collect(ActionStateMachine i_Collector)
     {
         if (i_Collector is not null)
         {
             m_Collector = i_Collector;
-            this.transform.position = m_Collector.PicUpPoint.position;
+            this.transform.position = m_Collector.PickUpPoint.position;
             Index = CollectState.k_Indx;
             CollectInvoke();
         }
     }
-
     #endregion
     #region Collact
     #endregion
@@ -105,7 +107,7 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
         {
             Index = ThrownState.k_Indx;
             IThrownState thrownState = CurrentState as IThrownState;
-            thrownState.SetCollcter(m_Collector);
+            thrownState.SetCollector(m_Collector);
             thrownState.SetThrowDirection(i_Direction, i_PowerAmount);
         }
     }
@@ -140,5 +142,10 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     private void Update()
     {
         CurrentState.Update();
+    }
+
+    public bool Unsed()
+    {
+        throw new NotImplementedException();
     }
 }

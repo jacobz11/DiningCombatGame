@@ -22,7 +22,6 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
     public bool IsSpawnNewGameObj { get; private set; }
     public new static ManagerGamePackage Instance { get; private set; }
 
-
     private void Awake()
     {
         if (Instance is not null)
@@ -30,6 +29,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
             Destroy(this);
             return;
         }
+
         base.Awake();
         Instance = this;
     }
@@ -58,7 +58,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
         //GameFoodObj package = spawn.GetComponent<GameFoodObj>();
         IPackage package = Get(m_RoomDimension.GetRendonPos());
         //package.Destruction += OnDestruction_GameFoodObj;
-        m_Cuntter.TryInc();
+        _ = m_Cuntter.TryInc();
         m_LestSpanw = 0;
 
         //package.OnCollect += foodObj_OnCollect;
@@ -72,7 +72,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
 
     private void OnDestruction_GameFoodObj()
     {
-        m_Cuntter.TryDec();
+        _ = m_Cuntter.TryDec();
     }
 
     private void Start()
@@ -92,9 +92,10 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
         {
             return;
         }
+
         if (IsTimeToSpanw())
         {
-            SpawnPackage();
+            _ = SpawnPackage();
         }
     }
 

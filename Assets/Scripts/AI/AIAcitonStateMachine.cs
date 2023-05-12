@@ -3,7 +3,7 @@ using Assets.scrips.UI;
 using Assets.Scripts.AI.States;
 using UnityEngine.AI;
 
-internal class AIAcitonStateMachine : AcitonStateMachine
+internal class AIAcitonStateMachine : ActionStateMachine
 {
     private NavMeshAgent m_Agent;
 
@@ -52,7 +52,7 @@ internal class AIAcitonStateMachine : AcitonStateMachine
         //channel.StartTrowing += channel_StartTrowing;
 
         m_StateIndex = StateFree.k_Indx;
-        CurrentState.OnSteteEnter();
+        CurrentState.OnStateEnter();
     }
     #endregion
 

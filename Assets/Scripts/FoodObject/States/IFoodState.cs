@@ -6,6 +6,6 @@ internal interface IFoodState : IDCState
 
     bool IsThrowingAction();
 
-    bool TryCollect(AcitonStateMachine i_Collcter);
+    bool TryCollect(ActionStateMachine i_Collcter);
     void Update();
 }

@@ -11,9 +11,9 @@ namespace DesignPatterns.Abstraction
             ExitingState = 3,
             FinishedState = 4,
         }
-        void OnSteteExit();
+        void OnStateExit();
 
-        void OnSteteEnter();
+        void OnStateEnter();
 
         void AddListener(Action<EventArgs> i_Action, eState i_State);
     }

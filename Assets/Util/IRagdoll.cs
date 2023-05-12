@@ -1,8 +1,18 @@
-﻿internal interface IRagdoll
+﻿using UnityEngine;
+
+internal class IRagdoll
 {
-    /// Let the rigidbody take control and detect collisions.
-    void EnableRagdoll();
-    /// Let animation control the rigidbody and ignore collisions.
-    void DisableRagdoll();
+
+    public static void DisableRagdoll(Rigidbody i_Rigidbody)
+    {
+        i_Rigidbody.isKinematic = true;
+        i_Rigidbody.detectCollisions = false;
+    }
+
+    public static void EnableRagdoll(Rigidbody i_Rigidbody)
+    {
+        i_Rigidbody.isKinematic = false;
+        i_Rigidbody.detectCollisions = true;
+    }
 }
 

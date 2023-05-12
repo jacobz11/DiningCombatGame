@@ -1,6 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
+using Vector2 = UnityEngine.Vector2;
 
 namespace Assets.Util
 {
@@ -147,9 +150,50 @@ namespace Assets.Util
                 return randEndPoint;
             }
         }
+
+        //public void SpawnWater()
+        //{
+        //    #region var
+        //    NodeGraph[][] grid = new NodeGraph[5][5];
+        //    List<Vector2Int> Not_full_list = new List<Vector2Int>();
+            
+        //    #endregion
+        //    Vector2Int positionInTheGraph = GetAndRandomEndPint();
+        //    grid[positionInTheGraph] = Get_Water_type_by_how_many_neighbors(positionInTheGraph);
+
+        //    foreach (Vector2Int new_neighbors_pos_in_Graph in GetNeighborsList(positionInTheGraph))
+        //    {
+        //        if (!grid[neighbors_pos_in_Graph].IsFree())
+        //        {
+        //            Not_full_list.Add(new_neighbors_pos_in_Graph);
+        //        }
+        //    }
+
+        //    foreach(Vector2Int not_Full in Not_full_list)
+        //    {
+        //        grid[not_Full] = Get_Water_type_by_how_many_neighbors(positionInTheGraph);
+
+        //        if (grid[not_Full].IsFuul)
+        //        {
+        //            Not_full_list.Remove(not_Full);
+        //        }
+        //    }
+        //    #region func
+        //    Vector2Int GetAndRandomEndPint()
+        //    {
+        //        return new Vector2Int(0,0)l
+        //    }
+
+        //    NodeGraph Get_Water_type_by_how_many_neighbors(Vector2Int positionInTheGraph)
+        //    {
+        //        return null;
+        //    }
+
+        //    #endregion
+
+        //}
     }
 }
-
 
 /*internal class GraphDC
 {

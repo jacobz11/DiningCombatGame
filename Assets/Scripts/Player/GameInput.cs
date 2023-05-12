@@ -43,24 +43,25 @@ namespace Assets.scrips
             playerInput.Player.Jump.performed += Jump_perfomed;
             playerInput.Player.PickUp.performed += PickUp_perfomed;
             playerInput.Player.StartCharging.performed += StartCharging_perfomed;
-            playerInput.Player.StopChargung.performed += stopChargung_performed;
+            playerInput.Player.StopChargung.performed += StopChargung_Performed;
             playerInput.Player.BostRunnig.performed += BostRunnig_perfomed;
         }
 
-        private void stopChargung_performed(InputAction.CallbackContext obj)
+        private void StopChargung_Performed(InputAction.CallbackContext obj)
         {
             OnStopChargingAction?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnDestroy()
+        public override void OnDestroy()
         {
             playerInput.Player.Jump.performed -= Jump_perfomed;
             playerInput.Player.PickUp.performed -= PickUp_perfomed;
             playerInput.Player.StartCharging.performed -= StartCharging_perfomed;
-            playerInput.Player.StopChargung.performed -= stopChargung_performed;
+            playerInput.Player.StopChargung.performed -= StopChargung_Performed;
             playerInput.Player.BostRunnig.performed -= BostRunnig_perfomed;
 
             playerInput.Dispose();
+            base.OnDestroy();
         }
 
         private void PickUp_perfomed(InputAction.CallbackContext obj)

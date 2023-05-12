@@ -3,7 +3,7 @@
 # SA1633: File should have header
 dotnet_diagnostic.SA1633.severity = none
 csharp_indent_labels = one_less_than_current
-csharp_space_around_binary_operators = before_and_after									   
+csharp_space_around_binary_operators = before_and_after
 csharp_using_directive_placement = outside_namespace:silent
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_prefer_braces = true:silent
@@ -114,7 +114,7 @@ dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
 
 dotnet_naming_rule.private_method_should_be_camel_case.severity = warning
 dotnet_naming_rule.private_method_should_be_camel_case.symbols = private_method
-dotnet_naming_rule.private_method_should_be_camel_case.style = camel_case
+dotnet_naming_rule.private_method_should_be_camel_case.style = pascal_case
 
 dotnet_naming_rule.enum_should_be_begins_with_e.severity = warning
 dotnet_naming_rule.enum_should_be_begins_with_e.symbols = enum
@@ -248,3 +248,4 @@ dotnet_naming_style.begins_with_sr_.required_prefix = sr_
 dotnet_naming_style.begins_with_sr_.required_suffix = 
 dotnet_naming_style.begins_with_sr_.word_separator = 
 dotnet_naming_style.begins_with_sr_.capitalization = pascal_case
+csharp_style_prefer_top_level_statements = false:suggestion

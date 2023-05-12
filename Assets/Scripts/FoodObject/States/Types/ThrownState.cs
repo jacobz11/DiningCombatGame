@@ -13,9 +13,9 @@ internal class ThrownState : IThrownState
         m_TimeBefuerCollision = 0f;
     }
 
-    public override void OnSteteEnter()
+    public override void OnStateEnter()
     {
-        base.OnSteteEnter();
+        base.OnStateEnter();
         m_TimeBefuerCollision = 0f;
     }
 
@@ -56,9 +56,10 @@ internal class ThrownState : IThrownState
             {
                 m_Damage = damage,
                 m_GetHitPlayer = collision.gameObject,
-                m_PlayerTrown = Activator.gameObject
+                m_PlayerThrown = Activator.gameObject
             });
         }
+
         m_TimeBefuerCollision = k_TimeToReturn;
 
         bool IsHitMyself(Collision collision)

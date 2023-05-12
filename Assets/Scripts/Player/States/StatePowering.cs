@@ -19,7 +19,7 @@ namespace Assets.scrips.Player.States
         private float m_PowerCharging;
         private bool m_StopPowering;
 
-        private AcitonStateMachine m_AcitonStateMachine;
+        private ActionStateMachine m_AcitonStateMachine;
         public PoweringData m_Powering;
 
         public float PowerCharging
@@ -44,7 +44,7 @@ namespace Assets.scrips.Player.States
             }
         }
 
-        public StatePowering(AcitonStateMachine acitonStateMachine, PoweringData i_Powering)
+        public StatePowering(ActionStateMachine acitonStateMachine, PoweringData i_Powering)
         {
             m_AcitonStateMachine = acitonStateMachine;
             m_Powering = i_Powering;
@@ -54,13 +54,13 @@ namespace Assets.scrips.Player.States
         {/* Not-Implemented */}
         public void ExitCollisionFoodObj(Collider other)
         {/* Not-Implemented */}
-        public virtual void OnSteteExit()
+        public virtual void OnStateExit()
         {/* Not-Implemented */}
         public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
         {/* Not-Implemented */}
         #endregion
 
-        public virtual void OnSteteEnter()
+        public virtual void OnStateEnter()
         {
             m_IsPowering = m_AcitonStateMachine.IsPower;
             Debug.Log("OnSteteEnter : StatePowering");

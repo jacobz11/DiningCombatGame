@@ -6,26 +6,26 @@ using UnityEngine;
 
 namespace Assets.DataObject
 {
-    internal abstract class IThrownState : IFoodState, IRagdoll, IDamaging
+    internal abstract class IThrownState : IFoodState, IDamaging
     {
         public class HitPointEventArgs : EventArgs
         {
             public float m_Damage;
             public GameObject m_GetHitPlayer;
-            public GameObject m_PlayerTrown;
+            public GameObject m_PlayerThrown;
         }
         public event Action OnReturnToPool;
         public event Action<HitPointEventArgs> OnHit;
 
         protected Rigidbody m_Rigidbody;
-        public AcitonStateMachine Activator { get; protected set; }
+        public ActionStateMachine Activator { get; protected set; }
         public Vector2 RangeDamage { get; protected set; }
         public Vector3 ActionDirection { get; protected set; }
         public bool IsActionHappen { get; protected set; }
 
         public string TagState => GameGlobal.TagNames.k_ThrowFoodObj;
         public bool IsThrowingAction() => false;
-        public bool TryCollect(AcitonStateMachine i_Collcter) => false;
+        public bool TryCollect(ActionStateMachine i_Collcter) => false;
         protected virtual void ReturnToPool() => OnReturnToPool?.Invoke();
         public virtual float CalculatorDamag() => Vector2AsRang.Clamp(m_Rigidbody.velocity.magnitude, RangeDamage);
         internal void SendOnHit(HitPointEventArgs hitPointEventArgs) => OnHit?.Invoke(hitPointEventArgs);
@@ -38,7 +38,7 @@ namespace Assets.DataObject
             IsActionHappen = false;
         }
 
-        public void SetCollcter(AcitonStateMachine i_Collcter)
+        public void SetCollector(ActionStateMachine i_Collcter)
         {
             Activator = i_Collcter;
         }
@@ -51,12 +51,12 @@ namespace Assets.DataObject
         public virtual void Update()
         { /* Not-Implemented */}
 
-        public virtual void OnSteteExit()
+        public virtual void OnStateExit()
         { /* Not-Implemented */}
 
-        public virtual void OnSteteEnter()
+        public virtual void OnStateEnter()
         {
-            EnableRagdoll();
+            IRagdoll.EnableRagdoll(m_Rigidbody);
             ActionDirection = Vector3.zero;
             Activator = null;
         }
@@ -71,17 +71,17 @@ namespace Assets.DataObject
             }
         }
         #region Ragdol
-        public void DisableRagdoll()
-        {
-            m_Rigidbody.isKinematic = true;
-            m_Rigidbody.detectCollisions = false;
-        }
+        //public void DisableRagdoll()
+        //{
+        //    m_Rigidbody.isKinematic = true;
+        //    m_Rigidbody.detectCollisions = false;
+        //}
 
-        public void EnableRagdoll()
-        {
-            m_Rigidbody.isKinematic = false;
-            m_Rigidbody.detectCollisions = true;
-        }
+        //public void EnableRagdoll()
+        //{
+        //    m_Rigidbody.isKinematic = false;
+        //    m_Rigidbody.detectCollisions = true;
+        //}
         #endregion
         #region Activation 
         public virtual void Activation(Collision collision)

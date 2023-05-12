@@ -25,7 +25,7 @@ namespace Assets.Scripts.AI.States
             private set { m_UpdateTimes = (int)value; }
         }
 
-        public AIStatePowering(AcitonStateMachine acitonStateMachine, PoweringData i_Powering, NavMeshAgent i_Agent)
+        public AIStatePowering(ActionStateMachine acitonStateMachine, PoweringData i_Powering, NavMeshAgent i_Agent)
             : base(acitonStateMachine, i_Powering)
         {
             m_Agent = i_Agent;
@@ -38,9 +38,9 @@ namespace Assets.Scripts.AI.States
             m_Agent.SetDestination(m_Target);
         }
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
-            base.OnSteteEnter();
+            base.OnStateEnter();
             FindPlayerClosest();
             m_UpdateTimes = 0;
             m_Timer = 0;

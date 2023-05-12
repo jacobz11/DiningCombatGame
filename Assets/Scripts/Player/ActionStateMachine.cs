@@ -7,7 +7,7 @@ using Unity.Netcode;
 using UnityEngine;
 using static GameFoodObj;
 
-internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
+internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
 {
     protected Action<eThrowAnimationType> LaunchingAnimation;
     protected IStatePlayerHand[] m_Stats;
@@ -17,12 +17,12 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     private GameFoodObj m_FoodObj;
 
     [SerializeField]
-    private Transform m_PicUpPoint;
+    private readonly Transform r_PickUpPoint;
     [SerializeField]
     protected PoweringData m_Powering;
     [SerializeField]
     protected PoweringVisual m_PoweringVisual;
-    public Transform PicUpPoint { get => m_PicUpPoint; }
+    public Transform PickUpPoint => r_PickUpPoint;
     public bool IsPower { get; private set; }
 
     public int Index
@@ -30,9 +30,9 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         get => m_StateIndex;
         set
         {
-            CurrentState.OnSteteExit();
+            CurrentState.OnStateExit();
             m_StateIndex = value;
-            CurrentState.OnSteteEnter();
+            CurrentState.OnStateEnter();
         }
     }
 
@@ -63,7 +63,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     {
 
         base.OnNetworkSpawn();
-        LisenToPlayr();
+        ListenToPlayer();
         AddLisenrToInput(GetComponent<GameInput>());
 
         PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
@@ -79,7 +79,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         //channel.StartTrowing += channel_StartTrowing;
 
         m_StateIndex = StateFree.k_Indx;
-        CurrentState.OnSteteEnter();
+        CurrentState.OnStateEnter();
     }
 
     protected void SetLaunchingAnimation(PlayerAnimationChannel channel)
@@ -159,7 +159,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     {
         if (CurrentState.OnThrowPoint(out float o_Force))
         {
-            m_FoodObj.ThrowingAction(PicUpPoint.forward, o_Force);
+            m_FoodObj.ThrowingAction(PickUpPoint.forward, o_Force);
             m_FoodObj = null;
             Index = StateFree.k_Indx;
         }
@@ -185,7 +185,7 @@ internal class AcitonStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         input.OnStopChargingAction += GameInput_OnStopChargingAction;
         input.OnPickUpAction += GameInput_OnPickUpAction;
     }
-    private void LisenToPlayr()
+    private void ListenToPlayer()
     {
         Player player = GetComponent<Player>();
         player.OnExitCollisionFoodObj += m_Stats[StateFree.k_Indx].ExitCollisionFoodObj;

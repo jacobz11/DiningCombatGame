@@ -32,14 +32,14 @@ namespace Assets.DataObject
             r_ForceHitExsplostin = i_BuilderData.m_GrenadeData.ForceHitExsplostin;
         }
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
-            base.OnSteteEnter();
+            base.OnStateEnter();
             m_Rigidbody.AddForce(ActionDirection);
             m_Countdown = r_CountdownTime;
         }
 
-        public override void OnSteteExit()
+        public override void OnStateExit()
         { /* Not-Implemented */}
 
         public override void Update()

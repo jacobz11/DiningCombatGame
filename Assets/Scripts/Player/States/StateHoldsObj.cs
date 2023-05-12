@@ -38,7 +38,7 @@ namespace Assets.scrips.Player.States
         {/* Not-Implemented */}
         public void ExitCollisionFoodObj(Collider other)
         {/* Not-Implemented */}
-        public virtual void OnSteteExit()
+        public virtual void OnStateExit()
         {/* Not-Implemented */}
         public virtual void Update()
         {/* Not-Implemented */}
@@ -46,7 +46,7 @@ namespace Assets.scrips.Player.States
         {/* Not-Implemented */}
         #endregion
 
-        public virtual void OnSteteEnter()
+        public virtual void OnStateEnter()
         {
             Debug.Log("init state : StateHoldsObj");
         }

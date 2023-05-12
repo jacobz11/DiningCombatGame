@@ -3,7 +3,7 @@ using DiningCombat;
 using System;
 using UnityEngine;
 
-internal class CollectState : IFoodState, IRagdoll
+internal class CollectState : IFoodState
 {
     public const int k_Indx = 1;
 
@@ -14,10 +14,13 @@ internal class CollectState : IFoodState, IRagdoll
     public string TagState => GameGlobal.TagNames.k_Picked;
 
     public bool IsThrowingAction() => true;
-    public bool TryCollect(AcitonStateMachine i_Collcter) => false;
-    public void OnSteteEnter() => DisableRagdoll();
+    public bool TryCollect(ActionStateMachine i_Collcter) => false;
+    public void OnStateEnter() => IRagdoll.DisableRagdoll(m_Rigidbody);
+
     public CollectState()
-    { /* Not-Implemented */}
+    {
+        // Not implemented
+    }
 
     public CollectState(Rigidbody rigidbody, Transform transform, GameFoodObj gameFoodObj)
     {
@@ -34,26 +37,15 @@ internal class CollectState : IFoodState, IRagdoll
                 break;
         }
     }
-    #region Ragdoll
-    public void DisableRagdoll()
-    {
-        m_Rigidbody.isKinematic = true;
-        m_Rigidbody.detectCollisions = false;
-    }
 
-    public void EnableRagdoll()
+    public void OnStateExit()
     {
-        m_Rigidbody.isKinematic = false;
-        m_Rigidbody.detectCollisions = true;
+        // Not implemented
     }
-    #endregion
-
-    public void OnSteteExit()
-    { /* Not-Implemented */}
 
     public void Update()
     {
-        m_Transform.position = m_GameFoodObj.GetCollctorPositin();
+        m_Transform.position = m_GameFoodObj.GetCollectorPosition();
     }
 
     public void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount)

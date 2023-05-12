@@ -6,7 +6,7 @@ using UnityEngine;
 internal class UncollectState : IFoodState
 {
     public const int k_Indx = 0;
-    public event Action<AcitonStateMachine> Collect;
+    public event Action<ActionStateMachine> Collect;
     private GameFoodObj gameFood;
 
     public string TagState => GameGlobal.TagNames.k_FoodObj;
@@ -16,19 +16,30 @@ internal class UncollectState : IFoodState
     {
         this.gameFood = gameFood;
     }
-    #region  Not-Implemented
+
+    #region Not Implemented
     public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-    { /* Not-Implemented */}
+    {
+        // Not Implemented
+    }
 
-    public virtual void OnSteteEnter()
-    { /* Not-Implemented */}
+    public virtual void OnStateEnter()
+    {
+        // Not Implemented
+    }
 
-    public virtual void OnSteteExit()
-    { /* Not-Implemented */}
+    public virtual void OnStateExit()
+    {
+        // Not Implemented
+    }
+
     public virtual void Update()
-    { /* Not-Implemented */}
+    {
+        // Not Implemented
+    }
     #endregion
-    public virtual bool TryCollect(AcitonStateMachine i_Collcter)
+
+    public virtual bool TryCollect(ActionStateMachine i_Collcter)
     {
         Collect?.Invoke(i_Collcter);
         return true;

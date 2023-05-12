@@ -80,13 +80,13 @@ namespace Assets.Scripts.NPC
             return res;
         }
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
             m_Countdown = k_CountdownInitial;
             SetDestination();
         }
 
-        public override void OnSteteExit()
+        public override void OnStateExit()
         {
             Debug.Log("OnSteteExit corn");
             m_Agent.isStopped = true;

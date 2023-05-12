@@ -12,7 +12,7 @@ internal class StateFree : IStatePlayerHand
     public const int k_Indx = 0;
     public event Action<CollectedFoodEvent> PlayerCollectedFood;
 
-    protected AcitonStateMachine m_AcitonStateMachine;
+    protected ActionStateMachine m_AcitonStateMachine;
     private GameFoodObj m_FoodObj;
 
     protected bool HaveGameObject => this.m_FoodObj != null;
@@ -20,7 +20,7 @@ internal class StateFree : IStatePlayerHand
 
     bool IStatePlayerHand.OnChargingAction { get => false; set { } }
 
-    public StateFree(AcitonStateMachine i_AcitonStateMachine)
+    public StateFree(ActionStateMachine i_AcitonStateMachine)
     {
         m_FoodObj = null;
         m_AcitonStateMachine = i_AcitonStateMachine;
@@ -45,14 +45,14 @@ internal class StateFree : IStatePlayerHand
     }
 
 
-    public virtual void OnSteteEnter()
+    public virtual void OnStateEnter()
     {
         this.m_FoodObj = null;
         Debug.Log("init state : StateFree");
     }
 
 
-    public virtual void OnSteteExit()
+    public virtual void OnStateExit()
     {
         PlayerCollectedFood?.Invoke(new CollectedFoodEvent()
         {

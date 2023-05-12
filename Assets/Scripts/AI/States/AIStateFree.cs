@@ -12,15 +12,15 @@ namespace Assets.Scripts.AI.States
         public bool TargetExist { get; private set; }
         private Vector3 Position => m_Agent.transform.position;
 
-        public AIStateFree(AcitonStateMachine i_AcitonStateMachine, NavMeshAgent agent)
+        public AIStateFree(ActionStateMachine i_AcitonStateMachine, NavMeshAgent agent)
             : base(i_AcitonStateMachine)
         {
             m_Agent = agent;
         }
 
-        public override void OnSteteEnter()
+        public override void OnStateEnter()
         {
-            base.OnSteteEnter();
+            base.OnStateEnter();
             FindTarget();
         }
 
