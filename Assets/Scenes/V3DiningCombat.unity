@@ -4302,7 +4302,7 @@ MonoBehaviour:
     m_InitSpawn: 12
   m_RoomDimension: {fileID: 828490909}
   m_AllFoodPrefab:
-    FoodPrefab:
+    m_FoodPrefab:
     - {fileID: 6162616094248623806, guid: 4ad2c4a8fc0547243ad5e78309209e96, type: 3}
     - {fileID: 1705349755764092669, guid: 35a05d432518efe4dbe326e820bf1bcc, type: 3}
     - {fileID: 1579650163785305974, guid: 6062ecf1766a3b94a974591bb2046213, type: 3}
