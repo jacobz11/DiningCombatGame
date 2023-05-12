@@ -1,0 +1,38 @@
+name: Unity Check
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.100-preview.5.21302.13'
+
+    - name: Install StyleCop.Analyzers globally
+      run: dotnet tool install --global StyleCop.Analyzers
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Check code style
+      run: |
+        dotnet build --no-restore --no-incremental
+        dotnet tool run dotnet-format -- check
+        dotnet tool run stylecop.analyzers --report msbuild
+        grep -rnw --include=*.{cs,prefab,unity,asset} --exclude-dir=.git -e '[a-z]_[a-zA-Z]' -e '\b[A-Z]\w*\b' -e '[A-Z]\w*_[A-Z]\w*' . > error.txt || true
+      shell: bash
+
+    - name: Check spelling errors
+      run: |
+        grep -rnw --include=*.{cs,prefab,unity,asset} --exclude-dir=.git -e '[[:upper:]]*[[:lower:]]+' -e '[[:lower:]]*[[:upper:]]+' . >> error.txt || true
+
+    - name: Display errors
+      run: cat error.txt
