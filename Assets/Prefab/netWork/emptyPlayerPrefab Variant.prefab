@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ecf1f3349ac704ca8fb2a355f7b9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PicUpPoint: {fileID: 1949516421212491733}
+  m_PickUpPoint: {fileID: 1949516421212491733}
   m_Powering:
     MaxPower: 1800
     DataTimeAddingPower: 1400

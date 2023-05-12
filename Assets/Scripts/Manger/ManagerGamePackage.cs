@@ -22,7 +22,9 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
     public bool IsSpawnNewGameObj { get; private set; }
     public new static ManagerGamePackage Instance { get; private set; }
 
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
     private void Awake()
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
     {
         if (Instance is not null)
         {
@@ -84,6 +86,7 @@ internal class ManagerGamePackage : GenericObjectPool<IPackage>
             //    SpawnPackage();
             //}
         }
+
         m_LestSpanw = 0;
     }
     private void Update()

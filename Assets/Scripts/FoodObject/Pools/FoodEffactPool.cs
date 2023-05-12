@@ -71,6 +71,7 @@ namespace Assets.Scripts.FoodObject.Pools
             {
                 Debug.Log("m_PrefapFlour is null");
             }
+
             m_FlourPool.ObjectLayer = m_ObjectLayer.transform;
             m_PomegranatePool.ObjectLayer = m_ObjectLayer.transform;
             m_BananaPool.ObjectLayer = m_ObjectLayer.transform;
@@ -99,6 +100,7 @@ namespace Assets.Scripts.FoodObject.Pools
                         Debug.LogError("try to get not exiting" + i_Type);
                         break;
                 }
+
                 return res;
             }
         }

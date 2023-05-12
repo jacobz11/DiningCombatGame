@@ -6,7 +6,7 @@ internal class StateFree : IStatePlayerHand
 {
     public class CollectedFoodEvent : EventArgs
     {
-        public GameFoodObj gameFood;
+        public GameFoodObj m_GameFood;
     }
 
     public const int k_Indx = 0;
@@ -44,19 +44,17 @@ internal class StateFree : IStatePlayerHand
         }
     }
 
-
     public virtual void OnStateEnter()
     {
         this.m_FoodObj = null;
         Debug.Log("init state : StateFree");
     }
 
-
     public virtual void OnStateExit()
     {
         PlayerCollectedFood?.Invoke(new CollectedFoodEvent()
         {
-            gameFood = m_FoodObj
+            m_GameFood = m_FoodObj
         });
     }
 

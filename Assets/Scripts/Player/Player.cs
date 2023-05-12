@@ -35,6 +35,7 @@ public class Player : NetworkBehaviour
         {
             gameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
         }
+
         gameObject.transform.position = GameStrting.Instance.GatIntPosForPlayer();
     }
 

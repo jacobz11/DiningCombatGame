@@ -1,7 +1,6 @@
 using Assets.scrips;
 using System;
 using System.Collections;
-using Unity.MLAgents.Integrations.Match3;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -67,43 +66,43 @@ public class PlayerAnimationChannel : NetworkBehaviour
     public class AnimationsNames
     {
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Animation for the player to run fast
         /// </summary>
         public const string k_RunFast = "isRunFast";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Animation for the player to run
         /// </summary>
         public const string k_Running = "isRun";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Animation for the player to Throw
         /// </summary>
         public const string k_Throw = "isThrow";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Animation for the player to run Back
         /// </summary>
         public const string k_RunBack = "isRunBack";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// When the player wins
         /// </summary>
         public const string k_Winner = "isWin";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Move to the Left
         /// </summary>
         public const string k_Left = "isWalkLeft";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Move to the right 
         /// </summary>
         public const string k_Right = "isWalkRight";
@@ -130,31 +129,31 @@ public class PlayerAnimationChannel : NetworkBehaviour
         public const string k_Sides = "Sides";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Animation for Jumping
         /// </summary>
         public const string k_Jumping = "isJumping";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// the character is on the floor
         /// changes it when a character jumps/or is in the air - false
         /// </summary>
         public const string k_Grounded = "isGrounded";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Will trigger the animation when he is in the air regardless of whether he falls or completes the jump
         /// </summary>
         public const string k_Falling = "isFalling";
 
         /// <summary>
-       /// input type - bool AnimationBool 
+        /// input type - bool AnimationBool 
         /// Two handed shot for watermelon
         /// </summary>
         public const string k_ThrowIn = "isThrowIn";
     }
- 
+
 
     //public void SetPlayerAnimationToRunFast(bool i_IsActive)
     //{

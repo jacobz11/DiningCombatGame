@@ -19,9 +19,9 @@ internal class AIAcitonStateMachine : ActionStateMachine
         AIStateThrowing throwing = new AIStateThrowing(m_Agent);
 
         ManagerGameFoodObj.Instance.OnCollected += free.OnCollcatedAnyFood;
-        powering.OnStopPowering += powering_OnStopPowering;
+        powering.OnStopPowering += Powering_OnStopPowering;
         powering.OnStopPowering += throwing.powering_OnStopPowering;
-        holdsing.OnStartCharging += holdsing_OnStartCharging;
+        holdsing.OnStartCharging += Holdsing_OnStartCharging;
 
         m_Stats = new IStatePlayerHand[]
         {

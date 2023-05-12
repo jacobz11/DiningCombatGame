@@ -8,7 +8,7 @@ namespace Assets.scrips.Player.States
     {
         public class OnStopPoweringEventArg
         {
-            public float power;
+            public float m_Power;
         }
         public const int k_Indx = 2;
 
@@ -17,8 +17,6 @@ namespace Assets.scrips.Player.States
 
         public bool m_IsPowering;
         private float m_PowerCharging;
-        private bool m_StopPowering;
-
         private ActionStateMachine m_AcitonStateMachine;
         public PoweringData m_Powering;
 

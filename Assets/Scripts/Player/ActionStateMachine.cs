@@ -13,16 +13,16 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     protected IStatePlayerHand[] m_Stats;
     protected int m_StateIndex;
 
-    private PlayerScore m_PlayerScore;
+    private readonly PlayerScore r_PlayerScore;
     private GameFoodObj m_FoodObj;
 
     [SerializeField]
-    private readonly Transform r_PickUpPoint;
+    private Transform m_PickUpPoint;
     [SerializeField]
     protected PoweringData m_Powering;
     [SerializeField]
     protected PoweringVisual m_PoweringVisual;
-    public Transform PickUpPoint => r_PickUpPoint;
+    public Transform PickUpPoint => m_PickUpPoint;
     public bool IsPower { get; private set; }
 
     public int Index
@@ -37,7 +37,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     }
 
     public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
-    internal PlayerScore GetScore() => m_PlayerScore;
+    internal PlayerScore GetScore() => r_PlayerScore;
     #region Unity
     private void Awake()
     {
@@ -46,9 +46,9 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         StatePowering powering = new StatePowering(this, m_Powering);
         StateThrowing throwing = new StateThrowing();
 
-        powering.OnStopPowering += powering_OnStopPowering;
+        powering.OnStopPowering += Powering_OnStopPowering;
         powering.OnStopPowering += throwing.powering_OnStopPowering;
-        holdsing.OnStartCharging += holdsing_OnStartCharging;
+        holdsing.OnStartCharging += Holdsing_OnStartCharging;
 
         m_Stats = new IStatePlayerHand[]
         {
@@ -74,9 +74,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
 
         powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
         channel.ThrowPoint += Animation_ThrowPoint;
-        channel.ThrowPoint += () => { powering.OnThrowPoint(out float _); };
-
-        //channel.StartTrowing += channel_StartTrowing;
+        channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
 
         m_StateIndex = StateFree.k_Indx;
         CurrentState.OnStateEnter();
@@ -89,7 +87,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
             switch (animationType)
             {
                 case eThrowAnimationType.Throwing:
-                    
+
                     channel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Throw, true);
                     //channel.SetPlayerAnimationToThrow(0f);
                     break;
@@ -105,7 +103,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
             }
         };
     }
-    protected void channel_StartTrowing()
+    protected void Channel_StartTrowing()
     {/* m_FoodObj.OnStartTrowing(); */}
 
     protected virtual void Update()
@@ -127,7 +125,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     #endregion
 
     #region Chnaging state
-    protected void powering_OnStopPowering(float obj)
+    protected void Powering_OnStopPowering(float obj)
     {
         if (Index == StatePowering.k_Indx)
         {
@@ -137,7 +135,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
         }
     }
 
-    protected virtual void holdsing_OnStartCharging()
+    protected virtual void Holdsing_OnStartCharging()
     {
         if (Index == StateHoldsObj.k_Indx)
         {

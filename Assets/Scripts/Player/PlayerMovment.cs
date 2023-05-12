@@ -1,6 +1,5 @@
 ﻿namespace Assets.scrips
 {
-    using Assets.Scripts.AI;
     using Assets.Scripts.Manger;
     using System;
     using Unity.Netcode;

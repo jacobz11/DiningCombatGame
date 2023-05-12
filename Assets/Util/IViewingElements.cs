@@ -19,6 +19,5 @@ namespace Assets.Scripts.Util.Channels.Abstracts
 
     internal interface IViewingElementsPosition : IViewingElements<Vector3>, IUesableElements
     {
-        void ViewElement(List<Vector3> elements);
     }
 }

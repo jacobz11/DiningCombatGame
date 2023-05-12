@@ -29,9 +29,9 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
             Destroy(this);
             return;
         }
+
         base.Awake();
         Instance = this;
-        int numOfSetToEnterThePool = 5;
     }
 
     protected override void AddObject(int i_Count)
@@ -102,9 +102,10 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
         {
             for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
             {
-                SpawnGameFoodObj();
+                _ = SpawnGameFoodObj();
             }
         }
+
         m_LestSpanw = Time.time;
     }
     private void Update()
@@ -113,9 +114,10 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
         {
             return;
         }
+
         if (IsTimeToSpanw())
         {
-            SpawnGameFoodObj();
+            _ = SpawnGameFoodObj();
         }
     }
 

@@ -139,6 +139,7 @@ namespace Assets.DataObject
                 case eThrownActionTypes.Mine:
                     return new MineLike(this);
             }
+
             Debug.LogWarning("Building a ThrownState without type");
             return new ThrownState(this);
         }
@@ -152,6 +153,7 @@ namespace Assets.DataObject
                 case eThrownActionTypes.SmokeGrenade: return typeof(SmokeGrenade);
                 case eThrownActionTypes.Mine: return typeof(MineLike);
             }
+
             return typeof(ThrownState);
         }
 
@@ -168,6 +170,7 @@ namespace Assets.DataObject
                 case eThrownActionTypes.Mine:
                     return new MineLike(i_Builder);
             }
+
             Debug.LogWarning("Building a ThrownState without type");
             return new ThrownState(i_Builder);
         }

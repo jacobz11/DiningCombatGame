@@ -78,7 +78,7 @@ namespace Assets.DataObject
             m_Effect.gameObject.SetActive(true);
             m_Effect.Play();
         }
-   
+
         public override void Activate()
         {
             float damage = CalculatorDamag();

@@ -37,7 +37,7 @@ namespace Assets.Scripts.FoodObject
         }
         protected void DisplayEffect()
         {
-            GameObject.Instantiate(m_PrEffect, this.transform);
+            _ = GameObject.Instantiate(m_PrEffect, this.transform);
         }
 
         public void Activation(Collision collision)
@@ -54,7 +54,8 @@ namespace Assets.Scripts.FoodObject
                 {
                     o_Rb.AddExplosionForce(r_ForceHitExsplostin, transform.position, r_Radius);
                 }
-                PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool _);
+
+                _ = PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out _);
             }
 
             Destroy(this, 0.3f);
@@ -67,7 +68,5 @@ namespace Assets.Scripts.FoodObject
         public void Activate()
         {
         }
-
-
     }
 }

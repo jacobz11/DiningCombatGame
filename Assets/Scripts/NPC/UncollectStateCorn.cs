@@ -1,10 +1,6 @@
-﻿using Assets.DataObject;
-using System;
-using Unity.MLAgents;
-using Unity.Services.Analytics.Internal;
+﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Scripts.NPC
 {
