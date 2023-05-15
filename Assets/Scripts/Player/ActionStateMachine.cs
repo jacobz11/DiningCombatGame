@@ -13,7 +13,8 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     protected IStatePlayerHand[] m_Stats;
     protected int m_StateIndex;
 
-    private readonly PlayerScore r_PlayerScore;
+    [SerializeField]
+    private PlayerScore m_PlayerScore;
     private GameFoodObj m_FoodObj;
 
     [SerializeField]
@@ -37,7 +38,7 @@ internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayer
     }
 
     public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
-    internal PlayerScore GetScore() => r_PlayerScore;
+    internal PlayerScore GetScore() => m_PlayerScore;
     #region Unity
     private void Awake()
     {

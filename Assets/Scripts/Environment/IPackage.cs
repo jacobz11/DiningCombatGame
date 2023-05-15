@@ -19,7 +19,7 @@ public abstract class IPackage : MonoBehaviour
     {
         m_Visale.SetActive(false);
         Instantiate(m_ParticleSystemPreFap, transform).Play();
-        StartCoroutine(ReturnToPoolInNS());
+        _ = StartCoroutine(ReturnToPoolInNS());
     }
 
     private IEnumerator ReturnToPoolInNS()

@@ -56,7 +56,7 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     private void InitializationPool(int numOfSetToEnterThePool)
     {
         AddObject(numOfSetToEnterThePool);
-        m_Objects.OrderBy(obj => Guid.NewGuid());
+        _ = m_Objects.OrderBy(obj => Guid.NewGuid());
     }
 
     public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
@@ -74,26 +74,22 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 
     private GameObject SpawnGameFoodObj()
     {
-        //GameObject spawn = Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab(),
-        //    m_RoomDimension.GetRendonPos(), Quaternion.identity);
-        //GameFoodObj foodObj = spawn.GetComponent<GameFoodObj>();
         GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
-        //foodObj.Destruction += OnDestruction_GameFoodObj;
-        m_CuntterOfFoodInTheGame.TryInc();
-        foodObj.OnCollect += foodObj_OnCollect;
+        _ = m_CuntterOfFoodInTheGame.TryInc();
+        foodObj.OnCollect += FoodObj_OnCollect;
         UncollectedPos += foodObj.ViewElement;
 
         return foodObj.gameObject;
     }
 
-    private void foodObj_OnCollect()
+    private void FoodObj_OnCollect()
     { /* Not-Implemented */}
     internal void OnGameOver()
     { /* Not-Implemented */}
 
     private void OnDestruction_GameFoodObj()
     {
-        m_CuntterOfFoodInTheGame.TryDec();
+        _ = m_CuntterOfFoodInTheGame.TryDec();
     }
 
     private void Start()
@@ -133,6 +129,7 @@ internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     {
         List<Vector3> list = new List<Vector3>();
         UncollectedPos?.Invoke(list);
+
         return list;
     }
 }

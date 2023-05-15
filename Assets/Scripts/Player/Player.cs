@@ -11,15 +11,11 @@ public class Player : NetworkBehaviour
     public event Action OnChargingAction;
 
     [SerializeField]
-    private GameInput gameInput;
+    private GameInput m_GameInput;
     [SerializeField]
     private Transform m_PickUpPoint;
     private PlayerMovment m_Movment;
     private Rigidbody m_Rigidbody;
-    [SerializeField]
-    private bool isAi;
-
-    //private AcitonStateMachine m_AcitonHand;
 
     public Transform PicUpPoint { get; internal set; }
 
@@ -31,11 +27,7 @@ public class Player : NetworkBehaviour
 
     private void Start()
     {
-        if (!isAi)
-        {
-            gameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
-        }
-
+        m_GameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
         gameObject.transform.position = GameStrting.Instance.GatIntPosForPlayer();
     }
 

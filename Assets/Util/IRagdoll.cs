@@ -2,7 +2,6 @@
 
 internal class IRagdoll
 {
-
     public static void DisableRagdoll(Rigidbody i_Rigidbody)
     {
         i_Rigidbody.isKinematic = true;
