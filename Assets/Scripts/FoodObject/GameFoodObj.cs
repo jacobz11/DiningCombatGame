@@ -1,17 +1,19 @@
 ﻿using Assets.DataObject;
 using Assets.Scripts.Util.Channels.Abstracts;
+using Assets.Util;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IViewingElementsPosition
+internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IViewingElementsPosition, IDictionaryObject
 {
     public enum eThrowAnimationType { Throwing, Falling }
 
     public event Action OnCollect;
     public event Action Destruction;
 
+    private string m_NameKey;
     private ActionStateMachine m_Collector;
 
     protected Rigidbody m_Rigidbody;
@@ -49,6 +51,8 @@ internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, I
     public bool IsUsed => throw new NotImplementedException();
 
     public bool IsUesed => throw new NotImplementedException();
+
+    public string NameKey { get => m_NameKey; set => m_NameKey = value; }
 
     public bool Unused() => false;
     public void OnEndUsing() { /* Not-Implemented */}

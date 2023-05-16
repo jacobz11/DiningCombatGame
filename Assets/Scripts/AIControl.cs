@@ -3,56 +3,54 @@ using UnityEngine.AI;
 
 public class AIControl : MonoBehaviour
 {
-
-    GameObject[] goalLocations;
-    NavMeshAgent agent;
-    Animator anim;
-    float speedMult;
-    float detectionRadius = 20.0f;
-    float fleeRadius = 10.0f;
+    private GameObject[] m_GoalLocations;
+    private NavMeshAgent m_Agent;
+    private Animator m_Anim;
+    private float m_SpeedMult;
+    private readonly float r_DetectionRadius = 20.0f;
+    private readonly float r_FleeRadius = 10.0f;
 
     void Start()
     {
 
-        agent = GetComponent<NavMeshAgent>();
-        goalLocations = GameObject.FindGameObjectsWithTag("goal");
-        int i = Random.Range(0, goalLocations.Length);
-        agent.SetDestination(goalLocations[i].transform.position);
-        anim = this.GetComponent<Animator>();
-        anim.SetFloat("wOffset", Random.Range(0.0f, 1.0f));
+        m_Agent = GetComponent<NavMeshAgent>();
+        m_GoalLocations = GameObject.FindGameObjectsWithTag("goal");
+        int i = Random.Range(0, m_GoalLocations.Length);
+        _ = m_Agent.SetDestination(m_GoalLocations[i].transform.position);
+        m_Anim = this.GetComponent<Animator>();
+        m_Anim.SetFloat("wOffset", Random.Range(0.0f, 1.0f));
         ResetAgent();
     }
 
     void ResetAgent()
     {
 
-        speedMult = Random.Range(0.1f, 1.5f);
-        anim.SetFloat("speedMult", speedMult);
-        agent.speed *= speedMult;
-        anim.SetTrigger("isWalking");
-        agent.angularSpeed = 120.0f;
-        agent.ResetPath();
+        m_SpeedMult = Random.Range(0.1f, 1.5f);
+        m_Anim.SetFloat("speedMult", m_SpeedMult);
+        m_Agent.speed *= m_SpeedMult;
+        m_Anim.SetTrigger("isWalking");
+        m_Agent.angularSpeed = 120.0f;
+        m_Agent.ResetPath();
     }
 
     public void DetectNewObstacle(Vector3 position)
     {
 
-        if (Vector3.Distance(position, this.transform.position) < detectionRadius)
+        if (Vector3.Distance(position, this.transform.position) < r_DetectionRadius)
         {
 
             Vector3 fleeDirection = (this.transform.position - position).normalized;
-            Vector3 newGoal = this.transform.position + fleeDirection * fleeRadius;
+            Vector3 newGoal = this.transform.position + (fleeDirection * r_FleeRadius);
 
             NavMeshPath path = new NavMeshPath();
-            agent.CalculatePath(newGoal, path);
+            _ = m_Agent.CalculatePath(newGoal, path);
 
             if (path.status != NavMeshPathStatus.PathInvalid)
             {
-
-                agent.SetDestination(path.corners[path.corners.Length - 1]);
-                anim.SetTrigger("isRunning");
-                agent.speed = 10.0f;
-                agent.angularSpeed = 500.0f;
+                _ = m_Agent.SetDestination(path.corners[^1]);
+                m_Anim.SetTrigger("isRunning");
+                m_Agent.speed = 10.0f;
+                m_Agent.angularSpeed = 500.0f;
             }
         }
     }
@@ -60,12 +58,12 @@ public class AIControl : MonoBehaviour
     void Update()
     {
 
-        if (agent.remainingDistance < 1.0f)
+        if (m_Agent.remainingDistance < 1.0f)
         {
 
             ResetAgent();
-            int i = Random.Range(0, goalLocations.Length);
-            agent.SetDestination(goalLocations[i].transform.position);
+            int i = Random.Range(0, m_GoalLocations.Length);
+            _ = m_Agent.SetDestination(m_GoalLocations[i].transform.position);
         }
     }
 }
