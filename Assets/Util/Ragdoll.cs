@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
-
-internal class IRagdoll
+/// <summary>
+/// This class is designed to avoid interference with the parent object's animator,
+/// which comes from the child's Rigidbody
+/// </summary>
+public class Ragdoll
 {
     public static void DisableRagdoll(Rigidbody i_Rigidbody)
     {
@@ -14,4 +17,3 @@ internal class IRagdoll
         i_Rigidbody.detectCollisions = true;
     }
 }
-
