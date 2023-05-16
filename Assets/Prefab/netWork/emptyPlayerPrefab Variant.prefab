@@ -1327,14 +1327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb677ad6179b734abd459122862d6d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovmentData:
-    m_MouseSensetivity: 12
-    m_PlayerSpeed: 33
-    m_JumpHeight: 325
-    m_JumpSlowDonwSpeep: 0.34
-    m_Ground:
-      serializedVersion: 2
-      m_Bits: 64
+  m_MovmentData: {fileID: 11400000, guid: f6a81e4ec3287e24bb3418854ccb8b92, type: 2}
   m_Material: {fileID: 2100000, guid: 5eb7a5a1792bf624eb105fb759006553, type: 2}
 --- !u!114 &1765360059
 MonoBehaviour:
@@ -1348,9 +1341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fadb19c163b3d4db6aaf8ec98fabaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 1765360060}
+  m_GameInput: {fileID: 0}
   m_PickUpPoint: {fileID: 0}
-  isAi: 0
 --- !u!114 &1765360060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1375,6 +1367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ecf1f3349ac704ca8fb2a355f7b9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerScore: {fileID: 0}
   m_PickUpPoint: {fileID: 1949516421212491733}
   m_Powering:
     MaxPower: 1800

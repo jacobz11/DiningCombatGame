@@ -1,8 +1,8 @@
 ﻿
 using System;
 using UnityEngine;
-[Serializable]
-internal struct PlayerMovmentData
+[CreateAssetMenu(fileName = "PlayerMovmentData", menuName = "Custom Objects/Player/Movment")]
+public class PlayerMovmentDataSO : ScriptableObject
 {
     [Range(5, 100)]
     public float m_MouseSensetivity;
