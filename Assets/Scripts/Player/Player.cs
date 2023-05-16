@@ -25,11 +25,11 @@ public class Player : NetworkBehaviour
         GameStrting.Instance.AddNumOfPlyers(1);
     }
 
-    private void Start()
-    {
-        m_GameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
-        gameObject.transform.position = GameStrting.Instance.GatIntPosForPlayer();
-    }
+    //private void Start()
+    //{
+    //    m_GameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
+    //    gameObject.transform.position = GameStrting.Instance.GatIntPosForPlayer();
+    //}
 
     private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
     {
