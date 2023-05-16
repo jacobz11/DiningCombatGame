@@ -2,7 +2,7 @@ name: Unity Check
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main , master-better]
 
 jobs:
   build:
