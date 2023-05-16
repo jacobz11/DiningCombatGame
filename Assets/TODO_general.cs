@@ -7,6 +7,7 @@
         // TODO : Go through all the departments in UTIL and check if you need them
         // TODO : Find the correct numbers for any field SerializeField or scriptable objects
         // TODO : Create the machine modes forms of the game
-        // TODO : 
+        // TODO : Create a singleton design pattern
+        // TODO : Create a class of transitions
     }
 }
