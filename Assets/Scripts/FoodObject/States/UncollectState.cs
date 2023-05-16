@@ -2,19 +2,21 @@
 using DiningCombat;
 using System;
 using UnityEngine;
-
+// TODO: arrange the code
+// TODO : Add a namespace
 internal class UncollectState : IFoodState
 {
     public const int k_Indx = 0;
     public event Action<ActionStateMachine> Collect;
-    private GameFoodObj gameFood;
+    // TODO: check why it exists
+    private readonly GameFoodObj r_GameFood;
 
     public string TagState => GameGlobal.TagNames.k_FoodObj;
     public bool IsThrowingAction() => false;
 
     public UncollectState(GameFoodObj gameFood)
     {
-        this.gameFood = gameFood;
+        this.r_GameFood = gameFood;
     }
 
     #region Not Implemented

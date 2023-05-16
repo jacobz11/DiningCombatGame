@@ -1,8 +1,9 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
-
+// TODO : to fix the namespace
 namespace Assets.Scripts.FoodObject
 {
+    // TODO : Understand why it is here
     internal class StaringFood : NetworkBehaviour, IDamaging
     {
         [SerializeField]

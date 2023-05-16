@@ -1,6 +1,6 @@
 ﻿using DiningCombat;
 using UnityEngine;
-
+// TODO : to fix the namespace
 namespace Assets.Scripts.Environment
 {
     internal sealed class Word

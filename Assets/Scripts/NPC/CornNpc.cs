@@ -3,7 +3,7 @@ using Assets.Scripts;
 using Assets.Scripts.NPC;
 using UnityEngine;
 using UnityEngine.AI;
-
+// TODO : Add a namespace
 internal class CornNpc : GameFoodObj
 {
     private NavMeshAgent m_Agent;

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+// TODO : Add a namespace
 public class CoinsPackage : IPackage
 {
     private void OnTriggerEnter(Collider other)

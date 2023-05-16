@@ -2,7 +2,7 @@ using Assets.scrips;
 using System;
 using Unity.Netcode;
 using UnityEngine;
-
+// TODO : Add a namespace
 public class Player : NetworkBehaviour
 {
     public event Action<Collider> OnExitCollisionFoodObj;
@@ -24,12 +24,6 @@ public class Player : NetworkBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
         GameStrting.Instance.AddNumOfPlyers(1);
     }
-
-    //private void Start()
-    //{
-    //    m_GameInput.OnBostRunnigAction += GameInput_OnBostRunnigAction;
-    //    gameObject.transform.position = GameStrting.Instance.GatIntPosForPlayer();
-    //}
 
     private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
     {

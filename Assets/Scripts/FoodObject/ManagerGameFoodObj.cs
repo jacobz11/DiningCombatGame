@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+// TODO : Add a namespace
 // TODO Replace the class that inherited the new method that works in the scriptable objects
 internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 {

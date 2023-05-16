@@ -4,6 +4,7 @@ using DiningCombat;
 using System;
 using UnityEngine;
 
+// TODO : to fix the namespace
 namespace Assets.DataObject
 {
     internal abstract class IThrownState : IFoodState, IDamaging
@@ -70,19 +71,6 @@ namespace Assets.DataObject
                     break;
             }
         }
-        #region Ragdol
-        //public void DisableRagdoll()
-        //{
-        //    m_Rigidbody.isKinematic = true;
-        //    m_Rigidbody.detectCollisions = false;
-        //}
-
-        //public void EnableRagdoll()
-        //{
-        //    m_Rigidbody.isKinematic = false;
-        //    m_Rigidbody.detectCollisions = true;
-        //}
-        #endregion
         #region Activation 
         public virtual void Activation(Collision collision)
         {

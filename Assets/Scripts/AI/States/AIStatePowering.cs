@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+// TODO : to fix the namespace
 namespace Assets.Scripts.AI.States
 {
     internal class AIStatePowering : StatePowering

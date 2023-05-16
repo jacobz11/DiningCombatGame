@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+// TODO : Add a namespace
 public class LifePointsVisual : MonoBehaviour
 {
     [SerializeField]

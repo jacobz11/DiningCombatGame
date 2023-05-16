@@ -1,6 +1,7 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
+// TODO : to fix the namespace
 namespace Assets.Scripts.AI
 {
     internal class AiAnimationChannel : NetworkBehaviour
@@ -22,7 +23,6 @@ namespace Assets.Scripts.AI
                 if (value ^ m_IsRunnig)
                 {
                     m_IsRunnig = value;
-                    //m_Channel.SetPlayerAnimationToRun(m_IsRunnig);
                 }
             }
         }
@@ -34,8 +34,6 @@ namespace Assets.Scripts.AI
                 if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
-
-                    //m_Channel.SetPlayerAnimationToRunBack(m_IsRunnig);
                 }
             }
         }
@@ -65,7 +63,6 @@ namespace Assets.Scripts.AI
                 IsRunnig = false;
                 IsRunnigBack = false;
             }
-
         }
         private void UpdateIsGrounded()
         {

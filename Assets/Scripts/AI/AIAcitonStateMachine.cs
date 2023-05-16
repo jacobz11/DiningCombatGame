@@ -3,12 +3,12 @@ using Assets.scrips.UI;
 using Assets.Scripts.AI.States;
 using UnityEngine.AI;
 
+// TODO : Add a namespace
 internal class AIAcitonStateMachine : ActionStateMachine
 {
     private NavMeshAgent m_Agent;
 
     #region Unity
-
     private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
@@ -48,9 +48,7 @@ internal class AIAcitonStateMachine : ActionStateMachine
 
         powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
         channel.ThrowPoint += Animation_ThrowPoint;
-        channel.ThrowPoint += () => { powering.OnThrowPoint(out float _); };
-        //channel.StartTrowing += channel_StartTrowing;
-
+        channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
         m_StateIndex = StateFree.k_Indx;
         CurrentState.OnStateEnter();
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
+// TODO : to fix the namespace
 namespace Assets.Scripts.AI
 {
     internal class AIControl : MonoBehaviour

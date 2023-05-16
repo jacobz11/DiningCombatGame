@@ -1,6 +1,6 @@
 using Assets.Scripts;
 using UnityEngine;
-
+// TODO : Add a namespace
 public class GameStrting : MonoBehaviour
 {
     [SerializeField]

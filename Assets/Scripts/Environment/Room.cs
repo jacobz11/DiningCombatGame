@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
+// TODO : to fix the namespace
 namespace Assets.Scripts
 {
+    // TODO : make this a scriptable objects
     internal class Room : MonoBehaviour
     {
         public Vector3 m_Center;

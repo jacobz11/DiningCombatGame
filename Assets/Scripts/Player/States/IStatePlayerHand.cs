@@ -1,6 +1,6 @@
 ﻿using DesignPatterns.Abstraction;
 using UnityEngine;
-
+// TODO : Add a namespace
 internal interface IStatePlayerHand : IDCState
 {
     void Update();

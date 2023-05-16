@@ -1,7 +1,7 @@
 ﻿using DesignPatterns.Abstraction;
 using System;
 using UnityEngine;
-
+// TODO : Add a namespace
 internal class StateFree : IStatePlayerHand
 {
     public class CollectedFoodEvent : EventArgs

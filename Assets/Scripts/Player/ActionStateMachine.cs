@@ -6,7 +6,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 using static GameFoodObj;
-
+// TODO : Add a namespace
 internal class ActionStateMachine : NetworkBehaviour, IStateMachine<IStatePlayerHand, int>
 {
     protected Action<eThrowAnimationType> LaunchingAnimation;

@@ -1,9 +1,10 @@
-﻿namespace Assets.scrips.Player.States
-{
-    using DesignPatterns.Abstraction;
-    using System;
-    using UnityEngine;
+﻿using DesignPatterns.Abstraction;
+using System;
+using UnityEngine;
 
+// TODO : to fix the namespace
+namespace Assets.scrips.Player.States
+{
     internal class StateThrowing : IStatePlayerHand
     {
         public const int k_Indx = 3;

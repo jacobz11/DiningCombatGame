@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+// TODO : to fix the namespace
 namespace Assets.DataObject
 {
     /// <summary>

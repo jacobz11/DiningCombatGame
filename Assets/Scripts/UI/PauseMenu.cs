@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+// TODO : to fix the namespace
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;

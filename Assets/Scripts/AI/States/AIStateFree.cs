@@ -3,6 +3,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
+// TODO : to fix the namespace
+
 namespace Assets.Scripts.AI.States
 {
     internal class AIStateFree : StateFree
@@ -57,7 +59,7 @@ namespace Assets.Scripts.AI.States
                 TargetExist = m_Target != Position;
             }
 
-            m_Agent.SetDestination(m_Target);
+            _ = m_Agent.SetDestination(m_Target);
         }
 
         internal void OnCollcatedAnyFood()

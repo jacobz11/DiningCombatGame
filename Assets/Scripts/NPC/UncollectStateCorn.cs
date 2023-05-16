@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.AI;
-
+// TODO : to fix the namespace
 namespace Assets.Scripts.NPC
 {
     internal class UncollectStateCorn : UncollectState

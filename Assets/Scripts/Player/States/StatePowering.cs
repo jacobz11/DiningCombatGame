@@ -2,6 +2,8 @@
 using DesignPatterns.Abstraction;
 using System;
 using UnityEngine;
+
+// TODO : to fix the namespace
 namespace Assets.scrips.Player.States
 {
     internal class StatePowering : IStatePlayerHand

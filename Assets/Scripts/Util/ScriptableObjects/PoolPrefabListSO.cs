@@ -34,7 +34,7 @@ public class PoolPrefabListSO<T> : ScriptableObject where T : Component
         return m_List[UnityEngine.Random.Range(0, m_List.Count)].m_Prefab;
     }
 
-    public T this[string key] 
+    public T this[string key]
     {
         get
         {

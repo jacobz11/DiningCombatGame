@@ -1,7 +1,8 @@
+using UnityEngine;
+using UnityEngine.UI;
+// TODO : to fix the namespace
 namespace Assets.scrips.UI
 {
-    using UnityEngine;
-    using UnityEngine.UI;
 
     internal class PoweringVisual : MonoBehaviour
     {

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+// TODO : Add a namespace
 internal class PlayerCoins : MonoBehaviour
 {
     public const string k_Formt = "coins : {0}";

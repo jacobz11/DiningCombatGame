@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using static Assets.DataObject.ThrownActionTypesBuilder;
 
+// TODO : to fix the namespace
 namespace Assets.Scripts.FoodObject.Pools
 {
     // TODO Replace the class that inherited the new method that works in the scriptable objects

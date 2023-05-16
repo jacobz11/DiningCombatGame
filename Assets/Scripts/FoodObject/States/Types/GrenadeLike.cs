@@ -4,6 +4,7 @@ using UnityEngine;
 
 using static Assets.DataObject.ThrownActionTypesBuilder;
 
+// TODO : to fix the namespace
 namespace Assets.DataObject
 {
     internal class GrenadeLike : IThrownState
@@ -107,56 +108,3 @@ namespace Assets.DataObject
         }
     }
 }
-/*
- *    private const float k_TimeOFExplod = 1.5f;
-    private float m_Timr = 2;
-    private float m_Radius;
-    private float m_CountDown;
-    [SerializeField]
-    private GameObject m_ExplodPartical;
-    [SerializeField]
-    private float m_ForceHitExsplostin = 200;
-    [SerializeField]
-    private float damage;
-
-    public bool HasExploded { get; private set; }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_CountDown = m_Timr;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        m_CountDown -= Time.deltaTime;
-        if (m_CountDown <= 0 && !HasExploded)
-        {
-            Explod();
-        }
-    }
-
-    private void Explod()
-    {
-        GameObject Explod = Instantiate(m_ExplodPartical, transform.position, transform.rotation);
-        HasExploded = true;
-        float ponits = 0;
-        int kills = 0;
-        foreach (Collider nearByObj in Physics.OverlapSphere(transform.position, m_Radius))
-        {
-            if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
-            {
-                o_Rb.AddExplosionForce(m_ForceHitExsplostin, transform.position, m_Radius);
-            }
-            if (PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool o_IsKill))
-            {
-                ponits += damage;
-                kills += o_IsKill ? 1 : 0;
-            }
-        }
-
-        Destroy(Explod, k_TimeOFExplod);
-    }
- * 
- */

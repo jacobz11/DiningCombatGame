@@ -4,8 +4,11 @@ using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
+// TODO : to fix the namespace
 namespace Assets.Scripts.Manger
 {
+    //TODO : arrange the code
+    //TODO : Delete what you don't need
     internal class GameManger : NetworkBehaviour
     {
         [SerializeField]

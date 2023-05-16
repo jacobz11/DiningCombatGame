@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+// TODO : to fix the namespace
 
 namespace UI
 {

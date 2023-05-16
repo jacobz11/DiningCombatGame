@@ -1,5 +1,6 @@
 ﻿using Assets.DataObject;
 using UnityEngine;
+// TODO : Add a namespace
 
 internal class ThrownState : IThrownState
 {

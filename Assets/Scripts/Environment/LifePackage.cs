@@ -1,5 +1,5 @@
 using UnityEngine;
-
+// TODO : Add a namespace
 public class LifePackage : IPackage
 {
     private void OnTriggerEnter(Collider other)

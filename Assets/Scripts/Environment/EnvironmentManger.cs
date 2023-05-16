@@ -3,7 +3,7 @@ using Assets.Scripts.Util.Channels;
 using Assets.Util;
 using System;
 using UnityEngine;
-
+// TODO : Add a namespace
 public class EnvironmentManger : MonoBehaviour
 {
     private bool m_IsEnding;

@@ -3,12 +3,10 @@ using System;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
-
+// TODO : Add a namespace
 public class PlayerAnimationChannel : NetworkBehaviour
 {
     public event Action ThrowPoint;
-    //public static Action<string, bool> SetAnimationBool;
-    //public static Action<string, float> SetAnimationFloat;
     private Animator m_Anim;
 
     private void Awake()
@@ -45,15 +43,6 @@ public class PlayerAnimationChannel : NetworkBehaviour
     {
         ThrowPoint?.Invoke();
     }
-    //private void player_OnIsRunnigChang(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isRun", i_IsActive);
-    //}
-
-    //private void player_OnIsRunnigBackChang(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isRunBack", i_IsActive);
-    //}
 
     private IEnumerator StopAnimationToThrow()
     {
@@ -153,62 +142,4 @@ public class PlayerAnimationChannel : NetworkBehaviour
         /// </summary>
         public const string k_ThrowIn = "isThrowIn";
     }
-
-
-    //public void SetPlayerAnimationToRunFast(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isRunFast", i_IsActive);
-    //}
-
-    //public void SetPlayerAnimationToRun(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isRun", i_IsActive);
-    //}
-
-    //public void SetPlayerAnimationToThrow(float i)
-    //{
-    //    m_Anim.SetTrigger("isThrow");
-    //}
-
-    //public void OnJumpingUpEnd()
-    //{
-    //    JumpingEnd?.Invoke();
-    //    m_Anim.SetTrigger("isJumpingDonw");
-    //}
-
-    //public void SetPlayerAnimationToRunBack(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isRunBack", i_IsActive);
-    //}
-
-
-    //public void SetPlayerAnimationToIdleFall(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isIdleFall", i_IsActive);
-    //}
-
-    //public void SetPlayerAnimationToJump()
-    //{
-    //    m_Anim.SetTrigger("isJump");
-    //}
-
-    //public void SetPlayerAnimationToThrow2(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isThrow", i_IsActive);
-    //}
-
-    //public void SetPlayerAnimationToWin(bool i_IsActive)
-    //{
-    //    m_Anim.SetBool("isWin", i_IsActive);
-    //}
-
-    //internal void OnPlayerDead()
-    //{
-    //    SetPlayerAnimationToIdleFall(true);
-    //}
-
-    //internal void SetPlayerAnimationDroping()
-    //{
-    //    Debug.Log("SetPlayerAnimationDroping");
-    //}
 }

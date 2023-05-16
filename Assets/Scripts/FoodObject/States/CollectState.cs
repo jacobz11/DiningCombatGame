@@ -2,6 +2,7 @@
 using DiningCombat;
 using System;
 using UnityEngine;
+// TODO : Add a namespace
 
 internal class CollectState : IFoodState
 {

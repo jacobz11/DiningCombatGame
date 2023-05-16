@@ -1,6 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
-
+// TODO : Add a namespace
 internal class PlayerScoreVisel : MonoBehaviour
 {
     [SerializeField]

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+// TODO : Add a namespace
 internal class PlayerScore : MonoBehaviour
 {
     private float m_ScorePoint;

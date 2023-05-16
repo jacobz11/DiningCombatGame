@@ -1,9 +1,10 @@
-﻿namespace Assets.scrips
+﻿using Assets.Scripts.Manger;
+using System;
+using Unity.Netcode;
+using UnityEngine;
+// TODO : to fix the namespace
+namespace Assets.scrips
 {
-    using Assets.Scripts.Manger;
-    using System;
-    using Unity.Netcode;
-    using UnityEngine;
 
     internal class PlayerMovment : NetworkBehaviour
     {

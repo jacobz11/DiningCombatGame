@@ -2,6 +2,9 @@ using System;
 using TMPro;
 using UnityEngine;
 
+// TODO : Integrate it into the code
+// TODO : Add a namespace
+
 public class GameOverLogic : MonoBehaviour
 {
     private const string k_FormatLivingPlayer = "Living: {0}";

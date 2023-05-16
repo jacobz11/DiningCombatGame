@@ -1,6 +1,7 @@
 using Assets.Scripts.Environment;
 using System.Collections;
 using UnityEngine;
+// TODO : Add a namespace
 
 public class Egg : MonoBehaviour
 {
@@ -23,8 +24,9 @@ public class Egg : MonoBehaviour
     {
         m_WholeEgg.gameObject.SetActive(false);
         m_BrokenEgg.gameObject.SetActive(true);
-        PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out bool _);
-        StartCoroutine(ReturToPool());
+        _ = PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out _);
+        //TODO : Change the Coroutine to the invoke with time
+        _ = StartCoroutine(ReturToPool());
     }
 
     private IEnumerator ReturToPool()

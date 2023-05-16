@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// TODO : to fix the namespace
 namespace Assets.DataObject
 {
     internal class SmokeGrenade : GrenadeLike

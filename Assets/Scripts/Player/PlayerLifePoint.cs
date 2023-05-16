@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+// TODO : Add a namespace
 public class PlayerLifePoint : MonoBehaviour
 {
     public event Action OnPlayerDead;

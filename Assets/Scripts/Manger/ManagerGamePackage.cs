@@ -4,7 +4,7 @@ using Assets.Util.DesignPatterns;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+// TODO : Add a namespace
 internal class ManagerGamePackage : GenericObjectPool<IPackage>
 {
     public event Action<List<Vector3>> UncollectedPos;

@@ -1,4 +1,6 @@
 ﻿using DesignPatterns.Abstraction;
+// TODO : Move it to the interfaces folder
+// TODO : Add a namespace
 
 internal interface IFoodState : IDCState
 {

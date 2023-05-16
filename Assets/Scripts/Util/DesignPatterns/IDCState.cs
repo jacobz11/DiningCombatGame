@@ -1,4 +1,5 @@
 ﻿using System;
+// TODO : to fix the namespace
 namespace DesignPatterns.Abstraction
 {
     public interface IDCState

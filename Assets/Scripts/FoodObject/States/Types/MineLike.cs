@@ -2,6 +2,7 @@
 using UnityEngine;
 using static Assets.DataObject.ThrownActionTypesBuilder;
 
+// TODO : to fix the namespace
 namespace Assets.DataObject
 {
     internal class MineLike : IThrownState

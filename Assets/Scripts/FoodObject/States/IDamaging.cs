@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+// TODO : Move it to the interfaces folder
+// TODO : Add a namespace
 
 internal interface IDamaging
 {

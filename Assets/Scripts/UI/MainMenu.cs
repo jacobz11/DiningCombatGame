@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+// TODO : Add a namespace
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]

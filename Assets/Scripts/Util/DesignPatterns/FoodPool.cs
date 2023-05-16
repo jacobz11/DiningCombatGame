@@ -1,10 +1,5 @@
-﻿using Assets.DataObject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
+// TODO : to fix the namespace
 
 namespace Assets.Util.DesignPatterns
 {
@@ -12,12 +7,12 @@ namespace Assets.Util.DesignPatterns
     {
         private void Start()
         {
-            for(int i = 0; i< 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 GameFoodObj o = Instance.Get();
                 Debug.Log((o as IDictionaryObject).NameKey);
-                
-            }   
+
+            }
         }
     }
 }

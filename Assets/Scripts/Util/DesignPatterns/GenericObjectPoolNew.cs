@@ -1,13 +1,7 @@
-﻿using Assets.DataObject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using Random = UnityEngine.Random;
-
+// TODO : to fix the namespace
 namespace Assets.Util.DesignPatterns
 {
     internal class GenericObjectPoolNew<T> : NetworkBehaviour where T : Component
@@ -25,7 +19,7 @@ namespace Assets.Util.DesignPatterns
         {
             Instance = this;
         }
-        
+
         public T Get()
         {
             return Get(m_PrefabList.GetRundomName());

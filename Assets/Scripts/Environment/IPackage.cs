@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-
+// TODO : Add a namespace
 public abstract class IPackage : MonoBehaviour
 {
     [SerializeField]

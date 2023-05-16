@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
+// TODO : Add a namespace
 public class FollowWP : MonoBehaviour
 {
     public event Action OnEngRund;
