@@ -15,7 +15,7 @@ internal class CollectState : IFoodState
 
     public bool IsThrowingAction() => true;
     public bool TryCollect(ActionStateMachine i_Collcter) => false;
-    public void OnStateEnter() => IRagdoll.DisableRagdoll(m_Rigidbody);
+    public void OnStateEnter() => Ragdoll.DisableRagdoll(m_Rigidbody);
 
     public CollectState()
     {

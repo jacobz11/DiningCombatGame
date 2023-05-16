@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace DiningCombat
+﻿namespace DiningCombat
 {
     public static class GameGlobal
     {

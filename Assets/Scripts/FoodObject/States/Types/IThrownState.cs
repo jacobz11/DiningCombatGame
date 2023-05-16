@@ -56,7 +56,7 @@ namespace Assets.DataObject
 
         public virtual void OnStateEnter()
         {
-            IRagdoll.EnableRagdoll(m_Rigidbody);
+            Ragdoll.EnableRagdoll(m_Rigidbody);
             ActionDirection = Vector3.zero;
             Activator = null;
         }

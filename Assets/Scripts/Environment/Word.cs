@@ -1,9 +1,4 @@
 ﻿using DiningCombat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Environment
@@ -19,9 +14,9 @@ namespace Assets.Scripts.Environment
         }
 
         public static Word Instance { get { return sr_Word; } }
-        
-        public GameObject[] GetHidigSpot() 
-        { 
+
+        public GameObject[] GetHidigSpot()
+        {
             return sr_HidigSpot;
         }
     }

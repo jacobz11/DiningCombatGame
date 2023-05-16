@@ -1,8 +1,5 @@
 using Assets.Scripts.Environment;
 using DiningCombat;
-using System.Drawing;
-using Unity.MLAgents;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Vector3 = UnityEngine.Vector3;
