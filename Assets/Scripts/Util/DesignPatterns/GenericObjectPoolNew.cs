@@ -67,7 +67,7 @@ namespace Assets.Util.DesignPatterns
 
         protected virtual void AddObject(string i_PrefabKey, int count)
         {
-            var newObj = GameObject.Instantiate(m_PrefabList[i_PrefabKey].);
+            var newObj = GameObject.Instantiate(m_PrefabList[i_PrefabKey]);
             newObj.gameObject.SetActive(false);
             (newObj as IDictionaryObject).NameKey = i_PrefabKey;
 

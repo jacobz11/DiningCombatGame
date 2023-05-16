@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// TODO Replace the class that inherited the new method that works in the scriptable objects
 internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
 {
     public event Action<List<Vector3>> UncollectedPos;

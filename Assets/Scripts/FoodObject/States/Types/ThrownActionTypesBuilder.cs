@@ -9,6 +9,7 @@ namespace Assets.DataObject
     /// not all fields are relevant for each of the types
     /// </summary>
     [Serializable]
+    // TODO Replace the class to scriptable objects
     internal struct ThrownActionTypesBuilder
     {
 

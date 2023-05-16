@@ -1,12 +1,12 @@
 ﻿using System;
 
 [Serializable]
+// TODO : make this a scriptable objects
 internal struct Cuntter
 {
     public short m_Max;
     public short m_Min;
     private short m_Value;
-
 
     public bool TryInc()
     {
@@ -15,6 +15,7 @@ internal struct Cuntter
         {
             m_Value++;
         }
+
         return canInc;
     }
 

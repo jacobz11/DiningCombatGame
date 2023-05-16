@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Assets.DataObject
 {
+    // TODO : make this a scriptable objects
     [Serializable]
     internal class RoomDimension
     {

@@ -6,6 +6,7 @@ using static Assets.DataObject.ThrownActionTypesBuilder;
 
 namespace Assets.Scripts.FoodObject.Pools
 {
+    // TODO Replace the class that inherited the new method that works in the scriptable objects
     internal class FoodEffactPool : NetworkBehaviour
     {
         [SerializeField]

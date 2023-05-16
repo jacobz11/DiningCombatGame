@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+// TODO : Exclude to states, all functions that are not transitional functions
+// TODO : Create a class of transitions
+// TODO : make the functions transition to an event
 internal class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IViewingElementsPosition, IDictionaryObject
 {
     public enum eThrowAnimationType { Throwing, Falling }
