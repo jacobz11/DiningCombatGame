@@ -10,7 +10,7 @@ namespace DiningCombat.Environment
         // TODO : Arrange that life will go down less quickly 
         private const float k_Damage = 0.01f;
         private void OnTriggerStay(Collider other) => PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out bool _);
-
+        
         #region System And Debuging
         private string GetDebuggerDisplay()
         {

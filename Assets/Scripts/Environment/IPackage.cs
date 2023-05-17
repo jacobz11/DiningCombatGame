@@ -9,6 +9,7 @@ namespace DiningCombat.Environment
     {
         [SerializeField]
         private ParticleSystem m_ParticleSystemPreFap;
+        // TODO macke a scitptabul obj
         [SerializeField]
         [Range(0f, 1000f)]
         private float m_Amont;

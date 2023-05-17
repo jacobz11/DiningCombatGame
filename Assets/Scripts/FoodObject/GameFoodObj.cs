@@ -77,7 +77,7 @@ namespace DiningCombat.FoodObject
 
             uncollect.Collect += Uncollect_Collect;
             m_AnimationType = m_TypeBuild.m_AnimationType;
-            thrownState.OnReturnToPool += thrownState_OnReturnToPool;
+            thrownState.OnReturnToPool += ThrownState_OnReturnToPool;
 
             m_FoodStates = new IFoodState[]
             {
@@ -87,7 +87,7 @@ namespace DiningCombat.FoodObject
             };
         }
 
-        protected void thrownState_OnReturnToPool()
+        protected void ThrownState_OnReturnToPool()
         {
             ManagerGameFoodObj.Instance.ReturnToPool(this);
             CurrentState.OnStateExit();
