@@ -1,67 +1,65 @@
-using Assets.scrips.Player.States;
-using Assets.scrips.UI;
-using Assets.Scripts.AI.States;
+using DiningCombat.AI.States;
+using DiningCombat.Manger;
+using DiningCombat.Player;
+using DiningCombat.Player.States;
+using DiningCombat.UI;
 using UnityEngine.AI;
 
-// TODO : Add a namespace
-internal class AIAcitonStateMachine : ActionStateMachine
+namespace DiningCombat.AI
 {
-    private NavMeshAgent m_Agent;
-
-    #region Unity
-    private void Awake()
+    public class AIAcitonStateMachine : ActionStateMachine
     {
-        m_Agent = GetComponent<NavMeshAgent>();
+        private NavMeshAgent m_Agent;
 
-        AIStateFree free = new AIStateFree(this, m_Agent);
-        AIStateHoldsObj holdsing = new AIStateHoldsObj(m_Agent, this);
-        AIStatePowering powering = new AIStatePowering(this, m_Powering, m_Agent);
-        AIStateThrowing throwing = new AIStateThrowing(m_Agent);
-
-        ManagerGameFoodObj.Instance.OnCollected += free.OnCollcatedAnyFood;
-        powering.OnStopPowering += Powering_OnStopPowering;
-        powering.OnStopPowering += throwing.powering_OnStopPowering;
-        holdsing.OnStartCharging += Holdsing_OnStartCharging;
-
-        m_Stats = new IStatePlayerHand[]
+        #region Unity
+        private void Awake()
         {
-            free,
-            holdsing,
-            powering,
-            throwing
-        };
-    }
+            m_Agent = GetComponent<NavMeshAgent>();
 
-    private void Start()
-    {
-        OnNetworkSpawn();
-    }
+            AIStateFree free = new AIStateFree(this, m_Agent);
+            AIStateHoldsObj holdsing = new AIStateHoldsObj(m_Agent, this);
+            AIStatePowering powering = new AIStatePowering(this, m_Powering, m_Agent);
+            AIStateThrowing throwing = new AIStateThrowing(m_Agent);
 
-    public override void OnNetworkSpawn()
-    {
-        PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
-        StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
-        m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
+            ManagerGameFoodObj.Instance.OnCollected += free.OnCollcatedAnyFood;
+            powering.OnStopPowering += Powering_OnStopPowering;
+            powering.OnStopPowering += throwing.powering_OnStopPowering;
+            holdsing.OnStartCharging += Holdsing_OnStartCharging;
 
-        AddLisenerToPlayer();
-        SetLaunchingAnimation(channel);
+            m_Stats = new IStatePlayerHand[]
+            {
+                free,
+                holdsing,
+                powering,
+                throwing
+            };
+        }
 
-        powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
-        channel.ThrowPoint += Animation_ThrowPoint;
-        channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
-        m_StateIndex = StateFree.k_Indx;
-        CurrentState.OnStateEnter();
-    }
-    #endregion
+        private void Start()
+        {
+            OnNetworkSpawn();
+        }
 
-    protected override void Update()
-    {
-        CurrentState.Update();
-    }
-    private void AddLisenerToPlayer()
-    {
-        Player player = GetComponent<Player>();
-        player.OnExitCollisionFoodObj += m_Stats[StateFree.k_Indx].ExitCollisionFoodObj;
-        player.OnEnterCollisionFoodObj += m_Stats[StateFree.k_Indx].EnterCollisionFoodObj;
+        public override void OnNetworkSpawn()
+        {
+            PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
+            StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
+            m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
+
+            ListenToPlayer();
+            SetLaunchingAnimation(channel);
+
+            powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
+            channel.ThrowPoint += Animation_ThrowPoint;
+            channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
+            m_StateIndex = StateFree.k_Indx;
+            CurrentState.OnStateEnter();
+        }
+        #endregion
+
+        protected override void Update()
+        {
+            CurrentState.Update();
+        }
     }
 }

@@ -1,12 +1,10 @@
-﻿using Assets.Scripts.Manger;
+﻿using DiningCombat.Manger;
 using System;
 using Unity.Netcode;
 using UnityEngine;
-// TODO : to fix the namespace
-namespace Assets.scrips
+namespace DiningCombat.Player
 {
-
-    internal class PlayerMovment : NetworkBehaviour
+    public class PlayerMovment : NetworkBehaviour
     {
         public static int m_Cunnter = 0;
 
@@ -191,7 +189,7 @@ namespace Assets.scrips
             transform.Rotate(Vector3.up, i_RotationeNormalized);
         }
 
-        internal void GameInput_OnJumpAction(object sender, EventArgs e)
+        public void GameInput_OnJumpAction(object sender, EventArgs e)
         {
             if (!IsOwner)
             {

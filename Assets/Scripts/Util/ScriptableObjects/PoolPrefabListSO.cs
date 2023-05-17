@@ -1,4 +1,4 @@
-﻿using Assets.DataObject;
+﻿using DiningCombat.DataObject;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

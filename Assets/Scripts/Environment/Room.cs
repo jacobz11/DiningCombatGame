@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 
-// TODO : to fix the namespace
-namespace Assets.Scripts
+namespace DiningCombat.Environment
 {
     // TODO : make this a scriptable objects
-    internal class Room : MonoBehaviour
+    public class Room : MonoBehaviour
     {
         public Vector3 m_Center;
         public Vector3 m_Dimensions;

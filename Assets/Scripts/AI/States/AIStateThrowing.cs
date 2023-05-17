@@ -1,13 +1,12 @@
-﻿using Assets.scrips.Player.States;
-using Assets.Scripts.Manger;
+﻿using DiningCombat.Manger;
+using DiningCombat.Player.States;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO : to fix the namespace
-namespace Assets.Scripts.AI.States
+namespace DiningCombat.AI.States
 {
-    internal class AIStateThrowing : StateThrowing
+    public class AIStateThrowing : StateThrowing
     {
         private const float k_Speed = 5;
 

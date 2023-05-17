@@ -1,13 +1,13 @@
-﻿using Assets.Util;
-using DesignPatterns.Abstraction;
-using DiningCombat;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Player;
+using DiningCombat.Util;
+using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
 
-// TODO : to fix the namespace
-namespace Assets.DataObject
+namespace DiningCombat.FoodObject
 {
-    internal abstract class IThrownState : IFoodState, IDamaging
+    public abstract class IThrownState : IFoodState, IDamaging
     {
         public class HitPointEventArgs : EventArgs
         {
@@ -29,7 +29,7 @@ namespace Assets.DataObject
         public bool TryCollect(ActionStateMachine i_Collcter) => false;
         protected virtual void ReturnToPool() => OnReturnToPool?.Invoke();
         public virtual float CalculatorDamag() => Vector2AsRang.Clamp(m_Rigidbody.velocity.magnitude, RangeDamage);
-        internal void SendOnHit(HitPointEventArgs hitPointEventArgs) => OnHit?.Invoke(hitPointEventArgs);
+        public void SendOnHit(HitPointEventArgs hitPointEventArgs) => OnHit?.Invoke(hitPointEventArgs);
 
         public IThrownState(ThrownActionTypesBuilder i_Data)
         {

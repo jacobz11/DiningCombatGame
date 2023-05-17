@@ -1,7 +1,7 @@
-﻿// TODO : to fix the namespace
-namespace Assets.DataObject
+﻿
+namespace DiningCombat.DataObject
 {
-    internal class GrenadeDataSO
+    public class GrenadeDataSO
     {
     }
 }

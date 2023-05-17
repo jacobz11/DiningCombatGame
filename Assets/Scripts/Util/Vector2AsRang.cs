@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Util
+namespace DiningCombat.Util
 {
-    internal class Vector2AsRang
+    public class Vector2AsRang
     {
         public static float Max(Vector2 v) => v.x;
         public static float Min(Vector2 v) => v.y;
@@ -18,12 +18,12 @@ namespace Assets.Util
             return new Vector2(maxVal, minVal);
         }
 
-        internal static float Clamp(float i_Magnitude, Vector2 i_RangeDamage)
+        public static float Clamp(float i_Magnitude, Vector2 i_RangeDamage)
         {
             return Math.Clamp(i_Magnitude, Min(i_RangeDamage), Max(i_RangeDamage));
         }
 
-        internal static float Random(Vector2 v)
+        public static float Random(Vector2 v)
         {
             return UnityEngine.Random.Range(Min(v), Max(v));
         }

@@ -1,6 +1,6 @@
-﻿namespace Assets.Util
+﻿namespace DiningCombat.Util
 {
-    internal interface IDictionaryObject
+    public interface IDictionaryObject
     {
         public string NameKey { get; set; }
     }

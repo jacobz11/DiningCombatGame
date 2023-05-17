@@ -1,13 +1,12 @@
-﻿using Assets.scrips.Player.States;
-using Assets.Scripts.Manger;
+﻿using DiningCombat.Manger;
+using DiningCombat.Player.States;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO : to fix the namespace
-namespace Assets.Scripts.AI.States
+namespace DiningCombat.AI.States
 {
-    internal class AIStateHoldsObj : StateHoldsObj
+    public class AIStateHoldsObj : StateHoldsObj
     {
         private const float k_UpdateRate = 3;
         private const float k_MinDistance = 30;

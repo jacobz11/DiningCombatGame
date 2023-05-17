@@ -1,6 +1,6 @@
-﻿namespace Assets.DataObject
+﻿namespace DiningCombat.DataObject
 {
-    internal class PoolPFoodrefabListSO
+    public class PoolPFoodrefabListSO
     {
     }
 }

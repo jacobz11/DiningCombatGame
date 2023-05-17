@@ -1,9 +1,7 @@
-﻿using DiningCombat;
-using UnityEngine;
-// TODO : to fix the namespace
-namespace Assets.Scripts.Environment
+﻿using UnityEngine;
+namespace DiningCombat.Environment
 {
-    internal sealed class Word
+    public sealed class Word
     {
         private static readonly Word sr_Word = new Word();
         private static readonly GameObject[] sr_HidigSpot;

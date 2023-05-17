@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-// TODO : to fix the namespace
-namespace Assets.Util.DesignPatterns
+namespace DiningCombat.Util.DesignPatterns
 {
     [Serializable]
-    internal class GenericGameObjectPool
+    public class GenericGameObjectPool
     {
         private const int k_AddingParTime = 1;
         [SerializeField]

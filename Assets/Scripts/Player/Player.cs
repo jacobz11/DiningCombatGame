@@ -1,32 +1,35 @@
-using Assets.scrips;
+using DiningCombat.Manger;
 using System;
 using Unity.Netcode;
 using UnityEngine;
-// TODO : Add a namespace
-public class Player : NetworkBehaviour
+namespace DiningCombat.Player
 {
-    public event Action<Collider> OnExitCollisionFoodObj;
-    public event Action<Collider> OnEnterCollisionFoodObj;
-    public event Action OnPickUpAction;
-    public event Action OnChargingAction;
-
-    [SerializeField]
-    private GameInput m_GameInput;
-    [SerializeField]
-    private Transform m_PickUpPoint;
-    private PlayerMovment m_Movment;
-    private Rigidbody m_Rigidbody;
-
-    public Transform PicUpPoint { get; internal set; }
-
-    private void Awake()
+    public class Player : NetworkBehaviour
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        GameStrting.Instance.AddNumOfPlyers(1);
-    }
+        public event Action<Collider> OnExitCollisionFoodObj;
+        public event Action<Collider> OnEnterCollisionFoodObj;
+        public event Action OnPickUpAction;
+        public event Action OnChargingAction;
 
-    private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
-    {
-        Debug.Log("GameInput_OnChargingAction");
+        [SerializeField]
+        private GameInput m_GameInput;
+        [SerializeField]
+        private Transform m_PickUpPoint;
+        private PlayerMovment m_Movment;
+        private Rigidbody m_Rigidbody;
+
+        // TODO : is this set need to be public
+        public Transform PicUpPoint { get; set; }
+
+        private void Awake()
+        {
+            m_Rigidbody = GetComponent<Rigidbody>();
+            GameStrting.Instance.AddNumOfPlyers(1);
+        }
+
+        private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
+        {
+            Debug.Log("GameInput_OnChargingAction");
+        }
     }
 }

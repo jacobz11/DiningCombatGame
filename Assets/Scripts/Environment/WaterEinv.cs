@@ -1,22 +1,26 @@
+using DiningCombat.Player;
 using System.Diagnostics;
 using UnityEngine;
-// TODO : Add a namespace
-[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-public class WaterEinv : MonoBehaviour
+
+namespace DiningCombat.Environment
 {
-    // TODO : Arrange that life will go down less quickly 
-    private const float k_Damage = 0.01f;
-    private void OnTriggerStay(Collider other) => PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out bool _);
-
-    #region System And Debuging
-    private string GetDebuggerDisplay()
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+    public class WaterEinv : MonoBehaviour
     {
-        return ToString();
-    }
+        // TODO : Arrange that life will go down less quickly 
+        private const float k_Damage = 0.01f;
+        private void OnTriggerStay(Collider other) => PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out bool _);
 
-    public override string ToString()
-    {
-        return "WaterEinv";
+        #region System And Debuging
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
+        }
+
+        public override string ToString()
+        {
+            return "WaterEinv";
+        }
+        #endregion
     }
-    #endregion
 }

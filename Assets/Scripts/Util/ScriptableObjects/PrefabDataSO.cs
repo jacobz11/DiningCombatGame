@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.DataObject
+namespace DiningCombat.DataObject
 {
     [Serializable]
     public class PrefabDataSO<T> : ScriptableObject where T : Component

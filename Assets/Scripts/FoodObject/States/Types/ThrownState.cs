@@ -1,71 +1,75 @@
-﻿using Assets.DataObject;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Player;
 using UnityEngine;
-// TODO : Add a namespace
 
-internal class ThrownState : IThrownState
+namespace DiningCombat.FoodObject
 {
-    public const int k_Indx = 2;
-    private const float k_TimeToTrow = 0.7f;
-    private const float k_TimeToReturn = 7.7f;
-
-    private float m_TimeBefuerCollision;
-    public ThrownState(ThrownActionTypesBuilder i_Data) : base(i_Data)
+    public class ThrownState : IThrownState
     {
-        m_TimeBefuerCollision = 0f;
-    }
+        public const int k_Indx = 2;
+        private const float k_TimeToTrow = 0.7f;
+        private const float k_TimeToReturn = 7.7f;
 
-    public override void OnStateEnter()
-    {
-        base.OnStateEnter();
-        m_TimeBefuerCollision = 0f;
-    }
-
-    public override void Update()
-    {
-        if (!IsActionHappen)
+        private float m_TimeBefuerCollision;
+        public ThrownState(ThrownActionTypesBuilder i_Data) : base(i_Data)
         {
-            m_Rigidbody.AddForce(ActionDirection);
-            IsActionHappen = true;
             m_TimeBefuerCollision = 0f;
         }
 
-        m_TimeBefuerCollision += Time.deltaTime;
-        if (m_TimeBefuerCollision > k_TimeToReturn)
+        public override void OnStateEnter()
         {
-            ReturnToPool();
+            base.OnStateEnter();
+            m_TimeBefuerCollision = 0f;
         }
-    }
 
-    public override void Activation(Collision collision)
-    {
-        #region Collision befor the time
-        if (m_TimeBefuerCollision < k_TimeToTrow)
+        public override void Update()
         {
-            Debug.Log("Collision befor the time");
-            return;
-        }
-        #endregion
-
-        float damage = CalculatorDamag();
-        bool isHitPlayer = PlayerLifePoint.TryToDamagePlayer(collision.gameObject, damage, out bool o_IsKiil);
-
-        if (isHitPlayer && !IsHitMyself(collision))
-        {
-            int kill = o_IsKiil ? 1 : 0;
-            Activator.GetScore()?.HitPlayer(collision, damage, kill);
-            base.SendOnHit(new IThrownState.HitPointEventArgs
+            if (!IsActionHappen)
             {
-                m_Damage = damage,
-                m_GetHitPlayer = collision.gameObject,
-                m_PlayerThrown = Activator.gameObject
-            });
+                m_Rigidbody.AddForce(ActionDirection);
+                IsActionHappen = true;
+                m_TimeBefuerCollision = 0f;
+            }
+
+            m_TimeBefuerCollision += Time.deltaTime;
+            if (m_TimeBefuerCollision > k_TimeToReturn)
+            {
+                ReturnToPool();
+            }
         }
 
-        m_TimeBefuerCollision = k_TimeToReturn;
-
-        bool IsHitMyself(Collision collision)
+        public override void Activation(Collision collision)
         {
-            return collision.gameObject.Equals(Activator.gameObject);
+            #region Collision befor the time
+            if (m_TimeBefuerCollision < k_TimeToTrow)
+            {
+                Debug.Log("Collision befor the time");
+                return;
+            }
+            #endregion
+
+            float damage = CalculatorDamag();
+            bool isHitPlayer = PlayerLifePoint.TryToDamagePlayer(collision.gameObject, damage, out bool o_IsKiil);
+
+            if (isHitPlayer && !IsHitMyself(collision))
+            {
+                int kill = o_IsKiil ? 1 : 0;
+                Activator.GetScore()?.HitPlayer(collision, damage, kill);
+                base.SendOnHit(new IThrownState.HitPointEventArgs
+                {
+                    m_Damage = damage,
+                    m_GetHitPlayer = collision.gameObject,
+                    m_PlayerThrown = Activator.gameObject
+                });
+            }
+
+            m_TimeBefuerCollision = k_TimeToReturn;
+
+            bool IsHitMyself(Collision collision)
+            {
+                return collision.gameObject.Equals(Activator.gameObject);
+            }
         }
     }
+
 }

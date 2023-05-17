@@ -1,6 +1,5 @@
 ﻿using System;
-// TODO : to fix the namespace
-namespace DesignPatterns.Abstraction
+namespace DiningCombat.Util.DesignPatterns
 {
     public interface IDCState
     {

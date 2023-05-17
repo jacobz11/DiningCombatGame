@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Assets.Util
+namespace DiningCombat.Util
 {
-    internal class NodeGraph
+    public class NodeGraph
     {
         public bool IsFree { get; private set; }
         private Action m_ChangeAction;

@@ -1,10 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
-// TODO : to fix the namespace
 
-namespace UI
+namespace DiningCombat.UI
 {
-    internal class IUIChannel : MonoBehaviour
+    public class IUIChannel : MonoBehaviour
     {
         [SerializeField]
         private TextMeshPro m_SingalText;

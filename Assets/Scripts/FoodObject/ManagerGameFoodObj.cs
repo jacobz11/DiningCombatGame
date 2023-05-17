@@ -1,136 +1,140 @@
-﻿using Assets.DataObject;
-using Assets.Util.DesignPatterns;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Environment;
+using DiningCombat.FoodObject;
+using DiningCombat.Util.DesignPatterns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-// TODO : Add a namespace
 // TODO Replace the class that inherited the new method that works in the scriptable objects
-internal class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
+namespace DiningCombat.Manger
 {
-    public event Action<List<Vector3>> UncollectedPos;
-    public event Action OnCollected;
-
-    private float m_LestSpanw;
-    [SerializeField]
-    private Cuntter m_CuntterOfFoodInTheGame;
-    [SerializeField]
-    private SpawnData m_SpawnData;
-    [SerializeField]
-    private Assets.Scripts.Room m_RoomDimension;
-    [SerializeField]
-    private ListFoodPrefab m_AllFoodPrefab;
-    public bool IsSpawnNewGameObj { get; private set; }
-    public new static ManagerGameFoodObj Instance { get; private set; }
-
-    private new void Awake()
+    public class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>
     {
-        if (Instance is not null)
+        public event Action<List<Vector3>> UncollectedPos;
+        public event Action OnCollected;
+
+        private float m_LestSpanw;
+        [SerializeField]
+        private Cuntter m_CuntterOfFoodInTheGame;
+        [SerializeField]
+        private SpawnData m_SpawnData;
+        [SerializeField]
+        private Room m_RoomDimension;
+        [SerializeField]
+        private ListFoodPrefab m_AllFoodPrefab;
+        public bool IsSpawnNewGameObj { get; private set; }
+        public new static ManagerGameFoodObj Instance { get; private set; }
+
+        private new void Awake()
         {
-            Destroy(this);
-            return;
+            if (Instance is not null)
+            {
+                Destroy(this);
+                return;
+            }
+
+            base.Awake();
+            Instance = this;
         }
 
-        base.Awake();
-        Instance = this;
-    }
-
-    protected override void AddObject(int i_Count)
-    {
-        for (int i = 0; i < i_Count; i++)
+        protected override void AddObject(int i_Count)
         {
-            GameFoodObj newObj = (GameObject.Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab())).GetComponent<GameFoodObj>();
-            newObj.gameObject.SetActive(false);
-            m_Objects.Enqueue(newObj);
-        }
-    }
-
-    private GameFoodObj Get(Vector3 i_Pos)
-    {
-        GameFoodObj foodObj = Get();
-        foodObj.transform.position = i_Pos;
-        foodObj.gameObject.SetActive(true);
-
-        return foodObj;
-    }
-
-    private void InitializationPool(int numOfSetToEnterThePool)
-    {
-        AddObject(numOfSetToEnterThePool);
-        _ = m_Objects.OrderBy(obj => Guid.NewGuid());
-    }
-
-    public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
-    {
-        bool isSpawn = false;
-        o_Spawn = null;
-        if (Instance.IsSpawnNewGameObj)
-        {
-            o_Spawn = SpawnGameFoodObj();
-            isSpawn = true;
+            for (int i = 0; i < i_Count; i++)
+            {
+                GameFoodObj newObj = (GameObject.Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab())).GetComponent<GameFoodObj>();
+                newObj.gameObject.SetActive(false);
+                m_Objects.Enqueue(newObj);
+            }
         }
 
-        return isSpawn;
-    }
-
-    private GameObject SpawnGameFoodObj()
-    {
-        GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
-        _ = m_CuntterOfFoodInTheGame.TryInc();
-        foodObj.OnCollect += FoodObj_OnCollect;
-        UncollectedPos += foodObj.ViewElement;
-
-        return foodObj.gameObject;
-    }
-
-    private void FoodObj_OnCollect()
-    { /* Not-Implemented */}
-    internal void OnGameOver()
-    { /* Not-Implemented */}
-
-    private void OnDestruction_GameFoodObj()
-    {
-        _ = m_CuntterOfFoodInTheGame.TryDec();
-    }
-
-    private void Start()
-    {
-        if (IsServer)
+        private GameFoodObj Get(Vector3 i_Pos)
         {
-            for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
+            GameFoodObj foodObj = Get();
+            foodObj.transform.position = i_Pos;
+            foodObj.gameObject.SetActive(true);
+
+            return foodObj;
+        }
+
+        private void InitializationPool(int numOfSetToEnterThePool)
+        {
+            AddObject(numOfSetToEnterThePool);
+            _ = m_Objects.OrderBy(obj => Guid.NewGuid());
+        }
+
+        public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
+        {
+            bool isSpawn = false;
+            o_Spawn = null;
+            if (Instance.IsSpawnNewGameObj)
+            {
+                o_Spawn = SpawnGameFoodObj();
+                isSpawn = true;
+            }
+
+            return isSpawn;
+        }
+
+        private GameObject SpawnGameFoodObj()
+        {
+            GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
+            _ = m_CuntterOfFoodInTheGame.TryInc();
+            foodObj.OnCollect += FoodObj_OnCollect;
+            UncollectedPos += foodObj.ViewElement;
+
+            return foodObj.gameObject;
+        }
+
+        private void FoodObj_OnCollect()
+        { /* Not-Implemented */}
+        public void OnGameOver()
+        { /* Not-Implemented */}
+
+        private void OnDestruction_GameFoodObj()
+        {
+            _ = m_CuntterOfFoodInTheGame.TryDec();
+        }
+
+        private void Start()
+        {
+            if (IsServer)
+            {
+                for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
+                {
+                    _ = SpawnGameFoodObj();
+                }
+            }
+
+            m_LestSpanw = Time.time;
+        }
+        private void Update()
+        {
+            if (!IsServer)
+            {
+                return;
+            }
+
+            if (IsTimeToSpanw())
             {
                 _ = SpawnGameFoodObj();
             }
         }
 
-        m_LestSpanw = Time.time;
-    }
-    private void Update()
-    {
-        if (!IsServer)
+        private bool IsTimeToSpanw()
         {
-            return;
+            m_LestSpanw += Time.deltaTime;
+            bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
+            bool isNotMax = m_CuntterOfFoodInTheGame.CanInc();
+            return isTimeOver && isNotMax;
         }
 
-        if (IsTimeToSpanw())
+        public List<Vector3> GetAllUncollcted()
         {
-            _ = SpawnGameFoodObj();
+            List<Vector3> list = new List<Vector3>();
+            UncollectedPos?.Invoke(list);
+
+            return list;
         }
-    }
-
-    private bool IsTimeToSpanw()
-    {
-        m_LestSpanw += Time.deltaTime;
-        bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
-        bool isNotMax = m_CuntterOfFoodInTheGame.CanInc();
-        return isTimeOver && isNotMax;
-    }
-
-    public List<Vector3> GetAllUncollcted()
-    {
-        List<Vector3> list = new List<Vector3>();
-        UncollectedPos?.Invoke(list);
-
-        return list;
     }
 }

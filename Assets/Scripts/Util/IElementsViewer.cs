@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DiningCombat.FoodObj.Managers
 {
-    internal interface IElementsViewer
+    public interface IElementsViewer
     {
         /// <returns>List of invoking eche vieing element</returns>
         List<Vector3> GetElements();

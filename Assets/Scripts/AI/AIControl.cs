@@ -1,12 +1,10 @@
-﻿using DiningCombat;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-// TODO : to fix the namespace
-namespace Assets.Scripts.AI
+namespace DiningCombat.AI
 {
-    internal class AIControl : MonoBehaviour
+    public class AIControl : MonoBehaviour
     {
         private GameObject[] m_GoalLocations;
         private NavMeshAgent m_Agent;

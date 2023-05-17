@@ -1,8 +1,8 @@
-﻿namespace Assets.scrips.Player.Data
+﻿using System;
+namespace DiningCombat.Player.Data
 {
-    using System;
     [Serializable]
-    internal class PoweringData
+    public class PoweringData
     {
         public float MaxPower = 3000;
         public float DataTimeAddingPower = 1400;

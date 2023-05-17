@@ -2,11 +2,11 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.DataObject
+namespace DiningCombat.DataObject
 {
     // TODO : make this a scriptable objects
     [Serializable]
-    internal class RoomDimension
+    public class RoomDimension
     {
         public Vector3 m_Center;
         public Vector3 m_Dimensions;

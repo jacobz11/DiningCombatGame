@@ -1,23 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-namespace Assets.Scripts.Util.Channels.Abstracts
+namespace DiningCombat.Util
 {
-    internal interface IViewingElements<T>
+    public interface IViewingElements<T>
     {
         void ViewElement(List<T> elements);
-    }
-
-    interface IUesableElements
-    {
-        bool IsUesed { get; }
-
-        bool Unsed();
-
-        void OnEndUsing();
-    }
-
-    internal interface IViewingElementsPosition : IViewingElements<Vector3>, IUesableElements
-    {
     }
 }

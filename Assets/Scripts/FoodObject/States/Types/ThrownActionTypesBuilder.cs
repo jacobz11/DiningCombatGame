@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DiningCombat.FoodObject;
+using System;
 using UnityEngine;
 
-// TODO : to fix the namespace
-namespace Assets.DataObject
+namespace DiningCombat.DataObject
 {
     /// <summary>
     /// Change only on Prifab - On Run time A change will do nothing
@@ -11,7 +11,7 @@ namespace Assets.DataObject
     /// </summary>
     [Serializable]
     // TODO Replace the class to scriptable objects
-    internal struct ThrownActionTypesBuilder
+    public struct ThrownActionTypesBuilder
     {
 
         // Summary:
@@ -51,7 +51,7 @@ namespace Assets.DataObject
             //      Element-Special-By-Name : required
             Mine
         }
-        internal enum eElementSpecialByName
+        public enum eElementSpecialByName
         {
             None,
             // SmokeGrenade
@@ -146,7 +146,7 @@ namespace Assets.DataObject
             return new ThrownState(this);
         }
 
-        internal Type GetBuildType()
+        public Type GetBuildType()
         {
             switch (m_Type)
             {

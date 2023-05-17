@@ -3,10 +3,9 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// TODO : to fix the namespace
-namespace Assets.scrips
+namespace DiningCombat
 {
-    internal class GameInput : NetworkBehaviour
+    public class GameInput : NetworkBehaviour
     {
         public event EventHandler OnStartChargingAction;
         public event EventHandler OnStopChargingAction;

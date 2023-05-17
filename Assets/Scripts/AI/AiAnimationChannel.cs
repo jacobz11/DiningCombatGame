@@ -1,10 +1,10 @@
-﻿using Unity.Netcode;
+﻿using DiningCombat.Player;
+using Unity.Netcode;
 using UnityEngine;
 
-// TODO : to fix the namespace
-namespace Assets.Scripts.AI
+namespace DiningCombat.AI
 {
-    internal class AiAnimationChannel : NetworkBehaviour
+    public class AiAnimationChannel : NetworkBehaviour
     {
         [SerializeField]
         private PlayerMovmentDataSO m_PlayerMovmentDataSO;

@@ -4,9 +4,9 @@ using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-namespace Assets.Util
+namespace DiningCombat.Util
 {
-    internal class GraphDC
+    public class GraphDC
     {
         private Action<Vector3> m_Action;
         public Action OnEnding;
@@ -128,7 +128,7 @@ namespace Assets.Util
             return res;
         }
 
-        internal void Activate()
+        public void Activate()
         {
             Vector2Int vector = GetAndRemoveRandomEndPint();
             try
@@ -194,7 +194,7 @@ namespace Assets.Util
     }
 }
 
-/*internal class GraphDC
+/*public class GraphDC
 {
     private Action<Vector3> m_Action;
     private Vector3 m_StrtingPoint;
@@ -311,7 +311,7 @@ namespace Assets.Util
         return res;
     }
 
-    internal void Activate()
+    public void Activate()
     {
         Vector2Int vector = GetAndRemoveRandomEndPint();
         try

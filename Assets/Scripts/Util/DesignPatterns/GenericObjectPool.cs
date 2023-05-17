@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-// TODO : to fix the namespace
-namespace Assets.Util.DesignPatterns
+namespace DiningCombat.Util.DesignPatterns
 {
     [Serializable]
     public abstract class GenericObjectPool<T> : NetworkBehaviour where T : Component

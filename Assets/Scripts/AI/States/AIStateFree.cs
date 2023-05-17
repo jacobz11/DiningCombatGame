@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using DiningCombat.Manger;
+using DiningCombat.Player;
+using DiningCombat.Player.States;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-// TODO : to fix the namespace
-
-namespace Assets.Scripts.AI.States
+namespace DiningCombat.AI.States
 {
-    internal class AIStateFree : StateFree
+    public class AIStateFree : StateFree
     {
-        private NavMeshAgent m_Agent;
+        private readonly NavMeshAgent r_Agent;
         private Vector3 m_Target;
         public bool TargetExist { get; private set; }
-        private Vector3 Position => m_Agent.transform.position;
+        private Vector3 Position => r_Agent.transform.position;
 
         public AIStateFree(ActionStateMachine i_AcitonStateMachine, NavMeshAgent agent)
             : base(i_AcitonStateMachine)
         {
-            m_Agent = agent;
+            r_Agent = agent;
         }
 
         public override void OnStateEnter()
@@ -59,10 +60,10 @@ namespace Assets.Scripts.AI.States
                 TargetExist = m_Target != Position;
             }
 
-            _ = m_Agent.SetDestination(m_Target);
+            _ = r_Agent.SetDestination(m_Target);
         }
 
-        internal void OnCollcatedAnyFood()
+        public void OnCollcatedAnyFood()
         {
             TargetExist = false;
         }

@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-// TODO : to fix the namespace
+﻿using DiningCombat.FoodObject;
+using UnityEngine;
 
-namespace Assets.Util.DesignPatterns
+namespace DiningCombat.Util.DesignPatterns
 {
-    internal class FoodPool : GenericObjectPoolNew<GameFoodObj>
+    public class FoodPool : GenericObjectPoolNew<GameFoodObj>
     {
         private void Start()
         {

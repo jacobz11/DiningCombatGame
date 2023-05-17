@@ -1,11 +1,12 @@
-﻿using DesignPatterns.Abstraction;
+﻿
+using DiningCombat.FoodObject;
+using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
 
-// TODO : to fix the namespace
-namespace Assets.scrips.Player.States
+namespace DiningCombat.Player.States
 {
-    internal class StateHoldsObj : IStatePlayerHand
+    public class StateHoldsObj : IStatePlayerHand
     {
         public const int k_Indx = 1;
 

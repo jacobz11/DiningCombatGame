@@ -1,15 +1,14 @@
-﻿using DiningCombat;
+﻿using DiningCombat.Environment;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
-// TODO : to fix the namespace
-namespace Assets.Scripts.Manger
+namespace DiningCombat.Manger
 {
     //TODO : arrange the code
     //TODO : Delete what you don't need
-    internal class GameManger : NetworkBehaviour
+    public class GameManger : NetworkBehaviour
     {
         [SerializeField]
         private GameObject m_AiPrifab;
@@ -89,7 +88,7 @@ namespace Assets.Scripts.Manger
             cam.targetDisplay = Cuntter++;
         }
 
-        internal int GetTargetDisplay()
+        public int GetTargetDisplay()
         {
             int targetDisplay = Cuntter;
             Cuntter++;

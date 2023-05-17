@@ -1,13 +1,13 @@
-﻿using Assets.Scripts.FoodObject.Pools;
-using Assets.Util;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Player;
+using DiningCombat.Util;
 using UnityEngine;
 
-using static Assets.DataObject.ThrownActionTypesBuilder;
+using static DiningCombat.DataObject.ThrownActionTypesBuilder;
 
-// TODO : to fix the namespace
-namespace Assets.DataObject
+namespace DiningCombat.FoodObject
 {
-    internal class GrenadeLike : IThrownState
+    public class GrenadeLike : IThrownState
     {
         private readonly float r_ForceHitExsplostin;
         private readonly float r_Radius;

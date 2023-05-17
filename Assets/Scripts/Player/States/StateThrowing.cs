@@ -1,11 +1,10 @@
-﻿using DesignPatterns.Abstraction;
+﻿using DiningCombat.FoodObject;
+using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
-
-// TODO : to fix the namespace
-namespace Assets.scrips.Player.States
+namespace DiningCombat.Player.States
 {
-    internal class StateThrowing : IStatePlayerHand
+    public class StateThrowing : IStatePlayerHand
     {
         public const int k_Indx = 3;
         public event Action<bool> Throw;
@@ -46,7 +45,7 @@ namespace Assets.scrips.Player.States
             return true;
         }
 
-        internal void powering_OnStopPowering(float obj)
+        public void powering_OnStopPowering(float obj)
         {
             m_PowerMull = obj;
         }

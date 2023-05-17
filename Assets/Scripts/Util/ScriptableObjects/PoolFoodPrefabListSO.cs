@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DiningCombat.FoodObject;
+using System;
 using UnityEngine;
 
-namespace Assets.DataObject
+namespace DiningCombat.DataObject
 {
     [Serializable]
     [CreateAssetMenu(fileName = "PrefabDataSO", menuName = "Custom Objects/Pool/PoolFoodPrefabListSO")]
-    internal class PoolFoodPrefabListSO : PoolPrefabListSO<GameFoodObj>
+    public class PoolFoodPrefabListSO : PoolPrefabListSO<GameFoodObj>
     {
     }
 }

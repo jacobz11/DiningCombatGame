@@ -1,6 +1,6 @@
-﻿namespace Assets.Scripts.Util.Channels
+﻿namespace DiningCombat.Util
 {
-    internal interface IBuffer<T>
+    public interface IBuffer<T>
     {
         public T DefaultLimt { get; }
         void Clear();

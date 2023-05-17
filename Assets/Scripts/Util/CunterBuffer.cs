@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Util.Channels
+namespace DiningCombat.Util
 {
-    internal class CunterBuffer : IBuffer<int>
+    public class CunterBuffer : IBuffer<int>
     {
         private int m_CurrentInx;
         private int m_MaxIdx;

@@ -2,7 +2,7 @@
 
 [Serializable]
 // TODO : make this a scriptable objects
-internal struct Cuntter
+public struct Cuntter
 {
     public short m_Max;
     public short m_Min;
@@ -29,7 +29,7 @@ internal struct Cuntter
         return canDec;
     }
 
-    internal bool CanInc()
+    public bool CanInc()
     {
         return m_Value <= m_Max;
     }

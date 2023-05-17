@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Util.Channels
+namespace DiningCombat.Util
 {
     [Serializable]
-    internal struct TimeBuffer : IBuffer<float>
+    public struct TimeBuffer : IBuffer<float>
     {
         public static float Default => 5.0f;
 
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Util.Channels
             m_LestUpdate = i_NewLest;
         }
 
-        internal void PreventDoubleEntry(float i_ActineTime)
+        public void PreventDoubleEntry(float i_ActineTime)
         {
             UpdeteData(Time.time + (m_UpdateRate + i_ActineTime) * 10);
         }

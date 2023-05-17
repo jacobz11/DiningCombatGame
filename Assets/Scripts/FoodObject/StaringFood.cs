@@ -1,10 +1,11 @@
-﻿using Unity.Netcode;
+﻿using DiningCombat.Player;
+using DiningCombat.Util;
+using Unity.Netcode;
 using UnityEngine;
-// TODO : to fix the namespace
-namespace Assets.Scripts.FoodObject
+namespace DiningCombat.FoodObject
 {
     // TODO : Understand why it is here
-    internal class StaringFood : NetworkBehaviour, IDamaging
+    public class StaringFood : NetworkBehaviour, IDamaging
     {
         [SerializeField]
         private float m_Higt;

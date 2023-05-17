@@ -2,11 +2,11 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.DataObject
+namespace DiningCombat.DataObject
 {
     [Serializable]
     // TODO :  dell this after Completion of the merger scriptable objects
-    internal struct ListFoodPrefab
+    public struct ListFoodPrefab
     {
         public GameObject[] m_FoodPrefab;
 
