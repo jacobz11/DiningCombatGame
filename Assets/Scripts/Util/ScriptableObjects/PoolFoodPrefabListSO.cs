@@ -5,7 +5,7 @@ using UnityEngine;
 namespace DiningCombat.DataObject
 {
     [Serializable]
-    [CreateAssetMenu(fileName = "PrefabDataSO", menuName = "Custom Objects/Pool/PoolFoodPrefabListSO")]
+    [CreateAssetMenu(fileName = "PoolFoodPrefabListSO", menuName = "Custom Objects/Pool/PoolFoodPrefabListSO")]
     public class PoolFoodPrefabListSO : PoolPrefabListSO<GameFoodObj>
     {
     }

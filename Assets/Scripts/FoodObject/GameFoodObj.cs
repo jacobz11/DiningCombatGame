@@ -55,10 +55,6 @@ namespace DiningCombat.FoodObject
         public void Hide() => this.gameObject.SetActive(false);
         public void Show() => this.gameObject.SetActive(true);
         #endregion
-        public bool IsUsed => throw new NotImplementedException();
-
-        public bool IsUesed => throw new NotImplementedException();
-
         public string NameKey { get => m_NameKey; set => m_NameKey = value; }
 
         public bool Unused() => false;
@@ -114,6 +110,8 @@ namespace DiningCombat.FoodObject
         #region Throwing
         public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
         {
+            Debug.Log("ThrowingAction i_PowerAmount " + i_PowerAmount + " Direction : " + i_Direction);
+            
             if (CurrentState.IsThrowingAction())
             {
                 Index = ThrownState.k_Indx;
@@ -153,11 +151,6 @@ namespace DiningCombat.FoodObject
         private void Update()
         {
             CurrentState.Update();
-        }
-
-        public bool Unsed()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace DiningCombat.FoodObject
         protected readonly float r_CountdownTime;
         protected readonly float r_EffectTime;
 
+        private bool m_IsThrown;
         protected float m_Countdown;
 
         protected eElementSpecialByName m_EffectType;
@@ -38,6 +39,7 @@ namespace DiningCombat.FoodObject
             base.OnStateEnter();
             m_Rigidbody.AddForce(ActionDirection);
             m_Countdown = r_CountdownTime;
+            m_IsThrown = false;
         }
 
         public override void OnStateExit()
@@ -45,6 +47,12 @@ namespace DiningCombat.FoodObject
 
         public override void Update()
         {
+            if (!m_IsThrown)
+            {
+                m_Rigidbody.AddForce(ActionDirection);
+                m_IsThrown = true;
+            }
+
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
             if (isCountdownOver)

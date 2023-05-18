@@ -38,13 +38,13 @@ namespace DiningCombat.Manger
             Instance = this;
         }
 
-        protected override void AddObject(int i_Count)
-        {
-            IPackage newObj = (GameObject.Instantiate(m_PackagesPreFfa[m_IndexInPackagesArr])).GetComponent<IPackage>();
-            m_IndexInPackagesArr = (1 + m_IndexInPackagesArr) % m_PackagesPreFfa.Length;
-            newObj.gameObject.SetActive(false);
-            m_Objects.Enqueue(newObj);
-        }
+        //protected override void AddObject(int i_Count)
+        //{
+        //    IPackage newObj = (GameObject.Instantiate(m_PackagesPreFfa[m_IndexInPackagesArr])).GetComponent<IPackage>();
+        //    m_IndexInPackagesArr = (1 + m_IndexInPackagesArr) % m_PackagesPreFfa.Length;
+        //    newObj.gameObject.SetActive(false);
+        //    m_Objects.Enqueue(newObj);
+        //}
 
         private IPackage Get(Vector3 i_Pos)
         {

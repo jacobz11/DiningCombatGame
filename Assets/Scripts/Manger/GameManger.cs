@@ -1,4 +1,5 @@
 ﻿using DiningCombat.Environment;
+using DiningCombat.Util.DesignPatterns;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Netcode;
@@ -8,7 +9,7 @@ namespace DiningCombat.Manger
 {
     //TODO : arrange the code
     //TODO : Delete what you don't need
-    public class GameManger : NetworkBehaviour
+    public class GameManger : Singleton<GameManger> 
     {
         [SerializeField]
         private GameObject m_AiPrifab;

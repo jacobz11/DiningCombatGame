@@ -7,7 +7,7 @@ using UnityEngine;
 public class PoolPrefabListSO<T> : ScriptableObject where T : Component
 {
     public List<PrefabDataSO<T>> m_List;
-    private Dictionary<string, T> m_PrefabDictionary;
+    public Dictionary<string, T> m_PrefabDictionary;
 
     private void OnEnable()
     {
@@ -22,16 +22,6 @@ public class PoolPrefabListSO<T> : ScriptableObject where T : Component
         {
             m_PrefabDictionary[item.m_Key] = item.m_Prefab;
         }
-    }
-
-    public string GetRundomName()
-    {
-        return m_List[UnityEngine.Random.Range(0, m_List.Count)].m_Key;
-    }
-
-    public T GetRundomPrefab()
-    {
-        return m_List[UnityEngine.Random.Range(0, m_List.Count)].m_Prefab;
     }
 
     public T this[string key]

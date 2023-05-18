@@ -191,10 +191,12 @@ namespace DiningCombat.Player
 
         public void GameInput_OnJumpAction(object sender, EventArgs e)
         {
+            //TODO : fix Jump
             if (!IsOwner)
             {
                 return;
             }
+
             if (IsGrounded)
             {
                 m_Rb.AddForce(Vector3.up * m_MovmentData.m_JumpHeight);

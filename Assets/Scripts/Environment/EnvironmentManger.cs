@@ -63,10 +63,11 @@ namespace DiningCombat.Environment
 
             if (m_NpcTimer.IsBufferOver())
             {
-                m_NpcTimer.Clear();
-                FollowWP chicken = ChickenPool.Instance.Get();
-                chicken.transform.position = new Vector3(0.0f, 3f, 0.0f);
-                chicken.gameObject.SetActive(true);
+                // TODO : fix this ChickenPool not work 
+                //m_NpcTimer.Clear();
+                //FollowWP chicken = ChickenPool.Instance.Get();
+                //chicken.transform.position = new Vector3(0.0f, 3f, 0.0f);
+                //chicken.gameObject.SetActive(true);
             }
         }
     }

@@ -21,8 +21,6 @@ namespace DiningCombat.Manger
         private SpawnData m_SpawnData;
         [SerializeField]
         private Room m_RoomDimension;
-        [SerializeField]
-        private ListFoodPrefab m_AllFoodPrefab;
         public bool IsSpawnNewGameObj { get; private set; }
         public new static ManagerGameFoodObj Instance { get; private set; }
 
@@ -38,15 +36,15 @@ namespace DiningCombat.Manger
             Instance = this;
         }
 
-        protected override void AddObject(int i_Count)
-        {
-            for (int i = 0; i < i_Count; i++)
-            {
-                GameFoodObj newObj = (GameObject.Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab())).GetComponent<GameFoodObj>();
-                newObj.gameObject.SetActive(false);
-                m_Objects.Enqueue(newObj);
-            }
-        }
+        //protected override void AddObject(int i_Count)
+        //{
+        //    for (int i = 0; i < i_Count; i++)
+        //    {
+        //        GameFoodObj newObj = (GameObject.Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab())).GetComponent<GameFoodObj>();
+        //        newObj.gameObject.SetActive(false);
+        //        m_Objects.Enqueue(newObj);
+        //    }
+        //}
 
         private GameFoodObj Get(Vector3 i_Pos)
         {
@@ -57,11 +55,11 @@ namespace DiningCombat.Manger
             return foodObj;
         }
 
-        private void InitializationPool(int numOfSetToEnterThePool)
-        {
-            AddObject(numOfSetToEnterThePool);
-            _ = m_Objects.OrderBy(obj => Guid.NewGuid());
-        }
+        //private void InitializationPool(int numOfSetToEnterThePool)
+        //{
+        //    AddObject(numOfSetToEnterThePool);
+        //    _ = m_Objects.OrderBy(obj => Guid.NewGuid());
+        //}
 
         public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
         {
@@ -79,6 +77,10 @@ namespace DiningCombat.Manger
         private GameObject SpawnGameFoodObj()
         {
             GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
+            if (foodObj == null)
+            {
+                Debug.Log("foodObj == null");
+            }
             _ = m_CuntterOfFoodInTheGame.TryInc();
             foodObj.OnCollect += FoodObj_OnCollect;
             UncollectedPos += foodObj.ViewElement;
