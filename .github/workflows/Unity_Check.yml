@@ -23,6 +23,7 @@ jobs:
         run: dotnet restore
 
       - name: Check code style
+        working-directory: ./path/to/your/project
         run: |
           dotnet build --no-restore --no-incremental
           dotnet tool run dotnet-format -- check --diagnostics --verbosity diagnostic
