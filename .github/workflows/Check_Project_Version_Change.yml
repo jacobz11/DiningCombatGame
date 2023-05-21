@@ -3,7 +3,7 @@ name: Check Project Version Change
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   check-project-version-change:
