@@ -1,0 +1,22 @@
+name: Check Project Version Change
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-project-version-change:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check Project Version Change
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep "ProjectSettings/ProjectVersion.txt"; then
+            echo "Project version file has changed"
+            exit 1 # fail the workflow
+          else
+            echo "No changes in project version file"
+          fi
