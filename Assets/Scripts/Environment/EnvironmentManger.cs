@@ -1,6 +1,4 @@
-using DiningCombat.AI;
 using DiningCombat.DataObject;
-using DiningCombat.NPC;
 using DiningCombat.Util;
 using System;
 using UnityEngine;
@@ -11,7 +9,6 @@ namespace DiningCombat.Environment
     {
         private bool m_IsEnding;
         private GraphDC m_WaterGraph;
-
         [SerializeField]
         private SpawnData m_SpawnData;
         [SerializeField]
@@ -63,7 +60,7 @@ namespace DiningCombat.Environment
 
             if (m_NpcTimer.IsBufferOver())
             {
-                // TODO : fix this ChickenPool not work 
+                //TODO: fix this ChickenPool not work
                 //m_NpcTimer.Clear();
                 //FollowWP chicken = ChickenPool.Instance.Get();
                 //chicken.transform.position = new Vector3(0.0f, 3f, 0.0f);

@@ -23,7 +23,7 @@ namespace DiningCombat.AI
 
             ManagerGameFoodObj.Instance.OnCollected += free.OnCollcatedAnyFood;
             powering.OnStopPowering += Powering_OnStopPowering;
-            powering.OnStopPowering += throwing.powering_OnStopPowering;
+            powering.OnStopPowering += throwing.Powering_OnStopPowering;
             holdsing.OnStartCharging += Holdsing_OnStartCharging;
 
             m_Stats = new IStatePlayerHand[]

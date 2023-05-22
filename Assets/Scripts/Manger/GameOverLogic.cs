@@ -67,8 +67,9 @@ namespace DiningCombat.Manger
             m_NumOfAlivePlayers = 0;
         }
 
-        private void Player_OnPlayerDead(bool isAlive)
+        public void Player_OnPlayerDead(bool isAlive)
         {
+            Debug.Log("Player_OnPlayerDead " + LivingPlayers);
             LivingPlayers--;
 
             if (isAlive)
@@ -80,17 +81,9 @@ namespace DiningCombat.Manger
 
             if (isGameOver)
             {
+                Debug.Log("isGameOver ");
                 GameOverOccured?.Invoke();
             }
         }
-        //public List<Vector3> GetPlayerPos()
-        //{
-        //    GameObject[] players = GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player);
-
-        //    List<Vector3> positions = players.Select(player => player.transform.position).ToList();
-
-        //    return positions;
-        //}
     }
-
 }

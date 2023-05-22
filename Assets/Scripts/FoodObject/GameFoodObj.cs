@@ -111,7 +111,7 @@ namespace DiningCombat.FoodObject
         public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
         {
             Debug.Log("ThrowingAction i_PowerAmount " + i_PowerAmount + " Direction : " + i_Direction);
-            
+
             if (CurrentState.IsThrowingAction())
             {
                 Index = ThrownState.k_Indx;

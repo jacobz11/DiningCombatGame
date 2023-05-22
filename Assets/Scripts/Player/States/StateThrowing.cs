@@ -45,9 +45,9 @@ namespace DiningCombat.Player.States
             return true;
         }
 
-        public void powering_OnStopPowering(float obj)
+        public void Powering_OnStopPowering(float i_NewPowerMull)
         {
-            m_PowerMull = obj;
+            m_PowerMull = i_NewPowerMull;
         }
         #endregion
     }
