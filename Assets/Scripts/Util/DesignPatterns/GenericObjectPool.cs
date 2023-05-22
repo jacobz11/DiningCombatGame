@@ -25,8 +25,6 @@ namespace DiningCombat.Util.DesignPatterns
         public T Get()
         {
             string key = RandomFromArray.GetRandomKey<string, T>(m_PrefabList.m_PrefabDictionary);
-
-            Debug.Log("key: "+ key);
             return Get(key);
         }
 

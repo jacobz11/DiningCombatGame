@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Util

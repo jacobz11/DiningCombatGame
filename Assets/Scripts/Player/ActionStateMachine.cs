@@ -51,7 +51,7 @@ namespace DiningCombat.Player
             StateThrowing throwing = new StateThrowing();
 
             powering.OnStopPowering += Powering_OnStopPowering;
-            powering.OnStopPowering += throwing.powering_OnStopPowering;
+            powering.OnStopPowering += throwing.Powering_OnStopPowering;
             holdsing.OnStartCharging += Holdsing_OnStartCharging;
 
             m_Stats = new IStatePlayerHand[]

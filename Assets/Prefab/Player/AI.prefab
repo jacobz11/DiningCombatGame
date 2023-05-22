@@ -1034,7 +1034,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de3fe6daf42d2d4fadaf3028b8c2c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PicUpPoint: {fileID: 1949516421212491733}
+  m_PlayerScore: {fileID: 0}
+  m_PickUpPoint: {fileID: 1949516421212491733}
   m_Powering:
     MaxPower: 3000
     DataTimeAddingPower: 1400
@@ -1051,9 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6f63af558201b4e9c13396a1b6e441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Ground:
-    serializedVersion: 2
-    m_Bits: 64
+  m_PlayerMovmentDataSO: {fileID: 11400000, guid: f6a81e4ec3287e24bb3418854ccb8b92, type: 2}
 --- !u!114 &1765360059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,9 +1065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fadb19c163b3d4db6aaf8ec98fabaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 0}
-  m_PickUpPoint: {fileID: 0}
-  isAi: 1
+  m_GameInput: {fileID: 0}
+  m_PickUpPoint: {fileID: 1949516421212491733}
 --- !u!114 &1765360066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,6 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bad260ae35e8e479ad96cb359596a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LifePoint: 100
   m_LifePointsVisual:
   - {fileID: 2036549577}
   m_IsAi: 0
