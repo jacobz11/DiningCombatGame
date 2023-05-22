@@ -2,14 +2,13 @@
 using DiningCombat.Util.DesignPatterns;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Netcode;
 using UnityEngine;
 
 namespace DiningCombat.Manger
 {
     //TODO : arrange the code
     //TODO : Delete what you don't need
-    public class GameManger : Singleton<GameManger> 
+    public class GameManger : Singleton<GameManger>
     {
         [SerializeField]
         private GameObject m_AiPrifab;
