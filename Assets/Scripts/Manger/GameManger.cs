@@ -18,19 +18,20 @@ namespace DiningCombat.Manger
         private NetworkBtnStrting m_NetworkBtn;
         [SerializeField]
         private GameStrting m_GameStrting;
-        private GameOverLogic m_GameOverLogic;
 
-        public static GameManger Instance { get; private set; }
+        //public static GameManger Instance { get; private set; }
+        public GameOverLogic GameOverLogic { get; private set; }
         public int Cuntter { get; private set; }
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance is not null)
-            {
-                Destroy(this);
-                return;
-            }
-            Instance = this;
-            m_GameOverLogic = gameObject.GetComponent<GameOverLogic>();
+            //if (Instance is not null)
+            //{
+            //    Destroy(this);
+            //    return;
+            //}
+            //Instance = this;
+            base.Awake();
+            GameOverLogic = gameObject.GetComponent<GameOverLogic>();
             Cuntter = 0;
         }
 

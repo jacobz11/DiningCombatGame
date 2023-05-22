@@ -1079,6 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bad260ae35e8e479ad96cb359596a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LifePoint: 100
   m_LifePointsVisual:
   - {fileID: 2036549577}
   m_IsAi: 0
