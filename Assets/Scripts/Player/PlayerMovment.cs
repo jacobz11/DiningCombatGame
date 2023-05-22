@@ -89,10 +89,6 @@ namespace DiningCombat.Player
             if (networkObj.IsSpawned && !networkObj.IsOwnedByServer)
             {
             }
-            if (IsHost)
-            {
-                m.material = m_Material;
-            }
         }
 
         public void Update()
