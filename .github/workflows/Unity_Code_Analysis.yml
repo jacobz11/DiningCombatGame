@@ -1,0 +1,78 @@
+name: Unity C# Code Analysis
+
+on:
+  push:
+    branches: [master-better, main ]
+    paths:
+      - 'Assets/Util/**'
+      - 'Assets/Scenes/**'
+      - 'Assets/Scripts/**'
+      - 'Assets/Prefab/**'
+      - 'Assets/DataObject/**'
+
+jobs:
+  unity-build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+
+    - name: Install StyleCop.Analyzers
+      run: dotnet tool install -g StyleCop.Analyzers
+
+    - name: Install Unity Editor
+      uses: game-ci/unity-actions@v2
+      with:
+        version: ${{ env.UNITY_VERSION }}
+        modules: ${{ env.UNITY_MODULES }}
+        editmode: true
+        downloadWindows: ${{ matrix.os == 'windows-latest' }}
+
+    - name: Run Code Analysis
+      run: |
+        find Assets -name "*.cs" -print0 |
+        xargs -0 dotnet analyze --verbosity normal --no-build --configuration Release /p:TreatWarningsAsErrors=true /p:ReportAnalyzer=true /p:RuleSet=StyleCop.ruleset > results.txt || true
+
+    - name: Check Spelling Errors
+      uses: MikeKovarik/git-check-spelling@v1.1
+      with:
+        paths: |
+          Assets/
+        ignore: |
+          *.jpg,*.jpeg,*.gif,*.png,*.svg,*.ttf,*.otf,*.meta,*.dll,*.pdb,*.unitypackage
+
+    - name: Parse Analysis Results
+      id: parse-analysis-results
+      run: |
+        cat results.txt |
+        grep -E '^([^:]+\.cs)\(([0-9]+),([0-9]+)\):\s+(error|warning)\s+(.+\..+):\s+(.*)$' |
+        awk -F':' '{ print $1 " " $2 " " $3 " " $4 " " $5 " " $6 }' > analysis-results.txt
+
+    - name: Parse Spelling Check Results
+      id: parse-spelling-check-results
+      run: |
+        cat spell-check-results.txt |
+        grep -E '^([^:]+)\s+\[(.+):([0-9]+)\]\s+→\s+(.+)$' |
+        awk -F'\\[' '{ print $1 " " $2 }' > spelling-results.txt
+
+    - name: Fail if Analysis Results
+      if: steps.parse-analysis-results.outputs.stdout != ''
+      run: |
+        echo "Code Analysis Results:"
+        cat analysis-results.txt
+        exit 1
+
+    - name: Fail if Spelling Check Results
+      if: steps.parse-spelling-check-results.outputs.stdout != ''
+      run: |
+        echo "Spelling Check Results:"
+        cat spelling-results.txt
+        exit 1
