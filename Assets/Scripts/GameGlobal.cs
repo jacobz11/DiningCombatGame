@@ -20,6 +20,7 @@
             public const string k_Environment = "environment";
             public const string k_Water = "water";
             public const string k_DontDestroyOnLoad = "DontDestroyOnLoad";
+            public const string k_Hide = "hide";
         }
 
         public static class AnimationName

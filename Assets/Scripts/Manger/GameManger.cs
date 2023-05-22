@@ -1,12 +1,14 @@
-﻿using DiningCombat;
+﻿using DiningCombat.Environment;
+using DiningCombat.Util.DesignPatterns;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Netcode;
 using UnityEngine;
 
-namespace Assets.Scripts.Manger
+namespace DiningCombat.Manger
 {
-    internal class GameManger : NetworkBehaviour
+    //TODO : arrange the code
+    //TODO : Delete what you don't need
+    public class GameManger : Singleton<GameManger>
     {
         [SerializeField]
         private GameObject m_AiPrifab;
@@ -16,19 +18,20 @@ namespace Assets.Scripts.Manger
         private NetworkBtnStrting m_NetworkBtn;
         [SerializeField]
         private GameStrting m_GameStrting;
-        private GameOverLogic m_GameOverLogic;
 
-        public static GameManger Instance { get; private set; }
+        //public static GameManger Instance { get; private set; }
+        public GameOverLogic GameOverLogic { get; private set; }
         public int Cuntter { get; private set; }
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance is not null)
-            {
-                Destroy(this);
-                return;
-            }
-            Instance = this;
-            m_GameOverLogic = gameObject.GetComponent<GameOverLogic>();
+            //if (Instance is not null)
+            //{
+            //    Destroy(this);
+            //    return;
+            //}
+            //Instance = this;
+            base.Awake();
+            GameOverLogic = gameObject.GetComponent<GameOverLogic>();
             Cuntter = 0;
         }
 
@@ -86,7 +89,7 @@ namespace Assets.Scripts.Manger
             cam.targetDisplay = Cuntter++;
         }
 
-        internal int GetTargetDisplay()
+        public int GetTargetDisplay()
         {
             int targetDisplay = Cuntter;
             Cuntter++;

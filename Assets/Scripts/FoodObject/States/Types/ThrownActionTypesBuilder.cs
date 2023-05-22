@@ -1,7 +1,8 @@
-﻿using System;
+﻿using DiningCombat.FoodObject;
+using System;
 using UnityEngine;
 
-namespace Assets.DataObject
+namespace DiningCombat.DataObject
 {
     /// <summary>
     /// Change only on Prifab - On Run time A change will do nothing
@@ -9,7 +10,8 @@ namespace Assets.DataObject
     /// not all fields are relevant for each of the types
     /// </summary>
     [Serializable]
-    internal struct ThrownActionTypesBuilder
+    // TODO Replace the class to scriptable objects
+    public struct ThrownActionTypesBuilder
     {
 
         // Summary:
@@ -49,7 +51,7 @@ namespace Assets.DataObject
             //      Element-Special-By-Name : required
             Mine
         }
-        internal enum eElementSpecialByName
+        public enum eElementSpecialByName
         {
             None,
             // SmokeGrenade
@@ -144,7 +146,7 @@ namespace Assets.DataObject
             return new ThrownState(this);
         }
 
-        internal Type GetBuildType()
+        public Type GetBuildType()
         {
             switch (m_Type)
             {

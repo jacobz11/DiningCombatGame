@@ -3,20 +3,15 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Assets.scrips
+namespace DiningCombat
 {
-    internal class GameInput : NetworkBehaviour
+    public class GameInput : NetworkBehaviour
     {
-        //public static GameInput Instance { get; private set; }
-
         public event EventHandler OnStartChargingAction;
         public event EventHandler OnStopChargingAction;
         public event EventHandler OnPickUpAction;
         public event EventHandler OnJumpAction;
         public event EventHandler OnBostRunnigAction;
-
-        //public event EventHandler OnPauseAction;
-        //public event EventHandler OnBindingRebind;
 
         public enum Binding
         {

@@ -1,13 +1,16 @@
-﻿using DesignPatterns.Abstraction;
+﻿using DiningCombat.FoodObject;
+using DiningCombat.Util.DesignPatterns;
 using UnityEngine;
-
-internal interface IStatePlayerHand : IDCState
+namespace DiningCombat.Player.States
 {
-    void Update();
-    void ExitCollisionFoodObj(Collider other);
-    void EnterCollisionFoodObj(Collider other);
-    bool OnPickUpAction(out GameFoodObj o_Collcted);
-    bool OnThrowPoint(out float o_Force);
+    public interface IStatePlayerHand : IDCState
+    {
+        void Update();
+        void ExitCollisionFoodObj(Collider other);
+        void EnterCollisionFoodObj(Collider other);
+        bool OnPickUpAction(out GameFoodObj o_Collcted);
+        bool OnThrowPoint(out float o_Force);
 
-    bool OnChargingAction { get; set; }
+        bool OnChargingAction { get; set; }
+    }
 }

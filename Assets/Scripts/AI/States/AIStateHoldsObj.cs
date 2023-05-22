@@ -1,27 +1,27 @@
-﻿using Assets.scrips.Player.States;
-using Assets.Scripts.Manger;
+﻿using DiningCombat.Manger;
+using DiningCombat.Player.States;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.AI.States
+namespace DiningCombat.AI.States
 {
-    internal class AIStateHoldsObj : StateHoldsObj
+    public class AIStateHoldsObj : StateHoldsObj
     {
         private const float k_UpdateRate = 3;
         private const float k_MinDistance = 30;
 
         private float m_Timer;
 
-        private NavMeshAgent m_Agent;
-        private AIAcitonStateMachine m_AIAcitonState;
+        private readonly NavMeshAgent r_Agent;
+        private readonly AIAcitonStateMachine r_AIAcitonState;
         private Vector3 m_Target;
-        private Vector3 Position => m_Agent.transform.position;
+        private Vector3 Position => r_Agent.transform.position;
 
         public AIStateHoldsObj(NavMeshAgent i_Agent, AIAcitonStateMachine aIAcitonState) : base()
         {
-            this.m_Agent = i_Agent;
-            m_AIAcitonState = aIAcitonState;
+            this.r_Agent = i_Agent;
+            r_AIAcitonState = aIAcitonState;
         }
 
         public override void OnStateEnter()
@@ -33,8 +33,8 @@ namespace Assets.Scripts.AI.States
         private void FindPlayerClosest()
         {
             m_Timer = 0;
-            m_Target = GameManger.Instance.GetPlayerPos(m_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
-            m_Agent.SetDestination(m_Target);
+            m_Target = GameManger.Instance.GetPlayerPos(r_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
+            _ = r_Agent.SetDestination(m_Target);
         }
 
         public override void Update()
@@ -46,7 +46,7 @@ namespace Assets.Scripts.AI.States
             }
             if (Vector3.Distance(m_Target, Position) < k_MinDistance)
             {
-                m_AIAcitonState.GameInput_OnStartChargingAction(this, System.EventArgs.Empty);
+                r_AIAcitonState.GameInput_OnStartChargingAction(this, System.EventArgs.Empty);
             }
         }
     }

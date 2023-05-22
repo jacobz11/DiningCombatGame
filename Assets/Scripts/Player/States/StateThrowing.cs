@@ -1,10 +1,10 @@
-﻿namespace Assets.scrips.Player.States
+﻿using DiningCombat.FoodObject;
+using DiningCombat.Util.DesignPatterns;
+using System;
+using UnityEngine;
+namespace DiningCombat.Player.States
 {
-    using DesignPatterns.Abstraction;
-    using System;
-    using UnityEngine;
-
-    internal class StateThrowing : IStatePlayerHand
+    public class StateThrowing : IStatePlayerHand
     {
         public const int k_Indx = 3;
         public event Action<bool> Throw;
@@ -45,9 +45,9 @@
             return true;
         }
 
-        internal void powering_OnStopPowering(float obj)
+        public void Powering_OnStopPowering(float i_NewPowerMull)
         {
-            m_PowerMull = obj;
+            m_PowerMull = i_NewPowerMull;
         }
         #endregion
     }

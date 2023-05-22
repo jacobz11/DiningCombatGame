@@ -1,19 +1,21 @@
 ﻿using TMPro;
 using UnityEngine;
-
-internal class PlayerScoreVisel : MonoBehaviour
+namespace DiningCombat.UI
 {
-    [SerializeField]
-    private TextMeshProUGUI m_Score;
-    [SerializeField]
-    private TextMeshProUGUI m_Kills;
-    internal void UpdeteValueKills(int i_Kills)
+    public class PlayerScoreVisel : MonoBehaviour
     {
-        m_Kills.text = string.Format("Kills : {0}", m_Kills);
-    }
+        [SerializeField]
+        private TextMeshProUGUI m_Score;
+        [SerializeField]
+        private TextMeshProUGUI m_Kills;
+        public void UpdeteValueKills(int i_Kills)
+        {
+            m_Kills.text = string.Format("Kills : {0}", m_Kills);
+        }
 
-    internal void UpdeteValueScore(float i_ScorePoint)
-    {
-        m_Score.text = string.Format("Kills : {0}", i_ScorePoint);
+        public void UpdeteValueScore(float i_ScorePoint)
+        {
+            m_Score.text = string.Format("Kills : {0}", i_ScorePoint);
+        }
     }
 }

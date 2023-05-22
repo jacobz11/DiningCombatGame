@@ -1,14 +1,16 @@
-﻿using Assets.scrips.Player.Data;
-using Assets.scrips.Player.States;
-using Assets.Scripts.Manger;
+﻿using DiningCombat.Manger;
+using DiningCombat.Player;
+using DiningCombat.Player.Data;
+using DiningCombat.Player.States;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.AI.States
+namespace DiningCombat.AI.States
 {
-    internal class AIStatePowering : StatePowering
+    public class AIStatePowering : StatePowering
     {
+        // TODO make this to scriptbul 
         private const bool k_StopPowering = false;
         private const float k_PoweringTime = 3.0f;
         private const float k_UpdateRate = 1.5f;

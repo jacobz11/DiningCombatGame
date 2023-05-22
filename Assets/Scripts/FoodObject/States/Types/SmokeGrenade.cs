@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using DiningCombat.DataObject;
+using UnityEngine;
 
-namespace Assets.DataObject
+namespace DiningCombat.FoodObject
 {
-    internal class SmokeGrenade : GrenadeLike
+    public class SmokeGrenade : GrenadeLike
     {
         public override float CalculatorDamag() => 0f;
         public SmokeGrenade(ThrownActionTypesBuilder i_BuilderData)

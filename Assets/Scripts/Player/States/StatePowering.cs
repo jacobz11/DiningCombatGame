@@ -1,10 +1,12 @@
-﻿using Assets.scrips.Player.Data;
-using DesignPatterns.Abstraction;
+﻿using DiningCombat.FoodObject;
+using DiningCombat.Player.Data;
+using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
-namespace Assets.scrips.Player.States
+
+namespace DiningCombat.Player.States
 {
-    internal class StatePowering : IStatePlayerHand
+    public class StatePowering : IStatePlayerHand
     {
         public class OnStopPoweringEventArg
         {

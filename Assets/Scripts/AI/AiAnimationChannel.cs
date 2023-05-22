@@ -1,12 +1,13 @@
-﻿using Unity.Netcode;
+﻿using DiningCombat.Player;
+using Unity.Netcode;
 using UnityEngine;
 
-namespace Assets.Scripts.AI
+namespace DiningCombat.AI
 {
-    internal class AiAnimationChannel : NetworkBehaviour
+    public class AiAnimationChannel : NetworkBehaviour
     {
-        public LayerMask m_Ground;
-
+        [SerializeField]
+        private PlayerMovmentDataSO m_PlayerMovmentDataSO;
         private bool m_IsRunnig;
         private bool m_IsRunnigBack;
 
@@ -22,7 +23,6 @@ namespace Assets.Scripts.AI
                 if (value ^ m_IsRunnig)
                 {
                     m_IsRunnig = value;
-                    //m_Channel.SetPlayerAnimationToRun(m_IsRunnig);
                 }
             }
         }
@@ -34,8 +34,6 @@ namespace Assets.Scripts.AI
                 if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
-
-                    //m_Channel.SetPlayerAnimationToRunBack(m_IsRunnig);
                 }
             }
         }
@@ -65,12 +63,11 @@ namespace Assets.Scripts.AI
                 IsRunnig = false;
                 IsRunnigBack = false;
             }
-
         }
         private void UpdateIsGrounded()
         {
             float distToGround = 3f;
-            IsGrounded = !Physics.Raycast(Position, -Vector3.up, (float)(distToGround + 0.1), m_Ground, QueryTriggerInteraction.UseGlobal);
+            IsGrounded = !Physics.Raycast(Position, -Vector3.up, (float)(distToGround + 0.1), m_PlayerMovmentDataSO.m_Ground, QueryTriggerInteraction.UseGlobal);
         }
     }
 }

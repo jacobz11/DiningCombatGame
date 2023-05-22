@@ -1,30 +1,38 @@
-﻿using System;
+﻿using DiningCombat.Manger;
+using DiningCombat.Util;
+using System;
 using System.Collections;
 using UnityEngine;
 
-public abstract class IPackage : MonoBehaviour
+namespace DiningCombat.Environment
 {
-    [SerializeField]
-    private ParticleSystem m_ParticleSystemPreFap;
-    [SerializeField]
-    [Range(0f, 1000f)]
-    private float m_Amont;
-    [SerializeField]
-    private GameObject m_Visale;
-    private float m_WitingAmont;
-
-    public float Amont => m_Amont;
-
-    protected virtual void ReturnToPool()
+    public abstract class IPackage : MonoBehaviour, IDictionaryObject
     {
-        m_Visale.SetActive(false);
-        Instantiate(m_ParticleSystemPreFap, transform).Play();
-        StartCoroutine(ReturnToPoolInNS());
-    }
+        [SerializeField]
+        private ParticleSystem m_ParticleSystemPreFap;
+        // TODO macke a scitptabul obj
+        [SerializeField]
+        [Range(0f, 1000f)]
+        private float m_Amont;
+        [SerializeField]
+        private GameObject m_Visale;
+        protected float m_WitingAmont;
+        private string m_NameKey;
+        public float Amont => m_Amont;
 
-    private IEnumerator ReturnToPoolInNS()
-    {
-        yield return new WaitForSeconds(m_WitingAmont);
-        ManagerGamePackage.Instance.ReturnToPool(this);
+        public string NameKey { get => m_NameKey; set => m_NameKey = value; }
+
+        protected virtual void ReturnToPool()
+        {
+            m_Visale.SetActive(false);
+            Instantiate(m_ParticleSystemPreFap, transform).Play();
+            _ = StartCoroutine(ReturnToPoolInNS());
+        }
+
+        private IEnumerator ReturnToPoolInNS()
+        {
+            yield return new WaitForSeconds(m_WitingAmont);
+            ManagerGamePackage.Instance.ReturnToPool(this);
+        }
     }
 }

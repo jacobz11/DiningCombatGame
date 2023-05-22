@@ -1,9 +1,8 @@
-namespace Assets.scrips.UI
+using UnityEngine;
+using UnityEngine.UI;
+namespace DiningCombat.UI
 {
-    using UnityEngine;
-    using UnityEngine.UI;
-
-    internal class PoweringVisual : MonoBehaviour
+    public class PoweringVisual : MonoBehaviour
     {
         public static PoweringVisual Instance { get; private set; }
 
@@ -16,10 +15,7 @@ namespace Assets.scrips.UI
 
         private void Awake()
         {
-            if (Instance is null)
-            {
-                Instance = this;
-            }
+            Instance ??= this;
         }
 
         public PoweringVisual GetPoweringVisual()

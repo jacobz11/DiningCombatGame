@@ -1,45 +1,47 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class PauseMenu : MonoBehaviour
+namespace DiningCombat.UI
 {
-    public static bool GameIsPaused = false;
-    public GameObject PauseMenuUI;
-
-    // Update is called once per frame
-    private void Update()
+    public class PauseMenu : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public static bool GameIsPaused = false;
+        public GameObject PauseMenuUI;
+
+        // Update is called once per frame
+        private void Update()
         {
-            if (GameIsPaused)
-                Resume();
-            else
-                Pause();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (GameIsPaused)
+                    Resume();
+                else
+                    Pause();
+            }
         }
-    }
 
-    public void Resume()
-    {
-        PauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
-    }
+        public void Resume()
+        {
+            PauseMenuUI.SetActive(false);
+            Time.timeScale = 1f;
+            GameIsPaused = false;
+        }
 
-    public void Pause()
-    {
-        PauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-    }
+        public void Pause()
+        {
+            PauseMenuUI.SetActive(true);
+            Time.timeScale = 0f;
+            GameIsPaused = true;
+        }
 
-    public void LoadMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Menu");
-    }
-    public void QuitGame()
-    {
-        Debug.Log("quitting");
-        Application.Quit();
+        public void LoadMenu()
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Menu");
+        }
+        public void QuitGame()
+        {
+            Debug.Log("quitting");
+            Application.Quit();
+        }
     }
 }

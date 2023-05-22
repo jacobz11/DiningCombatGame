@@ -1,13 +1,18 @@
+using DiningCombat.Environment;
 using UnityEngine;
 
-public class LifePackage : IPackage
+namespace DiningCombat.Player
 {
-    private void OnTriggerEnter(Collider other)
+    public class LifePackage : IPackage
     {
-        if (other.gameObject.TryGetComponent<PlayerLifePoint>(out PlayerLifePoint o_PlayerLife))
+        private void OnTriggerEnter(Collider other)
         {
-            o_PlayerLife.Healed(this);
-            ReturnToPool();
+            if (other.gameObject.TryGetComponent<PlayerLifePoint>(out PlayerLifePoint o_PlayerLife))
+            {
+                o_PlayerLife.Healed(this);
+                ReturnToPool();
+            }
         }
     }
+
 }

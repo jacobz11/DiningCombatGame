@@ -1,92 +1,113 @@
-﻿using System;
+﻿using DiningCombat.Manger;
+using DiningCombat.UI;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlayerLifePoint : MonoBehaviour
+namespace DiningCombat.Player
 {
-    public event Action OnPlayerDead;
-    private const float k_StrtingLifePoint = 100f;
-
-    private float m_LifePoint;
-    [SerializeField]
-    private List<LifePointsVisual> m_LifePointsVisual;
-    [SerializeField]
-    private bool m_IsAi;
-    public bool IsAi { get => m_IsAi; internal set => m_IsAi = value; }
-
-    private void Awake()
+    public class PlayerLifePoint : MonoBehaviour
     {
-        m_LifePoint = k_StrtingLifePoint;
-    }
+        public event Action OnPlayerDead;
+        private const float k_StrtingLifePoint = 100f;
 
-    private void Start()
-    {
-        GameOverLogic.Instance.CharacterEntersTheGame(this);
-        PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+        [SerializeField]
+        private float m_LifePoint;
+        [SerializeField]
+        private List<LifePointsVisual> m_LifePointsVisual;
+        [SerializeField]
+        private bool m_IsAi;
+        private bool m_IsAlive;
 
-        if (animationChannel is null)
+        // TODO : is this set need to be public
+        public bool IsAi { get => m_IsAi; set => m_IsAi = value; }
+
+        private void Awake()
         {
-            Debug.Log("animationChannel is null");
-        }
-        else
-        {
-            // TODO: 
-            // OnPlayerDead +=  animationChannel.OnPlayerDead;
-            // OnPlayerDead += () => animationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames, true)
-
-        }
-    }
-
-    internal void OnHitPlayer(float hitPoint, out bool o_IsKiil)
-    {
-        if (hitPoint < 0)
-        {
-            o_IsKiil = false;
-            return;
+            m_LifePoint = k_StrtingLifePoint;
+            m_IsAlive = true;
         }
 
-        m_LifePoint -= hitPoint;
-        o_IsKiil = m_LifePoint <= 0;
-        if (o_IsKiil)
+        private void Start()
         {
+            GameOverLogic.Instance.CharacterEntersTheGame(this);
+            PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
+            if (animationChannel is null)
+            {
+                Debug.Log("animationChannel is null");
+            }
+            else
+            {
+                // TODO: 
+                // OnPlayerDead +=  animationChannel.OnPlayerDead;
+                //OnPlayerDead += () => animationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames., true);
+            }
+        }
+
+        private void PlayerLifePoint_OnPlayerDead()
+        {
+            if (!m_IsAlive)
+            {
+                return;
+            }
+
+            m_IsAlive = false;
+            GameManger.Instance.GameOverLogic.Player_OnPlayerDead(IsAi);
             OnPlayerDead?.Invoke();
         }
 
-        float normalizHp = hitPoint / k_StrtingLifePoint;
-        m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
-    }
-
-    public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)
-    {
-        Debug.Assert(i_Damage >= 0, "TryToDamagePlayer : i_Damage is nagtive");
-        bool isPlayer = i_GameObject.gameObject.TryGetComponent<PlayerLifePoint>(out PlayerLifePoint o_PlayerLife);
-
-        if (isPlayer)
+        public void OnHitPlayer(float i_HitPoint, out bool o_IsKiil)
         {
-            o_PlayerLife.OnHitPlayer(i_Damage, out o_IsKill);
+            if (i_HitPoint < 0)
+            {
+                o_IsKiil = false;
+                return;
+            }
+
+            m_LifePoint -= i_HitPoint;
+            o_IsKiil = m_LifePoint <= 0;
+            if (o_IsKiil)
+            {
+                Debug.Log("o_IsKiil : " + o_IsKiil);
+                PlayerLifePoint_OnPlayerDead();
+            }
+
+            float normalizHp = m_LifePoint / k_StrtingLifePoint;
+            m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
         }
-        else
+
+        public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)
         {
-            o_IsKill = false;
+            Debug.Assert(i_Damage >= 0, "TryToDamagePlayer : i_Damage is nagtive");
+            bool isPlayer = i_GameObject.gameObject.TryGetComponent<PlayerLifePoint>(out PlayerLifePoint o_PlayerLife);
+
+            if (isPlayer)
+            {
+                o_PlayerLife.OnHitPlayer(i_Damage, out o_IsKill);
+            }
+            else
+            {
+                o_IsKill = false;
+            }
+
+            return isPlayer;
         }
 
-        return isPlayer;
-    }
-
-    internal void AddLifePointsVisual(LifePointsVisual i_LifePointsVisual)
-    {
-        m_LifePointsVisual.Add(i_LifePointsVisual);
-    }
-
-    internal void Healed(LifePackage lifePackage)
-    {
-        if (lifePackage.Amont < 0)
+        public void AddLifePointsVisual(LifePointsVisual i_LifePointsVisual)
         {
-            return;
+            m_LifePointsVisual.Add(i_LifePointsVisual);
         }
-        m_LifePoint = Math.Max(m_LifePoint + lifePackage.Amont, k_StrtingLifePoint);
 
-        float normalizHp = m_LifePoint / k_StrtingLifePoint;
-        m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
+        public void Healed(LifePackage i_LifePackage)
+        {
+            if (i_LifePackage.Amont < 0)
+            {
+                return;
+            }
+
+            m_LifePoint = Math.Max(m_LifePoint + i_LifePackage.Amont, k_StrtingLifePoint);
+
+            float normalizHp = m_LifePoint / k_StrtingLifePoint;
+            m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
+        }
     }
 }

@@ -1,6 +1,7 @@
-﻿using Assets.Util.DesignPatterns;
-namespace Assets.Scripts.Environment
+﻿using DiningCombat.Util.DesignPatterns;
+
+namespace DiningCombat.Environment
 {
-    internal class EggPool : GenericObjectPool<Egg>
+    public class EggPool : GenericObjectPool<Egg>
     { /* Not-Implemented */}
 }

@@ -1,11 +1,15 @@
-﻿using DesignPatterns.Abstraction;
-
-internal interface IFoodState : IDCState
+﻿using DiningCombat.Player;
+using DiningCombat.Util.DesignPatterns;
+// TODO : Move it to the interfaces folder
+namespace DiningCombat.FoodObject
 {
-    string TagState { get; }
+    public interface IFoodState : IDCState
+    {
+        string TagState { get; }
 
-    bool IsThrowingAction();
+        bool IsThrowingAction();
 
-    bool TryCollect(ActionStateMachine i_Collcter);
-    void Update();
+        bool TryCollect(ActionStateMachine i_Collcter);
+        void Update();
+    }
 }

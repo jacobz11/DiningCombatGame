@@ -1,13 +1,17 @@
+using DiningCombat.Player;
 using UnityEngine;
 
-public class CoinsPackage : IPackage
+namespace DiningCombat.Environment
 {
-    private void OnTriggerEnter(Collider other)
+    public class CoinsPackage : IPackage
     {
-        if (other.gameObject.TryGetComponent<PlayerCoins>(out PlayerCoins o_PlayerCoins))
+        private void OnTriggerEnter(Collider other)
         {
-            o_PlayerCoins.AddCoins(this);
-            ReturnToPool();
+            if (other.gameObject.TryGetComponent<PlayerCoins>(out PlayerCoins o_PlayerCoins))
+            {
+                o_PlayerCoins.AddCoins(this);
+                ReturnToPool();
+            }
         }
     }
 }

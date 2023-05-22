@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using static Assets.DataObject.ThrownActionTypesBuilder;
+using static DiningCombat.DataObject.ThrownActionTypesBuilder;
 
-namespace Assets.Scripts.FoodObject.Pools
+namespace DiningCombat.FoodObject
 {
-    internal class FoodEffactPool : NetworkBehaviour
+    // TODO Replace the class that inherited the new method that works in the scriptable objects
+    public class FoodEffactPool : NetworkBehaviour
     {
         [SerializeField]
         private GameObject m_ObjectLayer;

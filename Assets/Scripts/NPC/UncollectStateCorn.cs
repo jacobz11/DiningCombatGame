@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DiningCombat.Environment;
+using DiningCombat.FoodObject;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
-
-namespace Assets.Scripts.NPC
+namespace DiningCombat.NPC
 {
-    internal class UncollectStateCorn : UncollectState
+    public class UncollectStateCorn : UncollectState
     {
         private const float k_CountdownInitial = 65f;
 

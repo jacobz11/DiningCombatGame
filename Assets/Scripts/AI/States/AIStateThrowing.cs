@@ -1,31 +1,31 @@
-﻿using Assets.scrips.Player.States;
-using Assets.Scripts.Manger;
+﻿using DiningCombat.Manger;
+using DiningCombat.Player.States;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.AI.States
+namespace DiningCombat.AI.States
 {
-    internal class AIStateThrowing : StateThrowing
+    public class AIStateThrowing : StateThrowing
     {
         private const float k_Speed = 5;
 
         private Vector3 m_Target;
 
-        private NavMeshAgent m_Agent;
+        private readonly NavMeshAgent r_Agent;
 
         public AIStateThrowing(NavMeshAgent i_Agent) : base()
         {
-            m_Agent = i_Agent;
+            r_Agent = i_Agent;
         }
 
         private void FindPlayerClosest()
         {
-            Transform transform = m_Agent.transform;
+            Transform transform = r_Agent.transform;
             Vector3 pos = transform.position;
 
             m_Target = GameManger.Instance.GetPlayerPos(transform).OrderBy(v => Vector3.Distance(pos, v)).FirstOrDefault();
-            m_Agent.SetDestination(m_Target);
+            _ = r_Agent.SetDestination(m_Target);
 
             Vector3 lTargetDir = m_Target - transform.position;
             lTargetDir.y = 0.0f;

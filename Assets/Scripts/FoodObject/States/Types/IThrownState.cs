@@ -1,12 +1,13 @@
-﻿using Assets.Util;
-using DesignPatterns.Abstraction;
-using DiningCombat;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Player;
+using DiningCombat.Util;
+using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
 
-namespace Assets.DataObject
+namespace DiningCombat.FoodObject
 {
-    internal abstract class IThrownState : IFoodState, IDamaging
+    public abstract class IThrownState : IFoodState, IDamaging
     {
         public class HitPointEventArgs : EventArgs
         {
@@ -28,7 +29,7 @@ namespace Assets.DataObject
         public bool TryCollect(ActionStateMachine i_Collcter) => false;
         protected virtual void ReturnToPool() => OnReturnToPool?.Invoke();
         public virtual float CalculatorDamag() => Vector2AsRang.Clamp(m_Rigidbody.velocity.magnitude, RangeDamage);
-        internal void SendOnHit(HitPointEventArgs hitPointEventArgs) => OnHit?.Invoke(hitPointEventArgs);
+        public void SendOnHit(HitPointEventArgs hitPointEventArgs) => OnHit?.Invoke(hitPointEventArgs);
 
         public IThrownState(ThrownActionTypesBuilder i_Data)
         {
@@ -56,7 +57,7 @@ namespace Assets.DataObject
 
         public virtual void OnStateEnter()
         {
-            IRagdoll.EnableRagdoll(m_Rigidbody);
+            Ragdoll.EnableRagdoll(m_Rigidbody);
             ActionDirection = Vector3.zero;
             Activator = null;
         }
@@ -70,19 +71,6 @@ namespace Assets.DataObject
                     break;
             }
         }
-        #region Ragdol
-        //public void DisableRagdoll()
-        //{
-        //    m_Rigidbody.isKinematic = true;
-        //    m_Rigidbody.detectCollisions = false;
-        //}
-
-        //public void EnableRagdoll()
-        //{
-        //    m_Rigidbody.isKinematic = false;
-        //    m_Rigidbody.detectCollisions = true;
-        //}
-        #endregion
         #region Activation 
         public virtual void Activation(Collision collision)
         {

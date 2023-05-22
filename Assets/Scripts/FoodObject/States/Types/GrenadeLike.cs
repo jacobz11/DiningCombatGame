@@ -1,12 +1,13 @@
-﻿using Assets.Scripts.FoodObject.Pools;
-using Assets.Util;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Player;
+using DiningCombat.Util;
 using UnityEngine;
 
-using static Assets.DataObject.ThrownActionTypesBuilder;
+using static DiningCombat.DataObject.ThrownActionTypesBuilder;
 
-namespace Assets.DataObject
+namespace DiningCombat.FoodObject
 {
-    internal class GrenadeLike : IThrownState
+    public class GrenadeLike : IThrownState
     {
         private readonly float r_ForceHitExsplostin;
         private readonly float r_Radius;
@@ -14,6 +15,7 @@ namespace Assets.DataObject
         protected readonly float r_CountdownTime;
         protected readonly float r_EffectTime;
 
+        private bool m_IsThrown;
         protected float m_Countdown;
 
         protected eElementSpecialByName m_EffectType;
@@ -37,6 +39,7 @@ namespace Assets.DataObject
             base.OnStateEnter();
             m_Rigidbody.AddForce(ActionDirection);
             m_Countdown = r_CountdownTime;
+            m_IsThrown = false;
         }
 
         public override void OnStateExit()
@@ -44,6 +47,12 @@ namespace Assets.DataObject
 
         public override void Update()
         {
+            if (!m_IsThrown)
+            {
+                m_Rigidbody.AddForce(ActionDirection);
+                m_IsThrown = true;
+            }
+
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
             if (isCountdownOver)
@@ -107,56 +116,3 @@ namespace Assets.DataObject
         }
     }
 }
-/*
- *    private const float k_TimeOFExplod = 1.5f;
-    private float m_Timr = 2;
-    private float m_Radius;
-    private float m_CountDown;
-    [SerializeField]
-    private GameObject m_ExplodPartical;
-    [SerializeField]
-    private float m_ForceHitExsplostin = 200;
-    [SerializeField]
-    private float damage;
-
-    public bool HasExploded { get; private set; }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_CountDown = m_Timr;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        m_CountDown -= Time.deltaTime;
-        if (m_CountDown <= 0 && !HasExploded)
-        {
-            Explod();
-        }
-    }
-
-    private void Explod()
-    {
-        GameObject Explod = Instantiate(m_ExplodPartical, transform.position, transform.rotation);
-        HasExploded = true;
-        float ponits = 0;
-        int kills = 0;
-        foreach (Collider nearByObj in Physics.OverlapSphere(transform.position, m_Radius))
-        {
-            if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
-            {
-                o_Rb.AddExplosionForce(m_ForceHitExsplostin, transform.position, m_Radius);
-            }
-            if (PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool o_IsKill))
-            {
-                ponits += damage;
-                kills += o_IsKill ? 1 : 0;
-            }
-        }
-
-        Destroy(Explod, k_TimeOFExplod);
-    }
- * 
- */

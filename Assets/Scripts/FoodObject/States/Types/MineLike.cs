@@ -1,10 +1,12 @@
-﻿using Assets.Scripts.FoodObject.Pools;
+﻿
+using DiningCombat.DataObject;
+using DiningCombat.Player;
 using UnityEngine;
-using static Assets.DataObject.ThrownActionTypesBuilder;
+using static DiningCombat.DataObject.ThrownActionTypesBuilder;
 
-namespace Assets.DataObject
+namespace DiningCombat.FoodObject
 {
-    internal class MineLike : IThrownState
+    public class MineLike : IThrownState
     {
         private const float k_TImeToTrow = 0.7f;
 

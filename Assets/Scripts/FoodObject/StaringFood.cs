@@ -1,11 +1,12 @@
-﻿using Unity.Netcode;
+﻿using DiningCombat.Player;
+using DiningCombat.Util;
+using Unity.Netcode;
 using UnityEngine;
-
-namespace Assets.Scripts.FoodObject
+namespace DiningCombat.FoodObject
 {
-    internal class StaringFood : NetworkBehaviour, IDamaging
+    // TODO : Understand why it is here
+    public class StaringFood : NetworkBehaviour, IDamaging
     {
-        private Rigidbody m_Rigidbody;
         [SerializeField]
         private float m_Higt;
         [SerializeField]
@@ -15,9 +16,9 @@ namespace Assets.Scripts.FoodObject
         [SerializeField]
         private ParticleSystem m_PrEffect;
         [SerializeField]
-        private float r_ForceHitExsplostin;
+        private float m_ForceHitExsplostin;
         [SerializeField]
-        private float r_Radius;
+        private float m_Radius;
 
         public float CalculatorDamag() => m_Damag;
         public Vector2 RangeDamage => m_RangeDamage;
@@ -28,7 +29,6 @@ namespace Assets.Scripts.FoodObject
 
         private void Awake()
         {
-            m_Rigidbody.AddForce(ActionDirection * m_Higt);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -48,11 +48,11 @@ namespace Assets.Scripts.FoodObject
 
             IsActionHappen = true;
 
-            foreach (Collider nearByObj in Physics.OverlapSphere(transform.position, r_Radius))
+            foreach (Collider nearByObj in Physics.OverlapSphere(transform.position, m_Radius))
             {
                 if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
                 {
-                    o_Rb.AddExplosionForce(r_ForceHitExsplostin, transform.position, r_Radius);
+                    o_Rb.AddExplosionForce(m_ForceHitExsplostin, transform.position, m_Radius);
                 }
 
                 _ = PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out _);

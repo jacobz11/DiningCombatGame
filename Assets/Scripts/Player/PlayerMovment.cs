@@ -1,21 +1,16 @@
-﻿namespace Assets.scrips
+﻿using DiningCombat.Manger;
+using System;
+using Unity.Netcode;
+using UnityEngine;
+namespace DiningCombat.Player
 {
-    using Assets.Scripts.Manger;
-    using System;
-    using Unity.Netcode;
-    using UnityEngine;
-
-    internal class PlayerMovment : NetworkBehaviour
+    public class PlayerMovment : NetworkBehaviour
     {
         public static int m_Cunnter = 0;
 
         private const float k_PlayerHeight = 2f;
         private const float k_PlayerRadius = 0.7f;
 
-        //public static Color[] m_Colors = new Color[] { Color.red, Color.green, Color.blue };
-
-        //public event Action<bool> OnIsRunnigChang;
-        //public event Action<bool> OnIsRunnigBackChang;
         private PlayerAnimationChannel m_AnimationChannel;
 
         private bool m_IsRunnig;
@@ -25,7 +20,7 @@
         private Rigidbody m_Rb;
 
         [SerializeField]
-        private PlayerMovmentData m_MovmentData;
+        private PlayerMovmentDataSO m_MovmentData;
         [SerializeField]
         private Material m_Material;
 
@@ -50,7 +45,6 @@
                 if (value ^ m_IsRunnig)
                 {
                     m_IsRunnig = value;
-                    //OnIsRunnigChang?.Invoke(m_IsRunnig);
                 }
             }
         }
@@ -62,7 +56,6 @@
                 if (value ^ m_IsRunnigBack)
                 {
                     m_IsRunnigBack = value;
-                    //OnIsRunnigBackChang?.Invoke(m_IsRunnigBack);
                 }
             }
         }
@@ -115,42 +108,14 @@
         [ClientRpc]
         private void HandleMovementClientRpc()
         {
-            float speed = PlayerSpeedNormalized;
             float yOffset = 0;
             UpdateIsGrounded();
-            if (!IsGrounded)
-            {
-                speed *= m_MovmentData.m_JumpSlowDonwSpeep;
-                //yOffset = Position.y;
-            }
-
-            Vector3 movment = HandleMovement(m_GameInput.GetMovementVectorNormalized(), yOffset, speed);
-            Debug.Log("IsGrounded " + IsGrounded);
-
-            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, movment.z);
-            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, movment.x);
-
-            //if (!IsGrounded && movment != Vector3.zero)
-            //{
-            //    bool isRunnigFord = movment.z < float.Epsilon;
-            //    IsRunnig = isRunnigFord;
-            //    IsRunnigBack = !isRunnigFord;
-            //}
-            //else
-            //{
-            //    IsRunnig = false;
-            //    IsRunnigBack = false;
-            //}
-
+            float speed = IsGrounded ? PlayerSpeedNormalized : m_MovmentData.m_JumpSlowDonwSpeep;
+            Vector2 inputVector = m_GameInput.GetMovementVectorNormalized();
+            Vector3 movment = HandleMovement(inputVector, yOffset, speed);
+            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, inputVector.y);
+            m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, inputVector.x);
             HandleMovementServerRpc(movment);
-
-            //else
-            //{
-            //    Vector3 movnet = 
-            //    IsRunnig = false;
-            //    IsRunnigBack = false;
-            //    moment = HandleMovementWhileJumping(m_GameInput.GetMovementVectorNormalized());
-            //}
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -212,7 +177,6 @@
                 IsGrounded = currentIsGrounded;
                 m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, IsGrounded);
             }
-
         }
         [ClientRpc]
         private void HandleRotationeClientRpc()
@@ -225,12 +189,14 @@
             transform.Rotate(Vector3.up, i_RotationeNormalized);
         }
 
-        internal void GameInput_OnJumpAction(object sender, EventArgs e)
+        public void GameInput_OnJumpAction(object sender, EventArgs e)
         {
+            //TODO : fix Jump
             if (!IsOwner)
             {
                 return;
             }
+
             if (IsGrounded)
             {
                 m_Rb.AddForce(Vector3.up * m_MovmentData.m_JumpHeight);
@@ -239,44 +205,3 @@
         #endregion
     }
 }
-
-//public PlayerMovment(Rigidbody i_Rb, PlayerMovmentDataSO i_MovmentDataSO, Transform transform, GameInput gameInput)
-//{
-//    m_Rb = i_Rb;
-//    m_GameInput = gameInput;
-//    m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
-//    m_MovmentData = i_MovmentDataSO;
-//    Transform = transform;    
-//}
-
-//private Vector3 HandleGroundedMovement(Vector2 i_InputVector)
-//{
-//    Vector3 movment = HandleMovement(i_InputVector, 0, PlayerSpeedNormalized);
-//    if (movment == Vector3.zero)
-//    {
-//        IsRunnig = false;
-//        IsRunnigBack = false;
-//    }
-//    else
-//    {
-//        if (movment.z < float.Epsilon)
-//        {
-//            IsRunnig = false;
-//            IsRunnigBack = true;
-//        }
-//        else
-//        {
-//            IsRunnig = true;
-//            IsRunnigBack = false;
-//        }
-//    }
-//    return movment;
-//}
-//private Vector3 HandleMovementWhileJumping(Vector2 i_InputVector)
-//{
-//    float speed = PlayerSpeedNormalized * m_MovmentData.m_JumpSlowDonwSpeep;
-//    Vector3 movnet = HandleMovement(i_InputVector, Position.y, speed);
-//    IsRunnig = false;
-//    IsRunnigBack = false;
-//    return movnet;
-//}
