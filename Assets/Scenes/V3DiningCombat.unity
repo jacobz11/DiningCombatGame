@@ -2947,6 +2947,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3482558154726957973, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3982638269754406074, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4309,16 +4313,6 @@ MonoBehaviour:
     m_SpawnTimeBuffer: 1.5
     m_InitSpawn: 12
   m_RoomDimension: {fileID: 828490909}
-  m_AllFoodPrefab:
-    m_FoodPrefab:
-    - {fileID: 6162616094248623806, guid: 4ad2c4a8fc0547243ad5e78309209e96, type: 3}
-    - {fileID: 1705349755764092669, guid: 35a05d432518efe4dbe326e820bf1bcc, type: 3}
-    - {fileID: 1579650163785305974, guid: 6062ecf1766a3b94a974591bb2046213, type: 3}
-    - {fileID: 4873284290809304590, guid: 4187fb98f3b00da46b7a80c44b5c2fee, type: 3}
-    - {fileID: 6549573676523198308, guid: a4b91064422027242bb112b8274ce36c, type: 3}
-    - {fileID: 1579650163785305974, guid: 8c58dd4b031106f4ea26293794bbb442, type: 3}
-    - {fileID: 7680476970656670080, guid: d71923cd0fded964ea68e2d78e7d3082, type: 3}
-    - {fileID: 476650111608544264, guid: 8f5220f1bce0d2b448dd7cbc23e5439c, type: 3}
 --- !u!4 &2125214546
 Transform:
   m_ObjectHideFlags: 0
