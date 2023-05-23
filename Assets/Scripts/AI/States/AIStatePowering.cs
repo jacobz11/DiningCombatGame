@@ -12,7 +12,8 @@ namespace DiningCombat.AI.States
     {
         // TODO make this to scriptbul 
         private const bool k_StopPowering = false;
-        private const float k_PoweringTime = 3.0f;
+        private const float k_MaxPoweringTime = 10.0f;
+        private const float k_MinPower = 50.0f;
         private const float k_UpdateRate = 1.5f;
         private const float k_MinDistanceToTarget = 7f;
 
@@ -51,7 +52,7 @@ namespace DiningCombat.AI.States
         public override void Update()
         {
             m_Timer += Time.deltaTime;
-            m_IsPowering = ToProceedPowering();
+            ToProceedPowering();
 
             if (!m_IsPowering)
             {
@@ -63,12 +64,20 @@ namespace DiningCombat.AI.States
             {
                 FindPlayerClosest();
             }
+
             base.Update();
         }
 
-        private bool ToProceedPowering()
+        private void ToProceedPowering()
         {
-            return m_Timer < k_PoweringTime && Vector3.Distance(m_Target, m_Agent.transform.position) > k_MinDistanceToTarget;
+            bool isOverMinPower = PowerCharging > k_MinPower;
+            if (isOverMinPower)
+            {
+                float distance = Vector3.Distance(m_Target, m_Agent.transform.position);
+                bool thereIsStillTime = m_Timer < k_MaxPoweringTime;
+                bool isMoreThenMinDist = distance > k_MinDistanceToTarget;
+                m_IsPowering = thereIsStillTime && isMoreThenMinDist;
+            }
         }
 
         public float CalculateDistanceMoved()

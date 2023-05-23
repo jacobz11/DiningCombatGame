@@ -63,6 +63,7 @@ namespace DiningCombat.Player.States
         public virtual void OnStateEnter()
         {
             m_IsPowering = m_AcitonStateMachine.IsPower;
+            PowerCharging = 0.0f;
             Debug.Log("OnSteteEnter : StatePowering");
         }
 
