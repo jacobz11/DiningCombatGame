@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using DiningCombat.Manger;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
+    private const string k_SceneName = "V3DiningCombat";
+    [SerializeField]
+    private StaringData m_GameObjectData;
+
     public void StartGame()
     {
-        SceneManager.LoadScene("V3DiningCombat");
+        DontDestroyOnLoad(m_GameObjectData);
+        SceneManager.LoadScene(k_SceneName);
     }
 }
