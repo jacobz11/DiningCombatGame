@@ -1,5 +1,6 @@
+using Assets.Scripts.Util.ScriptableObjects;
+using DiningCombat.DataObject;
 using DiningCombat.FoodObject;
-using DiningCombat.Player.Data;
 using DiningCombat.Player.States;
 using DiningCombat.UI;
 using DiningCombat.Util.DesignPatterns;
@@ -23,7 +24,7 @@ namespace DiningCombat.Player
         [SerializeField]
         private Transform m_PickUpPoint;
         [SerializeField]
-        protected PoweringData m_Powering;
+        protected PoweringDataSo m_Powering;
         [SerializeField]
         protected PoweringVisual m_PoweringVisual;
         public Transform PickUpPoint => m_PickUpPoint;

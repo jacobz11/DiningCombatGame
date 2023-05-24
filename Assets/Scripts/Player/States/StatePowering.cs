@@ -1,5 +1,6 @@
-﻿using DiningCombat.FoodObject;
-using DiningCombat.Player.Data;
+﻿using Assets.Scripts.Util.ScriptableObjects;
+using DiningCombat.DataObject;
+using DiningCombat.FoodObject;
 using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace DiningCombat.Player.States
         public bool m_IsPowering;
         private float m_PowerCharging;
         private ActionStateMachine m_AcitonStateMachine;
-        public PoweringData m_Powering;
+        protected PoweringDataSo m_Powering;
 
         public float PowerCharging
         {
@@ -44,7 +45,7 @@ namespace DiningCombat.Player.States
             }
         }
 
-        public StatePowering(ActionStateMachine acitonStateMachine, PoweringData i_Powering)
+        public StatePowering(ActionStateMachine acitonStateMachine, PoweringDataSo i_Powering)
         {
             m_AcitonStateMachine = acitonStateMachine;
             m_Powering = i_Powering;
@@ -71,7 +72,7 @@ namespace DiningCombat.Player.States
         {
             if (m_IsPowering)
             {
-                PowerCharging += m_Powering.DataTimeAddingPower * Time.deltaTime;
+                PowerCharging += m_Powering.m_DataTimeAddingPower * Time.deltaTime;
             }
         }
 

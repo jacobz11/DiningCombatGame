@@ -1036,9 +1036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerScore: {fileID: 0}
   m_PickUpPoint: {fileID: 1949516421212491733}
-  m_Powering:
-    MaxPower: 3000
-    DataTimeAddingPower: 1400
+  m_Powering: {fileID: 11400000, guid: a020cf5d293fc364f8bb87f3127a5313, type: 2}
   m_PoweringVisual: {fileID: 0}
 --- !u!114 &53667456
 MonoBehaviour:
