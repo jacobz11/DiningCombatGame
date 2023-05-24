@@ -10,6 +10,7 @@ namespace DiningCombat.AI.States
 {
     public class AIStateFree : StateFree
     {
+        private Vector3 m_WanderTarget;
         private readonly NavMeshAgent r_Agent;
         private Vector3 m_Target;
         public bool TargetExist { get; private set; }
@@ -19,6 +20,7 @@ namespace DiningCombat.AI.States
             : base(i_AcitonStateMachine)
         {
             r_Agent = agent;
+            m_WanderTarget = Vector3.one;
         }
 
         public override void OnStateEnter()
@@ -60,7 +62,14 @@ namespace DiningCombat.AI.States
                 TargetExist = m_Target != Position;
             }
 
-            _ = r_Agent.SetDestination(m_Target);
+            if (TargetExist)
+            {
+                AIMatud.Seek(r_Agent, m_Target);
+            }
+            else
+            {
+                AIMatud.Wander(ref m_WanderTarget, r_Agent);
+            }
         }
 
         public void OnCollcatedAnyFood()

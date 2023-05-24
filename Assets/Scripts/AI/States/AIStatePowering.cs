@@ -3,6 +3,7 @@ using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
 using System.Linq;
+using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,8 +16,8 @@ namespace DiningCombat.AI.States
         private float m_Timer;
         private int m_UpdateTimes;
         private Vector3 m_Target;
-        private NavMeshAgent m_Agent;
-        private Vector3 Position => m_Agent.transform.position;
+        private readonly NavMeshAgent r_Agent;
+        private Vector3 Position => r_Agent.transform.position;
         public float FindPlayerClosestUpdateRate
         {
             get => m_Powering.m_UpdateRate * m_UpdateTimes;
@@ -26,14 +27,14 @@ namespace DiningCombat.AI.States
         public AIStatePowering(ActionStateMachine acitonStateMachine, PoweringDataSo i_Powering, NavMeshAgent i_Agent)
             : base(acitonStateMachine, i_Powering)
         {
-            m_Agent = i_Agent;
+            r_Agent = i_Agent;
         }
 
         private void FindPlayerClosest()
         {
             m_UpdateTimes++;
-            m_Target = GameManger.Instance.GetPlayerPos(m_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
-            m_Agent.SetDestination(m_Target);
+            m_Target = GameManger.Instance.GetPlayerPos(r_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
+            AIMatud.Seek(r_Agent, m_Target);
         }
 
         public override void OnStateEnter()
@@ -68,7 +69,7 @@ namespace DiningCombat.AI.States
             bool isOverMinPower = PowerCharging > m_Powering.m_MinPower;
             if (isOverMinPower)
             {
-                float distance = Vector3.Distance(m_Target, m_Agent.transform.position);
+                float distance = Vector3.Distance(m_Target, r_Agent.transform.position);
                 bool thereIsStillTime = m_Timer < m_Powering.m_MaxPoweringTime;
                 bool isMoreThenMinDist = distance > m_Powering.m_MinDistanceToTarget;
                 m_IsPowering = thereIsStillTime && isMoreThenMinDist;
