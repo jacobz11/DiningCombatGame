@@ -4273,7 +4273,7 @@ MonoBehaviour:
   m_SpawnData:
     m_SpawnTimeBuffer: 1.5
     m_InitSpawn: 12
-  m_RoomDimension: {fileID: 0}
+  m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
 --- !u!4 &2125214546
 Transform:
   m_ObjectHideFlags: 0

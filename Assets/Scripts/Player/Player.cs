@@ -9,8 +9,7 @@ namespace DiningCombat.Player
         private GameInput m_GameInput;
         [SerializeField]
         private Transform m_PickUpPoint;
-        // TODO : is this set need to be public
-        public Transform PicUpPoint { get; set; }
+        public Transform PicUpPoint { get; private set; }
 
         private void Awake()
         {
