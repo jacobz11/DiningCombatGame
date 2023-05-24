@@ -45,8 +45,6 @@ namespace DiningCombat.AI
             PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
             StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
             m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
-
-            ListenToPlayer();
             SetLaunchingAnimation(channel);
 
             powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;

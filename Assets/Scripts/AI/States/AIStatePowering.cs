@@ -10,7 +10,6 @@ namespace DiningCombat.AI.States
 {
     public class AIStatePowering : StatePowering
     {
-        // TODO make this to scriptbul 
         private const bool k_StopPowering = false;
 
         private float m_Timer;

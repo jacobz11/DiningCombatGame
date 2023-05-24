@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Util.ScriptableObjects;
-using DiningCombat.DataObject;
+﻿using DiningCombat.DataObject;
 using DiningCombat.FoodObject;
 using DiningCombat.Util.DesignPatterns;
 using System;

@@ -1,4 +1,3 @@
-using Assets.Scripts.Util.ScriptableObjects;
 using DiningCombat.DataObject;
 using DiningCombat.FoodObject;
 using DiningCombat.Player.States;
@@ -66,9 +65,7 @@ namespace DiningCombat.Player
 
         public override void OnNetworkSpawn()
         {
-
             base.OnNetworkSpawn();
-            ListenToPlayer();
             AddLisenrToInput(GetComponent<GameInput>());
 
             PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
@@ -187,12 +184,6 @@ namespace DiningCombat.Player
             input.OnStartChargingAction += GameInput_OnStartChargingAction;
             input.OnStopChargingAction += GameInput_OnStopChargingAction;
             input.OnPickUpAction += GameInput_OnPickUpAction;
-        }
-        protected void ListenToPlayer()
-        {
-            Player player = GetComponent<Player>();
-            player.OnExitCollisionFoodObj += m_Stats[StateFree.k_Indx].ExitCollisionFoodObj;
-            player.OnEnterCollisionFoodObj += m_Stats[StateFree.k_Indx].EnterCollisionFoodObj;
         }
         #endregion
     }

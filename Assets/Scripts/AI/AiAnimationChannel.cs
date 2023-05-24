@@ -60,9 +60,9 @@ namespace DiningCombat.AI
                 bool isRunForde = movment.z < float.Epsilon;
                 IsRunnig = isRunForde;
                 IsRunnigBack = !isRunForde;
-                
+
                 m_Channel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, movment.x * k_ScaleMovment);
-                m_Channel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, movment.z* k_ScaleMovment);
+                m_Channel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, movment.z * k_ScaleMovment);
             }
             else
             {
