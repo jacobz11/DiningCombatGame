@@ -35,15 +35,6 @@ namespace DiningCombat.Manger
             Instance = this;
         }
 
-        //protected override void AddObject(int i_Count)
-        //{
-        //    for (int i = 0; i < i_Count; i++)
-        //    {
-        //        GameFoodObj newObj = (GameObject.Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab())).GetComponent<GameFoodObj>();
-        //        newObj.gameObject.SetActive(false);
-        //        m_Objects.Enqueue(newObj);
-        //    }
-        //}
 
         private GameFoodObj Get(Vector3 i_Pos)
         {
