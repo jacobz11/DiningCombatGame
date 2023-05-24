@@ -4,7 +4,6 @@ using UnityEngine.AI;
 using Vector3 = UnityEngine.Vector3;
 namespace DiningCombat.AI
 {
-
     public class AIMatud
     {
         private const float k_Speed = 15.0f;
@@ -22,6 +21,7 @@ namespace DiningCombat.AI
         {
             _ = (i_Agent?.SetDestination(i_TrgetPos));
         }
+
         /// <summary>
         /// The agent will try to escape from the target
         /// </summary>
@@ -191,5 +191,4 @@ namespace DiningCombat.AI
             return Vector3.Distance(i_Agent.transform.position, i_Targe.position) < i_Range;
         }
     }
-
 }
