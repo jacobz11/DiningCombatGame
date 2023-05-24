@@ -1,5 +1,5 @@
+using DiningCombat.DataObject;
 using DiningCombat.FoodObject;
-using DiningCombat.Player.Data;
 using DiningCombat.Player.States;
 using DiningCombat.UI;
 using DiningCombat.Util.DesignPatterns;
@@ -23,7 +23,7 @@ namespace DiningCombat.Player
         [SerializeField]
         private Transform m_PickUpPoint;
         [SerializeField]
-        protected PoweringData m_Powering;
+        protected PoweringDataSo m_Powering;
         [SerializeField]
         protected PoweringVisual m_PoweringVisual;
         public Transform PickUpPoint => m_PickUpPoint;
@@ -65,9 +65,7 @@ namespace DiningCombat.Player
 
         public override void OnNetworkSpawn()
         {
-
             base.OnNetworkSpawn();
-            ListenToPlayer();
             AddLisenrToInput(GetComponent<GameInput>());
 
             PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
@@ -186,12 +184,6 @@ namespace DiningCombat.Player
             input.OnStartChargingAction += GameInput_OnStartChargingAction;
             input.OnStopChargingAction += GameInput_OnStopChargingAction;
             input.OnPickUpAction += GameInput_OnPickUpAction;
-        }
-        protected void ListenToPlayer()
-        {
-            Player player = GetComponent<Player>();
-            player.OnExitCollisionFoodObj += m_Stats[StateFree.k_Indx].ExitCollisionFoodObj;
-            player.OnEnterCollisionFoodObj += m_Stats[StateFree.k_Indx].EnterCollisionFoodObj;
         }
         #endregion
     }

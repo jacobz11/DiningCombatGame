@@ -7,7 +7,6 @@ namespace DiningCombat.Player.States
     public class StateThrowing : IStatePlayerHand
     {
         public const int k_Indx = 3;
-        public event Action<bool> Throw;
         private float m_PowerMull;
         bool IStatePlayerHand.OnChargingAction { get => false; set { } }
         #region Not-Implemented

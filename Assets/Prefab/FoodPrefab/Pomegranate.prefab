@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0895eeaecb857f74989fed93cb5826d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OffsetOnPlayerHande: {x: -0.07, y: 0.08, z: 0}
   m_TypeBuild:
     m_Type: 2
     m_ElementName: 2
@@ -68,7 +69,7 @@ MonoBehaviour:
       EffctTime: 2
       LifeTimeUntilAction: 3
       ForceHitExsplostin: 300
-  m_Frames: 5
+    m_AnimationType: 0
 --- !u!114 &7970818536024286217
 MonoBehaviour:
   m_ObjectHideFlags: 0

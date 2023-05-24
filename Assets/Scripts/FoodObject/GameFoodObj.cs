@@ -16,9 +16,7 @@ namespace DiningCombat.FoodObject
     public class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IViewingElementsPosition, IDictionaryObject
     {
         public enum eThrowAnimationType { Throwing, Falling }
-
         public event Action OnCollect;
-        public event Action Destruction;
 
         private string m_NameKey;
         private ActionStateMachine m_Collector;

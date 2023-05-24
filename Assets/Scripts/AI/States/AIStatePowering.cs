@@ -1,6 +1,6 @@
-﻿using DiningCombat.Manger;
+﻿using DiningCombat.DataObject;
+using DiningCombat.Manger;
 using DiningCombat.Player;
-using DiningCombat.Player.Data;
 using DiningCombat.Player.States;
 using System.Linq;
 using UnityEngine;
@@ -10,11 +10,7 @@ namespace DiningCombat.AI.States
 {
     public class AIStatePowering : StatePowering
     {
-        // TODO make this to scriptbul 
         private const bool k_StopPowering = false;
-        private const float k_PoweringTime = 3.0f;
-        private const float k_UpdateRate = 1.5f;
-        private const float k_MinDistanceToTarget = 7f;
 
         private float m_Timer;
         private int m_UpdateTimes;
@@ -23,11 +19,11 @@ namespace DiningCombat.AI.States
         private Vector3 Position => m_Agent.transform.position;
         public float FindPlayerClosestUpdateRate
         {
-            get => k_UpdateRate * m_UpdateTimes;
+            get => m_Powering.m_UpdateRate * m_UpdateTimes;
             private set { m_UpdateTimes = (int)value; }
         }
 
-        public AIStatePowering(ActionStateMachine acitonStateMachine, PoweringData i_Powering, NavMeshAgent i_Agent)
+        public AIStatePowering(ActionStateMachine acitonStateMachine, PoweringDataSo i_Powering, NavMeshAgent i_Agent)
             : base(acitonStateMachine, i_Powering)
         {
             m_Agent = i_Agent;
@@ -51,7 +47,7 @@ namespace DiningCombat.AI.States
         public override void Update()
         {
             m_Timer += Time.deltaTime;
-            m_IsPowering = ToProceedPowering();
+            ToProceedPowering();
 
             if (!m_IsPowering)
             {
@@ -63,23 +59,20 @@ namespace DiningCombat.AI.States
             {
                 FindPlayerClosest();
             }
+
             base.Update();
         }
 
-        private bool ToProceedPowering()
+        private void ToProceedPowering()
         {
-            return m_Timer < k_PoweringTime && Vector3.Distance(m_Target, m_Agent.transform.position) > k_MinDistanceToTarget;
-        }
-
-        public float CalculateDistanceMoved()
-        {
-            //float acceleration = forceMagnitude / rb.mass;
-            //float initialVelocity = rb.velocity.magnitude;
-            //float finalVelocity = initialVelocity + acceleration * time;
-            //float distanceMoved = (initialVelocity + finalVelocity) / 2 * time;
-
-            //return distanceMoved;
-            return 0.5f;
+            bool isOverMinPower = PowerCharging > m_Powering.m_MinPower;
+            if (isOverMinPower)
+            {
+                float distance = Vector3.Distance(m_Target, m_Agent.transform.position);
+                bool thereIsStillTime = m_Timer < m_Powering.m_MaxPoweringTime;
+                bool isMoreThenMinDist = distance > m_Powering.m_MinDistanceToTarget;
+                m_IsPowering = thereIsStillTime && isMoreThenMinDist;
+            }
         }
     }
 }
