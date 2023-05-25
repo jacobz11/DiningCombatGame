@@ -24,6 +24,20 @@ namespace DiningCombat.Player
         [SerializeField]
         private Material m_Material;
 
+        //Jumping parameters
+        private float m_YGravitySpeed;
+        [SerializeField] bool m_IsGrounded = true;
+        private Rigidbody m_PlayerRb;
+        //Ground Layer parameters for check ground with sphere trigger
+        public Transform m_GroundCheck;
+        private float m_GroundDistance = 0.3f;
+        public LayerMask m_GroundMask;
+
+        private void Start()
+        {
+            m_PlayerRb = GetComponent<Rigidbody>();
+        }
+
         public Vector3 Position => transform.position;
         public bool IsGrounded { get; private set; }
 
@@ -97,7 +111,7 @@ namespace DiningCombat.Player
             {
                 HandleMovementClientRpc();
                 HandleRotationeClientRpc();
-
+                Jumping();
             }
         }
 
@@ -161,6 +175,36 @@ namespace DiningCombat.Player
         {
             return !Physics.CapsuleCast(Position, Position + Vector3.up * k_PlayerHeight, k_PlayerRadius, moveDir, moveDistance);
         }
+
+        #region New Jumping Methods
+        private void Jumping()
+        {
+            m_IsGrounded = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_GroundMask);
+            m_YGravitySpeed += Physics.gravity.y * Time.deltaTime;
+
+            if (m_IsGrounded)
+            {
+                m_YGravitySpeed = 0f;
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, true);
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, false);
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, false);
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    m_YGravitySpeed = m_MovmentData.m_JumpHeight;
+                    m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, true);
+                    m_IsGrounded = false;
+                }
+                m_PlayerRb.AddForce(Vector3.up * m_YGravitySpeed, ForceMode.Impulse);
+            }
+            else
+            {
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, false);
+                if (m_YGravitySpeed < 2f)
+                {
+                    m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, true);
+                }
+            }
+        }
         #endregion
 
         #region jumping matods
@@ -200,4 +244,5 @@ namespace DiningCombat.Player
         }
         #endregion
     }
-}
+} 
+#endregion
