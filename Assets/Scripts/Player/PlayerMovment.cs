@@ -26,7 +26,8 @@ namespace DiningCombat.Player
 
         //Jumping parameters
         private float m_YGravitySpeed;
-        [SerializeField] bool m_IsGrounded = true;
+        //[SerializeField] bool m_IsGrounded = true;
+        public bool m_IsOnGround = true;
         private Rigidbody m_PlayerRb;
         //Ground Layer parameters for check ground with sphere trigger
         public Transform m_GroundCheck;
@@ -179,10 +180,10 @@ namespace DiningCombat.Player
         #region New Jumping Methods
         private void Jumping()
         {
-            m_IsGrounded = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_GroundMask);
+            m_IsOnGround = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_GroundMask);
             m_YGravitySpeed += Physics.gravity.y * Time.deltaTime;
 
-            if (m_IsGrounded)
+            if (m_IsOnGround)
             {
                 m_YGravitySpeed = 0f;
                 m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, true);
@@ -192,7 +193,7 @@ namespace DiningCombat.Player
                 {
                     m_YGravitySpeed = m_MovmentData.m_JumpHeight;
                     m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, true);
-                    m_IsGrounded = false;
+                    m_IsOnGround = false;
                 }
                 m_PlayerRb.AddForce(Vector3.up * m_YGravitySpeed, ForceMode.Impulse);
             }
@@ -206,8 +207,6 @@ namespace DiningCombat.Player
             }
         }
         #endregion
-
-        #region jumping matods
         private void UpdateIsGrounded()
         {
             float distToGround = 0f;
@@ -242,7 +241,6 @@ namespace DiningCombat.Player
                 m_Rb.AddForce(Vector3.up * m_MovmentData.m_JumpHeight);
             }
         }
-        #endregion
     }
 } 
 #endregion

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerMovmentData
   m_EditorClassIdentifier: 
   m_MouseSensetivity: 70
-  m_PlayerSpeed: 8.5
+  m_PlayerSpeed: 8
   m_JumpHeight: 35
   m_JumpSlowDonwSpeep: 0.24
   m_Ground:
