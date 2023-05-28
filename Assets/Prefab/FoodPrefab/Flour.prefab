@@ -48,11 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0895eeaecb857f74989fed93cb5826d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OffsetOnPlayerHande: {x: 0, y: 0, z: 0}
   m_TypeBuild:
-    m_Type: 2
-    m_ElementName: 2
+    m_Type: 1
+    m_ElementName: 1
     m_MaxDamagePoint: 20.8
     m_MinDamagePoint: 0.4
+    m_Effect: {fileID: 5390857945229279640, guid: bf19940a99d5990449bd7f86fdea9a75, type: 3}
     m_GameFoodObj: {fileID: 0}
     m_MinData:
       m_Triger: {fileID: 0}
