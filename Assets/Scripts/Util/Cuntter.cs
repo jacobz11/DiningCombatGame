@@ -1,7 +1,6 @@
 ﻿using System;
 
 [Serializable]
-// TODO : make this a scriptable objects
 public struct Cuntter
 {
     public short m_Max;

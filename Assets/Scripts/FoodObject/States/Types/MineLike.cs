@@ -3,7 +3,7 @@ using DiningCombat.DataObject;
 using DiningCombat.Player;
 using UnityEngine;
 using static DiningCombat.DataObject.ThrownActionTypesBuilder;
-
+using Player = DiningCombat.Player.Player;
 namespace DiningCombat.FoodObject
 {
     public class MineLike : IThrownState
@@ -97,27 +97,21 @@ namespace DiningCombat.FoodObject
             }
             #endregion
             DisplayEffect();
+            Debug.Log("Activation MineLike");
             float damage = CalculatorDamag();
-            float ponits = 0;
-            int kills = 0;
-            m_Countdown = r_EffectTime;
-            IsActionHappen = true;
-
-            foreach (Collider nearByObj in Physics.OverlapSphere(m_Transform.position, r_Radius))
+            if (PlayerLifePoint.TryToDamagePlayer(i_Collider.gameObject, damage, out bool o_Iskill))
             {
-                if (nearByObj.TryGetComponent<Rigidbody>(out Rigidbody o_Rb))
+                if (o_Iskill && i_Collider.gameObject.TryGetComponent<Player.Player>(out Player.Player player))
                 {
-                    o_Rb.AddExplosionForce(r_ForceHitExsplostin, m_Transform.position, r_Radius);
+                    player.ToggleSweepFallEnds();
                 }
 
-                if (PlayerLifePoint.TryToDamagePlayer(nearByObj.gameObject, damage, out bool o_IsKill))
+                base.SendOnHit(new HitPointEventArgs()
                 {
-                    ponits += damage;
-                    kills += o_IsKill ? 1 : 0;
-                }
+                    m_Damage = damage,
+                    m_Kills = o_Iskill ? 1 : 0
+                });
             }
-
-            base.SendOnHit(new HitPointEventArgs() { /* Not-Implemented */});
         }
 
         protected void DisplayEffect()

@@ -24,6 +24,21 @@ namespace DiningCombat.Player
         [SerializeField]
         private Material m_Material;
 
+        //Jumping parameters
+        private float m_YGravitySpeed;
+        //[SerializeField] bool m_IsGrounded = true;
+        public bool m_IsOnGround = true;
+        private Rigidbody m_PlayerRb;
+        //Ground Layer parameters for check ground with sphere trigger
+        public Transform m_GroundCheck;
+        private float m_GroundDistance = 0.3f;
+        public LayerMask m_GroundMask;
+
+        private void Start()
+        {
+            m_PlayerRb = GetComponent<Rigidbody>();
+        }
+
         public Vector3 Position => transform.position;
         public bool IsGrounded { get; private set; }
 
@@ -60,6 +75,8 @@ namespace DiningCombat.Player
             }
         }
 
+        public bool PlayerCanMove { get; private set; }
+
         #region Unity
         private void Awake()
         {
@@ -78,26 +95,39 @@ namespace DiningCombat.Player
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             NetworkObject networkObj = GetComponent<NetworkObject>();
-
-            if (networkObj == null)
+            if (networkObj is null)
             {
                 Debug.LogWarning("Object does not have a NetworkObject component");
                 return;
             }
 
+            if (gameObject.TryGetComponent<Player>(out Player player))
+            {
+                player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
+            }
+
+            PlayerCanMove = true;
             // Request ownership of the object
             if (networkObj.IsSpawned && !networkObj.IsOwnedByServer)
             {
             }
         }
 
+        private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
+        {
+            PlayerCanMove = i_IsPlayerSweepFall;
+        }
+
         public void Update()
         {
             if (IsOwner)
             {
-                HandleMovementClientRpc();
-                HandleRotationeClientRpc();
-
+                if (PlayerCanMove)
+                {
+                    HandleMovementClientRpc();
+                    HandleRotationeClientRpc();
+			Jumping();
+                }
             }
         }
 
@@ -160,6 +190,37 @@ namespace DiningCombat.Player
         private bool CanMove(Vector3 moveDir, float moveDistance)
         {
             return !Physics.CapsuleCast(Position, Position + Vector3.up * k_PlayerHeight, k_PlayerRadius, moveDir, moveDistance);
+        }
+        #endregion
+
+        #region New Jumping Methods
+        private void Jumping()
+        {
+            m_IsOnGround = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_GroundMask);
+            m_YGravitySpeed += Physics.gravity.y * Time.deltaTime;
+
+            if (m_IsOnGround)
+            {
+                m_YGravitySpeed = 0f;
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, true);
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, false);
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, false);
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    m_YGravitySpeed = m_MovmentData.m_JumpHeight;
+                    m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, true);
+                    m_IsOnGround = false;
+                }
+                m_PlayerRb.AddForce(Vector3.up * m_YGravitySpeed, ForceMode.Impulse);
+            }
+            else
+            {
+                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, false);
+                if (m_YGravitySpeed < 2f)
+                {
+                    m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, true);
+                }
+            }
         }
         #endregion
 

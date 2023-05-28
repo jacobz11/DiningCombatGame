@@ -7,7 +7,6 @@ namespace Assets.Scripts.Util
 {
     public class RandomFromArray
     {
-        // TODO :  use it Replace wherever you are
         public static T GetRandomElement<T>(T[] array)
         {
             if (array == null || array.Length == 0)

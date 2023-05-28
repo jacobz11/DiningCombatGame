@@ -1,6 +1,7 @@
 ﻿using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace DiningCombat.AI.States
 {
     public class AIStateFree : StateFree
     {
+        private Vector3 m_WanderTarget;
         private readonly NavMeshAgent r_Agent;
         private Vector3 m_Target;
         public bool TargetExist { get; private set; }
@@ -19,6 +21,7 @@ namespace DiningCombat.AI.States
             : base(i_AcitonStateMachine)
         {
             r_Agent = agent;
+            m_WanderTarget = Vector3.one;
         }
 
         public override void OnStateEnter()
@@ -45,8 +48,9 @@ namespace DiningCombat.AI.States
             }
         }
 
-        private void FindTarget()
+        public void FindTarget()
         {
+            Debug.Log("FindTarget");
             List<Vector3> all = ManagerGameFoodObj.Instance.GetAllUncollcted();
 
             if (all.Count == 0)
@@ -60,7 +64,14 @@ namespace DiningCombat.AI.States
                 TargetExist = m_Target != Position;
             }
 
-            _ = r_Agent.SetDestination(m_Target);
+            if (TargetExist)
+            {
+                AIMatud.Seek(r_Agent, m_Target);
+            }
+            else
+            {
+                AIMatud.Wander(ref m_WanderTarget, r_Agent);
+            }
         }
 
         public void OnCollcatedAnyFood()

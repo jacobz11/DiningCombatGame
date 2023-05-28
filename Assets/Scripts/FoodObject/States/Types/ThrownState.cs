@@ -58,8 +58,7 @@ namespace DiningCombat.FoodObject
                 base.SendOnHit(new IThrownState.HitPointEventArgs
                 {
                     m_Damage = damage,
-                    m_GetHitPlayer = collision.gameObject,
-                    m_PlayerThrown = Activator.gameObject
+                    m_Kills = kill
                 });
             }
 

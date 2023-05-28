@@ -8,7 +8,7 @@ public class PlayerMovmentDataSO : ScriptableObject
     public float m_MouseSensetivity;
     [Range(5, 100)]
     public float m_PlayerSpeed;
-    [Range(2, 500)]
+    [Range(5, 100)]
     public float m_JumpHeight;
     [Range(0f, 1f)]
     public float m_JumpSlowDonwSpeep;

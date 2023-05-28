@@ -3,6 +3,7 @@ using DiningCombat.UI;
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // TODO : Integrate it into the code
 namespace DiningCombat.Manger
@@ -61,6 +62,7 @@ namespace DiningCombat.Manger
 
             Instance = this;
             GameOverOccured += ShowGameOverText;
+            GameOverOccured += EndGame;
             m_GameOverText.enabled = false;
             m_TextLivingPlayers.enabled = true;
             LivingPlayers = 0;
@@ -84,6 +86,11 @@ namespace DiningCombat.Manger
                 Debug.Log("isGameOver ");
                 GameOverOccured?.Invoke();
             }
+        }
+
+        private void EndGame()
+        {
+            SceneManager.LoadScene("GameOver");
         }
     }
 }
