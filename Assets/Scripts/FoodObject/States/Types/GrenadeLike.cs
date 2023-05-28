@@ -32,6 +32,7 @@ namespace DiningCombat.FoodObject
             m_EffectType = i_BuilderData.m_ElementName;
             r_CountdownTime = i_BuilderData.m_GrenadeData.LifeTimeUntilAction;
             r_ForceHitExsplostin = i_BuilderData.m_GrenadeData.ForceHitExsplostin;
+            m_Effect = i_BuilderData.m_Effect;
         }
 
         public override void OnStateEnter()
@@ -72,11 +73,12 @@ namespace DiningCombat.FoodObject
         {
             if (m_Effect != null)
             {
-                m_Effect.gameObject.SetActive(false);
                 m_Effect.Stop();
+                m_Effect.gameObject.SetActive(false);
                 FoodEffactPool.Instance[m_EffectType].ReturnToPool(m_Effect);
                 m_Effect = null;
             }
+
             base.ReturnToPool();
         }
 
@@ -112,7 +114,11 @@ namespace DiningCombat.FoodObject
                 }
             }
 
-            base.SendOnHit(new HitPointEventArgs() { /* Not-Implemented */});
+            base.SendOnHit(new HitPointEventArgs() 
+            {
+                m_Damage = ponits,
+                m_Kills= kills,
+            });
         }
     }
 }

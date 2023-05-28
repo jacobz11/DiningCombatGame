@@ -25,7 +25,7 @@ namespace DiningCombat.AI.States
             Vector3 pos = transform.position;
 
             m_Target = GameManger.Instance.GetPlayerPos(transform).OrderBy(v => Vector3.Distance(pos, v)).FirstOrDefault();
-            _ = r_Agent.SetDestination(m_Target);
+            AIMatud.Seek(r_Agent, m_Target);
 
             Vector3 lTargetDir = m_Target - transform.position;
             lTargetDir.y = 0.0f;

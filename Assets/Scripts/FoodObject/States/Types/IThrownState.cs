@@ -12,8 +12,7 @@ namespace DiningCombat.FoodObject
         public class HitPointEventArgs : EventArgs
         {
             public float m_Damage;
-            public GameObject m_GetHitPlayer;
-            public GameObject m_PlayerThrown;
+            public int m_Kills;
         }
         public event Action OnReturnToPool;
         public event Action<HitPointEventArgs> OnHit;

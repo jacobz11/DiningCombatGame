@@ -2,8 +2,8 @@
 
 namespace DiningCombat.Environment
 {
-    // TODO : make this a scriptable objects
-    public class Room : MonoBehaviour
+    [CreateAssetMenu(fileName = "Room", menuName = "Custom Objects/Room")]
+    public class Room : ScriptableObject
     {
         public Vector3 m_Center;
         public Vector3 m_Dimensions;

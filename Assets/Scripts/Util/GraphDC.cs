@@ -36,8 +36,8 @@ namespace DiningCombat.Util
             Debug.Log("i_StrtingPoint" + i_StrtingPoint);
             m_Higt = i_Higt;
             m_Width = i_Width;
-            int higt = 2 * i_Higt - 2;
-            int width = 2 * i_Width - 2;
+            int higt = (2 * i_Higt) - 2;
+            int width = (2 * i_Width) - 2;
             m_StrtingPoint = i_StrtingPoint;
             m_Action = action;
             Init(i_Higt, i_Width);

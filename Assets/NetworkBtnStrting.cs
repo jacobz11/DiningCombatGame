@@ -25,7 +25,7 @@ public class NetworkBtnStrting : MonoBehaviour
     public void StartHost()
     {
         Debug.Log("Host");
-        NetworkManager.Singleton.StartHost();
+        _ = NetworkManager.Singleton.StartHost();
         Hide();
     }
 

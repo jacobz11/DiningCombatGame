@@ -2,11 +2,12 @@ using DiningCombat.Environment;
 using DiningCombat.NPC;
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
 namespace DiningCombat.AI
 {
-    public class FollowWP : MonoBehaviour
+    public class FollowWP : NetworkBehaviour
     {
         public event Action OnEngRund;
         public Vector3[] m_Waypoints;
@@ -37,6 +38,7 @@ namespace DiningCombat.AI
                 {
                     OnEngRund?.Invoke();
                 }
+
                 m_CuurentWp = value % m_Waypoints.Length;
             }
         }
@@ -66,7 +68,7 @@ namespace DiningCombat.AI
 
         void Start()
         {
-            OnEngRund += folowWP_OnEngRund;
+            OnEngRund += FolowWP_OnEngRund;
         }
 
         void Update()
@@ -89,7 +91,7 @@ namespace DiningCombat.AI
             egg.gameObject.SetActive(true);
         }
 
-        private void folowWP_OnEngRund()
+        private void FolowWP_OnEngRund()
         {
             ChickenPool.Instance.ReturnToPool(this);
         }

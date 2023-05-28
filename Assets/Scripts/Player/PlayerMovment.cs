@@ -75,6 +75,8 @@ namespace DiningCombat.Player
             }
         }
 
+        public bool PlayerCanMove { get; private set; }
+
         #region Unity
         private void Awake()
         {
@@ -93,26 +95,39 @@ namespace DiningCombat.Player
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             NetworkObject networkObj = GetComponent<NetworkObject>();
-
-            if (networkObj == null)
+            if (networkObj is null)
             {
                 Debug.LogWarning("Object does not have a NetworkObject component");
                 return;
             }
 
+            if (gameObject.TryGetComponent<Player>(out Player player))
+            {
+                player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
+            }
+
+            PlayerCanMove = true;
             // Request ownership of the object
             if (networkObj.IsSpawned && !networkObj.IsOwnedByServer)
             {
             }
         }
 
+        private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
+        {
+            PlayerCanMove = i_IsPlayerSweepFall;
+        }
+
         public void Update()
         {
             if (IsOwner)
             {
-                HandleMovementClientRpc();
-                HandleRotationeClientRpc();
-                Jumping();
+                if (PlayerCanMove)
+                {
+                    HandleMovementClientRpc();
+                    HandleRotationeClientRpc();
+			Jumping();
+                }
             }
         }
 
@@ -176,6 +191,7 @@ namespace DiningCombat.Player
         {
             return !Physics.CapsuleCast(Position, Position + Vector3.up * k_PlayerHeight, k_PlayerRadius, moveDir, moveDistance);
         }
+        #endregion
 
         #region New Jumping Methods
         private void Jumping()
@@ -207,6 +223,8 @@ namespace DiningCombat.Player
             }
         }
         #endregion
+
+        #region jumping matods
         private void UpdateIsGrounded()
         {
             float distToGround = 0f;
@@ -241,6 +259,6 @@ namespace DiningCombat.Player
                 m_Rb.AddForce(Vector3.up * m_MovmentData.m_JumpHeight);
             }
         }
+        #endregion
     }
-} 
-#endregion
+}

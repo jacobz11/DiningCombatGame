@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0895eeaecb857f74989fed93cb5826d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OffsetOnPlayerHande: {x: -0.07, y: 0, z: -0.02}
   m_TypeBuild:
     m_Type: 0
     m_ElementName: 0

@@ -1,6 +1,7 @@
 ﻿using DiningCombat.DataObject;
 using DiningCombat.Manger;
 using DiningCombat.Player;
+using DiningCombat.UI;
 using DiningCombat.Util;
 using DiningCombat.Util.DesignPatterns;
 using System;
@@ -16,9 +17,7 @@ namespace DiningCombat.FoodObject
     public class GameFoodObj : NetworkBehaviour, IStateMachine<IFoodState, int>, IViewingElementsPosition, IDictionaryObject
     {
         public enum eThrowAnimationType { Throwing, Falling }
-
         public event Action OnCollect;
-        public event Action Destruction;
 
         private string m_NameKey;
         private ActionStateMachine m_Collector;
@@ -59,7 +58,10 @@ namespace DiningCombat.FoodObject
 
         public bool Unused() => false;
         public void OnEndUsing() { /* Not-Implemented */}
-        protected virtual void CollectInvoke() => OnCollect?.Invoke();
+        protected virtual void CollectInvoke()
+        {
+            OnCollect?.Invoke();
+        }
         public bool CanCollect() => Index == UncollectState.k_Indx;
         public eThrowAnimationType StopPowering() => m_AnimationType;
         public Vector3 GetCollectorPosition() => m_Collector is null ? transform.position : m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
@@ -70,17 +72,26 @@ namespace DiningCombat.FoodObject
             UncollectState uncollect = new UncollectState(this);
             IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
             CollectState collectState = new CollectState(m_Rigidbody, transform, this);
-
             uncollect.Collect += Uncollect_Collect;
             m_AnimationType = m_TypeBuild.m_AnimationType;
             thrownState.OnReturnToPool += ThrownState_OnReturnToPool;
+            thrownState.OnHit += ThrownState_OnHit;
 
             m_FoodStates = new IFoodState[]
             {
-            uncollect,
-            collectState,
-            thrownState,
+                uncollect,
+                collectState,
+                thrownState,
             };
+        }
+
+        private void ThrownState_OnHit(IThrownState.HitPointEventArgs obj)
+        {
+            if (m_Collector is null || obj is null) return;
+            if (m_Collector.gameObject.TryGetComponent<PlayerScore>(out PlayerScore playerScore))
+            {
+                playerScore.UpdatePlayerScore(obj);
+            }
         }
 
         protected void ThrownState_OnReturnToPool()

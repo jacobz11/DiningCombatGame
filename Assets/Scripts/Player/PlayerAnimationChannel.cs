@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 namespace DiningCombat.Player
 {
@@ -27,19 +28,6 @@ namespace DiningCombat.Player
             m_Anim.SetFloat(arg1, arg2);
         }
 
-        private void OnStart()
-        {
-            PlayerMovment player = GetComponentInParent<PlayerMovment>();
-            if (player != null)
-            {
-                //player.OnIsRunnigBackChang += player_OnIsRunnigBackChang;
-                //player.OnIsRunnigChang += player_OnIsRunnigChang;
-            }
-            else
-            {
-                Debug.Log("cant find PlayerMovment");
-            }
-        }
         public void EnterThrowPoint()
         {
             ThrowPoint?.Invoke();
@@ -144,5 +132,4 @@ namespace DiningCombat.Player
             public const string k_ThrowIn = "isThrowIn";
         }
     }
-
 }
