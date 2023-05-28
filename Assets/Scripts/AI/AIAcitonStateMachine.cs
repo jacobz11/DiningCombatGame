@@ -3,7 +3,6 @@ using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
 using DiningCombat.UI;
-using System;
 using UnityEngine.AI;
 
 namespace DiningCombat.AI

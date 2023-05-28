@@ -3,7 +3,6 @@ using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
 using System.Linq;
-using Unity.MLAgents;
 using UnityEngine;
 using UnityEngine.AI;
 

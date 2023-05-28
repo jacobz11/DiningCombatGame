@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using DiningCombat.Environment;
+﻿using DiningCombat.Environment;
+using UnityEngine;
 
 namespace DiningCombat.DataObject
 {

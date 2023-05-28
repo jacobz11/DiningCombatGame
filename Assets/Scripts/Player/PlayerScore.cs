@@ -40,8 +40,8 @@ namespace DiningCombat.UI
                 Kills += kill;
             }
         }
-        
-        public void UpdatePlayerScore(IThrownState.HitPointEventArgs i_HitPointEvent) 
+
+        public void UpdatePlayerScore(IThrownState.HitPointEventArgs i_HitPointEvent)
         {
             ScorePoint += i_HitPointEvent.m_Damage;
             Kills += i_HitPointEvent.m_Kills;

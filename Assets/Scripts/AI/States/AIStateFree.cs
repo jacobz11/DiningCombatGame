@@ -1,7 +1,6 @@
 ﻿using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
