@@ -71,6 +71,8 @@ namespace DiningCombat.DataObject
         public float m_MinDamagePoint;
         public Rigidbody Rigidbody { get; set; }
         public Transform Transform { get; set; }
+        public ParticleSystem m_Effect;
+
         public GameObject m_GameFoodObj;
         public MineData m_MinData;
         public GrenadeData m_GrenadeData;
