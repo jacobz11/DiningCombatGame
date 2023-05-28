@@ -1,5 +1,6 @@
 using DiningCombat.Environment;
 using DiningCombat.NPC;
+using DiningCombat.Util;
 using System;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,7 +8,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 namespace DiningCombat.AI
 {
-    public class FollowWP : NetworkBehaviour
+    public class FollowWP : NetworkBehaviour, IDictionaryObject
     {
         public event Action OnEngRund;
         public Vector3[] m_Waypoints;
@@ -46,6 +47,9 @@ namespace DiningCombat.AI
         {
             get => m_Waypoints[m_CuurentWp];
         }
+        private string m_NameKey;
+        public string NameKey { get => m_NameKey; set => m_NameKey = value; }
+
         private void Awake()
         {
             m_WaypointsList = new List<Vector3>();

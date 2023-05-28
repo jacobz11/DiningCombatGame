@@ -1,9 +1,10 @@
 using DiningCombat.Player;
+using DiningCombat.Util;
 using System.Collections;
 using UnityEngine;
 namespace DiningCombat.Environment
 {
-    public class Egg : MonoBehaviour
+    public class Egg : MonoBehaviour, IDictionaryObject
     {
         private const float k_Damage = 11f;
         [SerializeField]
@@ -12,6 +13,7 @@ namespace DiningCombat.Environment
         private GameObject m_BrokenEgg;
         [SerializeField]
         private float m_DisplayTimeAfterTriggerEnter;
+        public string NameKey { get; set; }
 
         public void OnExitPool(Vector3 i_Pos)
         {
