@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d8dfbe5c50668469f72eba44a7b2cb, type: 3}
   m_Name: PlayerMovmentData
   m_EditorClassIdentifier: 
-  m_MouseSensetivity: 18.2
-  m_PlayerSpeed: 7.9
-  m_JumpHeight: 62
+  m_MouseSensetivity: 50
+  m_PlayerSpeed: 8
+  m_JumpHeight: 35
   m_JumpSlowDonwSpeep: 0.24
   m_Ground:
     serializedVersion: 2

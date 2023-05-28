@@ -15,7 +15,7 @@ namespace DiningCombat.UI
             private set
             {
                 m_ScorePoint = value;
-                m_PlayerScoreVisel.UpdeteValueScore(m_ScorePoint);
+                m_PlayerScoreVisel?.UpdeteValueScore(m_ScorePoint);
             }
         }
         public int Kills
@@ -24,7 +24,7 @@ namespace DiningCombat.UI
             private set
             {
                 m_Kills = value;
-                m_PlayerScoreVisel.UpdeteValueKills(m_Kills);
+                m_PlayerScoreVisel?.UpdeteValueKills(m_Kills);
             }
         }
 
