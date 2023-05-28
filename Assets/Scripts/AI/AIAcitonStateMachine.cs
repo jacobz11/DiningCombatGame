@@ -3,6 +3,7 @@ using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
 using DiningCombat.UI;
+using System;
 using UnityEngine.AI;
 
 namespace DiningCombat.AI
@@ -52,6 +53,25 @@ namespace DiningCombat.AI
             channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
             m_StateIndex = StateFree.k_Indx;
             CurrentState.OnStateEnter();
+            ManagerGameFoodObj.Instance.OnCollected += ManagerGameFoodObj_OnCollected;
+            if (gameObject.TryGetComponent<Player.Player>(out Player.Player player))
+            {
+                player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
+            }
+        }
+
+        private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
+        {
+            m_Agent.isStopped = i_IsPlayerSweepFall;
+        }
+
+        private void ManagerGameFoodObj_OnCollected()
+        {
+            AIStateFree stateFree = CurrentState as AIStateFree;
+            if (stateFree is not null)
+            {
+                stateFree.FindTarget();
+            }
         }
         #endregion
 

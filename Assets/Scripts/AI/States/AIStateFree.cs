@@ -1,6 +1,7 @@
 ﻿using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -47,8 +48,9 @@ namespace DiningCombat.AI.States
             }
         }
 
-        private void FindTarget()
+        public void FindTarget()
         {
+            Debug.Log("FindTarget");
             List<Vector3> all = ManagerGameFoodObj.Instance.GetAllUncollcted();
 
             if (all.Count == 0)

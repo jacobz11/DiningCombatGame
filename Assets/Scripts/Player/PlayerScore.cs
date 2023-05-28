@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DiningCombat.FoodObject;
+using UnityEngine;
 namespace DiningCombat.UI
 {
     public class PlayerScore : MonoBehaviour
@@ -26,6 +27,7 @@ namespace DiningCombat.UI
                 m_PlayerScoreVisel.UpdeteValueKills(m_Kills);
             }
         }
+
         public void HitPlayer(Collision collision, float hitPoint, int kill)
         {
             if (DidIHurtMyself(collision))
@@ -38,7 +40,12 @@ namespace DiningCombat.UI
                 Kills += kill;
             }
         }
-
+        
+        public void UpdatePlayerScore(IThrownState.HitPointEventArgs i_HitPointEvent) 
+        {
+            ScorePoint += i_HitPointEvent.m_Damage;
+            Kills += i_HitPointEvent.m_Kills;
+        }
         private bool DidIHurtMyself(Collision collision)
         {
             return gameObject.Equals(collision.gameObject);

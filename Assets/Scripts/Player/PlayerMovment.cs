@@ -60,6 +60,8 @@ namespace DiningCombat.Player
             }
         }
 
+        public bool PlayerCanMove { get; private set; }
+
         #region Unity
         private void Awake()
         {
@@ -78,26 +80,38 @@ namespace DiningCombat.Player
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             NetworkObject networkObj = GetComponent<NetworkObject>();
-
-            if (networkObj == null)
+            if (networkObj is null)
             {
                 Debug.LogWarning("Object does not have a NetworkObject component");
                 return;
             }
 
+            if (gameObject.TryGetComponent<Player>(out Player player))
+            {
+                player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
+            }
+
+            PlayerCanMove = true;
             // Request ownership of the object
             if (networkObj.IsSpawned && !networkObj.IsOwnedByServer)
             {
             }
         }
 
+        private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
+        {
+            PlayerCanMove = i_IsPlayerSweepFall;
+        }
+
         public void Update()
         {
             if (IsOwner)
             {
-                HandleMovementClientRpc();
-                HandleRotationeClientRpc();
-
+                if (PlayerCanMove)
+                {
+                    HandleMovementClientRpc();
+                    HandleRotationeClientRpc();
+                }
             }
         }
 
