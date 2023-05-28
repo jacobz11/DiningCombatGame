@@ -30,11 +30,15 @@ namespace DiningCombat.Manger
                 Destroy(this);
                 return;
             }
-
+            OnReturnToPool += FoodObj_OnReturnToPool;
             base.Awake();
             Instance = this;
         }
 
+        private void FoodObj_OnReturnToPool()
+        {
+            m_CuntterOfFoodInTheGame.TryDec();
+        }
 
         private GameFoodObj Get(Vector3 i_Pos)
         {
@@ -44,7 +48,6 @@ namespace DiningCombat.Manger
 
             return foodObj;
         }
-
         //private void InitializationPool(int numOfSetToEnterThePool)
         //{
         //    AddObject(numOfSetToEnterThePool);
@@ -71,6 +74,7 @@ namespace DiningCombat.Manger
             {
                 Debug.Log("foodObj == null");
             }
+
             _ = m_CuntterOfFoodInTheGame.TryInc();
             foodObj.OnCollect += FoodObj_OnCollect;
             UncollectedPos += foodObj.ViewElement;
@@ -79,14 +83,12 @@ namespace DiningCombat.Manger
         }
 
         private void FoodObj_OnCollect()
-        { /* Not-Implemented */}
+        {
+            Debug.Log("FoodObj_OnCollect");
+            OnCollected?.Invoke();
+        }
         public void OnGameOver()
         { /* Not-Implemented */}
-
-        private void OnDestruction_GameFoodObj()
-        {
-            _ = m_CuntterOfFoodInTheGame.TryDec();
-        }
 
         private void Start()
         {
