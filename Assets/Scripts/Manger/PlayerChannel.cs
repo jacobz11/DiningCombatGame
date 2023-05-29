@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.Manger
 {
@@ -17,7 +14,7 @@ namespace Assets.Scripts.Manger
             public bool IsAlive;
         }
         private Dictionary<string, PlayerStatus> m_Table = new Dictionary<string, PlayerStatus>();
-        
+
         public void UpdatePlayer(string i_Player, float i_Score, int i_Kills)
         {
             if (!m_Table.ContainsKey(i_Player))
@@ -27,10 +24,10 @@ namespace Assets.Scripts.Manger
             }
 
             PlayerStatus playerStatus = m_Table[i_Player];
-            m_Table[i_Player]= new PlayerStatus()
+            m_Table[i_Player] = new PlayerStatus()
             {
-                Id = playerStatus.Id, 
-                Name = playerStatus.Name, 
+                Id = playerStatus.Id,
+                Name = playerStatus.Name,
                 Score = i_Score,
                 Kills = i_Kills,
                 IsAlive = playerStatus.IsAlive,

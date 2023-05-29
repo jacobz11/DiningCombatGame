@@ -37,7 +37,6 @@ namespace DiningCombat.Environment
 
         private void WaterGraph_OnEnding()
         {
-            Debug.Log("WaterGraph_OnEnding  ");
             m_IsEnding = true;
         }
 

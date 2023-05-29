@@ -1,4 +1,5 @@
-﻿using DiningCombat.Environment;
+﻿using DiningCombat.AI;
+using DiningCombat.Environment;
 using DiningCombat.FoodObject;
 using System;
 using UnityEngine;
@@ -13,17 +14,18 @@ namespace DiningCombat.NPC
         private float m_Countdown;
         private Vector3 m_Target;
         private NavMeshAgent m_Agent;
+        private FollowWP m_Follow;
         private Room m_RoomDimension;
 
-        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, Room room) : base(gameFood)
+        public UncollectStateCorn(GameFoodObj gameFood, NavMeshAgent i_Agent, Room i_Room, FollowWP i_Follow) : base(gameFood)
         {
             m_Agent = i_Agent;
-            m_RoomDimension = room;
+            m_RoomDimension = i_Room;
+            m_Follow = i_Follow;
         }
 
         public override void Update()
         {
-            //Debug.Log("pos :" + m_GameObjects[m_GameObjectsCount].transform.position + "m_GameObjectsCount " + m_GameObjectsCount);
             m_Countdown -= Time.deltaTime;
             if (m_Countdown <= 0)
             {
@@ -37,25 +39,12 @@ namespace DiningCombat.NPC
             }
 
             //m_Agent.gameObject.transform.LookAt(m_Target);
-            OnDrawGizmos();
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (m_Agent.hasPath)
-            {
-                Vector3[] path = m_Agent.path.corners;
-                for (int i = 0; i < path.Length - 1; i++)
-                {
-                    Debug.DrawLine(path[i], path[i + 1], Color.blue);
-                }
-            }
         }
 
         private void SetDestination()
         {
             m_Target = m_RoomDimension.GetRendonPos();
-            Debug.Log("SetDestination " + m_Target);
+            Debug.Log("SetDestination " + m_Target + " dist :" + Vector3.Distance(m_Target, m_Agent.transform.position));
             m_Agent.SetDestination(m_Target);
         }
 
@@ -88,6 +77,5 @@ namespace DiningCombat.NPC
             Debug.Log("OnSteteExit corn");
             m_Agent.isStopped = true;
         }
-
     }
 }

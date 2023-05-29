@@ -64,7 +64,6 @@ namespace DiningCombat.Util
             for (int x = 0; x < higt; x++)
             {
                 m_Ring[x] = new NodeGraph[width];
-                //m_Ring[x] = Cerate1DArr(x);
                 for (int z = 0; z < width; z++)
                 {
                     m_Ring[x][z] = new NodeGraph(MakeAction(x, z));
