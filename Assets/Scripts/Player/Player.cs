@@ -21,13 +21,9 @@ namespace DiningCombat.Player
             m_PlayerAnimation = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
         }
 
-        private void GameInput_OnBostRunnigAction(object sender, System.EventArgs e)
-        {
-            Debug.Log("GameInput_OnChargingAction");
-        }
-
         public IEnumerator ToggleSweepFallEnds()
         {
+            Debug.Log("ToggleSweepFallEnds");
             OnPlayerSweepFall?.Invoke(true);
             m_PlayerAnimation.AnimationBool("SweepFall", true);
             yield return new WaitForSeconds(1);
