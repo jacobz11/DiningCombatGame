@@ -33,7 +33,6 @@ namespace DiningCombat.Util
         }
         public GraphDC(int i_Higt, int i_Width, Vector3 i_StrtingPoint, Action<Vector3> action)
         {
-            Debug.Log("i_StrtingPoint" + i_StrtingPoint);
             m_Higt = i_Higt;
             m_Width = i_Width;
             int higt = (2 * i_Higt) - 2;

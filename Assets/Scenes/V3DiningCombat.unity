@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &14250921
 Transform:
   m_ObjectHideFlags: 0
@@ -4172,6 +4172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82182a841995a4b89552f9bcd1c93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Skins: {fileID: 11400000, guid: 6bd5a2621bfaa444e804239a45873882, type: 2}
   m_AiPrifab: {fileID: 3982638269754406075, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
   m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
   m_NetworkBtn: {fileID: 104136705}

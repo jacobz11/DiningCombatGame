@@ -1,4 +1,5 @@
 ﻿using DiningCombat.Environment;
+using DiningCombat.Player;
 using DiningCombat.Util.DesignPatterns;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace DiningCombat.Manger
     public class GameManger : Singleton<GameManger>
     {
         [SerializeField]
+        private AllPlayerSkinsSO m_Skins;
+        [SerializeField]
         private GameObject m_AiPrifab;
         [SerializeField]
         private Room m_RoomDimension;
@@ -18,18 +21,10 @@ namespace DiningCombat.Manger
         private NetworkBtnStrting m_NetworkBtn;
         [SerializeField]
         private GameStrting m_GameStrting;
-
-        //public static GameManger Instance { get; private set; }
         public GameOverLogic GameOverLogic { get; private set; }
         public int Cuntter { get; private set; }
         protected override void Awake()
         {
-            //if (Instance is not null)
-            //{
-            //    Destroy(this);
-            //    return;
-            //}
-            //Instance = this;
             base.Awake();
             GameOverLogic = gameObject.GetComponent<GameOverLogic>();
             Cuntter = 0;
@@ -46,39 +41,30 @@ namespace DiningCombat.Manger
 
             if (data.Length == 0)
             {
-                Debug.Log("Data is empty");
+                Debug.LogWarning($"No tagged object found in {GameGlobal.TagNames.k_DontDestroyOnLoad}");
                 return;
-            }
-            else
-            {
-                Debug.Log("Data " + data.Length);
             }
 
             if (!data[0].TryGetComponent<StaringData>(out StaringData o_StaringData))
             {
-                Debug.Log("StaringData cant get ");
+                Debug.Log("StaringData cant get");
                 return;
             }
 
             if (!o_StaringData.IsOnline)
             {
-                Debug.Log("StaringData Is not Online ");
-
-                // remove on ckile 
                 m_NetworkBtn.StartHost();
                 GameStrting.Instance.AddNumOfPlyers(o_StaringData.m_NumOfAi);
 
                 // instint Ai
                 for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
-                    Debug.Log("StaringData ai ");
-
                     GameObject ai = GameObject.Instantiate(m_AiPrifab, GameStrting.Instance.GatIntPosForPlayer(), Quaternion.identity);
+                    ai.GetComponentInChildren<Renderer>().material = m_Skins;
                 }
             }
             else
             {
-                Debug.Log("StaringData IsOnline ");
                 m_GameStrting.AddNumOfPlyers(1);
             }
         }

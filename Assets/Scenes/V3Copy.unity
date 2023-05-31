@@ -3597,6 +3597,82 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533232833}
   m_Mesh: {fileID: 9042771077998628582, guid: 747ff1fbfb7adfc4c971b48f098dc4a1, type: 3}
+--- !u!1 &537091139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537091140}
+  - component: {fileID: 537091142}
+  - component: {fileID: 537091141}
+  m_Layer: 5
+  m_Name: Backgrund
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &537091140
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537091139}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 544154247}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 20}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &537091141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537091139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &537091142
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537091139}
+  m_CullTransparentMesh: 1
 --- !u!1 &544154246
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,6 +3702,7 @@ RectTransform:
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 537091140}
   - {fileID: 1328043739}
   m_Father: {fileID: 524506547}
   m_RootOrder: 1
@@ -7745,7 +7822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: kills
+  m_text: 'kills : 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7965,7 +8042,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 544154247}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -11166,8 +11243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff82182a841995a4b89552f9bcd1c93f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Skins: {fileID: 11400000, guid: 6bd5a2621bfaa444e804239a45873882, type: 2}
   m_AiPrifab: {fileID: 3982638269754406075, guid: 4d33ca88ff85dbe4185ea636abe98358, type: 3}
-  m_RoomDimension: {fileID: 0}
+  m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
   m_NetworkBtn: {fileID: 104136705}
   m_GameStrting: {fileID: 0}
 --- !u!114 &2125214548
@@ -11275,7 +11353,6 @@ MonoBehaviour:
     m_InitSpawn: 0
   m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
   m_PackagesPreFfa:
-  - {fileID: 8953605850935228548, guid: 88fb48d485a709840906695cc40cbc39, type: 3}
   - {fileID: 1848895894873902163, guid: c43ead7272a66c84c8fc52968eb16d4a, type: 3}
 --- !u!1 &184786114176619191
 GameObject:

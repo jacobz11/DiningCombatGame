@@ -16,6 +16,7 @@ namespace DiningCombat.UI
         private void Awake()
         {
             Instance ??= this;
+            UpdateBarNormalized(StartingFullAmont ? 1 : 0);
         }
 
         public PoweringVisual GetPoweringVisual()
