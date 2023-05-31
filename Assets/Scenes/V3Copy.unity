@@ -11248,6 +11248,8 @@ MonoBehaviour:
   m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
   m_NetworkBtn: {fileID: 104136705}
   m_GameStrting: {fileID: 0}
+  m_LifePointsVisualScreen: {fileID: 104136702}
+  m_PoweringVisualScreen: {fileID: 104136703}
 --- !u!114 &2125214548
 MonoBehaviour:
   m_ObjectHideFlags: 0

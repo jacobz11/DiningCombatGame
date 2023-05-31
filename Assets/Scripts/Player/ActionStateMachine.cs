@@ -1,5 +1,6 @@
 using DiningCombat.DataObject;
 using DiningCombat.FoodObject;
+using DiningCombat.Manger;
 using DiningCombat.Player.States;
 using DiningCombat.UI;
 using DiningCombat.Util.DesignPatterns;
@@ -16,8 +17,6 @@ namespace DiningCombat.Player
         protected IStatePlayerHand[] m_Stats;
         protected int m_StateIndex;
 
-        [SerializeField]
-        private PlayerScore m_PlayerScore;
         private GameFoodObj m_FoodObj;
 
         [SerializeField]
@@ -25,7 +24,8 @@ namespace DiningCombat.Player
         [SerializeField]
         protected PoweringDataSo m_Powering;
         [SerializeField]
-        protected PoweringVisual m_PoweringVisual;
+        protected Player m_Player;
+
         public Transform PickUpPoint => m_PickUpPoint;
         public bool IsPower { get; private set; }
 
@@ -41,7 +41,10 @@ namespace DiningCombat.Player
         }
 
         public IStatePlayerHand CurrentState => m_Stats[m_StateIndex];
-        public PlayerScore GetScore() => m_PlayerScore;
+        public PlayerScore GetScore()
+        {
+            return m_Player.PlayerScore;
+        }
         #region Unity
         private void Awake()
         {
@@ -68,20 +71,20 @@ namespace DiningCombat.Player
             base.OnNetworkSpawn();
             AddLisenrToInput(GetComponent<GameInput>());
 
-            PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
             StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
-            SetLaunchingAnimation(channel);
+            SetLaunchingAnimation(m_Player.PlayerAnimation);
 
-            m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
+            if (!m_Player.IsAi)
+            {
+                powering.OnPoweringNormalized += GameManger.Instance.PoweringVisual.UpdateBarNormalized;
+            }
 
-            powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
-            channel.ThrowPoint += Animation_ThrowPoint;
-            channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
+            m_Player.PlayerAnimation.ThrowPoint += Animation_ThrowPoint;
+            m_Player.PlayerAnimation.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
 
             m_StateIndex = StateFree.k_Indx;
             CurrentState.OnStateEnter();
         }
-
         protected void SetLaunchingAnimation(PlayerAnimationChannel channel)
         {
             m_LaunchingAnimation += (eThrowAnimationType animationType) =>
@@ -172,7 +175,7 @@ namespace DiningCombat.Player
             IsPower = true;
             CurrentState.OnChargingAction = true;
         }
-        private void GameInput_OnStopChargingAction(object sender, System.EventArgs e)
+        public void GameInput_OnStopChargingAction(object sender, System.EventArgs e)
         {
             IsPower = false;
             CurrentState.OnChargingAction = false;

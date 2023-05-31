@@ -4,8 +4,6 @@ namespace DiningCombat.UI
 {
     public class PoweringVisual : MonoBehaviour
     {
-        public static PoweringVisual Instance { get; private set; }
-
         [SerializeField]
         private Image m_PoweringBar;
 
@@ -15,13 +13,7 @@ namespace DiningCombat.UI
 
         private void Awake()
         {
-            Instance ??= this;
             UpdateBarNormalized(StartingFullAmont ? 1 : 0);
-        }
-
-        public PoweringVisual GetPoweringVisual()
-        {
-            return this;
         }
 
         public void Hide()
@@ -46,6 +38,7 @@ namespace DiningCombat.UI
 
         public void UpdateBarNormalized(float i_NewNormalizedValue)
         {
+            Debug.Log("UpdateBarNormalized");
             m_PoweringBar.fillAmount = i_NewNormalizedValue;
         }
     }

@@ -1,21 +1,23 @@
 ﻿using DiningCombat.FoodObject;
+using DiningCombat.Manger;
 using UnityEngine;
+using System;
 namespace DiningCombat.UI
 {
     public class PlayerScore : MonoBehaviour
     {
+        public event Action<float> OnPlayerScorePointChanged;
+        public event Action<int> OnPlayerKillsChanged;
         private float m_ScorePoint;
         private int m_Kills;
 
-        [SerializeField]
-        private PlayerScoreVisel m_PlayerScoreVisel;
         public float ScorePoint
         {
             get => m_ScorePoint;
             private set
             {
                 m_ScorePoint = value;
-                m_PlayerScoreVisel?.UpdeteValueScore(m_ScorePoint);
+                OnPlayerScorePointChanged?.Invoke(m_ScorePoint);
             }
         }
         public int Kills
@@ -24,7 +26,7 @@ namespace DiningCombat.UI
             private set
             {
                 m_Kills = value;
-                m_PlayerScoreVisel?.UpdeteValueKills(m_Kills);
+                OnPlayerKillsChanged?.Invoke(m_Kills);
             }
         }
 

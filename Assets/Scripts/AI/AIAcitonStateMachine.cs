@@ -2,7 +2,6 @@ using DiningCombat.AI.States;
 using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
-using DiningCombat.UI;
 using UnityEngine.AI;
 
 namespace DiningCombat.AI
@@ -42,21 +41,15 @@ namespace DiningCombat.AI
 
         public override void OnNetworkSpawn()
         {
-            PlayerAnimationChannel channel = GetComponentInChildren<PlayerAnimationChannel>();
             StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
-            m_PoweringVisual = PoweringVisual.Instance.GetPoweringVisual();
-            SetLaunchingAnimation(channel);
+            SetLaunchingAnimation(m_Player.PlayerAnimation);
 
-            powering.OnPoweringNormalized += m_PoweringVisual.UpdateBarNormalized;
-            channel.ThrowPoint += Animation_ThrowPoint;
-            channel.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
+            m_Player.PlayerAnimation.ThrowPoint += Animation_ThrowPoint;
+            m_Player.PlayerAnimation.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
             m_StateIndex = StateFree.k_Indx;
             CurrentState.OnStateEnter();
             ManagerGameFoodObj.Instance.OnCollected += ManagerGameFoodObj_OnCollected;
-            if (gameObject.TryGetComponent<Player.Player>(out Player.Player player))
-            {
-                player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
-            }
+            m_Player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
         }
 
         private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)

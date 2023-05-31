@@ -1,25 +1,23 @@
 ﻿using DiningCombat.Manger;
-using DiningCombat.UI;
 using System;
-using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 namespace DiningCombat.Player
 {
-    public class PlayerLifePoint : MonoBehaviour
+    public class PlayerLifePoint : NetworkBehaviour
     {
-        public event Action OnPlayerDead;
-        private const float k_StrtingLifePoint = 100f;
+        public event Action OnPlayerDied;
+        public event Action<float> OnPlayerLifePointChanged;
+        public const float k_StrtingLifePoint = 100f;
 
         [SerializeField]
         private float m_LifePoint;
         [SerializeField]
-        private List<LifePointsVisual> m_LifePointsVisual;
-        [SerializeField]
-        private bool m_IsAi;
+        private Player m_Player;
         private bool m_IsAlive;
 
         // TODO : is this set need to be public
-        public bool IsAi { get => m_IsAi; set => m_IsAi = value; }
+        public bool IsAi { get => m_Player.IsAi;}
 
         private void Awake()
         {
@@ -29,21 +27,10 @@ namespace DiningCombat.Player
 
         private void Start()
         {
-            GameOverLogic.Instance.CharacterEntersTheGame(this);
-            PlayerAnimationChannel animationChannel = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
-            if (animationChannel is null)
-            {
-                Debug.Log("animationChannel is null");
-            }
-            else
-            {
-                // TODO: 
-                // OnPlayerDead +=  animationChannel.OnPlayerDead;
-                //OnPlayerDead += () => animationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames., true);
-            }
+         
         }
 
-        private void PlayerLifePoint_OnPlayerDead()
+        private void PlayerLifePoint_OnPlayerKilld()
         {
             if (!m_IsAlive)
             {
@@ -51,8 +38,8 @@ namespace DiningCombat.Player
             }
 
             m_IsAlive = false;
-            GameManger.Instance.GameOverLogic.Player_OnPlayerDead(IsAi);
-            OnPlayerDead?.Invoke();
+            GameManger.Instance.GameOverLogic.Player_OnPlayerDead(IsAi, gameObject.name);
+            OnPlayerDied?.Invoke();
         }
 
         public void OnHitPlayer(float i_HitPoint, out bool o_IsKiil)
@@ -68,11 +55,10 @@ namespace DiningCombat.Player
             if (o_IsKiil)
             {
                 Debug.Log("o_IsKiil : " + o_IsKiil);
-                PlayerLifePoint_OnPlayerDead();
+                PlayerLifePoint_OnPlayerKilld();
             }
 
-            float normalizHp = m_LifePoint / k_StrtingLifePoint;
-            m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
+            OnPlayerLifePointChanged?.Invoke(m_LifePoint);
         }
 
         public static bool TryToDamagePlayer(GameObject i_GameObject, float i_Damage, out bool o_IsKill)
@@ -92,11 +78,6 @@ namespace DiningCombat.Player
             return isPlayer;
         }
 
-        public void AddLifePointsVisual(LifePointsVisual i_LifePointsVisual)
-        {
-            m_LifePointsVisual.Add(i_LifePointsVisual);
-        }
-
         public void Healed(LifePackage i_LifePackage)
         {
             if (i_LifePackage.Amont < 0)
@@ -105,9 +86,7 @@ namespace DiningCombat.Player
             }
 
             m_LifePoint = Math.Max(m_LifePoint + i_LifePackage.Amont, k_StrtingLifePoint);
-
-            float normalizHp = m_LifePoint / k_StrtingLifePoint;
-            m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
+            OnPlayerLifePointChanged?.Invoke(m_LifePoint);
         }
     }
 }

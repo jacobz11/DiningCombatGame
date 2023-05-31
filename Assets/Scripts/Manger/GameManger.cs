@@ -1,15 +1,18 @@
 ﻿using DiningCombat.Environment;
 using DiningCombat.Player;
+using DiningCombat.UI;
 using DiningCombat.Util.DesignPatterns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DiningCombat.Manger
 {
     //TODO : arrange the code
     //TODO : Delete what you don't need
-    public class GameManger : Singleton<GameManger>
+    public class GameManger : Util.DesignPatterns.Singleton<GameManger>
     {
         [SerializeField]
         private AllPlayerSkinsSO m_Skins;
@@ -21,8 +24,33 @@ namespace DiningCombat.Manger
         private NetworkBtnStrting m_NetworkBtn;
         [SerializeField]
         private GameStrting m_GameStrting;
+        [SerializeField]
+        public LifePointsVisual m_LifePointsVisualScreen;
+        [SerializeField]
+        public PoweringVisual m_PoweringVisualScreen;
+        private List<string> m_AiName = new List<string>() {
+            "Botzilla",
+            "Byte Meister",
+            "Cogsworth",
+            "Electric Boogaloo",
+            "GizmoTron",
+            "Machina Man",
+            "Pixel Poppins",
+            "Robo Rascal",
+            "Sparky McSparkface",
+            "Technotron",
+            "Whirly Gigglebot",
+            "Circuit Breaker",
+            "Quirkotron",
+            "Byte-sized Bandit",
+            "TinkerTot",
+        };
+
         public GameOverLogic GameOverLogic { get; private set; }
         public int Cuntter { get; private set; }
+        public LifePointsVisual LifePointsVisual { get => m_LifePointsVisualScreen; }
+        public PoweringVisual PoweringVisual { get => m_PoweringVisualScreen; }
+
         protected override void Awake()
         {
             base.Awake();
@@ -33,6 +61,7 @@ namespace DiningCombat.Manger
         private void Start()
         {
             TryStartOffline();
+            gameObject.tag = GameGlobal.TagNames.k_DontDestroyOnLoad;
         }
 
         private void TryStartOffline()
@@ -45,28 +74,25 @@ namespace DiningCombat.Manger
                 return;
             }
 
-            if (!data[0].TryGetComponent<StaringData>(out StaringData o_StaringData))
+            GameObject staringDataGO = data[0];
+            if (!staringDataGO.TryGetComponent<StaringData>(out StaringData o_StaringData))
             {
                 Debug.Log("StaringData cant get");
-                return;
             }
-
-            if (!o_StaringData.IsOnline)
+            else if (!o_StaringData.IsOnline)
             {
                 m_NetworkBtn.StartHost();
-                GameStrting.Instance.AddNumOfPlyers(o_StaringData.m_NumOfAi);
 
                 // instint Ai
                 for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
                     GameObject ai = GameObject.Instantiate(m_AiPrifab, GameStrting.Instance.GatIntPosForPlayer(), Quaternion.identity);
+                    ai.name = m_AiName[i];
                     ai.GetComponentInChildren<Renderer>().material = m_Skins;
                 }
             }
-            else
-            {
-                m_GameStrting.AddNumOfPlyers(1);
-            }
+
+            Destroy(staringDataGO);
         }
 
         public void AddCamera(GameObject i_Player)
