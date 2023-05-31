@@ -1,7 +1,6 @@
 ﻿using DiningCombat.FoodObject;
-using DiningCombat.Manger;
-using UnityEngine;
 using System;
+using UnityEngine;
 namespace DiningCombat.UI
 {
     public class PlayerScore : MonoBehaviour

@@ -1,7 +1,5 @@
 using DiningCombat;
 using DiningCombat.Manger;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +13,7 @@ public class GameOverDisplay : MonoBehaviour
         string text = "no text";
         foreach (GameObject item in data)
         {
-            if (item.TryGetComponent<GameOverLogic>(out GameOverLogic o_OverLogic)) 
+            if (item.TryGetComponent<GameOverLogic>(out GameOverLogic o_OverLogic))
             {
                 text = o_OverLogic.ToString();
             }
@@ -30,6 +28,6 @@ public class GameOverDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -1,7 +1,5 @@
 using DiningCombat.Manger;
-using DiningCombat.Player.States;
 using DiningCombat.UI;
-using DiningCombat.Util.DesignPatterns;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,12 +33,12 @@ namespace DiningCombat.Player
             GameInput = gameObject.GetComponent<GameInput>();
             ActionState = gameObject.GetComponent<ActionStateMachine>();
             GameOverLogic.Instance.CharacterEntersTheGame(PlayerLifePoint);
-            
+
             if (!m_IsAI)
             {
                 PlayerScore.OnPlayerKillsChanged += PlayerScoreVisel.Instance.UpdeteValueKills;
                 PlayerScore.OnPlayerScorePointChanged += PlayerScoreVisel.Instance.UpdeteValueScore;
-                
+
 
                 GameInput.OnStartChargingAction += ActionState.GameInput_OnStartChargingAction;
                 GameInput.OnStopChargingAction += ActionState.GameInput_OnStopChargingAction;
@@ -49,7 +47,7 @@ namespace DiningCombat.Player
             }
 
             PlayerLifePoint.OnPlayerLifePointChanged += PlayerLifePoint_OnPlayerLifePointChanged;
-            
+
         }
 
         private void PlayerLifePoint_OnPlayerLifePointChanged(float i_NewLifePoint)

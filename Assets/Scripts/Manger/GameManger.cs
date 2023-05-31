@@ -1,11 +1,8 @@
 ﻿using DiningCombat.Environment;
 using DiningCombat.Player;
 using DiningCombat.UI;
-using DiningCombat.Util.DesignPatterns;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DiningCombat.Manger

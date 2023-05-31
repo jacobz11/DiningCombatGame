@@ -17,7 +17,7 @@ namespace DiningCombat.Player
         private bool m_IsAlive;
 
         // TODO : is this set need to be public
-        public bool IsAi { get => m_Player.IsAi;}
+        public bool IsAi { get => m_Player.IsAi; }
 
         private void Awake()
         {
@@ -27,7 +27,7 @@ namespace DiningCombat.Player
 
         private void Start()
         {
-         
+
         }
 
         private void PlayerLifePoint_OnPlayerKilld()
