@@ -10,17 +10,25 @@ namespace DiningCombat.Manger
     public class ManagerGamePackage : GenericObjectPool<IPackage>
     {
         public event Action<List<Vector3>> UncollectedPos;
-
+        private short m_Cuntter;
+        public short Cuntter
+        {
+            get => m_Cuntter;
+            private set
+            {
+                m_Cuntter = value;
+                if (m_Cuntter < m_SpawnData.m_MinItemSpawn)
+                {
+                    SpawnPackage();
+                }
+            }
+        }
         private float m_LestSpanw;
         [SerializeField]
-        private Cuntter m_Cuntter;
-        [SerializeField]
-        private SpawnData m_SpawnData;
+        private SpawnDataSO m_SpawnData;
         [SerializeField]
         private Room m_RoomDimension;
-        [SerializeField]
-        private IPackage[] m_PackagesPreFfa;
-        private int m_IndexInPackagesArr;
+
         public bool IsSpawnNewGameObj { get; private set; }
         public new static ManagerGamePackage Instance { get; private set; }
 
@@ -50,7 +58,7 @@ namespace DiningCombat.Manger
         private GameObject SpawnPackage()
         {
             IPackage package = Get(m_RoomDimension.GetRendonPos());
-            _ = m_Cuntter.TryInc();
+            Cuntter++;
             m_LestSpanw = 0;
 
             return package.gameObject;
@@ -61,7 +69,7 @@ namespace DiningCombat.Manger
 
         private void OnDestruction_GameFoodObj()
         {
-            _ = m_Cuntter.TryDec();
+            Cuntter--;
         }
 
         private void Start()
@@ -93,7 +101,7 @@ namespace DiningCombat.Manger
         {
             m_LestSpanw += Time.deltaTime;
             bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
-            bool isNotMax = m_Cuntter.CanInc();
+            bool isNotMax = Cuntter <= m_SpawnData.m_MaxItemSpawn;
 
             return isTimeOver && isNotMax;
         }

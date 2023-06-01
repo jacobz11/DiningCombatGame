@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11209,12 +11209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PrefabList: {fileID: 11400000, guid: ded482171613f534288d42a0c57c033d, type: 2}
-  m_CuntterOfFoodInTheGame:
-    m_Max: 15
-    m_Min: 0
-  m_SpawnData:
-    m_SpawnTimeBuffer: 1.5
-    m_InitSpawn: 12
+  m_SpawnData: {fileID: 11400000, guid: 825517cbfdca947419d0daf49295e967, type: 2}
   m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
 --- !u!4 &2125214546
 Transform:
@@ -11262,9 +11257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31bf5c76febcc764a8e0d0f4d1661509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnData:
-    m_SpawnTimeBuffer: 5
-    m_InitSpawn: 0
+  m_SpawnData: {fileID: 0}
   m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
   m_WaterPrefab: {fileID: 3543954857221768823, guid: 9a012f11fab5dde4683f18e78d16fc78, type: 3}
   m_WaterTimer:
@@ -11347,12 +11340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PrefabList: {fileID: 11400000, guid: 4db356c8c5bba1e4dab75d9f02ece7b2, type: 2}
-  m_Cuntter:
-    m_Max: 0
-    m_Min: 0
-  m_SpawnData:
-    m_SpawnTimeBuffer: 1.5
-    m_InitSpawn: 0
+  m_SpawnData: {fileID: 11400000, guid: c5bdf16471c161a45868b4f7f9487535, type: 2}
   m_RoomDimension: {fileID: 11400000, guid: 04a602b074b6d9948935cfc1a5491ddc, type: 2}
   m_PackagesPreFfa:
   - {fileID: 1848895894873902163, guid: c43ead7272a66c84c8fc52968eb16d4a, type: 3}

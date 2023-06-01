@@ -13,7 +13,7 @@ namespace DiningCombat.Environment
         private bool m_IsEnding;
         private GraphDC m_WaterGraph;
         [SerializeField]
-        private SpawnData m_SpawnData;
+        private SpawnDataSO m_SpawnData;
         [SerializeField]
         private DiningCombat.Environment.Room m_RoomDimension;
         [SerializeField]

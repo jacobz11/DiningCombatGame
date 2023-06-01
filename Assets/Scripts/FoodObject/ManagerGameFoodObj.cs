@@ -14,14 +14,26 @@ namespace DiningCombat.Manger
         public event Action OnCollected;
 
         private float m_LestSpanw;
+        private short m_Cuntter;
+        public short Cuntter 
+        {
+            get => m_Cuntter;
+            private set
+            {
+                m_Cuntter = value;
+                if (m_Cuntter < m_SpawnData.m_MinItemSpawn)
+                {
+                    SpawnGameFoodObj();
+                }
+            }
+        }
         [SerializeField]
-        private Cuntter m_CuntterOfFoodInTheGame;
-        [SerializeField]
-        private SpawnData m_SpawnData;
+        private SpawnDataSO m_SpawnData;
         [SerializeField]
         private Room m_RoomDimension;
         public bool IsSpawnNewGameObj { get; private set; }
         public new static ManagerGameFoodObj Instance { get; private set; }
+        public bool IsPlaying { get; private set; }
 
         private new void Awake()
         {
@@ -30,14 +42,16 @@ namespace DiningCombat.Manger
                 Destroy(this);
                 return;
             }
+
             OnReturnToPool += FoodObj_OnReturnToPool;
             base.Awake();
             Instance = this;
+            IsPlaying = true;
         }
 
         private void FoodObj_OnReturnToPool()
         {
-            m_CuntterOfFoodInTheGame.TryDec();
+            Cuntter--;
         }
 
         private GameFoodObj Get(Vector3 i_Pos)
@@ -64,13 +78,18 @@ namespace DiningCombat.Manger
 
         private GameObject SpawnGameFoodObj()
         {
-            GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
-            Debug.Assert(foodObj != null, "Spawn-Game-FoodObj foodObj is null");
-            _ = m_CuntterOfFoodInTheGame.TryInc();
-            foodObj.OnCollect += FoodObj_OnCollect;
-            UncollectedPos += foodObj.ViewElement;
+            GameObject spawn = null;
+            if (Cuntter <= m_SpawnData.m_MaxItemSpawn && IsPlaying)
+            {
+                GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
+                Debug.Assert(foodObj != null, "Spawn-Game-FoodObj foodObj is null");
+                Cuntter++;
+                foodObj.OnCollect += FoodObj_OnCollect;
+                UncollectedPos += foodObj.ViewElement;
+                spawn = foodObj.gameObject;
+            }
 
-            return foodObj.gameObject;
+            return spawn;
         }
 
         private void FoodObj_OnCollect()
@@ -109,7 +128,7 @@ namespace DiningCombat.Manger
         {
             m_LestSpanw += Time.deltaTime;
             bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
-            bool isNotMax = m_CuntterOfFoodInTheGame.CanInc();
+            bool isNotMax = Cuntter <= m_SpawnData.m_MaxItemSpawn;
             return isTimeOver && isNotMax;
         }
 
