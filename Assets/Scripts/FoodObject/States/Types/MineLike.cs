@@ -1,6 +1,7 @@
 ﻿
 using DiningCombat.DataObject;
 using DiningCombat.Player;
+using System;
 using UnityEngine;
 using static DiningCombat.DataObject.ThrownActionTypesBuilder;
 namespace DiningCombat.FoodObject
@@ -8,7 +9,7 @@ namespace DiningCombat.FoodObject
     public class MineLike : IThrownState
     {
         private const float k_TImeToTrow = 0.7f;
-
+        private Action DisplayEffectAction;
         protected readonly float r_CountdownTime;
         protected readonly float r_EffectTime;
 
@@ -37,6 +38,7 @@ namespace DiningCombat.FoodObject
             r_CountdownTime = i_BuilderData.m_MinData.m_CountdownTime;
             r_ForceHitExsplostin = i_BuilderData.m_MinData.m_ForceHitExsplostin;
             m_TransparentObjectVisal = i_BuilderData.m_MinData.m_AlmostTransparent;
+            DisplayEffectAction += DisplayEffect;
         }
 
         public override void OnStateEnter()
@@ -88,21 +90,22 @@ namespace DiningCombat.FoodObject
         {
             #region Activation not possible
             bool isMinTime = m_TimeBefuerCollision < k_TImeToTrow;
-            bool isHitEinv = i_Collider.CompareTag("environment");
 
-            if (isMinTime || IsActionHappen || isHitEinv)
+            if (isMinTime || IsActionHappen)
             {
                 return;
             }
-            #endregion
-            DisplayEffect();
-            Debug.Log("Activation MineLike");
+
             float damage = CalculatorDamag();
             if (PlayerLifePoint.TryToDamagePlayer(i_Collider.gameObject, damage, out bool o_Iskill))
             {
-                if (o_Iskill && i_Collider.gameObject.TryGetComponent<Player.Player>(out Player.Player player))
+                Debug.Log(i_Collider.gameObject.tag);
+                IsActionHappen = true;
+                #endregion
+                Debug.Log("Activation MineLike");
+                if (!o_Iskill && i_Collider.gameObject.TryGetComponent<Player.Player>(out Player.Player player))
                 {
-                    player.ToggleSweepFallEnds();
+                    player.StartCoroutine(player.ToggleSweepFallEnds(DisplayEffectAction));
                 }
 
                 base.SendOnHit(new HitPointEventArgs()

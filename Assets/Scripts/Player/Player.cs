@@ -39,15 +39,13 @@ namespace DiningCombat.Player
                 PlayerScore.OnPlayerKillsChanged += PlayerScoreVisel.Instance.UpdeteValueKills;
                 PlayerScore.OnPlayerScorePointChanged += PlayerScoreVisel.Instance.UpdeteValueScore;
 
-
                 GameInput.OnStartChargingAction += ActionState.GameInput_OnStartChargingAction;
                 GameInput.OnStopChargingAction += ActionState.GameInput_OnStopChargingAction;
                 GameInput.OnPickUpAction += ActionState.GameInput_OnPickUpAction;
-
             }
 
             PlayerLifePoint.OnPlayerLifePointChanged += PlayerLifePoint_OnPlayerLifePointChanged;
-
+            //OnPlayerSweepFall += (bool va)=> PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, va);
         }
 
         private void PlayerLifePoint_OnPlayerLifePointChanged(float i_NewLifePoint)
@@ -56,14 +54,18 @@ namespace DiningCombat.Player
             m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
         }
 
-        public IEnumerator ToggleSweepFallEnds()
+        public IEnumerator ToggleSweepFallEnds(Action action)
         {
             Debug.Log("ToggleSweepFallEnds");
+            PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, true);
+            yield return new WaitForSeconds(0.5f);
+            //action.Invoke();
             OnPlayerSweepFall?.Invoke(true);
-            PlayerAnimation.AnimationBool("SweepFall", true);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
+            PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, false);
+            yield return new WaitForSeconds(0.5f);
             OnPlayerSweepFall?.Invoke(false);
-            PlayerAnimation.AnimationBool("SweepFall", true);
+            Debug.Log("ToggleSweepFallEnds 0");
         }
     }
 }
