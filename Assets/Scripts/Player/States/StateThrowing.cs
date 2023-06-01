@@ -1,6 +1,4 @@
 ﻿using DiningCombat.FoodObject;
-using DiningCombat.Util.DesignPatterns;
-using System;
 using UnityEngine;
 namespace DiningCombat.Player.States
 {
@@ -10,8 +8,6 @@ namespace DiningCombat.Player.States
         private float m_PowerMull;
         bool IStatePlayerHand.OnChargingAction { get => false; set { } }
         #region Not-Implemented
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {/* Not-Implemented */}
         public void EnterCollisionFoodObj(Collider other)
         {/* Not-Implemented */}
         public void ExitCollisionFoodObj(Collider other)

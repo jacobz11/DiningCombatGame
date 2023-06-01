@@ -11,6 +11,7 @@ namespace DiningCombat.FoodObject
     {
         private readonly float r_ForceHitExsplostin;
         private readonly float r_Radius;
+        private readonly GameObject r_ObjectVisal;
 
         protected readonly float r_CountdownTime;
         protected readonly float r_EffectTime;
@@ -32,6 +33,7 @@ namespace DiningCombat.FoodObject
             m_EffectType = i_BuilderData.m_ElementName;
             r_CountdownTime = i_BuilderData.m_GrenadeData.LifeTimeUntilAction;
             r_ForceHitExsplostin = i_BuilderData.m_GrenadeData.ForceHitExsplostin;
+            r_ObjectVisal = i_BuilderData.m_MinData.m_GameObjectVisal;
             m_Effect = i_BuilderData.m_Effect;
         }
 
@@ -44,7 +46,10 @@ namespace DiningCombat.FoodObject
         }
 
         public override void OnStateExit()
-        { /* Not-Implemented */}
+        {
+            base.OnStateExit();
+            r_ObjectVisal.SetActive(true);
+        }
 
         public override void Update()
         {
@@ -71,7 +76,7 @@ namespace DiningCombat.FoodObject
 
         protected override void ReturnToPool()
         {
-            if (m_Effect != null)
+            if (m_Effect is not null)
             {
                 m_Effect.Stop();
                 m_Effect.gameObject.SetActive(false);
@@ -88,6 +93,7 @@ namespace DiningCombat.FoodObject
             m_Effect.gameObject.transform.position = m_Transform.position;
             m_Effect.gameObject.SetActive(true);
             m_Effect.Play();
+            r_ObjectVisal.SetActive(false);
         }
 
         public override void Activate()

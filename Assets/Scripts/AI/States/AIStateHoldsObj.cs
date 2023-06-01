@@ -12,7 +12,6 @@ namespace DiningCombat.AI.States
         private const float k_MinDistance = 30;
 
         private float m_Timer;
-
         private readonly NavMeshAgent r_Agent;
         private readonly AIAcitonStateMachine r_AIAcitonState;
         private Vector3 m_Target;
@@ -20,7 +19,7 @@ namespace DiningCombat.AI.States
 
         public AIStateHoldsObj(NavMeshAgent i_Agent, AIAcitonStateMachine aIAcitonState) : base()
         {
-            this.r_Agent = i_Agent;
+            r_Agent = i_Agent;
             r_AIAcitonState = aIAcitonState;
         }
 
@@ -44,6 +43,7 @@ namespace DiningCombat.AI.States
             {
                 FindPlayerClosest();
             }
+
             if (Vector3.Distance(m_Target, Position) < k_MinDistance)
             {
                 r_AIAcitonState.GameInput_OnStartChargingAction(this, System.EventArgs.Empty);

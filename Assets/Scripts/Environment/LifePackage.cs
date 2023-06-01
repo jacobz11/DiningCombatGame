@@ -14,5 +14,4 @@ namespace DiningCombat.Player
             }
         }
     }
-
 }

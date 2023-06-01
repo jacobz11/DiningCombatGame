@@ -42,14 +42,18 @@ namespace DiningCombat.AI
         public override void OnNetworkSpawn()
         {
             StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
+            ManagerGameFoodObj.Instance.OnCollected += ManagerGameFoodObj_OnCollected;
             SetLaunchingAnimation(m_Player.PlayerAnimation);
 
+            m_Player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
             m_Player.PlayerAnimation.ThrowPoint += Animation_ThrowPoint;
-            m_Player.PlayerAnimation.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
+            m_Player.PlayerAnimation.ThrowPoint += () =>
+            {
+                _ = powering.OnThrowPoint(out _);
+            };
+
             m_StateIndex = StateFree.k_Indx;
             CurrentState.OnStateEnter();
-            ManagerGameFoodObj.Instance.OnCollected += ManagerGameFoodObj_OnCollected;
-            m_Player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
         }
 
         private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)

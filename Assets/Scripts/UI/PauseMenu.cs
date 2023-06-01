@@ -7,15 +7,18 @@ namespace DiningCombat.UI
         public static bool GameIsPaused = false;
         public GameObject PauseMenuUI;
 
-        // Update is called once per frame
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (GameIsPaused)
+                {
                     Resume();
+                }
                 else
+                {
                     Pause();
+                }
             }
         }
 
@@ -40,7 +43,6 @@ namespace DiningCombat.UI
         }
         public void QuitGame()
         {
-            Debug.Log("quitting");
             Application.Quit();
         }
     }

@@ -68,7 +68,6 @@ namespace DiningCombat.FoodObject
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
-
             UncollectState uncollect = new UncollectState(this);
             IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
             CollectState collectState = new CollectState(m_Rigidbody, transform, this);
@@ -121,8 +120,6 @@ namespace DiningCombat.FoodObject
         #region Throwing
         public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
         {
-            Debug.Log("ThrowingAction i_PowerAmount " + i_PowerAmount + " Direction : " + i_Direction);
-
             if (CurrentState.IsThrowingAction())
             {
                 Index = ThrownState.k_Indx;
@@ -140,7 +137,6 @@ namespace DiningCombat.FoodObject
                 damaging.Activation(collision);
             }
         }
-
         public void OnTriggerEnter(Collider other)
         {
             IDamaging damaging = CurrentState as IDamaging;

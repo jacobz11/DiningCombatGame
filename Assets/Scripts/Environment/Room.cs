@@ -13,11 +13,12 @@ namespace DiningCombat.Environment
         public float Higet => m_Dimensions.x;
         public Vector3 GetRendonPos()
         {
-            Vector3 offset = new Vector3(
-                Random.Range(-m_Dimensions.x, m_Dimensions.x),
-                Random.Range(m_YMinOffset, m_Dimensions.y),
-                Random.Range(-m_Dimensions.z, m_Dimensions.z)
-                );
+            Vector3 offset = new Vector3()
+            {
+                x = Random.Range(-m_Dimensions.x, m_Dimensions.x),
+                y = Random.Range(m_YMinOffset, m_Dimensions.y),
+                z = Random.Range(-m_Dimensions.z, m_Dimensions.z)
+            };
             return m_Center + offset;
         }
     }

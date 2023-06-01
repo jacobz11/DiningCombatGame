@@ -72,7 +72,7 @@ namespace DiningCombat.Environment
             {
                 m_NpcTimer.Clear();
                 FollowWP chicken = ChickenPool.Instance.Get();
-                chicken.transform.position = new Vector3(0.0f, 3f, 0.0f);
+                chicken.transform.position = m_RoomDimension.GetRendonPos();
                 chicken.gameObject.SetActive(true);
             }
         }

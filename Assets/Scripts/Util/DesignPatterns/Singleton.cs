@@ -10,11 +10,11 @@ namespace DiningCombat.Util.DesignPatterns
         {
             get
             {
-                if (s_Instance == null)
+                if (s_Instance is null)
                 {
                     s_Instance = FindObjectOfType<T>();
 
-                    if (s_Instance == null)
+                    if (s_Instance is null)
                     {
                         GameObject singleton = new GameObject(typeof(T).Name);
                         s_Instance = singleton.AddComponent<T>();
@@ -28,7 +28,7 @@ namespace DiningCombat.Util.DesignPatterns
 
         protected virtual void Awake()
         {
-            if (s_Instance != null && s_Instance != this)
+            if (s_Instance is not null && s_Instance != this)
             {
                 Destroy(gameObject);
             }

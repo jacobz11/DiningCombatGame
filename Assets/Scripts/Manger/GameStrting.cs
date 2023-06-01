@@ -29,9 +29,9 @@ namespace DiningCombat.Manger
         {
             float angle = m_Cunter * AngleBetween;
             ++m_Cunter;
-            float x = m_CenterOffset + m_Radius * Mathf.Cos(Mathf.Deg2Rad * angle);
+            float x = m_CenterOffset + (m_Radius * Mathf.Cos(Mathf.Deg2Rad * angle));
             float y = 0f;
-            float z = m_CenterOffset + m_Radius * Mathf.Sin(Mathf.Deg2Rad * angle);
+            float z = m_CenterOffset + (m_Radius * Mathf.Sin(Mathf.Deg2Rad * angle));
 
             return new Vector3(x, y, z);
         }

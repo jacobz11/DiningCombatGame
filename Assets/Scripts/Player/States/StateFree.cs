@@ -1,5 +1,4 @@
 ﻿using DiningCombat.FoodObject;
-using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
 
@@ -40,9 +39,9 @@ namespace DiningCombat.Player.States
                 }
             }
         }
-        public void ExitCollisionFoodObj(Collider other)
+        public void ExitCollisionFoodObj(Collider i_Other)
         {
-            if (m_FoodObj is not null && m_FoodObj.gameObject.Equals(other))
+            if (m_FoodObj is not null && m_FoodObj.gameObject.Equals(i_Other))
             {
                 this.m_FoodObj = null;
             }
@@ -51,7 +50,6 @@ namespace DiningCombat.Player.States
         public virtual void OnStateEnter()
         {
             this.m_FoodObj = null;
-            Debug.Log("init state : StateFree");
         }
 
         public virtual void OnStateExit()
@@ -76,20 +74,10 @@ namespace DiningCombat.Player.States
         public void OnChargingAction()
         {/* Not-Implemented */}
         #endregion
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {
-            switch (i_State)
-            {
-                case IDCState.eState.ExitingState:
-                    PlayerCollectedFood += i_Action;
-                    break;
-            }
-        }
         public bool OnThrowPoint(out float o_Force)
         {
             o_Force = 0;
             return false;
         }
     }
-
 }

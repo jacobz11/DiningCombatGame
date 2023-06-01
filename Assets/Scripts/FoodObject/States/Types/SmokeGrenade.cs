@@ -1,5 +1,4 @@
 ﻿using DiningCombat.DataObject;
-using UnityEngine;
 
 namespace DiningCombat.FoodObject
 {
@@ -13,7 +12,6 @@ namespace DiningCombat.FoodObject
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            Debug.Log("GrenadeLike OnSteteEnter");
         }
 
         public override void Activate()

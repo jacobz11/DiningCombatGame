@@ -22,22 +22,22 @@ namespace DiningCombat.FoodObject
         private readonly float r_Radius;
 
         private float m_TimeBefuerCollision;
-        private GameObject m_ObjectVisal;
-        private GameObject m_TransparentObjectVisal;
-        private Collider m_Triger;
+        private readonly GameObject r_ObjectVisal;
+        private readonly GameObject r_TransparentObjectVisal;
+        private readonly Collider r_Triger;
 
         public MineLike(ThrownActionTypesBuilder i_BuilderData)
             : base(i_BuilderData)
         {
-            m_Triger = i_BuilderData.m_MinData.m_Triger;
+            r_Triger = i_BuilderData.m_MinData.m_Triger;
             r_Radius = i_BuilderData.m_MinData.m_InpactRadius;
             m_Transform = i_BuilderData.Transform;
             m_EffectType = i_BuilderData.m_ElementName;
             r_EffectTime = i_BuilderData.m_MinData.m_EffctTime;
-            m_ObjectVisal = i_BuilderData.m_MinData.m_GameObjectVisal;
+            r_ObjectVisal = i_BuilderData.m_MinData.m_GameObjectVisal;
             r_CountdownTime = i_BuilderData.m_MinData.m_CountdownTime;
             r_ForceHitExsplostin = i_BuilderData.m_MinData.m_ForceHitExsplostin;
-            m_TransparentObjectVisal = i_BuilderData.m_MinData.m_AlmostTransparent;
+            r_TransparentObjectVisal = i_BuilderData.m_MinData.m_AlmostTransparent;
             DisplayEffectAction += DisplayEffect;
         }
 
@@ -49,8 +49,8 @@ namespace DiningCombat.FoodObject
         }
         private void ToggleBetweenVisibility(bool i_Visibility)
         {
-            m_ObjectVisal.SetActive(!i_Visibility);
-            m_TransparentObjectVisal.SetActive(i_Visibility);
+            r_ObjectVisal.SetActive(!i_Visibility);
+            r_TransparentObjectVisal.SetActive(i_Visibility);
         }
         public override void Update()
         {
@@ -76,13 +76,13 @@ namespace DiningCombat.FoodObject
             }
             #endregion
             ToggleBetweenVisibility(false);
-            m_Triger.enabled = false;
+            r_Triger.enabled = false;
             base.ReturnToPool();
         }
         public override void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount)
         {
             ToggleBetweenVisibility(true);
-            m_Triger.enabled = true;
+            r_Triger.enabled = true;
             m_Rigidbody.AddForce(i_Direction.normalized);
         }
 

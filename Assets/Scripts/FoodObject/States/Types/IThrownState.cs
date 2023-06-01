@@ -1,7 +1,6 @@
 ﻿using DiningCombat.DataObject;
 using DiningCombat.Player;
 using DiningCombat.Util;
-using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
 
@@ -61,15 +60,6 @@ namespace DiningCombat.FoodObject
             Activator = null;
         }
 
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {
-            switch (i_State)
-            {
-                case IDCState.eState.ExitingState:
-                    OnHit += i_Action;
-                    break;
-            }
-        }
         #region Activation 
         public virtual void Activation(Collision collision)
         {

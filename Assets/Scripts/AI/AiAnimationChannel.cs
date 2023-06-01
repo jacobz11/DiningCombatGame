@@ -69,8 +69,6 @@ namespace DiningCombat.AI
                 IsRunnig = false;
                 IsRunnigBack = false;
             }
-
-
         }
         private void UpdateIsGrounded()
         {

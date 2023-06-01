@@ -108,8 +108,6 @@ namespace DiningCombat.Player
                 }
             };
         }
-        protected void Channel_StartTrowing()
-        {/* m_FoodObj.OnStartTrowing(); */}
 
         protected virtual void Update()
         {

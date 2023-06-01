@@ -48,11 +48,6 @@ namespace DiningCombat.Manger
 
             return foodObj;
         }
-        //private void InitializationPool(int numOfSetToEnterThePool)
-        //{
-        //    AddObject(numOfSetToEnterThePool);
-        //    _ = m_Objects.OrderBy(obj => Guid.NewGuid());
-        //}
 
         public bool SpawnGameFoodObj(Vector3 i_Position, out GameObject o_Spawn)
         {
@@ -70,11 +65,7 @@ namespace DiningCombat.Manger
         private GameObject SpawnGameFoodObj()
         {
             GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
-            if (foodObj == null)
-            {
-                Debug.Log("foodObj == null");
-            }
-
+            Debug.Assert(foodObj != null, "Spawn-Game-FoodObj foodObj is null");
             _ = m_CuntterOfFoodInTheGame.TryInc();
             foodObj.OnCollect += FoodObj_OnCollect;
             UncollectedPos += foodObj.ViewElement;
@@ -84,7 +75,6 @@ namespace DiningCombat.Manger
 
         private void FoodObj_OnCollect()
         {
-            Debug.Log("FoodObj_OnCollect");
             OnCollected?.Invoke();
         }
         public void OnGameOver()

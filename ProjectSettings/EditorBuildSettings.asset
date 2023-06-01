@@ -6,21 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: d909cc402bb0e3f4095eb1aceae14adb
+  - enabled: 1
+    path: Assets/Scenes/V3Copy.unity
+    guid: 3f9f8b887cdc0734fa73dc44514bd3da
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 9198b8c9b7afa454e8acc34a8f6d8e81
+  - enabled: 0
     path: Assets/Scenes/V3DiningCombat.unity
     guid: 5735c6e077808fa449d57bef5e2b1250
-  - enabled: 0
-    path: 
-    guid: 1fe05e49636b7de42943d3fb99b28658
   - enabled: 0
     path: Assets/Scenes/DiningCombat.unity
     guid: 0ad06cf883730954bae2412bb73f17fb
   - enabled: 0
     path: Assets/Scenes/Empty/NetWorkScenes.unity
     guid: 2023f19a6e72c644cb0b61880960e94d
-  - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 9198b8c9b7afa454e8acc34a8f6d8e81
-  - enabled: 1
-    path: Assets/Scenes/V3Copy.unity
-    guid: 3f9f8b887cdc0734fa73dc44514bd3da
   m_configObjects: {}

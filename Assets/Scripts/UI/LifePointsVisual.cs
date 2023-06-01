@@ -36,5 +36,4 @@ namespace DiningCombat.UI
             m_LifePoints.fillAmount = i_NewNormalizedValue;
         }
     }
-
 }

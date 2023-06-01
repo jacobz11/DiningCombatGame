@@ -1,6 +1,5 @@
 ﻿using DiningCombat.DataObject;
 using DiningCombat.FoodObject;
-using DiningCombat.Util.DesignPatterns;
 using System;
 using UnityEngine;
 
@@ -56,8 +55,7 @@ namespace DiningCombat.Player.States
         {/* Not-Implemented */}
         public virtual void OnStateExit()
         {/* Not-Implemented */}
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {/* Not-Implemented */}
+
         #endregion
 
         public virtual void OnStateEnter()

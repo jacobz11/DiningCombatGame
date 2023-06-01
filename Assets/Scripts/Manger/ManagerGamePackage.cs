@@ -38,14 +38,6 @@ namespace DiningCombat.Manger
             Instance = this;
         }
 
-        //protected override void AddObject(int i_Count)
-        //{
-        //    IPackage newObj = (GameObject.Instantiate(m_PackagesPreFfa[m_IndexInPackagesArr])).GetComponent<IPackage>();
-        //    m_IndexInPackagesArr = (1 + m_IndexInPackagesArr) % m_PackagesPreFfa.Length;
-        //    newObj.gameObject.SetActive(false);
-        //    m_Objects.Enqueue(newObj);
-        //}
-
         private IPackage Get(Vector3 i_Pos)
         {
             IPackage foodObj = Get();
@@ -57,16 +49,9 @@ namespace DiningCombat.Manger
 
         private GameObject SpawnPackage()
         {
-            //GameObject spawn = Instantiate(m_AllFoodPrefab.GetRundomFoodPrefab(),
-            //    m_RoomDimension.GetRendonPos(), Quaternion.identity);
-            //GameFoodObj package = spawn.GetComponent<GameFoodObj>();
             IPackage package = Get(m_RoomDimension.GetRendonPos());
-            //package.Destruction += OnDestruction_GameFoodObj;
             _ = m_Cuntter.TryInc();
             m_LestSpanw = 0;
-
-            //package.OnCollect += foodObj_OnCollect;
-            //UncollectedPos += package.ViewElement;
 
             return package.gameObject;
         }
@@ -108,9 +93,7 @@ namespace DiningCombat.Manger
         {
             m_LestSpanw += Time.deltaTime;
             bool isTimeOver = m_LestSpanw >= m_SpawnData.m_SpawnTimeBuffer;
-            //Debug.Log("isTimeOver " + isTimeOver);
             bool isNotMax = m_Cuntter.CanInc();
-            //Debug.Log("isNotMax  " + isNotMax);
 
             return isTimeOver && isNotMax;
         }

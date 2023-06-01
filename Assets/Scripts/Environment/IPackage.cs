@@ -19,7 +19,11 @@ namespace DiningCombat.Environment
         private string m_NameKey;
         public float Amont => m_Amont;
 
-        public string NameKey { get => m_NameKey; set => m_NameKey = value; }
+        public string NameKey
+        {
+            get => m_NameKey;
+            set => m_NameKey = value;
+        }
 
         protected virtual void ReturnToPool()
         {

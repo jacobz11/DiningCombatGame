@@ -25,7 +25,7 @@ namespace DiningCombat.Manger
         public LifePointsVisual m_LifePointsVisualScreen;
         [SerializeField]
         public PoweringVisual m_PoweringVisualScreen;
-        private List<string> m_AiName = new List<string>() {
+        private readonly List<string> r_AiName = new List<string>() {
             "Botzilla",
             "Byte Meister",
             "Cogsworth",
@@ -83,8 +83,8 @@ namespace DiningCombat.Manger
                 // instint Ai
                 for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
-                    GameObject ai = GameObject.Instantiate(m_AiPrifab, GameStrting.Instance.GatIntPosForPlayer(), Quaternion.identity);
-                    ai.name = m_AiName[i];
+                    GameObject ai = GameObject.Instantiate(m_AiPrifab, m_RoomDimension.GetRendonPos(), Quaternion.identity);
+                    ai.name = r_AiName[i];
                     ai.GetComponentInChildren<Renderer>().material = m_Skins;
                 }
             }

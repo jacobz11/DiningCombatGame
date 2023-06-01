@@ -62,7 +62,7 @@ MonoBehaviour:
       m_EffctTime: 0
       m_ForceHitExsplostin: 0
       m_CountdownTime: 0
-      m_GameObjectVisal: {fileID: 0}
+      m_GameObjectVisal: {fileID: 2151545520449733966}
       m_AlmostTransparent: {fileID: 0}
     m_GrenadeData:
       InpactRadius: 5

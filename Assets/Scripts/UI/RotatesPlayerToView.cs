@@ -16,7 +16,6 @@ public class RotatesPlayerToView : MonoBehaviour
 
     private void Start()
     {
-        //m_PlayerRenderer = GetComponent<Renderer>();
         if (m_Materials.Count > 0)
         {
             m_PlayerRenderer.material = m_Materials[m_CurrentMaterialIndex];
@@ -29,7 +28,6 @@ public class RotatesPlayerToView : MonoBehaviour
         float rotation = m_RotationSpeed * Time.deltaTime;
         transform.Rotate(Vector3.up, rotation);
         m_Rotation += rotation;
-        // Check if player is facing back
         if (m_Rotation >= 360.0f)
         {
             m_Rotation = 0f;

@@ -17,15 +17,13 @@ namespace DiningCombat.Player
             ThrowPoint += () => StartCoroutine(StopAnimationToThrow());
         }
 
-        public void AnimationBool(string arg1, bool arg2)
+        public void AnimationBool(string i_AnimationClip, bool i_Active)
         {
-            // TODO: change the ones of the inputs
-            m_Anim.SetBool(arg1, arg2);
+            m_Anim.SetBool(i_AnimationClip, i_Active);
         }
-        public void AnimationFloat(string arg1, float arg2)
+        public void AnimationFloat(string i_AnimationClip, float i_Var)
         {
-            // TODO: change the ones of the inputs
-            m_Anim.SetFloat(arg1, arg2);
+            m_Anim.SetFloat(i_AnimationClip, i_Var);
         }
 
         public void EnterThrowPoint()

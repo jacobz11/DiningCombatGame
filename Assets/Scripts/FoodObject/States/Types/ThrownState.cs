@@ -43,7 +43,6 @@ namespace DiningCombat.FoodObject
             #region Collision befor the time
             if (m_TimeBefuerCollision < k_TimeToTrow)
             {
-                Debug.Log("Collision befor the time");
                 return;
             }
             #endregion

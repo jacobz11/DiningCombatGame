@@ -44,7 +44,7 @@ namespace DiningCombat.NPC
         private void SetDestination()
         {
             m_Target = m_RoomDimension.GetRendonPos();
-            Debug.Log("SetDestination " + m_Target + " dist :" + Vector3.Distance(m_Target, m_Agent.transform.position));
+            //Debug.Log("SetDestination " + m_Target + " dist :" + Vector3.Distance(m_Target, m_Agent.transform.position));
             m_Agent.SetDestination(m_Target);
         }
 
@@ -74,7 +74,6 @@ namespace DiningCombat.NPC
 
         public override void OnStateExit()
         {
-            Debug.Log("OnSteteExit corn");
             m_Agent.isStopped = true;
         }
     }

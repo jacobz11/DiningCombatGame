@@ -63,11 +63,12 @@ namespace DiningCombat.AI
 
         private Vector3 GetRandoPos()
         {
-            return new Vector3(
-                Random.Range(m_MinPos.x, m_MaxPos.x),
-                Random.Range(m_MinPos.y, m_MaxPos.y),
-                Random.Range(m_MinPos.z, m_MaxPos.z)
-                );
+            return new Vector3()
+            {
+                x = Random.Range(m_MinPos.x, m_MaxPos.x),
+                y = Random.Range(m_MinPos.y, m_MaxPos.y),
+                z = Random.Range(m_MinPos.z, m_MaxPos.z)
+            };
         }
 
         void Start()

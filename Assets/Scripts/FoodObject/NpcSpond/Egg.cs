@@ -1,6 +1,5 @@
 using DiningCombat.Player;
 using DiningCombat.Util;
-using System.Collections;
 using UnityEngine;
 namespace DiningCombat.Environment
 {
@@ -27,15 +26,12 @@ namespace DiningCombat.Environment
             m_WholeEgg.gameObject.SetActive(false);
             m_BrokenEgg.gameObject.SetActive(true);
             _ = PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out _);
-            //TODO : Change the Coroutine to the invoke with time
-            _ = StartCoroutine(ReturToPool());
+            Invoke("ReturToPool", m_DisplayTimeAfterTriggerEnter);
         }
 
-        private IEnumerator ReturToPool()
+        private void ReturToPool()
         {
-            yield return new WaitForSeconds(m_DisplayTimeAfterTriggerEnter);
             EggPool.Instance.ReturnToPool(this);
         }
     }
-
 }

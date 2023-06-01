@@ -33,6 +33,7 @@ namespace DiningCombat.Util
                 Debug.LogError("the Update Rate mast be non nagtive");
                 i_UpdateRate = Default;
             }
+
             m_UpdateRate = i_UpdateRate;
             m_LestUpdate = i_LestUpdate;
         }
@@ -49,7 +50,7 @@ namespace DiningCombat.Util
 
         public void PreventDoubleEntry(float i_ActineTime)
         {
-            UpdeteData(Time.time + (m_UpdateRate + i_ActineTime) * 10);
+            UpdeteData(Time.time + ((m_UpdateRate + i_ActineTime) * 10));
         }
     }
 }

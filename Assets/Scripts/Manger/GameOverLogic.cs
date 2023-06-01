@@ -79,7 +79,6 @@ namespace DiningCombat.Manger
             r_PlayerChannel.UpdatePlayer(i_PlayerName);
             if (isGameOver)
             {
-                Debug.Log("isGameOver ");
                 GameOverOccured?.Invoke();
             }
         }
@@ -90,7 +89,7 @@ namespace DiningCombat.Manger
         }
         private void EndGame()
         {
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene(GameGlobal.ScenesName.k_GameOver);
         }
     }
 }

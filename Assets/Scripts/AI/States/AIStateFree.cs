@@ -11,8 +11,8 @@ namespace DiningCombat.AI.States
     public class AIStateFree : StateFree
     {
         private Vector3 m_WanderTarget;
-        private readonly NavMeshAgent r_Agent;
         private Vector3 m_Target;
+        private readonly NavMeshAgent r_Agent;
         public bool TargetExist { get; private set; }
         private Vector3 Position => r_Agent.transform.position;
 
@@ -49,7 +49,6 @@ namespace DiningCombat.AI.States
 
         public void FindTarget()
         {
-            Debug.Log("FindTarget");
             List<Vector3> all = ManagerGameFoodObj.Instance.GetAllUncollcted();
 
             if (all.Count == 0)

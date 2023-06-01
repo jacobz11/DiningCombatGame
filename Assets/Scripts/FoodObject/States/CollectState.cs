@@ -1,6 +1,4 @@
 ﻿using DiningCombat.Player;
-using DiningCombat.Util.DesignPatterns;
-using System;
 using UnityEngine;
 
 namespace DiningCombat.FoodObject
@@ -29,15 +27,6 @@ namespace DiningCombat.FoodObject
             r_Rigidbody = rigidbody;
             r_Transform = transform;
             r_GameFoodObj = gameFoodObj;
-        }
-
-        public void AddListener(Action<EventArgs> i_Action, IDCState.eState i_State)
-        {
-            switch (i_State)
-            {
-                case IDCState.eState.ExitingState:
-                    break;
-            }
         }
 
         public void OnStateExit()
