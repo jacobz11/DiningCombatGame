@@ -129,6 +129,12 @@ namespace DiningCombat.Player
             /// Two handed shot for watermelon
             /// </summary>
             public const string k_ThrowIn = "isThrowIn";
+
+            /// <summary>
+            /// input type - bool AnimationBool 
+            /// Sweep on banana
+            /// </summary>
+            public const string k_SweepFall = "isSweepFall";
         }
     }
 }
