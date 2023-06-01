@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameOverDisplay : MonoBehaviour
 {
-    private const string k_SceneName = "V3Copy";
-
     [SerializeField]
     private TextMeshProUGUI m_Text;
     public void Start()
@@ -30,6 +28,6 @@ public class GameOverDisplay : MonoBehaviour
 
     public void OnClickStartOver()
     {
-        SceneManager.LoadScene(k_SceneName);
+        SceneManager.LoadScene(GameGlobal.ScenesName.k_Menu);
     }
 }
