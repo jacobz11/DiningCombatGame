@@ -13,7 +13,6 @@ public class NetworkBtnStrting : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Awake NetworkBtnStrting");
         Debug.Assert(m_ImagemStartAsImage is not null, "m_ImagemStartAsImage is null");
         Debug.Assert(m_StartAsClient is not null, "m_StartAsClient is null");
         Debug.Assert(m_StartAsHost is not null, "m_StartAsHost is null");
@@ -32,7 +31,7 @@ public class NetworkBtnStrting : MonoBehaviour
     public void StartClient()
     {
         Debug.Log("Client");
-        NetworkManager.Singleton.StartClient();
+        _ = NetworkManager.Singleton.StartClient();
         Hide();
     }
 

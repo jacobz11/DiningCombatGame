@@ -20,6 +20,7 @@ namespace DiningCombat.FoodObject
         {
             DisplayEffect();
             m_Countdown = r_EffectTime;
+            IsActionHappen = true;
         }
     }
 }

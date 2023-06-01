@@ -114,10 +114,10 @@ namespace DiningCombat.FoodObject
                 }
             }
 
-            base.SendOnHit(new HitPointEventArgs() 
+            base.SendOnHit(new HitPointEventArgs()
             {
                 m_Damage = ponits,
-                m_Kills= kills,
+                m_Kills = kills,
             });
         }
     }

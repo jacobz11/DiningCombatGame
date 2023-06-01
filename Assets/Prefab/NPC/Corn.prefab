@@ -55,7 +55,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.85
+  m_Height: 1.95
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -71,11 +71,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00cce3917852044f9654e753acb434c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OffsetOnPlayerHande: {x: 0, y: 0, z: 0}
   m_TypeBuild:
     m_Type: 2
     m_ElementName: 4
     m_MaxDamagePoint: 10.7
     m_MinDamagePoint: 0.22
+    m_Effect: {fileID: 0}
     m_GameFoodObj: {fileID: 0}
     m_MinData:
       m_Triger: {fileID: 0}
@@ -91,11 +93,7 @@ MonoBehaviour:
       LifeTimeUntilAction: 2
       ForceHitExsplostin: 200
     m_AnimationType: 0
-  m_RoomDimension:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Dimensions: {x: 19, y: 0, z: 19}
-    m_YMinOffset: 0
-  m_GameObj: []
+  m_RoomDimension: {fileID: 0}
 --- !u!54 &2932613626013475968
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,7 +138,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.8470845, z: 0.66035426}
-  m_Center: {x: 0, y: 1.0320826, z: -0.024260342}
+  m_Center: {x: 0, y: 0.88, z: -0.024260342}
 --- !u!1001 &2932613625601656812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -186,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3724817982341416570, guid: 40bbc21cd00e84c91bf6a11ddeedb543, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 3724817982341416570, guid: 40bbc21cd00e84c91bf6a11ddeedb543, type: 3}
       propertyPath: m_LocalPosition.z

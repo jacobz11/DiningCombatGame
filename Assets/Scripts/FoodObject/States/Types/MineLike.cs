@@ -3,7 +3,6 @@ using DiningCombat.DataObject;
 using DiningCombat.Player;
 using UnityEngine;
 using static DiningCombat.DataObject.ThrownActionTypesBuilder;
-using Player = DiningCombat.Player.Player;
 namespace DiningCombat.FoodObject
 {
     public class MineLike : IThrownState

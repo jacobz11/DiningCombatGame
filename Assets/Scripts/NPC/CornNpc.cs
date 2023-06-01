@@ -1,3 +1,4 @@
+using DiningCombat.AI;
 using DiningCombat.Environment;
 using DiningCombat.FoodObject;
 using UnityEngine;
@@ -17,26 +18,26 @@ namespace DiningCombat.NPC
             Debug.Log("CornNpc Awake");
 
             m_Rigidbody = GetComponent<Rigidbody>();
-
+            FollowWP follow = GetComponent<FollowWP>();
             NavMeshAgent agent = GetComponent<NavMeshAgent>();
-            UncollectStateCorn uncollect = new UncollectStateCorn(this, agent, m_RoomDimension);
+            UncollectStateCorn uncollect = new UncollectStateCorn(this, agent, m_RoomDimension, follow);
             IThrownState thrownState = m_TypeBuild.SetRigidbody(m_Rigidbody).SetTransform(transform);
             CollectState collectState = new CollectState(m_Rigidbody, transform, this);
 
-            uncollect.OnCountdownEnding += uncollect_OnCountdownEnding;
+            uncollect.OnCountdownEnding += Uncollect_OnCountdownEnding;
             uncollect.Collect += Uncollect_Collect;
             m_AnimationType = m_TypeBuild.m_AnimationType;
             thrownState.OnReturnToPool += ThrownState_OnReturnToPool;
 
             m_FoodStates = new IFoodState[]
             {
-            uncollect,
-            collectState,
-            thrownState,
+                uncollect,
+                collectState,
+                thrownState,
             };
         }
 
-        private void uncollect_OnCountdownEnding()
+        private void Uncollect_OnCountdownEnding()
         {
             Index = ThrownState.k_Indx;
             Index = CollectState.k_Indx;

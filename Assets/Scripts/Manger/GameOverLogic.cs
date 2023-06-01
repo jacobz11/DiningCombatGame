@@ -24,6 +24,8 @@ namespace DiningCombat.Manger
         [SerializeField]
         private LifePointsVisual m_LifePointsVisual;
         public static GameOverLogic Instance { get; private set; }
+        private readonly PlayerChannel r_PlayerChannel = new PlayerChannel();
+        public PlayerChannel PlayerChannel { get { return r_PlayerChannel; } }
 
         private int LivingPlayers
         {
@@ -34,23 +36,17 @@ namespace DiningCombat.Manger
                 m_TextLivingPlayers.text = string.Format(k_FormatLivingPlayer, m_LivingPlayerCounter);
             }
         }
-        public void AI_OnAiDead() => Player_OnPlayerDead(false);
-        public void Player_OnPlayerDead() => Player_OnPlayerDead(true);
         public void ShowGameOverText() => m_GameOverText.enabled = true;
         public void CharacterEntersTheGame(PlayerLifePoint i_Player)
         {
             if (!i_Player.IsAi)
             {
                 m_NumOfAlivePlayers++;
-                i_Player.OnPlayerDead += Player_OnPlayerDead;
-                i_Player.AddLifePointsVisual(m_LifePointsVisual);
-            }
-            else
-            {
-                i_Player.OnPlayerDead += AI_OnAiDead;
             }
 
+            r_PlayerChannel.AddPlayer(i_Player.name);
             LivingPlayers++;
+
         }
 
         private void Awake()
@@ -69,18 +65,18 @@ namespace DiningCombat.Manger
             m_NumOfAlivePlayers = 0;
         }
 
-        public void Player_OnPlayerDead(bool isAlive)
+        public void Player_OnPlayerDead(bool i_IsAI, string i_PlayerName)
         {
-            Debug.Log("Player_OnPlayerDead " + LivingPlayers);
+            Debug.Log($"Player_OnPlayerDead name {i_PlayerName} {LivingPlayers}");
             LivingPlayers--;
 
-            if (isAlive)
+            if (i_IsAI)
             {
                 m_NumOfAlivePlayers--;
             }
 
             bool isGameOver = LivingPlayers <= 1 || m_NumOfAlivePlayers == 0;
-
+            r_PlayerChannel.UpdatePlayer(i_PlayerName);
             if (isGameOver)
             {
                 Debug.Log("isGameOver ");
@@ -88,6 +84,10 @@ namespace DiningCombat.Manger
             }
         }
 
+        public override string ToString()
+        {
+            return r_PlayerChannel.GetPrintabulTable();
+        }
         private void EndGame()
         {
             SceneManager.LoadScene("GameOver");

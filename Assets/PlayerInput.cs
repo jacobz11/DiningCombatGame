@@ -47,7 +47,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""PickUp"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""2e0a7760-bbe7-489d-a2ea-e1efc53d35f8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",

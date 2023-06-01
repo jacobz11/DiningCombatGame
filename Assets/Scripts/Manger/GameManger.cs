@@ -1,5 +1,6 @@
 ﻿using DiningCombat.Environment;
-using DiningCombat.Util.DesignPatterns;
+using DiningCombat.Player;
+using DiningCombat.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,8 +9,10 @@ namespace DiningCombat.Manger
 {
     //TODO : arrange the code
     //TODO : Delete what you don't need
-    public class GameManger : Singleton<GameManger>
+    public class GameManger : Util.DesignPatterns.Singleton<GameManger>
     {
+        [SerializeField]
+        private AllPlayerSkinsSO m_Skins;
         [SerializeField]
         private GameObject m_AiPrifab;
         [SerializeField]
@@ -18,18 +21,35 @@ namespace DiningCombat.Manger
         private NetworkBtnStrting m_NetworkBtn;
         [SerializeField]
         private GameStrting m_GameStrting;
+        [SerializeField]
+        public LifePointsVisual m_LifePointsVisualScreen;
+        [SerializeField]
+        public PoweringVisual m_PoweringVisualScreen;
+        private List<string> m_AiName = new List<string>() {
+            "Botzilla",
+            "Byte Meister",
+            "Cogsworth",
+            "Electric Boogaloo",
+            "GizmoTron",
+            "Machina Man",
+            "Pixel Poppins",
+            "Robo Rascal",
+            "Sparky McSparkface",
+            "Technotron",
+            "Whirly Gigglebot",
+            "Circuit Breaker",
+            "Quirkotron",
+            "Byte-sized Bandit",
+            "TinkerTot",
+        };
 
-        //public static GameManger Instance { get; private set; }
         public GameOverLogic GameOverLogic { get; private set; }
         public int Cuntter { get; private set; }
+        public LifePointsVisual LifePointsVisual { get => m_LifePointsVisualScreen; }
+        public PoweringVisual PoweringVisual { get => m_PoweringVisualScreen; }
+
         protected override void Awake()
         {
-            //if (Instance is not null)
-            //{
-            //    Destroy(this);
-            //    return;
-            //}
-            //Instance = this;
             base.Awake();
             GameOverLogic = gameObject.GetComponent<GameOverLogic>();
             Cuntter = 0;
@@ -38,6 +58,7 @@ namespace DiningCombat.Manger
         private void Start()
         {
             TryStartOffline();
+            gameObject.tag = GameGlobal.TagNames.k_DontDestroyOnLoad;
         }
 
         private void TryStartOffline()
@@ -46,41 +67,29 @@ namespace DiningCombat.Manger
 
             if (data.Length == 0)
             {
-                Debug.Log("Data is empty");
-                return;
-            }
-            else
-            {
-                Debug.Log("Data " + data.Length);
-            }
-
-            if (!data[0].TryGetComponent<StaringData>(out StaringData o_StaringData))
-            {
-                Debug.Log("StaringData cant get ");
+                Debug.LogWarning($"No tagged object found in {GameGlobal.TagNames.k_DontDestroyOnLoad}");
                 return;
             }
 
-            if (!o_StaringData.IsOnline)
+            GameObject staringDataGO = data[0];
+            if (!staringDataGO.TryGetComponent<StaringData>(out StaringData o_StaringData))
             {
-                Debug.Log("StaringData Is not Online ");
-
-                // remove on ckile 
+                Debug.Log("StaringData cant get");
+            }
+            else if (!o_StaringData.IsOnline)
+            {
                 m_NetworkBtn.StartHost();
-                GameStrting.Instance.AddNumOfPlyers(o_StaringData.m_NumOfAi);
 
                 // instint Ai
                 for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
-                    Debug.Log("StaringData ai ");
-
                     GameObject ai = GameObject.Instantiate(m_AiPrifab, GameStrting.Instance.GatIntPosForPlayer(), Quaternion.identity);
+                    ai.name = m_AiName[i];
+                    ai.GetComponentInChildren<Renderer>().material = m_Skins;
                 }
             }
-            else
-            {
-                Debug.Log("StaringData IsOnline ");
-                m_GameStrting.AddNumOfPlyers(1);
-            }
+
+            Destroy(staringDataGO);
         }
 
         public void AddCamera(GameObject i_Player)

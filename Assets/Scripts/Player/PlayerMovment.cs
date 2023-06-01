@@ -126,7 +126,7 @@ namespace DiningCombat.Player
                 {
                     HandleMovementClientRpc();
                     HandleRotationeClientRpc();
-			Jumping();
+                    Jumping();
                 }
             }
         }

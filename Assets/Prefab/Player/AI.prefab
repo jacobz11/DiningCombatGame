@@ -323,7 +323,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 54236948389385467, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 54236948389385467, guid: b7010e95d6132044ab842e91bbad6ecb, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1034,10 +1034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de3fe6daf42d2d4fadaf3028b8c2c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerScore: {fileID: 0}
   m_PickUpPoint: {fileID: 1949516421212491733}
   m_Powering: {fileID: 11400000, guid: a020cf5d293fc364f8bb87f3127a5313, type: 2}
-  m_PoweringVisual: {fileID: 0}
+  m_Player: {fileID: 1765360059}
 --- !u!114 &53667456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1063,8 +1062,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fadb19c163b3d4db6aaf8ec98fabaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_GameInput: {fileID: 0}
   m_PickUpPoint: {fileID: 1949516421212491733}
+  m_IsAI: 1
+  m_LifePointsVisual:
+  - {fileID: 2036549577}
 --- !u!114 &1765360066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1078,9 +1079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LifePoint: 100
-  m_LifePointsVisual:
-  - {fileID: 2036549577}
-  m_IsAi: 0
+  m_Player: {fileID: 1765360059}
 --- !u!114 &1765360067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1093,7 +1092,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5116437236ef83544ad94ba9ac6b8d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerScoreVisel: {fileID: 0}
 --- !u!114 &560729530264479539
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using DiningCombat.AI;
 using DiningCombat.DataObject;
+using DiningCombat.Manger;
 using DiningCombat.NPC;
 using DiningCombat.Util;
 using System;
@@ -27,17 +28,24 @@ namespace DiningCombat.Environment
 
         private void Awake()
         {
-
             m_WaterGraph = new GraphDC((int)m_RoomDimension.Higet, (int)m_RoomDimension.Width, m_RoomDimension.m_Center, new Action<Vector3>(SpawnWater));
             m_WaterGraph.OnEnding += WaterGraph_OnEnding;
 
             IsInit = true;
             m_IsEnding = false;
         }
+        private void Start()
+        {
+            GameOverLogic.Instance.GameOverOccured += GameOverLogic_GameOverOccured;
+        }
+
+        private void GameOverLogic_GameOverOccured()
+        {
+            m_IsEnding = true;
+        }
 
         private void WaterGraph_OnEnding()
         {
-            Debug.Log("WaterGraph_OnEnding  ");
             m_IsEnding = true;
         }
 

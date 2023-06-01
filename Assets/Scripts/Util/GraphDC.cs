@@ -33,7 +33,6 @@ namespace DiningCombat.Util
         }
         public GraphDC(int i_Higt, int i_Width, Vector3 i_StrtingPoint, Action<Vector3> action)
         {
-            Debug.Log("i_StrtingPoint" + i_StrtingPoint);
             m_Higt = i_Higt;
             m_Width = i_Width;
             int higt = (2 * i_Higt) - 2;
@@ -64,7 +63,6 @@ namespace DiningCombat.Util
             for (int x = 0; x < higt; x++)
             {
                 m_Ring[x] = new NodeGraph[width];
-                //m_Ring[x] = Cerate1DArr(x);
                 for (int z = 0; z < width; z++)
                 {
                     m_Ring[x][z] = new NodeGraph(MakeAction(x, z));
