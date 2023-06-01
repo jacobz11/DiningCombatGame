@@ -38,7 +38,6 @@ namespace DiningCombat.UI
 
         public void UpdateBarNormalized(float i_NewNormalizedValue)
         {
-            Debug.Log("UpdateBarNormalized");
             m_PoweringBar.fillAmount = i_NewNormalizedValue;
         }
     }

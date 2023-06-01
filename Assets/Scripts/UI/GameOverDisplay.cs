@@ -2,9 +2,12 @@ using DiningCombat;
 using DiningCombat.Manger;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverDisplay : MonoBehaviour
 {
+    private const string k_SceneName = "V3Copy";
+
     [SerializeField]
     private TextMeshProUGUI m_Text;
     public void Start()
@@ -25,9 +28,8 @@ public class GameOverDisplay : MonoBehaviour
         Debug.Log(text);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickStartOver()
     {
-
+        SceneManager.LoadScene(k_SceneName);
     }
 }

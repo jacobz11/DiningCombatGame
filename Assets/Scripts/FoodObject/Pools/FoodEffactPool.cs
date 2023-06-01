@@ -46,10 +46,6 @@ namespace DiningCombat.FoodObject
         }
         public static FoodEffactPool Instance { get; protected set; }
 
-        private ParticleSystem m_PrefapFlour;
-        private ParticleSystem m_PrefapPomegranate;
-        private ParticleSystem m_PrefapBanana;
-
         [SerializeField]
         private ParticleSystemPool m_FlourPool;
         [SerializeField]
@@ -68,10 +64,6 @@ namespace DiningCombat.FoodObject
             }
 
             Instance = this;
-            if (m_PrefapFlour is null)
-            {
-                Debug.Log("m_PrefapFlour is null");
-            }
 
             m_FlourPool.ObjectLayer = m_ObjectLayer.transform;
             m_PomegranatePool.ObjectLayer = m_ObjectLayer.transform;

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_MouseSensetivity: 50
   m_PlayerSpeed: 8
   m_JumpHeight: 35
-  m_JumpSlowDonwSpeep: 0.24
+  m_JumpSlowDownSpeed: 0.6
   m_Ground:
     serializedVersion: 2
     m_Bits: 64

@@ -1,13 +1,10 @@
 ﻿using DiningCombat.Manger;
-using System;
 using Unity.Netcode;
 using UnityEngine;
 namespace DiningCombat.Player
 {
     public class PlayerMovment : NetworkBehaviour
     {
-        public static int m_Cunnter = 0;
-
         private const float k_PlayerHeight = 2f;
         private const float k_PlayerRadius = 0.7f;
 
@@ -19,27 +16,16 @@ namespace DiningCombat.Player
         private GameInput m_GameInput;
         private Rigidbody m_Rb;
 
-        [SerializeField]
-        private PlayerMovmentDataSO m_MovmentData;
-        [SerializeField]
-        private Material m_Material;
-
         //Jumping parameters
         private float m_YGravitySpeed;
-        //[SerializeField] bool m_IsGrounded = true;
         private Rigidbody m_PlayerRb;
-        //Ground Layer parameters for check ground with sphere trigger
         public Transform m_GroundCheck;
-        private float m_GroundDistance = 0.3f;
-        public bool m_IsOnGround;
-
-        private void Start()
-        {
-            m_PlayerRb = GetComponent<Rigidbody>();
-        }
+        private readonly float r_GroundDistance = 0.3f;
+        [SerializeField]
+        private PlayerMovmentDataSO m_MovmentData;
 
         public Vector3 Position => transform.position;
-        //public bool IsGrounded { get; private set; }
+        public bool IsGrounded { get; private set; }
 
         public float PlayerSpeedNormalized
         {
@@ -84,6 +70,7 @@ namespace DiningCombat.Player
             m_Rb = GetComponent<Rigidbody>();
             m_Rb.constraints = RigidbodyConstraints.FreezeRotation;
             m_AnimationChannel = GetComponentInChildren<PlayerAnimationChannel>();
+            m_PlayerRb = GetComponent<Rigidbody>();
         }
 
         public override void OnNetworkSpawn()
@@ -114,21 +101,18 @@ namespace DiningCombat.Player
 
         private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
         {
-            PlayerCanMove = i_IsPlayerSweepFall;
+            PlayerCanMove = !i_IsPlayerSweepFall;
             Debug.Log($"Player_OnPlayerSweepFall {i_IsPlayerSweepFall}");
         }
 
         public void Update()
         {
-            if (IsOwner)
+            if (IsOwner && PlayerCanMove)
             {
-                if (PlayerCanMove)
-                {
-                    //UpdateIsGrounded();
-                    HandleMovementClientRpc();
-                    HandleRotationeClientRpc();
-                    HandleJumping();
-                }
+                UpdateIsGrounded();
+                HandleMovementClientRpc();
+                HandleRotationeClientRpc();
+                HandleJumping();
             }
         }
 
@@ -137,7 +121,7 @@ namespace DiningCombat.Player
         {
             float yOffset = 0;
             Vector2 inputVector = m_GameInput.GetMovementVectorNormalized();
-            Vector3 movment = HandleMovement(inputVector, yOffset, PlayerSpeedNormalized * m_MovmentData.ConfigJumpSlowDownSpeed(m_IsOnGround));
+            Vector3 movment = HandleMovement(inputVector, yOffset, PlayerSpeedNormalized * m_MovmentData.ConfigJumpSlowDownSpeed(IsGrounded));
             m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Forward, inputVector.y);
             m_AnimationChannel.AnimationFloat(PlayerAnimationChannel.AnimationsNames.k_Sides, inputVector.x);
             HandleMovementServerRpc(movment);
@@ -174,31 +158,30 @@ namespace DiningCombat.Player
                 }
             }
 
-            if (canMove)
-            {
-                return moveDir * i_MoveDistance;
-            }
-            return Vector3.zero;
+            return canMove ? moveDir * i_MoveDistance : Vector3.zero;
 
-            bool IsInReng(float moveDir)
+            bool IsInReng(float i_MoveDir)
             {
-                return moveDir is < (-0.5f) or > (+0.5f);
+                return i_MoveDir is < (-0.5f) or > (+0.5f);
             }
         }
 
-        private bool CanMove(Vector3 moveDir, float moveDistance)
+        private bool CanMove(Vector3 i_MoveDir, float i_MoveDistance)
         {
-            return !Physics.CapsuleCast(Position, Position + Vector3.up * k_PlayerHeight, k_PlayerRadius, moveDir, moveDistance);
+            return !Physics.CapsuleCast(Position, Position + (Vector3.up * k_PlayerHeight), k_PlayerRadius, i_MoveDir, i_MoveDistance);
         }
         #endregion
 
         #region Jumping Methods
+        private void UpdateIsGrounded()
+        {
+            IsGrounded = Physics.CheckSphere(m_GroundCheck.position, r_GroundDistance, m_MovmentData.m_Ground);
+        }
         private void HandleJumping()
         {
-            m_IsOnGround = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_MovmentData.m_Ground);
             m_YGravitySpeed += Physics.gravity.y * Time.deltaTime;
 
-            if (m_IsOnGround)
+            if (IsGrounded)
             {
                 m_YGravitySpeed = 0f;
                 m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, true);
@@ -208,8 +191,9 @@ namespace DiningCombat.Player
                 {
                     m_YGravitySpeed = m_MovmentData.m_JumpHeight;
                     m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, true);
-                    m_IsOnGround = false;
+                    IsGrounded = false;
                 }
+
                 m_PlayerRb.AddForce(Vector3.up * m_YGravitySpeed, ForceMode.Impulse);
             }
             else
@@ -221,45 +205,7 @@ namespace DiningCombat.Player
                 }
             }
         }
-        /*
-         *  private void Jumping()
-        {
-            m_IsOnGround = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_GroundMask);
-            m_YGravitySpeed += Physics.gravity.y * Time.deltaTime;
 
-            if (m_IsOnGround)
-            {
-                m_YGravitySpeed = 0f;
-                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, true);
-                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, false);
-                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, false);
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    m_YGravitySpeed = m_MovmentData.m_JumpHeight;
-                    m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Jumping, true);
-                    m_IsOnGround = false;
-                }
-                m_PlayerRb.AddForce(Vector3.up * m_YGravitySpeed, ForceMode.Impulse);
-            }
-            else
-            {
-                m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, false);
-                if (m_YGravitySpeed < 2f)
-                {
-                    m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, true);
-                }
-            }
-         */
-
-        /*        private void UpdateIsGrounded()
-                {
-                    bool currentIsGrounded = Physics.CheckSphere(m_GroundCheck.position, m_GroundDistance, m_MovmentData.m_Ground);
-                    if (currentIsGrounded ^ IsGrounded)
-                    {
-                        IsGrounded = currentIsGrounded;
-                        m_AnimationChannel.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Grounded, IsGrounded);
-                    }
-                }*/
         #endregion
         [ClientRpc]
         private void HandleRotationeClientRpc()

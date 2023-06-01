@@ -17,17 +17,27 @@ namespace DiningCombat.Player
         // Update is called once per frame
         void Update()
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticallInput = Input.GetAxis("Vertical");
-            if (m_Player.m_IsOnGround)
+            if (m_Player.IsGrounded)
             {
+                float horizontalInput = Input.GetAxis("Horizontal");
+                float verticallInput = Input.GetAxis("Vertical");
                 if (verticallInput != 0)
+                {
                     FootStepsVertical();
+                }
                 else if (horizontalInput != 0)
+                {
                     FootStepsHorizontal();
-                else StopFootSteps();
+                }
+                else
+                {
+                    StopFootSteps();
+                }
             }
-            else StopFootSteps();
+            else
+            {
+                StopFootSteps();
+            }
         }
 
         void FootStepsVertical()

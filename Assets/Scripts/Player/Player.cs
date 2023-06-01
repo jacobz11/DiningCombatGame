@@ -33,7 +33,7 @@ namespace DiningCombat.Player
             GameInput = gameObject.GetComponent<GameInput>();
             ActionState = gameObject.GetComponent<ActionStateMachine>();
             GameOverLogic.Instance.CharacterEntersTheGame(PlayerLifePoint);
-
+            PlayerAnimation.OnPlayerGotUp += PlayerAnimation_OnPlayerGotUp;
             if (!m_IsAI)
             {
                 PlayerScore.OnPlayerKillsChanged += PlayerScoreVisel.Instance.UpdeteValueKills;
@@ -48,6 +48,11 @@ namespace DiningCombat.Player
             //OnPlayerSweepFall += (bool va)=> PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, va);
         }
 
+        private void PlayerAnimation_OnPlayerGotUp()
+        {
+            OnPlayerSweepFall?.Invoke(false);
+        }
+
         private void PlayerLifePoint_OnPlayerLifePointChanged(float i_NewLifePoint)
         {
             float normalizHp = i_NewLifePoint / PlayerLifePoint.k_StrtingLifePoint;
@@ -59,12 +64,10 @@ namespace DiningCombat.Player
             Debug.Log("ToggleSweepFallEnds");
             PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, true);
             yield return new WaitForSeconds(0.5f);
-            //action.Invoke();
             OnPlayerSweepFall?.Invoke(true);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
             PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, false);
             yield return new WaitForSeconds(0.5f);
-            OnPlayerSweepFall?.Invoke(false);
             Debug.Log("ToggleSweepFallEnds 0");
         }
     }

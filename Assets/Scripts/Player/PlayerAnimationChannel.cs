@@ -8,6 +8,7 @@ namespace DiningCombat.Player
     public class PlayerAnimationChannel : NetworkBehaviour
     {
         public event Action ThrowPoint;
+        public event Action OnPlayerGotUp;
         private Animator m_Anim;
 
         private void Awake()
@@ -32,12 +33,16 @@ namespace DiningCombat.Player
             ThrowPoint?.Invoke();
         }
 
+        public void PlayerGotUp()
+        {
+            OnPlayerGotUp?.Invoke();
+        }
+
         private IEnumerator StopAnimationToThrow()
         {
             yield return null;
             yield return null;
             m_Anim.SetBool("isThrow", false);
-            m_Anim.SetBool("isThrow2", false);
         }
 
         public class AnimationsNames

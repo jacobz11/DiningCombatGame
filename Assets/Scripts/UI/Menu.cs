@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    private const string k_SceneName = "V3DiningCombat";
+    private const string k_SceneName = "MainMenu";
     [SerializeField]
     private StaringData m_GameObjectData;
 

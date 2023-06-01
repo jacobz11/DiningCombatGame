@@ -83,7 +83,7 @@ namespace DiningCombat.FoodObject
         {
             ToggleBetweenVisibility(true);
             m_Triger.enabled = true;
-            m_Rigidbody.AddForce(0.5f, 0.5f, 0.5f);
+            m_Rigidbody.AddForce(i_Direction.normalized);
         }
 
         public override void Activation(Collider i_Collider)
