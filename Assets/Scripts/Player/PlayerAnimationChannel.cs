@@ -132,7 +132,7 @@ namespace DiningCombat.Player
 
             /// <summary>
             /// input type - bool AnimationBool 
-            /// If player sweep on banana
+            /// Sweep on banana
             /// </summary>
             public const string k_SweepFall = "isSweepFall";
         }
