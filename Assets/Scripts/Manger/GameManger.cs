@@ -7,8 +7,6 @@ using UnityEngine;
 
 namespace DiningCombat.Manger
 {
-    //TODO : arrange the code
-    //TODO : Delete what you don't need
     public class GameManger : Util.DesignPatterns.Singleton<GameManger>
     {
         [SerializeField]
@@ -92,12 +90,6 @@ namespace DiningCombat.Manger
             Destroy(staringDataGO);
         }
 
-        public void AddCamera(GameObject i_Player)
-        {
-            Camera cam = i_Player.AddComponent<Camera>();
-            cam.targetDisplay = Cuntter++;
-        }
-
         public int GetTargetDisplay()
         {
             int targetDisplay = Cuntter;
@@ -105,9 +97,13 @@ namespace DiningCombat.Manger
             return targetDisplay;
         }
 
+       
         public IEnumerable<Vector3> GetPlayerPos(Transform i_Player)
         {
-            return GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player).Where(player => player.transform.position != i_Player.position).Select(player => player.transform.position);
+            // TODO : To change
+            return GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player)
+                .Where(player => player.transform.position != i_Player.position)
+                .Select(player => player.transform.position);
         }
     }
 }

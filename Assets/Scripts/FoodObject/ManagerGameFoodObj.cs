@@ -5,7 +5,6 @@ using DiningCombat.Util.DesignPatterns;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-// TODO Replace the class that inherited the new method that works in the scriptable objects
 namespace DiningCombat.Manger
 {
     public class ManagerGameFoodObj : GenericObjectPool<GameFoodObj>

@@ -1,6 +1,5 @@
 ﻿using DiningCombat.Player;
 using DiningCombat.Util.DesignPatterns;
-// TODO : Move it to the interfaces folder
 namespace DiningCombat.FoodObject
 {
     public interface IFoodState : IDCState

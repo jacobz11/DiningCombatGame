@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-// TODO : Move it to the interfaces folder
 namespace DiningCombat.Util
 {
     public interface IDamaging

@@ -4,7 +4,6 @@ using Unity.Netcode;
 using UnityEngine;
 namespace DiningCombat.FoodObject
 {
-    // TODO : Understand why it is here
     public class StaringFood : NetworkBehaviour, IDamaging
     {
         [SerializeField]

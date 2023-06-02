@@ -33,10 +33,7 @@ namespace DiningCombat.FoodObject
         #region State
         protected IFoodState[] m_FoodStates;
         private int m_StatuIndex;
-        public IFoodState CurrentState
-        {
-            get => m_FoodStates[m_StatuIndex];
-        }
+        public IFoodState CurrentState=> m_FoodStates[m_StatuIndex];
 
         public int Index
         {
@@ -50,21 +47,23 @@ namespace DiningCombat.FoodObject
             }
         }
         #endregion
-        #region Pool
-        public void Hide() => this.gameObject.SetActive(false);
-        public void Show() => this.gameObject.SetActive(true);
-        #endregion
-        public string NameKey { get => m_NameKey; set => m_NameKey = value; }
-
-        public bool Unused() => false;
-        public void OnEndUsing() { /* Not-Implemented */}
+        public string NameKey 
+        { 
+            get => m_NameKey; 
+            set => m_NameKey = value; 
+        }
         protected virtual void CollectInvoke()
         {
             OnCollect?.Invoke();
         }
         public bool CanCollect() => Index == UncollectState.k_Indx;
         public eThrowAnimationType StopPowering() => m_AnimationType;
-        public Vector3 GetCollectorPosition() => m_Collector is null ? transform.position : m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
+        public Vector3 GetCollectorPosition()
+        {
+            return m_Collector is null ? 
+                transform.position :
+                m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
+        }
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
@@ -83,13 +82,12 @@ namespace DiningCombat.FoodObject
                 thrownState,
             };
         }
-
-        private void ThrownState_OnHit(IThrownState.HitPointEventArgs obj)
+        private void ThrownState_OnHit(IThrownState.HitPointEventArgs i_PlayerNewScore)
         {
-            if (m_Collector is null || obj is null) return;
+            if (m_Collector is null || i_PlayerNewScore is null) return;
             if (m_Collector.gameObject.TryGetComponent<PlayerScore>(out PlayerScore playerScore))
             {
-                playerScore.UpdatePlayerScore(obj);
+                playerScore.UpdatePlayerScore(i_PlayerNewScore);
             }
         }
 
@@ -115,8 +113,6 @@ namespace DiningCombat.FoodObject
             }
         }
         #endregion
-        #region Collact
-        #endregion
         #region Throwing
         public virtual void ThrowingAction(Vector3 i_Direction, float i_PowerAmount)
         {
@@ -129,29 +125,29 @@ namespace DiningCombat.FoodObject
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision i_Collision)
         {
             IDamaging damaging = CurrentState as IDamaging;
             if (damaging is not null)
             {
-                damaging.Activation(collision);
+                damaging.Activation(i_Collision);
             }
         }
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider i_Other)
         {
             IDamaging damaging = CurrentState as IDamaging;
             if (damaging is not null)
             {
-                damaging.Activation(other);
+                damaging.Activation(i_Other);
             }
         }
         #endregion
 
-        public void ViewElement(List<Vector3> elements)
+        public void ViewElement(List<Vector3> i_Elements)
         {
             if (CanCollect())
             {
-                elements.Add(transform.position);
+                i_Elements.Add(transform.position);
             }
         }
 

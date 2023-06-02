@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// TODO : Integrate it into the code
 namespace DiningCombat.Manger
 {
     public class GameOverLogic : MonoBehaviour

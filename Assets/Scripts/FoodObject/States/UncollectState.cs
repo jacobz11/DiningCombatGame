@@ -1,7 +1,6 @@
 ﻿using DiningCombat.Player;
 using System;
 using UnityEngine;
-// TODO: arrange the code
 namespace DiningCombat.FoodObject
 {
     public class UncollectState : IFoodState
@@ -21,28 +20,21 @@ namespace DiningCombat.FoodObject
         }
 
         #region Not Implemented
-        public virtual void OnStateEnter()
-        {
-            // Not Implemented
-        }
+        public virtual void OnStateEnter() {/* Not Implemented */}
 
-        public virtual void OnStateExit()
-        {
-            // Not Implemented
-        }
+        public virtual void OnStateExit() {/* Not Implemented */}
 
-        public virtual void Update()
-        {
-            // Not Implemented
-        }
+        public virtual void Update() {/* Not Implemented */}
         #endregion
 
         public virtual bool TryCollect(ActionStateMachine i_Collcter)
         {
             Collect?.Invoke(i_Collcter);
+
             return true;
         }
 
-        public void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount) => Debug.LogWarning("trying to set Throw Direction in CollectState");
+        public void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount) 
+            => Debug.LogWarning("trying to set Throw Direction in CollectState");
     }
 }
