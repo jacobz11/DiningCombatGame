@@ -10,7 +10,6 @@ namespace DiningCombat.Manger
     public class GameOverLogic : MonoBehaviour
     {
         private const string k_FormatLivingPlayer = "Living: {0}";
-
         public event Action GameOverOccured;
 
         private int m_NumOfAlivePlayers;

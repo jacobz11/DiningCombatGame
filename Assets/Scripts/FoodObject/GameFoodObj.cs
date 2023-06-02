@@ -33,7 +33,7 @@ namespace DiningCombat.FoodObject
         #region State
         protected IFoodState[] m_FoodStates;
         private int m_StatuIndex;
-        public IFoodState CurrentState=> m_FoodStates[m_StatuIndex];
+        public IFoodState CurrentState => m_FoodStates[m_StatuIndex];
 
         public int Index
         {
@@ -47,10 +47,10 @@ namespace DiningCombat.FoodObject
             }
         }
         #endregion
-        public string NameKey 
-        { 
-            get => m_NameKey; 
-            set => m_NameKey = value; 
+        public string NameKey
+        {
+            get => m_NameKey;
+            set => m_NameKey = value;
         }
         protected virtual void CollectInvoke()
         {
@@ -60,7 +60,7 @@ namespace DiningCombat.FoodObject
         public eThrowAnimationType StopPowering() => m_AnimationType;
         public Vector3 GetCollectorPosition()
         {
-            return m_Collector is null ? 
+            return m_Collector is null ?
                 transform.position :
                 m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
         }

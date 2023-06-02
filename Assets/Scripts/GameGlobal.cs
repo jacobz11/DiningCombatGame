@@ -27,7 +27,7 @@
         {
             public const string k_GamePlay = "V3Copy";
             public const string k_GameOver = "GameOver";
-            public const string k_Menu = "Menu";
+            public const string k_Menu = "MainMenu";
         }
 
         public enum ePlayerModeType

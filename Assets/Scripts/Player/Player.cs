@@ -9,6 +9,7 @@ namespace DiningCombat.Player
 {
     public class Player : NetworkBehaviour
     {
+        private static int s_Cuuntr = 0;
         public event Action<bool> OnPlayerSweepFall;
         [SerializeField]
         private Transform m_PickUpPoint;
@@ -26,6 +27,16 @@ namespace DiningCombat.Player
 
         private void Awake()
         {
+            if (!IsAi)
+            {
+                gameObject.name = "player";
+            }
+            else
+            {
+                gameObject.name = GameManger.Instance.GetNameForAi(s_Cuuntr);
+                s_Cuuntr++;
+            }
+
             GameStrting.Instance.AddNumOfPlyers(1);
             PlayerAnimation = gameObject.GetComponentInChildren<PlayerAnimationChannel>();
             PlayerLifePoint = gameObject.GetComponent<PlayerLifePoint>();

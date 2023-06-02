@@ -82,7 +82,6 @@ namespace DiningCombat.Manger
                 for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
                     GameObject ai = GameObject.Instantiate(m_AiPrifab, m_RoomDimension.GetRendonPos(), Quaternion.identity);
-                    ai.name = r_AiName[i];
                     ai.GetComponentInChildren<Renderer>().material = m_Skins;
                 }
             }
@@ -97,7 +96,11 @@ namespace DiningCombat.Manger
             return targetDisplay;
         }
 
-       
+        public string GetNameForAi(int i_Counter)
+        {
+            return r_AiName[i_Counter];
+        }
+
         public IEnumerable<Vector3> GetPlayerPos(Transform i_Player)
         {
             // TODO : To change

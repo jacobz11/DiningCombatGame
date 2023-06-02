@@ -14,7 +14,7 @@ namespace DiningCombat.Manger
 
         private float m_LestSpanw;
         private short m_Cuntter;
-        public short Cuntter 
+        public short Cuntter
         {
             get => m_Cuntter;
             private set
