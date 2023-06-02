@@ -2,6 +2,12 @@
 {
     public static class GameGlobal
     {
+        public static class TextVer
+        {
+            public const string k_Kills = "Kills";
+            public const string k_ScorePoint = "Score";
+        }
+
         public static class GameObjectName
         {
             public const string k_Player = "Player";

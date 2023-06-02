@@ -4,6 +4,7 @@ namespace DiningCombat.UI
 {
     public class PlayerScoreVisel : MonoBehaviour
     {
+        public const string k_Foormt = "{0} : {1}";
         public static PlayerScoreVisel Instance { get; private set; }
         [SerializeField]
         private TextMeshProUGUI m_Score;
@@ -16,12 +17,12 @@ namespace DiningCombat.UI
         }
         public void UpdeteValueKills(int i_Kills)
         {
-            m_Kills.text = string.Format("Kills : {0}", i_Kills);
+            m_Kills.text = string.Format(k_Foormt, GameGlobal.TextVer.k_Kills, i_Kills);
         }
 
         public void UpdeteValueScore(float i_ScorePoint)
         {
-            m_Score.text = string.Format("Score : {0}", i_ScorePoint);
+            m_Score.text = string.Format(k_Foormt, GameGlobal.TextVer.k_ScorePoint, i_ScorePoint);
         }
     }
 }
