@@ -68,7 +68,7 @@ namespace DiningCombat.Manger
             Debug.Log($"Player_OnPlayerDead name {i_PlayerName} {LivingPlayers}");
             LivingPlayers--;
 
-            if (i_IsAI)
+            if (!i_IsAI)
             {
                 m_NumOfAlivePlayers--;
             }

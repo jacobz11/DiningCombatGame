@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class MouseScaler : MonoBehaviour
 {
-    private readonly Vector3 r_MagnifiedScale = new Vector3()
+    [SerializeField]
+    private Vector3 m_MagnifiedScale = new Vector3()
     {
         x = 1.2f,
         y = 1.2f,
         z = 1.2f
     };
-    public void PointerEnter()
+    public void OnPointerEnter(Transform i_BtmTra)
     {
-        transform.localScale = r_MagnifiedScale;
+        i_BtmTra.localScale = m_MagnifiedScale;
     }
-    public void PointerExit()
+    public void OnPointerExit(Transform i_BtmTra)
     {
-        transform.localScale = Vector3.one;
+        i_BtmTra.localScale = Vector3.one;
     }
 }

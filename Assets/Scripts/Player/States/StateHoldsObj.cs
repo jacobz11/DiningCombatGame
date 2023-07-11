@@ -48,7 +48,6 @@ namespace DiningCombat.Player.States
 
         public virtual void OnStateEnter()
         {
-            Debug.Log("init state : StateHoldsObj");
         }
         public bool OnPickUpAction(out GameFoodObj o_Collcted)
         {

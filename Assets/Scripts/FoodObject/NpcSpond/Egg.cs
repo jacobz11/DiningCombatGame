@@ -25,12 +25,13 @@ namespace DiningCombat.Environment
         {
             m_WholeEgg.gameObject.SetActive(false);
             m_BrokenEgg.gameObject.SetActive(true);
-            _ = PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out _);
-            Invoke("ReturToPool", m_DisplayTimeAfterTriggerEnter);
+            PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out _);
+            ReturToPool();
         }
 
         private void ReturToPool()
         {
+            Debug.Log("ReturToPool Egg");
             EggPool.Instance.ReturnToPool(this);
         }
     }

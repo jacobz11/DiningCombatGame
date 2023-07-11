@@ -20,7 +20,6 @@ namespace DiningCombat.Player.States
         #region when events occur
         public virtual void OnStateEnter()
         {
-            Debug.Log("OnSteteEnter : StateThrowing");
         }
 
         public virtual void OnStateExit()

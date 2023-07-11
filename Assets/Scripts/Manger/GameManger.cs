@@ -3,6 +3,7 @@ using DiningCombat.Player;
 using DiningCombat.UI;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace DiningCombat.Manger

@@ -1,6 +1,7 @@
 ﻿using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,26 +50,33 @@ namespace DiningCombat.AI.States
 
         public void FindTarget()
         {
-            List<Vector3> all = ManagerGameFoodObj.Instance.GetAllUncollcted();
+            try
+            {
+                List<Vector3> all = ManagerGameFoodObj.Instance.GetAllUncollcted();
 
-            if (all.Count == 0)
-            {
-                m_Target = Vector3.zero;
-                TargetExist = false;
-            }
-            else
-            {
-                m_Target = all.OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
-                TargetExist = m_Target != Position;
-            }
+                if (all.Count == 0)
+                {
+                    m_Target = Vector3.zero;
+                    TargetExist = false;
+                }
+                else
+                {
+                    m_Target = all.OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
+                    TargetExist = m_Target != Position;
+                }
 
-            if (TargetExist)
-            {
-                AIMatud.Seek(r_Agent, m_Target);
+                if (TargetExist)
+                {
+                    AIMatud.Seek(r_Agent, m_Target);
+                }
+                else
+                {
+                    AIMatud.Wander(ref m_WanderTarget, r_Agent);
+                }
             }
-            else
-            {
-                AIMatud.Wander(ref m_WanderTarget, r_Agent);
+            catch (Exception e ) 
+            { 
+                Debug.Log($"FindTarget trow error {e.Message}");
             }
         }
 

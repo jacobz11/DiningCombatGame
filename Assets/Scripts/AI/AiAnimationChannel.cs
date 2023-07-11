@@ -42,8 +42,6 @@ namespace DiningCombat.AI
             IsRunnig = false;
             IsRunnigBack = false;
             m_Channel = GetComponentInChildren<PlayerAnimationChannel>();
-            string isExsit = m_Channel is null ? "PlayerAnimationChannel is null" : "PlayerAnimationChannel is NOT null";
-            Debug.Log(isExsit);
             Debug.Assert(m_Channel is not null, "m_Channel is not null");
         }
 

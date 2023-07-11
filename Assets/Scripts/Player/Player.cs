@@ -56,9 +56,39 @@ namespace DiningCombat.Player
                 GameInput.OnPickUpAction += ActionState.GameInput_OnPickUpAction;
             }
 
+            PlayerLifePoint.OnPlayerDied += PlayerLifePoint_OnPlayerDied;
             PlayerLifePoint.OnPlayerLifePointChanged += PlayerLifePoint_OnPlayerLifePointChanged;
         }
 
+        private void OnDestroy()
+        {
+            PlayerAnimation.OnPlayerGotUp -= PlayerAnimation_OnPlayerGotUp;
+
+            if (!m_IsAI)
+            {
+                PlayerScore.OnPlayerKillsChanged -= PlayerScoreVisel.Instance.UpdeteValueKills;
+                PlayerScore.OnPlayerScorePointChanged -= PlayerScoreVisel.Instance.UpdeteValueScore;
+
+                GameInput.OnStartChargingAction -= ActionState.GameInput_OnStartChargingAction;
+                GameInput.OnStopChargingAction -= ActionState.GameInput_OnStopChargingAction;
+                GameInput.OnPickUpAction -= ActionState.GameInput_OnPickUpAction;
+            }
+
+            PlayerLifePoint.OnPlayerDied -= PlayerLifePoint_OnPlayerDied;
+            PlayerLifePoint.OnPlayerLifePointChanged -= PlayerLifePoint_OnPlayerLifePointChanged;
+        }
+
+        private void PlayerLifePoint_OnPlayerDied()
+        {
+            StartCoroutine(KillCoroutine());
+        }
+
+        private IEnumerator KillCoroutine()
+        {
+            PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_Falling, true);
+            yield return new WaitForSeconds(2f);
+            Destroy(gameObject);
+        }
         private void PlayerAnimation_OnPlayerGotUp()
         {
             OnPlayerSweepFall?.Invoke(false);
@@ -70,7 +100,7 @@ namespace DiningCombat.Player
             m_LifePointsVisual.ForEach(visual => { visual.UpdateBarNormalized(normalizHp); });
         }
 
-        public IEnumerator ToggleSweepFallEnds(Action action)
+        public IEnumerator ToggleSweepFallEnds(Action i_Action)
         {
             PlayerAnimation.AnimationBool(PlayerAnimationChannel.AnimationsNames.k_SweepFall, true);
             yield return new WaitForSeconds(0.5f);

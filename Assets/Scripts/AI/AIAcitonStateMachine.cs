@@ -2,6 +2,7 @@ using DiningCombat.AI.States;
 using DiningCombat.Manger;
 using DiningCombat.Player;
 using DiningCombat.Player.States;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace DiningCombat.AI
@@ -44,6 +45,7 @@ namespace DiningCombat.AI
             StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
             ManagerGameFoodObj.Instance.OnCollected += ManagerGameFoodObj_OnCollected;
             SetLaunchingAnimation(m_Player.PlayerAnimation);
+            m_Rigidbody = GetComponent<Rigidbody>();
 
             m_Player.OnPlayerSweepFall += Player_OnPlayerSweepFall;
             m_Player.PlayerAnimation.ThrowPoint += Animation_ThrowPoint;

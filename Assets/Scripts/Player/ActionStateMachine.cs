@@ -16,6 +16,7 @@ namespace DiningCombat.Player
         protected Action<eThrowAnimationType> m_LaunchingAnimation;
         protected IStatePlayerHand[] m_Stats;
         protected int m_StateIndex;
+        protected Rigidbody m_Rigidbody;
 
         private GameFoodObj m_FoodObj;
 
@@ -72,8 +73,9 @@ namespace DiningCombat.Player
             AddLisenrToInput(GetComponent<GameInput>());
 
             StatePowering powering = m_Stats[StatePowering.k_Indx] as StatePowering;
+            m_Rigidbody = GetComponent<Rigidbody>();
             SetLaunchingAnimation(m_Player.PlayerAnimation);
-
+            m_Player.PlayerLifePoint.OnPlayerDied += PlayerLifePoint_OnPlayerDied;
             if (!m_Player.IsAi)
             {
                 powering.OnPoweringNormalized += GameManger.Instance.PoweringVisual.UpdateBarNormalized;
@@ -81,10 +83,18 @@ namespace DiningCombat.Player
 
             m_Player.PlayerAnimation.ThrowPoint += Animation_ThrowPoint;
             m_Player.PlayerAnimation.ThrowPoint += () => { _ = powering.OnThrowPoint(out _); };
-
             m_StateIndex = StateFree.k_Indx;
             CurrentState.OnStateEnter();
         }
+
+        private void PlayerLifePoint_OnPlayerDied()
+        {
+            if (m_FoodObj != null)
+            {
+                m_FoodObj.OnPlayerDied();
+            }
+        }
+
         protected void SetLaunchingAnimation(PlayerAnimationChannel channel)
         {
             m_LaunchingAnimation += (eThrowAnimationType animationType) =>
@@ -160,7 +170,7 @@ namespace DiningCombat.Player
         {
             if (CurrentState.OnThrowPoint(out float o_Force))
             {
-                m_FoodObj.ThrowingAction(PickUpPoint.forward, o_Force);
+                m_FoodObj.ThrowingAction(PickUpPoint.forward, o_Force + m_Rigidbody.velocity.magnitude);
                 m_FoodObj = null;
                 Index = StateFree.k_Indx;
             }

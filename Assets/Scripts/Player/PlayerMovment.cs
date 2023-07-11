@@ -103,7 +103,6 @@ namespace DiningCombat.Player
         private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
         {
             PlayerCanMove = !i_IsPlayerSweepFall;
-            Debug.Log($"Player_OnPlayerSweepFall {i_IsPlayerSweepFall}");
         }
 
         public void Update()
