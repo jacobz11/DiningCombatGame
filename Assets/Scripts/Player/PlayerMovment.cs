@@ -77,7 +77,6 @@ namespace DiningCombat.Player
         {
             base.OnNetworkSpawn();
             m_GameInput = GetComponent<GameInput>();
-            // TODO : Is Thie need to be?  
             Camera camera = gameObject.GetComponentInChildren<Camera>();
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
