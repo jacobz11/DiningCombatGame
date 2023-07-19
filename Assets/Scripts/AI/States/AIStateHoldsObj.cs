@@ -13,14 +13,14 @@ namespace DiningCombat.AI.States
 
         private float m_Timer;
         private readonly NavMeshAgent r_Agent;
-        private readonly AIAcitonStateMachine r_AIAcitonState;
+        private readonly AIAcitonStateMachine r_AIAcitonStateMachine;
         private Vector3 m_Target;
         private Vector3 Position => r_Agent.transform.position;
 
-        public AIStateHoldsObj(NavMeshAgent i_Agent, AIAcitonStateMachine aIAcitonState) : base()
+        public AIStateHoldsObj(NavMeshAgent i_Agent, AIAcitonStateMachine i_AIAcitonState) : base()
         {
             r_Agent = i_Agent;
-            r_AIAcitonState = aIAcitonState;
+            r_AIAcitonStateMachine = i_AIAcitonState;
         }
 
         public override void OnStateEnter()
@@ -44,9 +44,9 @@ namespace DiningCombat.AI.States
                 FindPlayerClosest();
             }
 
-            if (Vector3.Distance(m_Target, Position) < k_MinDistance)
+            if (Vector3.Distance(Position, m_Target) < k_MinDistance)
             {
-                r_AIAcitonState.GameInput_OnStartChargingAction(this, System.EventArgs.Empty);
+                r_AIAcitonStateMachine.GameInput_OnStartChargingAction(this, System.EventArgs.Empty);
             }
         }
     }

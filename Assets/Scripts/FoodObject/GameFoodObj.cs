@@ -164,7 +164,7 @@ namespace DiningCombat.FoodObject
             CurrentState.Update();
         }
 
-        internal void OnPlayerDied()
+        public void OnPlayerDied()
         {
             ThrownState_OnReturnToPool();
         }

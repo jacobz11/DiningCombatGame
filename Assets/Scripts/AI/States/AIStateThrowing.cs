@@ -8,7 +8,7 @@ namespace DiningCombat.AI.States
 {
     public class AIStateThrowing : StateThrowing
     {
-        private const float k_Speed = 5;
+        private const float k_RotationSpeed = 5;
 
         private Vector3 m_Target;
 
@@ -24,13 +24,15 @@ namespace DiningCombat.AI.States
             Transform transform = r_Agent.transform;
             Vector3 pos = transform.position;
 
-            m_Target = GameManger.Instance.GetPlayerPos(transform).OrderBy(v => Vector3.Distance(pos, v)).FirstOrDefault();
+            m_Target = GameManger.Instance.GetPlayerPos(transform)
+                .OrderBy(v => Vector3.Distance(pos, v)).
+                FirstOrDefault();
             AIMethods.Seek(r_Agent, m_Target);
 
-            Vector3 lTargetDir = m_Target - transform.position;
-            lTargetDir.y = 0.0f;
+            Vector3 targetDir = m_Target - transform.position;
+            targetDir.y = 0.0f;
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(lTargetDir), Time.time * k_Speed);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime * k_RotationSpeed);
         }
 
         public override void Update()

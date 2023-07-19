@@ -36,7 +36,7 @@ namespace DiningCombat.FoodObject
         }
         protected void DisplayEffect()
         {
-            _ = GameObject.Instantiate(m_PrEffect, this.transform);
+           GameObject.Instantiate(m_PrEffect, this.transform);
         }
 
         public void Activation(Collision collision)

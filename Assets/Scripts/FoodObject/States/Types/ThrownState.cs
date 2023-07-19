@@ -2,7 +2,6 @@
 using DiningCombat.Player;
 using DiningCombat.Util;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace DiningCombat.FoodObject
 {

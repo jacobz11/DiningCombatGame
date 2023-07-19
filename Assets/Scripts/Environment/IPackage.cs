@@ -32,7 +32,7 @@ namespace DiningCombat.Environment
             {
                 Instantiate(m_ParticleSystemPreFap, transform).Play();
             }
- 
+
             _ = StartCoroutine(ReturnToPoolInNS());
         }
 

@@ -42,17 +42,15 @@ namespace DiningCombat.AI
             IsRunnig = false;
             IsRunnigBack = false;
             m_Channel = GetComponentInChildren<PlayerAnimationChannel>();
-            Debug.Assert(m_Channel is not null, "m_Channel is not null");
+            Debug.Assert(m_Channel is not null, "Player animation channel not found");
         }
 
         private void LateUpdate()
         {
             const float k_ScaleMovment = 10.0f;
-            #region Position Update
             UpdateIsGrounded();
             Vector3 movment = Position - m_Position;
             m_Position = Position;
-            #endregion
             if (IsGrounded && movment != Vector3.zero)
             {
                 bool isRunForde = movment.z < float.Epsilon;

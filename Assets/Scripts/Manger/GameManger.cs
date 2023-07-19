@@ -3,7 +3,6 @@ using DiningCombat.Player;
 using DiningCombat.UI;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace DiningCombat.Manger
@@ -79,7 +78,6 @@ namespace DiningCombat.Manger
             {
                 m_NetworkBtn.StartHost();
 
-                // instint Ai
                 for (int i = 0; i < o_StaringData.m_NumOfAi; i++)
                 {
                     GameObject ai = GameObject.Instantiate(m_AiPrifab, m_RoomDimension.GetRendonPos(), Quaternion.identity);
@@ -104,7 +102,11 @@ namespace DiningCombat.Manger
 
         public IEnumerable<Vector3> GetPlayerPos(Transform i_Player)
         {
-            // TODO : To change
+            if (UnityEngine.Random.value > 0.5)
+            {
+
+            }
+
             return GameObject.FindGameObjectsWithTag(GameGlobal.TagNames.k_Player)
                 .Where(player => player.transform.position != i_Player.position)
                 .Select(player => player.transform.position);

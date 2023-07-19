@@ -89,10 +89,7 @@ namespace DiningCombat.Player
 
         private void PlayerLifePoint_OnPlayerDied()
         {
-            if (m_FoodObj != null)
-            {
-                m_FoodObj.OnPlayerDied();
-            }
+            m_FoodObj?.OnPlayerDied();
         }
 
         protected void SetLaunchingAnimation(PlayerAnimationChannel channel)

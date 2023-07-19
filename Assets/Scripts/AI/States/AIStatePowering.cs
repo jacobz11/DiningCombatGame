@@ -47,7 +47,7 @@ namespace DiningCombat.AI.States
         public override void Update()
         {
             m_Timer += Time.deltaTime;
-            ToProceedPowering();
+            CheckPoweringConditions();
 
             if (!m_IsPowering)
             {
@@ -63,10 +63,10 @@ namespace DiningCombat.AI.States
             base.Update();
         }
 
-        private void ToProceedPowering()
+        private void CheckPoweringConditions()
         {
-            bool isOverMinPower = PowerCharging > m_Powering.m_MinPower;
-            if (isOverMinPower)
+            bool isMoreThanMinDist = PowerCharging > m_Powering.m_MinPower;
+            if (isMoreThanMinDist)
             {
                 float distance = Vector3.Distance(m_Target, r_Agent.transform.position);
                 bool thereIsStillTime = m_Timer < m_Powering.m_MaxPoweringTime;
