@@ -33,7 +33,7 @@ namespace DiningCombat.AI.States
         {
             m_UpdateTimes++;
             m_Target = GameManger.Instance.GetPlayerPos(r_Agent.transform).OrderBy(v => Vector3.Distance(Position, v)).FirstOrDefault();
-            AIMatud.Seek(r_Agent, m_Target);
+            AIMethods.Seek(r_Agent, m_Target);
         }
 
         public override void OnStateEnter()

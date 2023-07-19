@@ -67,11 +67,11 @@ namespace DiningCombat.AI.States
 
                 if (TargetExist)
                 {
-                    AIMatud.Seek(r_Agent, m_Target);
+                    AIMethods.Seek(r_Agent, m_Target);
                 }
                 else
                 {
-                    AIMatud.Wander(ref m_WanderTarget, r_Agent);
+                    AIMethods.Wander(ref m_WanderTarget, r_Agent);
                 }
             }
             catch (Exception e ) 

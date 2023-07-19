@@ -1,10 +1,9 @@
 ﻿namespace DiningCombat.Util.DesignPatterns
 {
-    public interface IStateMachine<T, TIndex> where T : IDCState
+    public interface IStateMachine<TState, TIndex> where TState : IDCState
     {
-        public T CurrentState { get; }
+        public TState CurrentState { get; }
 
         TIndex Index { get; }
-
     }
 }
