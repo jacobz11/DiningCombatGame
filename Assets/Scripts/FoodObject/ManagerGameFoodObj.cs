@@ -82,7 +82,7 @@ namespace DiningCombat.Manger
             {
                 GameFoodObj foodObj = Get(m_RoomDimension.GetRendonPos());
                 Debug.Assert(foodObj != null, "Spawn-Game-FoodObj foodObj is null");
-                Cuntter++;
+                ++Cuntter;
                 foodObj.OnCollect += FoodObj_OnCollect;
                 UncollectedPos += foodObj.ViewElement;
                 spawn = foodObj.gameObject;
@@ -104,7 +104,7 @@ namespace DiningCombat.Manger
             {
                 for (short i = 0; i < m_SpawnData.m_InitSpawn; i++)
                 {
-                    _ = SpawnGameFoodObj();
+                    SpawnGameFoodObj();
                 }
             }
 
@@ -119,7 +119,7 @@ namespace DiningCombat.Manger
 
             if (IsTimeToSpanw())
             {
-                _ = SpawnGameFoodObj();
+                SpawnGameFoodObj();
             }
         }
 

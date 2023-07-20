@@ -60,9 +60,17 @@ namespace DiningCombat.FoodObject
         public eThrowAnimationType StopPowering() => m_AnimationType;
         public Vector3 GetCollectorPosition()
         {
-            return m_Collector is null ?
-                transform.position :
-                m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
+            try
+            {
+                return m_Collector is null ?
+                    transform.position :
+                    m_Collector.PickUpPoint.position + m_OffsetOnPlayerHande;
+            }
+            catch
+            {
+                ThrownState_OnReturnToPool();
+                return transform.position;
+            }
         }
         private void Awake()
         {
@@ -154,6 +162,11 @@ namespace DiningCombat.FoodObject
         private void Update()
         {
             CurrentState.Update();
+        }
+
+        public void OnPlayerDied()
+        {
+            ThrownState_OnReturnToPool();
         }
     }
 }

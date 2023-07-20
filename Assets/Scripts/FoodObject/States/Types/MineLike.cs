@@ -99,10 +99,8 @@ namespace DiningCombat.FoodObject
             float damage = CalculatorDamag();
             if (PlayerLifePoint.TryToDamagePlayer(i_Collider.gameObject, damage, out bool o_Iskill))
             {
-                Debug.Log(i_Collider.gameObject.tag);
                 IsActionHappen = true;
                 #endregion
-                Debug.Log("Activation MineLike");
                 if (!o_Iskill && i_Collider.gameObject.TryGetComponent<Player.Player>(out Player.Player player))
                 {
                     player.StartCoroutine(player.ToggleSweepFallEnds(DisplayEffectAction));

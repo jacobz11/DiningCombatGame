@@ -61,6 +61,7 @@ namespace DiningCombat.FoodObject
 
             m_Countdown -= Time.deltaTime;
             bool isCountdownOver = m_Countdown <= 0f;
+
             if (isCountdownOver)
             {
                 if (!IsActionHappen)

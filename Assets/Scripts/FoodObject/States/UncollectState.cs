@@ -35,6 +35,8 @@ namespace DiningCombat.FoodObject
         }
 
         public void SetThrowDirection(Vector3 i_Direction, float i_PowerAmount)
-            => Debug.LogWarning("trying to set Throw Direction in CollectState");
+        {
+            Debug.LogWarning("trying to set Throw Direction in CollectState");
+        }
     }
 }

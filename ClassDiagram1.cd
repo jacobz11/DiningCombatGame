@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DiningCombat.FoodObject.GameFoodObj" Collapsed="true">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhQBAAAAAAAAQFAA4QAQACYAACAAAACIYAEAlAAACUA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\GameFoodObj.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="DiningCombat.DataObject.ThrownActionTypesBuilder" Collapsed="true">
+    <Position X="5.5" Y="5.25" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="DiningCombat.DataObject.ThrownActionTypesBuilder.eThrownActionTypes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="DiningCombat.DataObject.ThrownActionTypesBuilder.eElementSpecialByName" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="DiningCombat.DataObject.ThrownActionTypesBuilder.MineData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="DiningCombat.DataObject.ThrownActionTypesBuilder.GrenadeData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="DiningCombat.DataObject.ThrownActionTypesBuilder.ThrowingData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QQAQoEAAAABBQAAACAAAAAQAAAAAiAAIAAgAAASACAE=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -19,7 +19,6 @@ namespace DiningCombat.Util
         public void UpdateByDaltaTime() => AddToData(Time.deltaTime);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="i_UpdateRate">the Buffer time to add</param>
         public TimeBuffer(float i_UpdateRate)

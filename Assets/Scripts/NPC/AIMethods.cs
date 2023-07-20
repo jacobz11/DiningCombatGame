@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using Vector3 = UnityEngine.Vector3;
 namespace DiningCombat.AI
 {
-    public class AIMatud
+    public class AIMethods
     {
         private const float k_Speed = 15.0f;
         private const float k_MinMovment = 0.01f;

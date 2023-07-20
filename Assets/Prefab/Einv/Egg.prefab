@@ -405,4 +405,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_WholeEgg: {fileID: 4864318662006685663}
   m_BrokenEgg: {fileID: 5540941134718913573}
-  m_DisplayTimeAfterTriggerEnter: 2
+  m_DisplayTimeAfterTriggerEnter: 0.5

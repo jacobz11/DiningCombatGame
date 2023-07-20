@@ -4,7 +4,7 @@ namespace DiningCombat.DataObject
 {
     [CreateAssetMenu(fileName = "PoolEggPrefabListSO", menuName = "Custom Objects/Pool/Egg Prefab list")]
 
-    internal class PoolEggPrefabListSO : PoolPrefabListSO<Egg>
+    public class PoolEggPrefabListSO : PoolPrefabListSO<Egg>
     {
     }
 }

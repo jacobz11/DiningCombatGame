@@ -1,5 +1,6 @@
 ﻿using DiningCombat.DataObject;
 using DiningCombat.Player;
+using DiningCombat.Util;
 using UnityEngine;
 
 namespace DiningCombat.FoodObject
@@ -15,6 +16,12 @@ namespace DiningCombat.FoodObject
         {
             m_TimeBefuerCollision = 0f;
         }
+
+        public override float CalculatorDamag()
+        {
+            return Vector2AsRang.Random(RangeDamage);
+        }
+
 
         public override void OnStateEnter()
         {
@@ -38,9 +45,14 @@ namespace DiningCombat.FoodObject
             }
         }
 
-        public override void Activation(Collision collision)
+        public override void Activation(Collision i_Collision)
         {
             #region Collision befor the time
+            if (i_Collision.gameObject.CompareTag(GameGlobal.TagNames.k_Environment))
+            {
+                ReturnToPool();
+                return;
+            }
             if (m_TimeBefuerCollision < k_TimeToTrow)
             {
                 return;
@@ -48,12 +60,12 @@ namespace DiningCombat.FoodObject
             #endregion
 
             float damage = CalculatorDamag();
-            bool isHitPlayer = PlayerLifePoint.TryToDamagePlayer(collision.gameObject, damage, out bool o_IsKiil);
+            bool isHitPlayer = PlayerLifePoint.TryToDamagePlayer(i_Collision.gameObject, damage, out bool o_IsKiil);
 
-            if (isHitPlayer && !IsHitMyself(collision))
+            if (isHitPlayer && !IsHitMyself(i_Collision))
             {
                 int kill = o_IsKiil ? 1 : 0;
-                Activator.GetScore()?.HitPlayer(collision, damage, kill);
+                Activator.GetScore()?.HitPlayer(i_Collision, damage, kill);
                 base.SendOnHit(new IThrownState.HitPointEventArgs
                 {
                     m_Damage = damage,

@@ -37,14 +37,11 @@ namespace DiningCombat.NPC
                 Debug.Log("ReachTheDestination");
                 SetDestination();
             }
-
-            //m_Agent.gameObject.transform.LookAt(m_Target);
         }
 
         private void SetDestination()
         {
             m_Target = m_RoomDimension.GetRendonPos();
-            //Debug.Log("SetDestination " + m_Target + " dist :" + Vector3.Distance(m_Target, m_Agent.transform.position));
             m_Agent.SetDestination(m_Target);
         }
 

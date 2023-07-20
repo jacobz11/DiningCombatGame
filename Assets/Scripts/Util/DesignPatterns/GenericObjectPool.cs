@@ -9,7 +9,7 @@ namespace DiningCombat.Util.DesignPatterns
     public abstract class GenericObjectPool<T> : NetworkBehaviour where T : Component
     {
         public event Action OnReturnToPool;
-        private const int k_AddingParTime = 1;
+        private const int k_AddingPartTime = 1;
         [SerializeField]
         private PoolPrefabListSO<T> m_PrefabList;
         public PoolPrefabListSO<T> PrefabList { get { return m_PrefabList; } set { m_PrefabList = value; } }
@@ -34,19 +34,19 @@ namespace DiningCombat.Util.DesignPatterns
             if (!m_PrefabQueues.ContainsKey(i_PrefabKey))
             {
                 m_PrefabQueues[i_PrefabKey] = new Queue<T>();
-                AddObject(i_PrefabKey, k_AddingParTime);
+                AddObject(i_PrefabKey, k_AddingPartTime);
             }
 
             var queue = m_PrefabQueues[i_PrefabKey];
             if (queue.Count == 0)
             {
-                AddObject(i_PrefabKey, k_AddingParTime);
+                AddObject(i_PrefabKey, k_AddingPartTime);
             }
 
             return queue.Dequeue();
         }
 
-        public virtual void ReturnToPool(T i_EnteringObject, string i_Key)
+        public virtual void ReturnToPool(T i_EnteringObject, string i_PrefabKey)
         {
             i_EnteringObject.gameObject.SetActive(false);
 
@@ -66,7 +66,7 @@ namespace DiningCombat.Util.DesignPatterns
         {
             if (i_EnteringObject is not IDictionaryObject obj)
             {
-                Debug.Log("Error");
+                Debug.Log($"{i_EnteringObject.gameObject.name} is null or does not implement IDictionaryObject");
                 return;
             }
 

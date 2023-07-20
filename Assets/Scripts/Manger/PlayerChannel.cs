@@ -10,7 +10,7 @@ namespace DiningCombat.Manger
         {
             public const string k_Formt = "{0}\t\t{1}\t{2}\t{3}\n";
             public static readonly string sr_TableTop =
-                string.Format(k_Formt, "Name", "Score", "Kills", "IsAlive");
+                string.Format(k_Formt, "Name", GameGlobal.TextVer.k_ScorePoint, GameGlobal.TextVer.k_Kills, "IsAlive");
             public int Id;
             public string Name;
             public float Score;

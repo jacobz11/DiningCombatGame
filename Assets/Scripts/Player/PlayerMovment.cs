@@ -77,7 +77,6 @@ namespace DiningCombat.Player
         {
             base.OnNetworkSpawn();
             m_GameInput = GetComponent<GameInput>();
-            // TODO : Is Thie need to be?  
             Camera camera = gameObject.GetComponentInChildren<Camera>();
             camera.targetDisplay = GameManger.Instance.GetTargetDisplay();
             SkinnedMeshRenderer m = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
@@ -103,7 +102,6 @@ namespace DiningCombat.Player
         private void Player_OnPlayerSweepFall(bool i_IsPlayerSweepFall)
         {
             PlayerCanMove = !i_IsPlayerSweepFall;
-            Debug.Log($"Player_OnPlayerSweepFall {i_IsPlayerSweepFall}");
         }
 
         public void Update()

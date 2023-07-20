@@ -1,0 +1,796 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CFX_AutoDestructShuriken" Collapsed="true">
+    <Position X="30.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\_Assets\EffectAssets\Cartoon FX (legacy)\Scripts\CFX_AutoDestructShuriken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CFX_AutoRotate" Collapsed="true">
+    <Position X="32.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAgAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Assets\EffectAssets\Cartoon FX (legacy)\Scripts\CFX_AutoRotate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CFX_LightFlicker" Collapsed="true">
+    <Position X="34" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAoAAACEg=</HashCode>
+      <FileName>Assets\_Assets\EffectAssets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CFX_LightIntensityFade" Collapsed="true">
+    <Position X="21.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAACAAAIAQABAAAAgAAAAAAAAAAAAAgAAACAA=</HashCode>
+      <FileName>Assets\_Assets\EffectAssets\Cartoon FX (legacy)\Scripts\CFX_LightIntensityFade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NetworkBtnStrting" Collapsed="true">
+    <Position X="32.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAUAAAAAAAAAAQAAAAAAAAQAAAAGA=</HashCode>
+      <FileName>Assets\NetworkBtnStrting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="@PlayerInput" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACABABACAAAEChABAAABAGAkAGAgAEFQAAg=</HashCode>
+      <FileName>Assets\PlayerInput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FollowWaypoints" Collapsed="true">
+    <Position X="21.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACAAAQgAAgBAIAAAAAAAAAAARAEACAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\FollowWaypoints.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Edge" Collapsed="true">
+    <Position X="30.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\Graphs\Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graph" Collapsed="true">
+    <Position X="21.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAAAAIAAAAACCAAAAAAAAEAAAAQEQAAAAAAIIAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\Graphs\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node" Collapsed="true">
+    <Position X="34" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIgCAAAACAAAAAAAAAAAYQAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\Graphs\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shell" Collapsed="true">
+    <Position X="23.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAIAAAAAAABAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\Shell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaypointDebug" Collapsed="true">
+    <Position X="21.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAACAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\WaypointDebug.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WPManager" Collapsed="true">
+    <Position X="25.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAACAIIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\WPManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraFollow" Collapsed="true">
+    <Position X="28.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Player\CameraFollow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameOverDisplay" Collapsed="true">
+    <Position X="30.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAgAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\GameOverDisplay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Menu" Collapsed="true">
+    <Position X="28.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAgAgAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MouseScaler" Collapsed="true">
+    <Position X="30.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAgAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\MouseScaler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RotatesPlayerToView" Collapsed="true">
+    <Position X="21.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAACACCEQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\RotatesPlayerToView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ragdoll" Collapsed="true">
+    <Position X="30.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Util\Ragdoll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMovmentDataSO" Collapsed="true">
+    <Position X="21.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAQAgAAAAAAAABAAgIAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PlayerMovmentDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PoolPrefabListSO&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAgAAAAABAAAAIAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PoolPrefabListSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.AIAcitonStateMachine">
+    <Position X="28.5" Y="22.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAQAAAAAAAAABEAAAAAAAACAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\AI\AIAcitonStateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.AiAnimationChannel" Collapsed="true">
+    <Position X="23.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAASAAAAAgEAAAIAgAABAAAAAACAAACAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\AI\AiAnimationChannel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.AIMethods" Collapsed="true">
+    <Position X="25.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAQAAACAAAAGACgAARoBAIgCAAAACBAgAAIQiA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AIMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.FollowWP" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAABQAImAAAAAAABCIAAQAAkgAAgAIAAABECAAAEA=</HashCode>
+      <FileName>Assets\Scripts\NPC\FollowWP.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DiningCombat.AI.States.AIStateFree" Collapsed="true">
+    <Position X="29" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAAAAAgAgAAEAAAAIAAAQAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Assets\Scripts\AI\States\AIStateFree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.States.AIStateHoldsObj" Collapsed="true">
+    <Position X="32.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAgAQDAAAAAAIAAAQAAAAAIAAIAAAQ=</HashCode>
+      <FileName>Assets\Scripts\AI\States\AIStateHoldsObj.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.States.AIStatePowering" Collapsed="true">
+    <Position X="30.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAgABACABAAAIAAAQAAAAAIAAIAAAQ=</HashCode>
+      <FileName>Assets\Scripts\AI\States\AIStatePowering.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.AI.States.AIStateThrowing" Collapsed="true">
+    <Position X="34.5" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAACQAAAAAIAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\States\AIStateThrowing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.NPC.ChickenPool" Collapsed="true">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\ChickenPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.CoinsPackage" Collapsed="true">
+    <Position X="14.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\CoinsPackage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.EggPool" Collapsed="true">
+    <Position X="6.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\EggPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.EnvironmentManger" Collapsed="true">
+    <Position X="34" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAgAECAAEQAAgAAAAkAAACABAgAAAAAAAQAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Environment\EnvironmentManger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.IPackage" Collapsed="true">
+    <Position X="15.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAQABAAAAAAAICAAQgAAAAAAEAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\IPackage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Environment.Room" Collapsed="true">
+    <Position X="34" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAACAAAAAAAEAAAAAEAAAAAAAAAgAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.WaterEinv" Collapsed="true">
+    <Position X="34" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAABAECAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\WaterEinv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.Word" Collapsed="true">
+    <Position X="23.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgQAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\Word.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Environment.Egg" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAACAAAAAAQAAAAAARAAAAAAAABQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\NpcSpond\Egg.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DiningCombat.Player.LifePackage" Collapsed="true">
+    <Position X="16.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\LifePackage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.ActionStateMachine">
+    <Position X="25.25" Y="22.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>QAQCACAAQAABAAAIBAAFACYQQABAAIQASAFAgAhAEEA=</HashCode>
+      <FileName>Assets\Scripts\Player\ActionStateMachine.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Player.Player" Collapsed="true">
+    <Position X="25.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAgQEBAhAIAAABAACAAAgAAAAABBAAAAACAABANA=</HashCode>
+      <FileName>Assets\Scripts\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.PlayerAnimationChannel" Collapsed="true">
+    <Position X="27" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAIAAAIAEAAAEQAAAAAAAAAAAAgEE=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerAnimationChannel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.PlayerCoins" Collapsed="true">
+    <Position X="30.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAQAAAAAAAAgIAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerCoins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.PlayerLifePoint" Collapsed="true">
+    <Position X="32.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABIAAAIAAEAAQgAAQAAAAAACAAAYAAAEQ=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerLifePoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.PlayerMovment" Collapsed="true">
+    <Position X="34" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CARgEChAAAgEQREgAAAAQAgiAgAAABEACAAACSAAQkg=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerMovment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.SoundEffects" Collapsed="true">
+    <Position X="25.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAACAAAAAAAAAEAAAAAAAAAABAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Sounds\SoundEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.AllPlayerSkinsSO" Collapsed="true">
+    <Position X="27" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAACAAAAAEAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\AllPlayerSkinsSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.FoodObject.GameFoodObj">
+    <Position X="22.5" Y="22.75" Width="2.25" />
+    <NestedTypes>
+      <Enum Name="DiningCombat.FoodObject.GameFoodObj.eThrowAnimationType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\GameFoodObj.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AhQBAAAAAAAAQFAA4QAQACYAACAAAACIYAEAlAAACUA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\GameFoodObj.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.FoodObject.FoodEffactPool" Collapsed="true">
+    <Position X="25.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAEiAAAEAAAAAAAAAAAQAQAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\Pools\FoodEffactPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.FoodObject.StaringFood" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="44" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAIAABAIAAAAAAAAAAAQEDIAAAAAMgAEMA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\StaringFood.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DiningCombat.FoodObject.CollectState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAQAAAKAAACCAIAAIAAAAAAAAAAAIAAUAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\CollectState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DiningCombat.FoodObject.GrenadeLike" Collapsed="true">
+    <Position X="19.25" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAEAAIAAQAAABAIAAQAAAwAIAACAAAAAAAIMAAEAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\GrenadeLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.FoodObject.IThrownState" Collapsed="true">
+    <Position X="21.75" Y="19.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DiningCombat.FoodObject.IThrownState.HitPointEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\FoodObject\States\Types\IThrownState.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQBOIAAASAIgEIAAAADAAAAAAIgAEAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\IThrownState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.FoodObject.MineLike" Collapsed="true">
+    <Position X="21" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAEAAYAAQAAAAAAAEAiAAwAIAACAAAAAAAKFAAEAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\MineLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.FoodObject.SmokeGrenade" Collapsed="true">
+    <Position X="19.25" Y="22" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAIAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\SmokeGrenade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.FoodObject.ThrownState" Collapsed="true">
+    <Position X="22.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAIAAAAAAAAIAAQAAAABAAAEAAUAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\ThrownState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.FoodObject.UncollectState" Collapsed="true">
+    <Position X="25.25" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAKAAAACAIAAIAAAAAEAAAAAIAAQAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\UncollectState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Manger.ManagerGameFoodObj" Collapsed="true">
+    <Position X="9" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAQAAAEAACAAAAJAAABAAAAAAAQBAAAEQAAAgQAQAuA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\ManagerGameFoodObj.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Manger.GameManger" Collapsed="true">
+    <Position X="14.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIKDACBgAAAABAAABAAAAAQBBAAAAAEAAgAQAFA=</HashCode>
+      <FileName>Assets\Scripts\Manger\GameManger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Manger.GameOverLogic" Collapsed="true">
+    <Position X="32.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAACoAAAAAAAAKEAAgAAAAAAgAgAAAAYEAAEAQQAEA=</HashCode>
+      <FileName>Assets\Scripts\Manger\GameOverLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Manger.GameStrting" Collapsed="true">
+    <Position X="34" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIRAAAAAAIAAAAACABABAAQAACAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Manger\GameStrting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Manger.ManagerGamePackage" Collapsed="true">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAEAACAAAAJAAABAAAAAAAABAAAEQAAAkQAQANA=</HashCode>
+      <FileName>Assets\Scripts\Manger\ManagerGamePackage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Manger.PlayerChannel" Collapsed="true">
+    <Position X="28.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAgAAgEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Manger\PlayerChannel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Manger.StaringData" Collapsed="true">
+    <Position X="28.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\StaringData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Util.GraphDC" Collapsed="true">
+    <Position X="23.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAgQBABQCCCAAAAAAAAAQACAABASAABCAAg=</HashCode>
+      <FileName>Assets\Scripts\Util\GraphDC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Util.NodeGraph" Collapsed="true">
+    <Position X="21.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Assets\Scripts\Util\NodeGraph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Util.Vector2AsRang" Collapsed="true">
+    <Position X="32.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABABAAAAAAEAAAAABAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\Vector2AsRang.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.ChickenPrefabDataSO" Collapsed="true">
+    <Position X="4.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\ChickenPrefabDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.EggPrefabDataSO" Collapsed="true">
+    <Position X="6.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\EggPrefabDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.FoodPrefabDataSO" Collapsed="true">
+    <Position X="9" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\FoodPrefabDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.PackagePrefabDataSO" Collapsed="true">
+    <Position X="11.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PackagePrefabDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.PoolChickenPrefabListSO" Collapsed="true">
+    <Position X="6.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PoolChickenPrefabListSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.PoolEggPrefabListSO" Collapsed="true">
+    <Position X="9" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PoolEggPrefabListSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.PoolFoodPrefabListSO" Collapsed="true">
+    <Position X="11.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PoolFoodPrefabListSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.PoweringDataSo" Collapsed="true">
+    <Position X="27" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAEAAAAAAggAAAAAAAAAAAQgAAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PoweringDataSo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.PrefabDataSO&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PrefabDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.DataObject.SpawnDataSO" Collapsed="true">
+    <Position X="27" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\SpawnDataSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.GameGlobal" Collapsed="true">
+    <Position X="27" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameGlobal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.GameInput" Collapsed="true">
+    <Position X="28.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAABAAACAAAAAAAAAAAAQAAAACJCAABAAAAFSAAAAUA=</HashCode>
+      <FileName>Assets\Scripts\Player\GameInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.UI.PlayerScore" Collapsed="true">
+    <Position X="23.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAEAAAAAACIAAAQAAAAABAAAACAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerScore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.UI.LifePointsVisual" Collapsed="true">
+    <Position X="27" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAACAQAACAEAAAAAKAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\LifePointsVisual.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.UI.PauseMenu" Collapsed="true">
+    <Position X="23.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAAAAAAAAAAAAAIAAAAAAgAAgAAAAAAgQAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\PauseMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.UI.PlayerScoreVisel" Collapsed="true">
+    <Position X="25.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQAAAAAIAAAIAAAAAAAAAAAABAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\UI\PlayerScoreVisel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.UI.PoweringVisual" Collapsed="true">
+    <Position X="28.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAEAAACAAAACAEAAAAAKAAAAIAAEA=</HashCode>
+      <FileName>Assets\Scripts\UI\PoweringVisual.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.UI.IUIChannel" Collapsed="true">
+    <Position X="25.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAACAAAAACAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\Channels\IUIChannel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Player.States.StateFree" Collapsed="true">
+    <Position X="29" Y="19.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DiningCombat.Player.States.StateFree.CollectedFoodEvent" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Player\States\StateFree.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAAAeIAAAAAAAAoACgAAAAAAAAIAAQBA=</HashCode>
+      <FileName>Assets\Scripts\Player\States\StateFree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Player.States.StateHoldsObj" Collapsed="true">
+    <Position X="32.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAEAAiIAAAAAAAAIACAAAAAAAAAIAAYAA=</HashCode>
+      <FileName>Assets\Scripts\Player\States\StateHoldsObj.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Player.States.StatePowering" Collapsed="true">
+    <Position X="30.75" Y="19.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="DiningCombat.Player.States.StatePowering.OnStopPoweringEventArg" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Player\States\StatePowering.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>UAQAACAAAAAAAUASIAAAAAAAgoACAAAAAAAAAIAARAA=</HashCode>
+      <FileName>Assets\Scripts\Player\States\StatePowering.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Player.States.StateThrowing" Collapsed="true">
+    <Position X="34.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAAACIAAgAAAAAoACAAAAAAAAAIBAQAA=</HashCode>
+      <FileName>Assets\Scripts\Player\States\StateThrowing.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DiningCombat.Util.DesignPatterns.GenericObjectPool&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQEAEAAAAAABAAAEAQAAgBAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Util\DesignPatterns\GenericObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DiningCombat.Util.DesignPatterns.Singleton&lt;T&gt;" Collapsed="true">
+    <Position X="14.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Util\DesignPatterns\Singleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.Util.RandomFromArray" Collapsed="true">
+    <Position X="32.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\RandomFromArray.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.Util.ScriptableObjects.ClassOS" Collapsed="true">
+    <Position X="23.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\ClassOS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.Util.ScriptableObjects.PoolPackagesPrefabListSO" Collapsed="true">
+    <Position X="4.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\ScriptableObjects\PoolPackagesPrefabListSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Link" Collapsed="true">
+    <Position X="21.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAQAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NPC\AStaer\WPManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DiningCombat.Util.TimeBuffer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEQAIQEAAAAAAAAIIAAAgABAAAAAACAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\TimeBuffer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="DiningCombat.DataObject.ThrownActionTypesBuilder" Collapsed="true">
+    <Position X="23.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQAQoEAAAABBQAAACAAAAAQAAAAAiAAIAAgAAASACAE=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\Types\ThrownActionTypesBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="DiningCombat.FoodObject.IFoodState" Collapsed="true">
+    <Position X="23.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAKAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\IFoodState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.IDamaging" Collapsed="true">
+    <Position X="23.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAIAAAAAAAAAAAAADAAAAAAAgAEAA=</HashCode>
+      <FileName>Assets\Scripts\FoodObject\States\IDamaging.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.IBuffer&lt;T&gt;" Collapsed="true">
+    <Position X="21.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIQAAAAAAAAAIAAAAAABAAAAAACAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\IBuffer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.IDictionaryObject" Collapsed="true">
+    <Position X="25.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\IDictionaryObject.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.IViewingElements&lt;T&gt;" Collapsed="true">
+    <Position X="14.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\IViewingElements.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.IViewingElementsPosition" Collapsed="true">
+    <Position X="14.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\IViewingElementsPosition.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Player.States.IStatePlayerHand" Collapsed="true">
+    <Position X="30.25" Y="18.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAAACIAAAAAAAAgACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\States\IStatePlayerHand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.DesignPatterns.IDCState" Collapsed="true">
+    <Position X="26.25" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\DesignPatterns\IDCState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.Util.DesignPatterns.IStateMachine&lt;TState, TIndex&gt;" Collapsed="true">
+    <Position X="25.5" Y="16" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\DesignPatterns\IStateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DiningCombat.FoodObj.Managers.IElementsViewer" Collapsed="true">
+    <Position X="27" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Util\IElementsViewer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

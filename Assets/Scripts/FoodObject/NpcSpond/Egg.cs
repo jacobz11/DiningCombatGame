@@ -12,25 +12,30 @@ namespace DiningCombat.Environment
         private GameObject m_BrokenEgg;
         [SerializeField]
         private float m_DisplayTimeAfterTriggerEnter;
+        public bool IsTriggerEnter { get; private set; }
         public string NameKey { get; set; }
 
-        public void OnExitPool(Vector3 i_Pos)
+        private void OnEnable()
         {
-            transform.position = i_Pos;
             m_WholeEgg.gameObject.SetActive(true);
             m_BrokenEgg.gameObject.SetActive(false);
+            IsTriggerEnter = false;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            m_WholeEgg.gameObject.SetActive(false);
-            m_BrokenEgg.gameObject.SetActive(true);
-            _ = PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out _);
-            Invoke("ReturToPool", m_DisplayTimeAfterTriggerEnter);
+            if (!IsTriggerEnter)
+            {
+                m_WholeEgg.gameObject.SetActive(false);
+                m_BrokenEgg.gameObject.SetActive(true);
+                PlayerLifePoint.TryToDamagePlayer(other.gameObject, k_Damage, out _);
+                ReturToPool();
+            }
         }
 
         private void ReturToPool()
         {
+            Debug.Log("ReturToPool");
             EggPool.Instance.ReturnToPool(this);
         }
     }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace DiningCombat.FoodObject
 {
-
     public class CollectState : IFoodState
     {
         public const int k_Indx = 1;

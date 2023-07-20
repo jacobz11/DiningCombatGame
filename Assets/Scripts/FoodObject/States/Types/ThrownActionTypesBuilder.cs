@@ -156,6 +156,8 @@ namespace DiningCombat.DataObject
                 case eThrownActionTypes.Grenade: return typeof(ThrownState);
                 case eThrownActionTypes.SmokeGrenade: return typeof(SmokeGrenade);
                 case eThrownActionTypes.Mine: return typeof(MineLike);
+                default:
+                    break;
             }
 
             return typeof(ThrownState);

@@ -28,7 +28,11 @@ namespace DiningCombat.Environment
         protected virtual void ReturnToPool()
         {
             m_Visale.SetActive(false);
-            Instantiate(m_ParticleSystemPreFap, transform).Play();
+            if (m_ParticleSystemPreFap != null)
+            {
+                Instantiate(m_ParticleSystemPreFap, transform).Play();
+            }
+
             _ = StartCoroutine(ReturnToPoolInNS());
         }
 
